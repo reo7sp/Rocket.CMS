@@ -1,0 +1,9 @@
+[submodule "lib/boost/filesystem"]
+	path = lib/boost/filesystem
+	url = https://github.com/boostorg/filesystem.git
+[submodule "lib/boost/algorithm"]
+	path = lib/boost/algorithm
+	url = https://github.com/boostorg/algorithm.git
+[submodule "lib/mongoose/mongoose"]
+	path = lib/mongoose/mongoose
+	url = https://github.com/cesanta/mongoose.git
