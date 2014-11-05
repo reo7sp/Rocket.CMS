@@ -14,34 +14,13 @@
  * limitations under the License.
  */
 
-#include "Core.h"
+#ifndef _ROCKETCMS_ADMIN_PAGESHANDLER_H
+#define _ROCKETCMS_ADMIN_PAGESHANDLER_H
 
-#include "ConfigManager.h"
-#include "TranslationManager.h"
-#include "admin/AdminServer.h"
+#include <mongoose/mongoose.h>
 
-Core::Core() {
+namespace PagesHandler {
+	void handleRequest(mg_connection* connection);
 }
 
-Core::~Core() {
-	stop();
-}
-
-Core& Core::getInstance() {
-	static Core instance;
-	return instance;
-}
-
-void Core::start() {
-	ConfigManager::getInstance().reload();
-	TranslationManager::getInstance().reload();
-	AdminServer::getInstance().start();
-}
-
-void Core::stop() {
-	AdminServer::getInstance().stop();
-}
-
-int main() {
-	Core::getInstance().start();
-}
+#endif

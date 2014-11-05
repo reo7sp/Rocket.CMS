@@ -1,0 +1,29 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: Helvetica, Arial, sans;
+}
+#main-header {
+  background-color: #fff;
+  border-bottom: 1px #ddd solid;
+  padding: 8px;
+  margin-bottom: 16px;
+}
+#main-header a {
+  font-size: 1.5em;
+  color: #000;
+  text-decoration: none;
+  padding: 0px 8px;
+}
+#main-header a:hover {
+  text-decoration: underline;
+}
+#main-header nav {
+  float: right;
+}
+#page-wrap {
+  margin: 16px;
+}
+a {
+  color: #090;
+}

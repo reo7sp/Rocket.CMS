@@ -1,3 +1,6 @@
 {
-	"sitePath": "res/site"
+	"port": "23488",
+	"lang": "en",
+	"sitePath": "res/site",
+	"title": "Rocket.CMS"
 }

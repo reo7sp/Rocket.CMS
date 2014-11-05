@@ -14,34 +14,30 @@
  * limitations under the License.
  */
 
-#include "Core.h"
+#ifndef _ROCKETCMS_CACHEMANAGER_H
+#define _ROCKETCMS_CACHEMANAGER_H
 
-#include "ConfigManager.h"
-#include "TranslationManager.h"
-#include "admin/AdminServer.h"
+#include <string>
+#include <map>
 
-Core::Core() {
-}
+class CacheManager {
+public:
+	static CacheManager& getInstance();
 
-Core::~Core() {
-	stop();
-}
+	bool has(const std::string& key) const;
+	std::string get(const std::string& key) const;
+	void set(const std::string& key, const std::string& value);
+	void invalidate(const std::string& key);
+	void clear();
 
-Core& Core::getInstance() {
-	static Core instance;
-	return instance;
-}
+private:
+	CacheManager();
+	CacheManager(CacheManager&);
+	~CacheManager();
 
-void Core::start() {
-	ConfigManager::getInstance().reload();
-	TranslationManager::getInstance().reload();
-	AdminServer::getInstance().start();
-}
+	void operator=(CacheManager&);
 
-void Core::stop() {
-	AdminServer::getInstance().stop();
-}
+	std::map<std::string, std::string> _cache;
+};
 
-int main() {
-	Core::getInstance().start();
-}
+#endif

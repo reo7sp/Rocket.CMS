@@ -14,34 +14,28 @@
  * limitations under the License.
  */
 
-#include "Core.h"
+#ifndef _ROCKETCMS_TRANSLATIONMANAGER_H
+#define _ROCKETCMS_TRANSLATIONMANAGER_H
 
-#include "ConfigManager.h"
-#include "TranslationManager.h"
-#include "admin/AdminServer.h"
+#include <string>
+#include <map>
 
-Core::Core() {
-}
+class TranslationManager {
+public:
+	static TranslationManager& getInstance();
 
-Core::~Core() {
-	stop();
-}
+	void reload();
+	std::string get(const std::string& key) const;
+	void translate(std::string& text) const;
 
-Core& Core::getInstance() {
-	static Core instance;
-	return instance;
-}
+private:
+	TranslationManager();
+	TranslationManager(TranslationManager&);
+	~TranslationManager();
 
-void Core::start() {
-	ConfigManager::getInstance().reload();
-	TranslationManager::getInstance().reload();
-	AdminServer::getInstance().start();
-}
+	void operator=(TranslationManager&);
 
-void Core::stop() {
-	AdminServer::getInstance().stop();
-}
+	std::map<std::string, std::string> _data;
+};
 
-int main() {
-	Core::getInstance().start();
-}
+#endif

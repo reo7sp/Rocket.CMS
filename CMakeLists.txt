@@ -7,12 +7,14 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # sources
-include_directories(src)
 set(SRC_LIST
 	src/Core.cpp
 	src/Log.cpp
 	src/ConfigManager.cpp
+	src/CacheManager.cpp
+	src/TranslationManager.cpp
 	src/admin/AdminServer.cpp
+	src/admin/PagesHandler.cpp
 )
 
 # libs

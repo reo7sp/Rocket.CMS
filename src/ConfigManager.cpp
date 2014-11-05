@@ -19,9 +19,7 @@
 #include "Log.h"
 
 #include <sstream>
-#include <exception>
 #include <rapidjson/document.h>
-#include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/fstream.hpp>
 
@@ -56,19 +54,34 @@ void ConfigManager::reload() {
 		Document document;
 		document.Parse(buffer.str().c_str());
 
-		if (document.HasMember("sitePath")) {
-			_sitePath = document["sitePath"].GetString();
-		} else {
-			Log::warn("\"sitePath\" value doesn't exist in config");
-		}
 		if (document.HasMember("port")) {
 			_port = document["port"].GetString();
 		} else {
 			Log::warn("\"port\" value doesn't exist in config");
 		}
+		if (document.HasMember("lang")) {
+			_lang = document["lang"].GetString();
+		} else {
+			Log::warn("\"lang\" value doesn't exist in config");
+		}
+		if (document.HasMember("sitePath")) {
+			_sitePath = fs::path(document["sitePath"].GetString());
+		} else {
+			Log::warn("\"sitePath\" value doesn't exist in config");
+		}
+		if (document.HasMember("title")) {
+			_title = document["title"].GetString();
+		} else {
+			Log::warn("\"title\" value doesn't exist in config");
+		}
+
+		Log::debug("Port: " + _port);
+		Log::debug("Lang: " + _lang);
+		Log::debug("Site path: " + _sitePath.string());
+		Log::debug("Title: " + _title);
+
+		Log::info("Config has been parsed");
 	} else {
 		Log::warn("Config file doesn't exist");
 	}
-
-	Log::info("Config has been parsed");
 }

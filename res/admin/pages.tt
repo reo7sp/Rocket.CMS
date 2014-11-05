@@ -1,0 +1,7 @@
+[% INCLUDE header.tt %]
+
+<table>
+%PAGESLIST%
+</table>
+
+[% INCLUDE footer.tt %]

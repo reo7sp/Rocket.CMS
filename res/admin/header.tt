@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>%TITLE% - %SITETITLE%</title>
+		<meta charset="utf8">
+		<link rel="stylesheet" type="text/css" href="/css/style.css">
+	</head>
+	<body>
+		<header id="main-header">
+			<a href="/">%SITETITLE%: %TITLE%</a>
+			<nav>
+				<a href="/pages">%PAGESSTR%</a>
+				<a href="/template">%TEMPLATESTR%</a>
+				<a href="/files">%FILESSTR%</a>
+			</nav>
+		</header>
+		<div id="page-wrap">

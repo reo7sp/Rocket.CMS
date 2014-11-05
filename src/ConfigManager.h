@@ -18,6 +18,7 @@
 #define _ROCKETCMS_CONFIGMANAGER_H
 
 #include <string>
+#include <boost/filesystem/path.hpp>
 
 class ConfigManager {
 public:
@@ -25,8 +26,10 @@ public:
 
 	void reload();
 
-	inline std::string getSitePath() const { return _sitePath; }
 	inline std::string getPort() const { return _port; }
+	inline std::string getLang() const { return _lang; }
+	inline boost::filesystem::path getSitePath() const { return _sitePath; }
+	inline std::string getTitle() const { return _title; }
 
 private:
 	ConfigManager();
@@ -35,8 +38,10 @@ private:
 
 	void operator=(ConfigManager&);
 
-	std::string _sitePath = "res/site";
 	std::string _port = "23488";
+	std::string _lang = "en";
+	boost::filesystem::path _sitePath = boost::filesystem::path("res/site");
+	std::string _title = "Rocket.CMS";
 };
 
 #endif

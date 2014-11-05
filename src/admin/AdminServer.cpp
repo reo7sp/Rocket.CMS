@@ -16,12 +16,16 @@
 
 #include "AdminServer.h"
 
-#include "Log.h"
-#include "ConfigManager.h"
+#include "PagesHandler.h"
+#include "../Log.h"
+#include "../ConfigManager.h"
 
 #include <string>
+#include <boost/algorithm/string/predicate.hpp>
 
 using namespace std;
+using namespace boost::algorithm;
+using namespace boost::filesystem;
 
 AdminServer::AdminServer() {
 }
@@ -43,7 +47,7 @@ void AdminServer::start() {
 
 	_server = mg_create_server(nullptr, &AdminServer::handleEvent);
 	mg_set_option(_server, "listening_port", ConfigManager::getInstance().getPort().c_str());
-	mg_set_option(_server, "document_root", ConfigManager::getInstance().getSitePath().c_str());
+	mg_set_option(_server, "document_root", path("res/admin").c_str());
 	while (_isRunning) {
 		mg_poll_server(_server, 1000);
 	}
@@ -61,7 +65,12 @@ int AdminServer::handleEvent(mg_connection* connection, mg_event event) {
 	if (event == MG_AUTH) {
 		return MG_TRUE;
 	} else if (event == MG_REQUEST) {
-		return MG_FALSE;
+		if (starts_with(connection->uri, "/pages") || equals(connection->uri, "/")) {
+			PagesHandler::handleRequest(connection);
+			return MG_TRUE;
+		} else {
+			return MG_FALSE;
+		}
 	} else {
 		return MG_FALSE;
 	}
