@@ -16,8 +16,9 @@
 
 #include "AdminServer.h"
 
+#include "Log.h"
+
 #include <string>
-#include <iostream>
 
 using namespace std;
 
@@ -37,14 +38,14 @@ void AdminServer::start() {
 	if (_isRunning) return;
 	_isRunning = true;
 
-	cout << "Starting server at port 23488" << endl;
+	Log::info("Starting server at port 23488");
 	_server = mg_create_server(nullptr, &AdminServer::handleEvent);
 	mg_set_option(_server, "listening_port", "23488");
 	while (_isRunning) {
 		mg_poll_server(_server, 1000);
 	}
 	mg_destroy_server(&_server);
-	cout << "Server has been stopped" << endl;
+	Log::info("Server has been stopped");
 	_server = nullptr;
 }
 

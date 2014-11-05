@@ -14,32 +14,27 @@
  * limitations under the License.
  */
 
-#include "Core.h"
+#ifndef _ROCKETCMS_CONFIGMANAGER_H
+#define _ROCKETCMS_CONFIGMANAGER_H
 
-#include "ConfigManager.h"
-#include "admin/AdminServer.h"
+#include <string>
 
-Core::Core() {
-}
+class ConfigManager {
+public:
+	static ConfigManager& getInstance();
 
-Core::~Core() {
-	stop();
-}
+	void reload();
 
-Core& Core::getInstance() {
-	static Core instance;
-	return instance;
-}
+	inline std::string getSitePath() const { return _sitePath; }
 
-void Core::start() {
-	ConfigManager::getInstance().reload();
-	AdminServer::getInstance().start();
-}
+private:
+	ConfigManager();
+	ConfigManager(ConfigManager&);
+	~ConfigManager();
 
-void Core::stop() {
-	AdminServer::getInstance().stop();
-}
+	void operator=(ConfigManager&);
 
-int main() {
-	Core::getInstance().start();
-}
+	std::string _sitePath = "res/site";
+};
+
+#endif

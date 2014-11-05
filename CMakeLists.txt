@@ -10,6 +10,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 include_directories(src)
 set(SRC_LIST
 	src/Core.cpp
+	src/Log.cpp
+	src/ConfigManager.cpp
 	src/admin/AdminServer.cpp
 )
 
@@ -21,6 +23,21 @@ add_library(mongoose
 	lib/mongoose/mongoose/mongoose.c
 )
 target_link_libraries(mongoose ${CMAKE_THREAD_LIBS_INIT})
+
+include_directories(lib/rapidjson/include)
+add_library(rapidjson
+	lib/rapidjson_dummy.cpp
+)
+
+include_directories(lib/boost/predef/include)
+add_library(boost_predef
+	lib/boost_predef_dummy.cpp
+)
+
+include_directories(lib/boost/system/include)
+add_library(boost_system
+	lib/boost/system/src/error_code.cpp
+)
 
 include_directories(lib/boost/filesystem/include)
 add_library(boost_filesystem
@@ -41,10 +58,19 @@ add_library(boost_algorithm
 
 set(LIB_LIST
 	mongoose
-	boost_algorithm
+	rapidjson
+	boost_predef
+	boost_system
 	boost_filesystem
+	boost_algorithm
 )
 
 # executable
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 target_link_libraries(${PROJECT_NAME} ${LIB_LIST})
+
+# resources
+execute_process(
+	COMMAND ${CMAKE_COMMAND} -E remove_directory bin/res
+	COMMAND ${CMAKE_COMMAND} -E copy_directory res bin/res
+)

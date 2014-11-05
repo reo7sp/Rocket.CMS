@@ -14,32 +14,30 @@
  * limitations under the License.
  */
 
-#include "Core.h"
+#include "Log.h"
 
-#include "ConfigManager.h"
-#include "admin/AdminServer.h"
+#include <stdio.h>
 
-Core::Core() {
+using namespace std;
+
+void Log::log(const string& message, const string& mode) {
+	time_t rawtime = time(nullptr);
+	tm tm = *localtime(&rawtime);
+	printf("[%s] %d:%d:%d %s\n", mode.c_str(), tm.tm_hour, tm.tm_min, tm.tm_sec, message.c_str());
 }
 
-Core::~Core() {
-	stop();
+void Log::debug(const string& message) {
+	log(message, "DEBUG");
 }
 
-Core& Core::getInstance() {
-	static Core instance;
-	return instance;
+void Log::info(const string& message) {
+	log(message, " INFO");
 }
 
-void Core::start() {
-	ConfigManager::getInstance().reload();
-	AdminServer::getInstance().start();
+void Log::warn(const string& message) {
+	log(message, " WARN");
 }
 
-void Core::stop() {
-	AdminServer::getInstance().stop();
-}
-
-int main() {
-	Core::getInstance().start();
+void Log::error(const string& message) {
+	log(message, "ERROR");
 }

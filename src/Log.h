@@ -14,32 +14,17 @@
  * limitations under the License.
  */
 
-#include "Core.h"
+#ifndef _ROCKETCMS_LOG_H
+#define _ROCKETCMS_LOG_H
 
-#include "ConfigManager.h"
-#include "admin/AdminServer.h"
+#include <string>
 
-Core::Core() {
+namespace Log {
+	void log(const std::string& message, const std::string& mode);
+	void debug(const std::string& message);
+	void info(const std::string& message);
+	void warn(const std::string& message);
+	void error(const std::string& message);
 }
 
-Core::~Core() {
-	stop();
-}
-
-Core& Core::getInstance() {
-	static Core instance;
-	return instance;
-}
-
-void Core::start() {
-	ConfigManager::getInstance().reload();
-	AdminServer::getInstance().start();
-}
-
-void Core::stop() {
-	AdminServer::getInstance().stop();
-}
-
-int main() {
-	Core::getInstance().start();
-}
+#endif
