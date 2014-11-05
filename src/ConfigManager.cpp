@@ -19,8 +19,10 @@
 #include "Log.h"
 
 #include <sstream>
+#include <exception>
 #include <rapidjson/document.h>
 #include <boost/filesystem/path.hpp>
+#include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/fstream.hpp>
 
 using namespace std;
@@ -42,18 +44,31 @@ void ConfigManager::reload() {
 	Log::info("Parsing config");
 
 	fs::path file("res/config.json");
-	fs::ifstream input(file);
-	stringstream buffer;
-	string line;
-	while (getline(input, line)) {
-		buffer << line;
+	if (fs::exists(file)) {
+		fs::ifstream input(file);
+		stringstream buffer;
+		string line;
+		while (getline(input, line)) {
+			buffer << line;
+		}
+		input.close();
+
+		Document document;
+		document.Parse(buffer.str().c_str());
+
+		if (document.HasMember("sitePath")) {
+			_sitePath = document["sitePath"].GetString();
+		} else {
+			Log::warn("\"sitePath\" value doesn't exist in config");
+		}
+		if (document.HasMember("port")) {
+			_port = document["port"].GetString();
+		} else {
+			Log::warn("\"port\" value doesn't exist in config");
+		}
+	} else {
+		Log::warn("Config file doesn't exist");
 	}
-	input.close();
-
-	Document document;
-	document.Parse(buffer.str().c_str());
-
-	_sitePath = document["sitePath"].GetString();
 
 	Log::info("Config has been parsed");
 }

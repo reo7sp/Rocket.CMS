@@ -31,11 +31,11 @@ void Log::debug(const string& message) {
 }
 
 void Log::info(const string& message) {
-	log(message, " INFO");
+	log(message, "INFO");
 }
 
 void Log::warn(const string& message) {
-	log(message, " WARN");
+	log(message, "WARN");
 }
 
 void Log::error(const string& message) {

@@ -26,6 +26,7 @@ public:
 	void reload();
 
 	inline std::string getSitePath() const { return _sitePath; }
+	inline std::string getPort() const { return _port; }
 
 private:
 	ConfigManager();
@@ -35,6 +36,7 @@ private:
 	void operator=(ConfigManager&);
 
 	std::string _sitePath = "res/site";
+	std::string _port = "23488";
 };
 
 #endif

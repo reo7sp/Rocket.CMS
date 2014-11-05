@@ -17,6 +17,7 @@
 #include "AdminServer.h"
 
 #include "Log.h"
+#include "ConfigManager.h"
 
 #include <string>
 
@@ -38,15 +39,18 @@ void AdminServer::start() {
 	if (_isRunning) return;
 	_isRunning = true;
 
-	Log::info("Starting server at port 23488");
+	Log::info("Starting server at port " + ConfigManager::getInstance().getPort());
+
 	_server = mg_create_server(nullptr, &AdminServer::handleEvent);
-	mg_set_option(_server, "listening_port", "23488");
+	mg_set_option(_server, "listening_port", ConfigManager::getInstance().getPort().c_str());
+	mg_set_option(_server, "document_root", ConfigManager::getInstance().getSitePath().c_str());
 	while (_isRunning) {
 		mg_poll_server(_server, 1000);
 	}
 	mg_destroy_server(&_server);
-	Log::info("Server has been stopped");
 	_server = nullptr;
+
+	Log::info("Server has been stopped");
 }
 
 void AdminServer::stop() {
