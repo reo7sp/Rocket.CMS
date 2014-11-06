@@ -5,6 +5,7 @@ find -name "*.html" -print0 | xargs -0 rm
 
 echo "Generating /"
 tpage pages.tt > pages.html
+tpage pages-edit.tt > pages-edit.html
 
 echo "Generating /css"
 lessc css/style.less > css/style.css

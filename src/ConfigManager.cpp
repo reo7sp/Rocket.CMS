@@ -17,11 +17,11 @@
 #include "ConfigManager.h"
 
 #include "Log.h"
+#include "Utils.h"
 
 #include <sstream>
 #include <rapidjson/document.h>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/path.hpp>
 
 using namespace std;
 using namespace rapidjson;
@@ -41,18 +41,10 @@ ConfigManager& ConfigManager::getInstance() {
 void ConfigManager::reload() {
 	Log::info("Parsing config");
 
-	fs::path file("res/config.json");
-	if (fs::exists(file)) {
-		fs::ifstream input(file);
-		stringstream buffer;
-		string line;
-		while (getline(input, line)) {
-			buffer << line;
-		}
-		input.close();
-
+	string json = Utils::readFile(fs::path("res/config.json"));
+	if (!json.empty()) {
 		Document document;
-		document.Parse(buffer.str().c_str());
+		document.Parse(json.c_str());
 
 		if (document.HasMember("port")) {
 			_port = document["port"].GetString();
@@ -81,7 +73,5 @@ void ConfigManager::reload() {
 		Log::debug("Title: " + _title);
 
 		Log::info("Config has been parsed");
-	} else {
-		Log::warn("Config file doesn't exist");
 	}
 }

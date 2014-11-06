@@ -16,52 +16,54 @@
 
 #include "PagesHandler.h"
 
+#include "AdminServer.h"
 #include "../Log.h"
+#include "../Utils.h"
 #include "../ConfigManager.h"
-#include "../CacheManager.h"
-#include "../TranslationManager.h"
 
 #include <string>
-#include <sstream>
+#include <functional>
+#include <stdexcept>
+#include <mongoose/mongoose.h>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/fstream.hpp>
 #include <boost/algorithm/string/replace.hpp>
+#include <boost/algorithm/string/split.hpp>
 
 using namespace std;
 using namespace boost::algorithm;
 namespace fs = boost::filesystem;
 
-void PagesHandler::handleRequest(mg_connection* connection) {
-	string result = CacheManager::getInstance().get("pageslist");
-	if (result.empty()) {
-		fs::path file("res/admin/pages.html");
-		if (fs::exists(file)) {
-			fs::ifstream input(file);
-			stringstream buffer;
-			string line;
-			while (getline(input, line)) {
-				buffer << line;
-			}
-			input.close();
-
-			result = buffer.str();
-			TranslationManager::getInstance().translate(result);
-			replace_all(result, "%TITLE%", TranslationManager::getInstance().get("pages"));
-			replace_all(result, "%SITETITLE%", ConfigManager::getInstance().getTitle());
-
-			string pageslist;
-			fs::path dir = ConfigManager::getInstance().getSitePath() / "pages";
-			for (auto& item : fs::directory_iterator(dir)) {
-				string name = replace_all_copy(item.path().string(), dir.string(), "");
-				pageslist += "<tr><td><a href=\"/pages-edit?file=" + name + "\">" + name + "</a></td></tr>";
-			}
-			replace_all(result, "%PAGESLIST%", pageslist);
-
-			CacheManager::getInstance().set("pageslist", result);
-		} else {
-			Log::error("res/admin/pages.html doesn't exist");
+void PagesHandler::displayPagesList(mg_connection* connection) {
+	string actionName = "pageslist";
+	string title = "pages";
+	string htmlFile = "res/admin/pages.html";
+	bool canCache = true;
+	function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
+		string pageslist;
+		fs::path dir = ConfigManager::getInstance().getSitePath() / "pages";
+		fs::recursive_directory_iterator endIter;
+		for (fs::recursive_directory_iterator iter(dir); iter != endIter; ++iter) {
+			string name = replace_all_copy(iter->path().string(), dir.string(), "");
+			pageslist += "<tr><td><a href=\"/pages-edit?file=" + name + "\">" + name + "</a></td></tr>";
 		}
-	}
-	mg_printf_data(connection, "%s", result.c_str());
+		replace_all(result, "%PAGESLIST%", pageslist);
+	};
+	AdminServer::handleRequest(connection, actionName, title, htmlFile, canCache, action);
+}
+
+void PagesHandler::displayPagesEdit(mg_connection* connection) {
+	string actionName = "pages-edit";
+	string title = "pages";
+	string htmlFile = "res/admin/pages-edit.html";
+	bool canCache = false;
+	function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
+		try {
+			string file = Utils::parseUrlQuery(connection->query_string).at("file");
+			replace_all(result, "%PAGEDATA%", Utils::readFile(fs::path(ConfigManager::getInstance().getSitePath() / "pages" / file)));
+		} catch (out_of_range& e) {
+			Log::warn("Invalid query");
+		}
+	};
+	AdminServer::handleRequest(connection, actionName, title, htmlFile, canCache, action);
 }

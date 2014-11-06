@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-#ifndef _ROCKETCMS_ADMIN_PAGESHANDLER_H
-#define _ROCKETCMS_ADMIN_PAGESHANDLER_H
+#ifndef _ROCKETCMS_UTILS_H
+#define _ROCKETCMS_UTILS_H
 
-#include <mongoose/mongoose.h>
+#include <string>
+#include <map>
+#include <boost/filesystem/path.hpp>
 
-namespace PagesHandler {
-	void displayPagesList(mg_connection* connection);
-	void displayPagesEdit(mg_connection* connection);
-}
+namespace Utils {
+	std::string readFile(const boost::filesystem::path& file);
+	void urlEncode(std::string& url);
+	void urlDecode(std::string& url);
+	std::map<std::string, std::string> parseUrlQuery(const std::string& query);
+};
 
 #endif

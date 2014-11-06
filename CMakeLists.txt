@@ -10,6 +10,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(SRC_LIST
 	src/Core.cpp
 	src/Log.cpp
+	src/Utils.cpp
 	src/ConfigManager.cpp
 	src/CacheManager.cpp
 	src/TranslationManager.cpp
@@ -20,11 +21,7 @@ set(SRC_LIST
 # libs
 find_package(Threads REQUIRED)
 
-#set(Boost_USE_MULTITHREADED ON)
 find_package(Boost COMPONENTS system filesystem graph REQUIRED)
-#if(NOT BOOST_FOUND)
-	#message(FATAL_ERROR "You must install 'filesystem' and 'graph' boost components")
-#endif()
 include_directories(${Boost_INCLUDE_DIRS})
 
 include_directories(lib/mongoose)

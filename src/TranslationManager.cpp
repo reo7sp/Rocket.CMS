@@ -17,12 +17,12 @@
 #include "TranslationManager.h"
 
 #include "Log.h"
+#include "Utils.h"
 #include "ConfigManager.h"
 
 #include <sstream>
 #include <rapidjson/document.h>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string/case_conv.hpp>
 
@@ -45,18 +45,10 @@ TranslationManager& TranslationManager::getInstance() {
 void TranslationManager::reload() {
 	Log::info("Parsing tranlations");
 
-	fs::path file("res/translations/" + ConfigManager::getInstance().getLang() + ".json");
-	if (fs::exists(file)) {
-		fs::ifstream input(file);
-		stringstream buffer;
-		string line;
-		while (getline(input, line)) {
-			buffer << line;
-		}
-		input.close();
-
+	string json = Utils::readFile(fs::path("res/translations/" + ConfigManager::getInstance().getLang() + ".json"));
+	if (!json.empty()) {
 		Document document;
-		document.Parse(buffer.str().c_str());
+		document.Parse(json.c_str());
 
 		for (Value::ConstMemberIterator iter = document.MemberBegin(); iter != document.MemberEnd(); ++iter) {
 			_data[iter->name.GetString()] = iter->value.GetString();

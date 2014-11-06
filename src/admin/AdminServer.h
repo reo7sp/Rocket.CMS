@@ -17,11 +17,14 @@
 #ifndef _ROCKETCMS_ADMIN_ADMINSERVER_H
 #define _ROCKETCMS_ADMIN_ADMINSERVER_H
 
+#include <string>
+#include <functional>
 #include <mongoose/mongoose.h>
 
 class AdminServer {
 public:
 	static AdminServer& getInstance();
+	static void handleRequest(mg_connection* connection, std::string& actionName, std::string& title, std::string& htmlFile, bool canCache, std::function<void(mg_connection*, std::string&)>& action);
 
 	void start();
 	void stop();

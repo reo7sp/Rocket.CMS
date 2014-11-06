@@ -47,8 +47,8 @@ string CacheManager::get(const string& key) const {
 }
 
 void CacheManager::set(const string& key, const string& value) {
-	Log::debug("Caching " + key);
 	_cache[key] = value;
+	Log::debug(key + " cached");
 }
 
 void CacheManager::invalidate(const string& key) {
