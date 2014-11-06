@@ -22,6 +22,7 @@
 #include "../ConfigManager.h"
 
 #include <string>
+#include <algorithm>
 #include <functional>
 #include <stdexcept>
 #include <mongoose/mongoose.h>
@@ -44,8 +45,20 @@ void PagesHandler::displayPagesList(mg_connection* connection) {
 		fs::path dir = ConfigManager::getInstance().getSitePath() / "pages";
 		fs::recursive_directory_iterator endIter;
 		for (fs::recursive_directory_iterator iter(dir); iter != endIter; ++iter) {
-			string name = replace_all_copy(iter->path().string(), dir.string(), "");
-			pageslist += "<tr><td><a href=\"/pages-edit?file=" + name + "\">" + name + "</a></td></tr>";
+			string file = replace_all_copy(iter->path().string(), dir.string(), "");
+
+			size_t slashCount = count(file.begin(), file.end(), '/');
+			pageslist += "<tr><td style=\"padding-left:" + to_string((slashCount - 1)) + "em\">";
+
+			if (fs::is_directory(iter->path())) {
+				pageslist += " ▼ " + file;
+			} else {
+				string fileUrl = file;
+				Utils::urlEncode(fileUrl);
+				pageslist += "<a href=\"/pages-edit?file=" + fileUrl + "\">" + file + "</a>";
+			}
+
+			pageslist += "</td></tr>";
 		}
 		replace_all(result, "%PAGESLIST%", pageslist);
 	};
@@ -60,6 +73,7 @@ void PagesHandler::displayPagesEdit(mg_connection* connection) {
 	function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
 		try {
 			string file = Utils::parseUrlQuery(connection->query_string).at("file");
+			Utils::urlDecode(file);
 			replace_all(result, "%PAGEDATA%", Utils::readFile(fs::path(ConfigManager::getInstance().getSitePath() / "pages" / file)));
 		} catch (out_of_range& e) {
 			Log::warn("Invalid query");

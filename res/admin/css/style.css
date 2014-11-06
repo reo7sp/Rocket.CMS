@@ -3,6 +3,9 @@
   padding: 0px;
   font-family: Helvetica, Arial, sans;
 }
+body {
+  font-size: 1.1em;
+}
 #main-header {
   background-color: #fff;
   border-bottom: 1px #ddd solid;
@@ -25,5 +28,5 @@
   margin: 16px;
 }
 a {
-  color: #090;
+  color: #080;
 }
