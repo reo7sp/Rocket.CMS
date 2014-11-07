@@ -23,8 +23,10 @@
 
 namespace Utils {
 	std::string readFile(const boost::filesystem::path& file);
+	bool saveFile(const boost::filesystem::path& file, const std::string& text);
 	void urlEncode(std::string& url);
 	void urlDecode(std::string& url);
+	std::string postDataGet(const std::string& httpContent);
 	std::map<std::string, std::string> parseUrlQuery(const std::string& query);
 };
 

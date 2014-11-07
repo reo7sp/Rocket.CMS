@@ -8,15 +8,12 @@ body {
 	font-size: 1.1em;
 }
 
-#main-header {
-	background-color: #fff;
-	border-bottom: 1px #ddd solid;
+.page-header {
+	background-color: #00a000;
 	padding: 8px;
-	margin-bottom: 16px;
 
 	a {
-		font-size: 1.5em;
-		color: #000;
+		color: #fff;
 		text-decoration: none;
 		padding: 0px 8px;
 
@@ -30,10 +27,33 @@ body {
 	}
 }
 
+#main-header {
+	.page-header;
+	a {
+		font-size: 1.5em;
+	}
+}
+
+#main-bottom-header {
+	.page-header;
+	background-color: #00b000;
+}
+
 #page-wrap {
-	margin: 16px;
 }
 
 a {
-	color: #080;
+	color: #00a000;
+}
+
+.pad {
+	padding: 16px;
+}
+
+.editor-area {
+	.pad;
+	outline: none;
+	word-wrap: break-word;
+	font: inherit;
+	color: inherit;
 }

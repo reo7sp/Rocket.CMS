@@ -45,18 +45,23 @@ AdminServer& AdminServer::getInstance() {
 	return instance;
 }
 
-void AdminServer::handleRequest(mg_connection* connection, string& actionName, string& title, string& htmlFile, bool canCache, function<void(mg_connection*, string&)>& action) {
-	string result = canCache ? CacheManager::getInstance().get(actionName) : "";
-	if (result.empty()) {
-		result = Utils::readFile(fs::path(htmlFile));
-		if (!result.empty()) {
+void AdminServer::handleRequest(mg_connection* connection, const std::string& actionName, const std::string& title, const std::string& htmlFile, const bool canCacheAll, const std::function<void(mg_connection*, std::string&)>& action) {
+	string result = CacheManager::getInstance().get(actionName + (canCacheAll ? "" : "-file"));
+	if (!canCacheAll || result.empty()) {
+		if (!htmlFile.empty() && result.empty()) {
+			result = Utils::readFile(fs::path(htmlFile));
+			if (!canCacheAll) {
+				CacheManager::getInstance().set(actionName + "-file", result);
+			}
+		}
+		if (!canCacheAll || !result.empty()) {
 			TranslationManager::getInstance().translate(result);
 			replace_all(result, "%TITLE%", TranslationManager::getInstance().get(title));
 			replace_all(result, "%SITETITLE%", ConfigManager::getInstance().getTitle());
 
 			action(connection, result);
 
-			if (canCache) {
+			if (canCacheAll) {
 				CacheManager::getInstance().set(actionName, result);
 			}
 		}
@@ -95,6 +100,9 @@ int AdminServer::handleEvent(mg_connection* connection, mg_event event) {
 			return MG_TRUE;
 		} else if (equals(connection->uri, "/pages-edit/") || equals(connection->uri, "/pages-edit")) {
 			PagesHandler::displayPagesEdit(connection);
+			return MG_TRUE;
+		} else if (equals(connection->uri, "/pages-save/") || equals(connection->uri, "/pages-save")) {
+			PagesHandler::displayPagesSave(connection);
 			return MG_TRUE;
 		} else {
 			return MG_FALSE;

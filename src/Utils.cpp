@@ -18,6 +18,7 @@
 
 #include "Log.h"
 
+#include <iostream>
 #include <sstream>
 #include <vector>
 #include <mongoose/mongoose.h>
@@ -46,6 +47,18 @@ string Utils::readFile(const fs::path& file) {
 	}
 }
 
+bool Utils::saveFile(const fs::path& file, const string& text) {
+	if (fs::exists(file)) {
+		fs::ofstream output(file, ios_base::trunc);
+		output << text;
+		output.close();
+		return true;
+	} else {
+		Log::warn(file.string() + " doesn't exist");
+		return false;
+	}
+}
+
 void Utils::urlEncode(string& url) {
 	size_t len = url.length();
 
@@ -55,7 +68,7 @@ void Utils::urlEncode(string& url) {
 	dst[len * 3] = '\0';
 
 	mg_url_encode(url.c_str(), len, dst, len * 3);
-	url = trim_copy(string(const_cast<const char*>(dst)));
+	url = trim_copy(string(dst));
 
 	delete[] dst;
 }
@@ -68,9 +81,13 @@ void Utils::urlDecode(string& url) {
 	dst[len] = '\0';
 
 	mg_url_decode(url.c_str(), len, dst, len, 0);
-	url = trim_copy(string(const_cast<const char*>(dst)));
+	url = trim_copy(string(dst));
 
 	delete[] dst;
+}
+
+string Utils::postDataGet(const string& httpContent) {
+	return httpContent.substr(0, httpContent.find("HTTP"));
 }
 
 map<string, string> Utils::parseUrlQuery(const string& query) {

@@ -1,6 +1,6 @@
 [% INCLUDE header.tt %]
 
-<table>
+<table class="pad">
 %PAGESLIST%
 </table>
 

@@ -1,5 +1,10 @@
 {
 	"pages": "Pages",
 	"template": "Template",
-	"files": "Files"
+	"files": "Files",
+	"discard": "Discard",
+	"save": "Save",
+	"saveok": "Save successed",
+	"saveerror": "Can't save",
+	"error": "Error"
 }

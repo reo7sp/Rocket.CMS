@@ -22,6 +22,7 @@
 namespace PagesHandler {
 	void displayPagesList(mg_connection* connection);
 	void displayPagesEdit(mg_connection* connection);
+	void displayPagesSave(mg_connection* connection);
 }
 
 #endif
