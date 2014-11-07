@@ -93,8 +93,7 @@ void PagesHandler::displayPagesSave(mg_connection* connection) {
 		try {
 			string file = Utils::parseUrlQuery(string(connection->query_string)).at("file");
 			Utils::urlDecode(file);
-			string text = Utils::postDataGet(string(connection->content));
-			Log::debug(replace_all_copy(string(connection->content), "\r", "\n"));
+			string text = Utils::postDataParse(string(connection->content));
 
 			bool success = Utils::saveFile(fs::path(ConfigManager::getInstance().getSitePath() / "pages" / file), text);
 			result = TranslationManager::getInstance().get(success ? "saveok" : "saveerror");

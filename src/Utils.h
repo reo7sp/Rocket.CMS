@@ -26,7 +26,7 @@ namespace Utils {
 	bool saveFile(const boost::filesystem::path& file, const std::string& text);
 	void urlEncode(std::string& url);
 	void urlDecode(std::string& url);
-	std::string postDataGet(const std::string& httpContent);
+	std::string postDataParse(const std::string& httpContent);
 	std::map<std::string, std::string> parseUrlQuery(const std::string& query);
 };
 

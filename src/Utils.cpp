@@ -26,6 +26,7 @@
 #include <boost/filesystem/operations.hpp>
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/replace.hpp>
 
 using namespace std;
 using namespace boost::algorithm;
@@ -86,8 +87,22 @@ void Utils::urlDecode(string& url) {
 	delete[] dst;
 }
 
-string Utils::postDataGet(const string& httpContent) {
-	return httpContent.substr(0, httpContent.find("HTTP"));
+string Utils::postDataParse(const string& httpContent) {
+	stringstream in(httpContent);
+	stringstream out;
+	string line;
+	bool headersEnded = false;
+	while (getline(in, line)) {
+		if (headersEnded) {
+			out << line;
+		}
+		if (line == "\r") {
+			headersEnded = true;
+		}
+	}
+	string result = headersEnded ? out.str() : httpContent;
+	result = result.substr(0, result.find("###END###"));
+	return replace_all_copy(result, "\r", "");
 }
 
 map<string, string> Utils::parseUrlQuery(const string& query) {
