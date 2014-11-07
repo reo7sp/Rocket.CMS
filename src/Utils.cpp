@@ -38,7 +38,7 @@ string Utils::readFile(const fs::path& file) {
 		stringstream buffer;
 		string line;
 		while (getline(input, line)) {
-			buffer << line;
+			buffer << line << "\n";
 		}
 		input.close();
 		return buffer.str();
@@ -87,6 +87,23 @@ void Utils::urlDecode(string& url) {
 	delete[] dst;
 }
 
+void Utils::htmlEncode(string& text) {
+	replace_all(text, "&", "&amp;");
+	replace_all(text, " ", "&nbsp;");
+	replace_all(text, "<", "&lt;");
+	replace_all(text, ">", "&gt;");
+	replace_all(text, "\n", "<br>");
+}
+
+void Utils::htmlDecode(string& text) {
+	replace_all(text, "<br>", "\n");
+	boost::regex_replace(text, htmlTagsRegex, "");
+	replace_all(text, "&nbsp;", " ");
+	replace_all(text, "&lt;", "<");
+	replace_all(text, "&gt;", ">");
+	replace_all(text, "&amp;", "&");
+}
+
 string Utils::postDataParse(const string& httpContent) {
 	stringstream in(httpContent);
 	stringstream out;
@@ -94,7 +111,7 @@ string Utils::postDataParse(const string& httpContent) {
 	bool headersEnded = false;
 	while (getline(in, line)) {
 		if (headersEnded) {
-			out << line;
+			out << line << "\n";
 		}
 		if (line == "\r") {
 			headersEnded = true;

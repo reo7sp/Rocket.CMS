@@ -52,7 +52,7 @@ void PagesHandler::displayPagesList(mg_connection* connection) {
 			pageslist += "<tr><td style=\"padding-left:" + to_string((slashCount - 1)) + "em\">";
 
 			if (fs::is_directory(iter->path())) {
-				pageslist += " ▼ " + file;
+				pageslist += "▼ " + file;
 			} else {
 				string fileUrl = file;
 				Utils::urlEncode(fileUrl);
@@ -75,7 +75,9 @@ void PagesHandler::displayPagesEdit(mg_connection* connection) {
 		try {
 			string file = Utils::parseUrlQuery(connection->query_string).at("file");
 			Utils::urlDecode(file);
-			replace_all(result, "%PAGEDATA%", Utils::readFile(fs::path(ConfigManager::getInstance().getSitePath() / "pages" / file)));
+			string text = Utils::readFile(fs::path(ConfigManager::getInstance().getSitePath() / "pages" / file));
+			Utils::htmlEncode(text);
+			replace_all(result, "%PAGEDATA%", text);
 			replace_all(result, "%FILE%", file);
 		} catch (out_of_range& e) {
 			Log::warn("Invalid query");
@@ -94,6 +96,7 @@ void PagesHandler::displayPagesSave(mg_connection* connection) {
 			string file = Utils::parseUrlQuery(string(connection->query_string)).at("file");
 			Utils::urlDecode(file);
 			string text = Utils::postDataParse(string(connection->content));
+			Utils::htmlDecode(text);
 
 			bool success = Utils::saveFile(fs::path(ConfigManager::getInstance().getSitePath() / "pages" / file), text);
 			result = TranslationManager::getInstance().get(success ? "saveok" : "saveerror");

@@ -19,6 +19,7 @@
 
 #include <string>
 #include <map>
+#include <boost/regex.hpp>
 #include <boost/filesystem/path.hpp>
 
 namespace Utils {
@@ -26,8 +27,12 @@ namespace Utils {
 	bool saveFile(const boost::filesystem::path& file, const std::string& text);
 	void urlEncode(std::string& url);
 	void urlDecode(std::string& url);
+	void htmlEncode(std::string& text);
+	void htmlDecode(std::string& text);
 	std::string postDataParse(const std::string& httpContent);
 	std::map<std::string, std::string> parseUrlQuery(const std::string& query);
+
+	const boost::regex htmlTagsRegex("<[^>]*>");
 };
 
 #endif

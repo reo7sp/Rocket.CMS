@@ -21,7 +21,7 @@ set(SRC_LIST
 # libs
 find_package(Threads REQUIRED)
 
-find_package(Boost COMPONENTS system filesystem graph REQUIRED)
+find_package(Boost COMPONENTS system filesystem graph regex REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
 include_directories(lib/mongoose)
