@@ -6,5 +6,7 @@
 	"save": "Save",
 	"saveok": "Save successed",
 	"saveerror": "Can't save",
-	"error": "Error"
+	"error": "Error",
+	"markdown": "Markdown",
+	"result": "Result"
 }

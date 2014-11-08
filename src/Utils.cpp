@@ -118,7 +118,7 @@ string Utils::postDataParse(const string& httpContent) {
 		}
 	}
 	string result = headersEnded ? out.str() : httpContent;
-	result = result.substr(0, result.find("###END###"));
+	result = result.substr(0, result.rfind("###END###"));
 	return replace_all_copy(result, "\r", "");
 }
 

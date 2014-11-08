@@ -8,8 +8,18 @@
 		<a id="save-btn">%SAVESTR%</a>
 	</nav>
 </header>
-<div contenteditable class="editor-area">
-%PAGEDATA%
-</div>
+<table class="editor-wrap">
+	<tr>
+		<td contenteditable class="editor-area">
+		%PAGEDATA%
+		</td>
+		<td class="editor-result">
+		</td>
+	</tr>
+	<tr>
+		<td class="editor-label">%MARKDOWNSTR%</td>
+		<td class="editor-label">%RESULTSTR%</td>
+	</tr>
+</table>
 
 [% INCLUDE footer.tt %]

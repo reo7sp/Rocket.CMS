@@ -1,11 +1,16 @@
- test
-test       so test
+ # test
+*test       so test*
 
-              wow          such test
+              **wow**          such test
 
-many test
+**many test**
+
+<font color="red">color test</font>
 
 <div class="pony">
-TWILIGHT
+TWILIGHT SPARKLE
 </div>
+ 
+ 
+ 
  

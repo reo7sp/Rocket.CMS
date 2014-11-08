@@ -36,6 +36,15 @@ $(document).ready(function() {
 			}
 		});
 	});
+	if ($('.editor-result').length) {
+		var syncResult = function() {
+			var text = htmlDecode($('.editor-area').html());
+			text = marked(text).replace(/\n/g, '<br>');
+			$('.editor-result').html(text);
+		};
+		syncResult();
+		$('.editor-area').on('input', syncResult);
+	}
 });
 
 function getUrlParameter(param) {
@@ -47,4 +56,15 @@ function getUrlParameter(param) {
 			return argName[1];
 		}
 	}
+}
+
+function htmlDecode(text, decodeTags) {
+	var result = text;
+	result = result.replace(/<br>/g, '\n');
+	result = result.replace(/<[^>]*>/g, '');
+	result = result.replace(/&nbsp;/g, ' ');
+	result = result.replace(/&lt;/g, '<');
+	result = result.replace(/&gt;/g, '>');
+	result = result.replace(/&amp;/g, '&');
+	return result;
 }
