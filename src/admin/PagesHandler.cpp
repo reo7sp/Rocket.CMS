@@ -49,7 +49,7 @@ void PagesHandler::displayPagesList(mg_connection* connection) {
 			string file = replace_all_copy(iter->path().string(), dir.string(), "");
 
 			size_t slashCount = count(file.begin(), file.end(), '/');
-			pageslist += "<tr><td style=\"padding-left:" + to_string((slashCount - 1)) + "em\">";
+			pageslist += "<tr><td style=\"padding-left:" + to_string((slashCount - 1) * 1.25) + "em\">";
 
 			if (fs::is_directory(iter->path())) {
 				pageslist += "▼ " + file;
@@ -95,13 +95,12 @@ void PagesHandler::displayPagesSave(mg_connection* connection) {
 		try {
 			string file = Utils::parseUrlQuery(string(connection->query_string)).at("file");
 			Utils::urlDecode(file);
-			string text = Utils::postDataParse(string(connection->content));
+			string text = Utils::postDataParse(connection);
 			Utils::htmlDecode(text);
 
 			bool success = Utils::saveFile(fs::path(ConfigManager::getInstance().getSitePath() / "pages" / file), text);
 			result = TranslationManager::getInstance().get(success ? "saveok" : "saveerror");
 		} catch (out_of_range& e) {
-			Log::warn("Invalid query");
 			result = TranslationManager::getInstance().get("error");
 		}
 	};

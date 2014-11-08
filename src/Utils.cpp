@@ -104,22 +104,8 @@ void Utils::htmlDecode(string& text) {
 	replace_all(text, "&amp;", "&");
 }
 
-string Utils::postDataParse(const string& httpContent) {
-	stringstream in(httpContent);
-	stringstream out;
-	string line;
-	bool headersEnded = false;
-	while (getline(in, line)) {
-		if (headersEnded) {
-			out << line << "\n";
-		}
-		if (line == "\r") {
-			headersEnded = true;
-		}
-	}
-	string result = headersEnded ? out.str() : httpContent;
-	result = result.substr(0, result.rfind("###END###"));
-	return replace_all_copy(result, "\r", "");
+string Utils::postDataParse(const mg_connection* connection) {
+	return trim_copy(string(connection->content, connection->content_len));
 }
 
 map<string, string> Utils::parseUrlQuery(const string& query) {

@@ -19,6 +19,7 @@
 
 #include <string>
 #include <map>
+#include <mongoose/mongoose.h>
 #include <boost/regex.hpp>
 #include <boost/filesystem/path.hpp>
 
@@ -29,7 +30,7 @@ namespace Utils {
 	void urlDecode(std::string& url);
 	void htmlEncode(std::string& text);
 	void htmlDecode(std::string& text);
-	std::string postDataParse(const std::string& httpContent);
+	std::string postDataParse(const mg_connection* connection);
 	std::map<std::string, std::string> parseUrlQuery(const std::string& query);
 
 	const boost::regex htmlTagsRegex("<[^>]*>");

@@ -15,7 +15,12 @@
  */
 
 $(document).ready(function() {
-	$('#save-btn').click(function() {
+	var editorArea = $('.editor-area');
+	var editorResult = $('.editor-result');
+	var saveBtn = $('#save-btn');
+	var ajaxResult = $('.ajax-result');
+
+	saveBtn.click(function() {
 		var saveLoc = '';
 		if (window.location.pathname.indexOf('/pages-edit') == 0) {
 			saveLoc = '/pages-save';
@@ -26,24 +31,25 @@ $(document).ready(function() {
 		$.ajax({
 			url: saveLoc + '?file=' + getUrlParameter('file'),
 			type: 'POST',
-			data: $('.editor-area').html() + "###END###",
+			data: editorArea.html(),
 			success: function(result) {
 				clearTimeout(timeout);
-				$('.ajax-result').html(result);
+				ajaxResult.html(result);
 				timeout = setTimeout(function() {
-					$('.ajax-result').html('');
+					ajaxResult.html('');
 				}, 2500);
 			}
 		});
 	});
-	if ($('.editor-result').length) {
-		var syncResult = function() {
-			var text = htmlDecode($('.editor-area').html());
+
+	if (editorResult.length) {
+		var updateEditor = function() {
+			var text = htmlDecode(editorArea.html());
 			text = marked(text).replace(/\n/g, '<br>');
-			$('.editor-result').html(text);
+			editorResult.html(text);
 		};
-		syncResult();
-		$('.editor-area').on('input', syncResult);
+		updateEditor();
+		editorArea.on('input', updateEditor);
 	}
 });
 
@@ -58,7 +64,17 @@ function getUrlParameter(param) {
 	}
 }
 
-function htmlDecode(text, decodeTags) {
+function htmlEncode(text) {
+	var result = text;
+	result = result.replace('&', '&amp;');
+	result = result.replace(' ', '&nbsp;');
+	result = result.replace('<', '&lt;');
+	result = result.replace('>', '&gt;');
+	result = result.replace('\n', '<br>');
+	return result;
+}
+
+function htmlDecode(text) {
 	var result = text;
 	result = result.replace(/<br>/g, '\n');
 	result = result.replace(/<[^>]*>/g, '');
