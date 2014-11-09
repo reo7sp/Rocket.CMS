@@ -21,6 +21,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <stdio.h>
 #include <mongoose/mongoose.h>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -35,13 +36,14 @@ namespace fs = boost::filesystem;
 string Utils::readFile(const fs::path& file) {
 	if (fs::exists(file)) {
 		fs::ifstream input(file);
-		stringstream buffer;
+		string result;
 		string line;
 		while (getline(input, line)) {
-			buffer << line << "\n";
+			result += line;
+			result += "\n";
 		}
 		input.close();
-		return buffer.str();
+		return result;
 	} else {
 		Log::warn(file.string() + " doesn't exist");
 		return "";
@@ -49,15 +51,10 @@ string Utils::readFile(const fs::path& file) {
 }
 
 bool Utils::saveFile(const fs::path& file, const string& text) {
-	if (fs::exists(file)) {
-		fs::ofstream output(file, ios_base::trunc);
-		output << text;
-		output.close();
-		return true;
-	} else {
-		Log::warn(file.string() + " doesn't exist");
-		return false;
-	}
+	fs::ofstream output(file, ios_base::out | ios_base::trunc);
+	output << text;
+	output.close();
+	return true;
 }
 
 void Utils::urlEncode(string& url) {
@@ -117,5 +114,19 @@ map<string, string> Utils::parseUrlQuery(const string& query) {
 		split(parts, item, is_any_of("="));
 		result[parts[0]] = parts.size() == 1 ? "" : parts[1];
 	}
+	return result;
+}
+
+string Utils::exec(const string& command) {
+	FILE* pipe = popen(command.c_str(), "r");
+	if (!pipe) return "";
+	char buffer[128];
+	std::string result = "";
+	while (!feof(pipe)) {
+		if (fgets(buffer, 128, pipe) != nullptr) {
+			result += buffer;
+		}
+	}
+	pclose(pipe);
 	return result;
 }

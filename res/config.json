@@ -2,5 +2,7 @@
 	"port": "23488",
 	"lang": "en",
 	"sitePath": "res/site",
-	"title": "Rocket.CMS"
+	"title": "Rocket.CMS",
+	"templateToolkitCommand": "tpage $1",
+	"markdownCommand": "markdown $1"
 }

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(Rocket.CMS)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -g")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -14,6 +14,7 @@ set(SRC_LIST
 	src/ConfigManager.cpp
 	src/CacheManager.cpp
 	src/TranslationManager.cpp
+	src/PageCompiler.cpp
 	src/admin/AdminServer.cpp
 	src/admin/PagesHandler.cpp
 )
@@ -21,6 +22,7 @@ set(SRC_LIST
 # libs
 find_package(Threads REQUIRED)
 
+set(Boost_USE_MULTITHREADED ON)
 find_package(Boost COMPONENTS system filesystem graph regex REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 

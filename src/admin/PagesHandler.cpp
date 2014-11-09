@@ -21,6 +21,7 @@
 #include "../Utils.h"
 #include "../ConfigManager.h"
 #include "../TranslationManager.h"
+#include "../PageCompiler.h"
 
 #include <string>
 #include <algorithm>
@@ -41,7 +42,7 @@ void PagesHandler::displayPagesList(mg_connection* connection) {
 	string title = "pages";
 	string htmlFile = "res/admin/pages-list.html";
 	bool canCacheAll = true;
-	const function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
+	function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
 		string pageslist;
 		fs::path dir = ConfigManager::getInstance().getSitePath() / "pages";
 		fs::recursive_directory_iterator endIter;
@@ -71,7 +72,7 @@ void PagesHandler::displayPagesEdit(mg_connection* connection) {
 	string title = "pages";
 	string htmlFile = "res/admin/pages-edit.html";
 	bool canCacheAll = false;
-	const function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
+	function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
 		try {
 			string file = Utils::parseUrlQuery(connection->query_string).at("file");
 			Utils::urlDecode(file);
@@ -91,14 +92,16 @@ void PagesHandler::displayPagesSave(mg_connection* connection) {
 	string title = "";
 	string htmlFile = "";
 	bool canCacheAll = false;
-	const function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
+	function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
 		try {
 			string file = Utils::parseUrlQuery(string(connection->query_string)).at("file");
 			Utils::urlDecode(file);
 			string text = Utils::postDataParse(connection);
 			Utils::htmlDecode(text);
 
-			bool success = Utils::saveFile(fs::path(ConfigManager::getInstance().getSitePath() / "pages" / file), text);
+			fs::path filePath = fs::path(ConfigManager::getInstance().getSitePath() / "pages" / file);
+			bool success = Utils::saveFile(filePath, text);
+			PageCompiler::getInstance().compile(filePath);
 			result = TranslationManager::getInstance().get(success ? "saveok" : "saveerror");
 		} catch (out_of_range& e) {
 			result = TranslationManager::getInstance().get("error");

@@ -26,10 +26,12 @@ public:
 
 	void reload();
 
-	inline std::string getPort() const { return _port; }
-	inline std::string getLang() const { return _lang; }
-	inline boost::filesystem::path getSitePath() const { return _sitePath; }
-	inline std::string getTitle() const { return _title; }
+	inline const std::string& getPort() const { return _port; }
+	inline const std::string& getLang() const { return _lang; }
+	inline const boost::filesystem::path& getSitePath() const { return _sitePath; }
+	inline const std::string& getTitle() const { return _title; }
+	inline const std::string& getTemplateToolkitCommand() const { return _templateToolkitCommand; }
+	inline const std::string& getMarkdownCommand() const { return _markdownCommand; }
 
 private:
 	ConfigManager();
@@ -42,6 +44,8 @@ private:
 	std::string _lang = "en";
 	boost::filesystem::path _sitePath = boost::filesystem::path("res/site");
 	std::string _title = "Rocket.CMS";
+	std::string _templateToolkitCommand = "tpage $1";
+	std::string _markdownCommand = "markdown $1";
 };
 
 #endif

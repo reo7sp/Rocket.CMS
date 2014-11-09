@@ -4,8 +4,8 @@
 		<title>%TITLE% - %SITETITLE%</title>
 		<meta charset="utf8">
 		<link rel="stylesheet" type="text/css" href="/css/style.css">
-		<script type="text/javascript" defer src="/js/jquery.js"></script>
-		<script type="text/javascript" defer src="/js/marked.js"></script>
+		<script type="text/javascript" defer src="/js/lib/jquery.js"></script>
+		<script type="text/javascript" defer src="/js/lib/marked.js"></script>
 		<script type="text/javascript" defer src="/js/rocketcms.js"></script>
 	</head>
 	<body>

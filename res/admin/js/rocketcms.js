@@ -21,23 +21,24 @@ $(document).ready(function() {
 	var ajaxResult = $('.ajax-result');
 
 	saveBtn.click(function() {
+		ajaxResult.html('Saving...');
 		var saveLoc = '';
 		if (window.location.pathname.indexOf('/pages-edit') == 0) {
 			saveLoc = '/pages-save';
 		} else if (window.location.pathname.indexOf('/template-edit') == 0) {
 			saveLoc = '/template-save';
 		}
-		var timeout;
 		$.ajax({
 			url: saveLoc + '?file=' + getUrlParameter('file'),
 			type: 'POST',
 			data: editorArea.html(),
+			dataType: 'text',
+			timeout: 10000,
+			error: function(jqXHR, text, error) {
+				ajaxResult.html('<b>Connection error ' + new Date().toTimeString() + '</b>');
+			},
 			success: function(result) {
-				clearTimeout(timeout);
-				ajaxResult.html(result);
-				timeout = setTimeout(function() {
-					ajaxResult.html('');
-				}, 2500);
+				ajaxResult.html(result + ' ' + new Date().toTimeString());
 			}
 		});
 	});

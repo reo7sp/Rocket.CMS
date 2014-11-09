@@ -66,11 +66,16 @@ void ConfigManager::reload() {
 		} else {
 			Log::warn("\"title\" value doesn't exist in config");
 		}
-
-		Log::debug("Port: " + _port);
-		Log::debug("Lang: " + _lang);
-		Log::debug("Site path: " + _sitePath.string());
-		Log::debug("Title: " + _title);
+		if (document.HasMember("templateToolkitCommand")) {
+			_templateToolkitCommand = document["templateToolkitCommand"].GetString();
+		} else {
+			Log::warn("\"templateToolkitCommand\" value doesn't exist in config");
+		}
+		if (document.HasMember("markdownCommand")) {
+			_markdownCommand = document["markdownCommand"].GetString();
+		} else {
+			Log::warn("\"markdownCommand\" value doesn't exist in config");
+		}
 
 		Log::info("Config has been parsed");
 	}

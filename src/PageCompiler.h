@@ -14,27 +14,37 @@
  * limitations under the License.
  */
 
-#ifndef _ROCKETCMS_UTILS_H
-#define _ROCKETCMS_UTILS_H
+#ifndef _ROCKETCMS_GENERATOR_H
+#define _ROCKETCMS_GENERATOR_H
 
 #include <string>
-#include <map>
-#include <mongoose/mongoose.h>
-#include <boost/regex.hpp>
+#include <queue>
+#include <mutex>
 #include <boost/filesystem/path.hpp>
 
-namespace Utils {
-	std::string readFile(const boost::filesystem::path& file);
-	bool saveFile(const boost::filesystem::path& file, const std::string& text);
-	void urlEncode(std::string& url);
-	void urlDecode(std::string& url);
-	void htmlEncode(std::string& text);
-	void htmlDecode(std::string& text);
-	std::string postDataParse(const mg_connection* connection);
-	std::map<std::string, std::string> parseUrlQuery(const std::string& query);
-	std::string exec(const std::string& command);
+class PageCompiler {
+public:
+	static PageCompiler& getInstance();
 
-	const boost::regex htmlTagsRegex("<[^>]*>");
+	void start();
+	void stop();
+	void compile(const boost::filesystem::path& file);
+
+	inline bool isRunning() const { return _isRunning; }
+
+private:
+	PageCompiler();
+	PageCompiler(PageCompiler&);
+	~PageCompiler();
+
+	void operator=(PageCompiler&);
+	void threadAction();
+	void compileMarkdown(const boost::filesystem::path& file) const;
+	void compileTemplateToolkit(const boost::filesystem::path& file) const;
+
+	std::queue<boost::filesystem::path> _queue;
+	std::mutex _queueMutex;
+	bool _isRunning;
 };
 
 #endif

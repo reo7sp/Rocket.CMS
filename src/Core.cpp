@@ -18,6 +18,7 @@
 
 #include "ConfigManager.h"
 #include "TranslationManager.h"
+#include "PageCompiler.h"
 #include "admin/AdminServer.h"
 
 Core::Core() {
@@ -35,10 +36,12 @@ Core& Core::getInstance() {
 void Core::start() {
 	ConfigManager::getInstance().reload();
 	TranslationManager::getInstance().reload();
+	PageCompiler::getInstance().start();
 	AdminServer::getInstance().start();
 }
 
 void Core::stop() {
+	PageCompiler::getInstance().stop();
 	AdminServer::getInstance().stop();
 }
 
