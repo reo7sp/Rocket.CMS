@@ -45,25 +45,24 @@ AdminServer& AdminServer::getInstance() {
 	return instance;
 }
 
-void AdminServer::handleRequest(mg_connection* connection, const std::string& actionName, const std::string& title, const std::string& htmlFile, const bool canCacheAll, const std::function<void(mg_connection*, std::string&)>& action) {
-	string result = CacheManager::getInstance().get(actionName + (canCacheAll ? "" : "-file"));
-	if (!canCacheAll || result.empty()) {
-		if (!htmlFile.empty() && result.empty()) {
-			result = Utils::readFile(fs::path(htmlFile));
-			if (!canCacheAll) {
-				CacheManager::getInstance().set(actionName + "-file", result);
-			}
+void AdminServer::handleRequest(mg_connection* connection, const std::string& actionName, const std::string& title, const std::string& htmlFile, const std::function<void(mg_connection*, std::string&)>& action) {
+	string fileResult = CacheManager::getInstance().get(htmlFile);
+	string result = CacheManager::getInstance().get(actionName);
+	if (result.empty()) {
+		if (fileResult.empty() && !htmlFile.empty()) {
+			fileResult = Utils::readFile(fs::path(htmlFile));
+			CacheManager::getInstance().set(htmlFile, fileResult);
 		}
-		if (!canCacheAll || !result.empty()) {
-			TranslationManager::getInstance().translate(result);
-			replace_all(result, "%TITLE%", TranslationManager::getInstance().get(title));
-			replace_all(result, "%SITETITLE%", ConfigManager::getInstance().getTitle());
+		result = fileResult;
 
-			action(connection, result);
+		TranslationManager::getInstance().translate(result);
+		replace_all(result, "%TITLE%", TranslationManager::getInstance().get(title));
+		replace_all(result, "%SITETITLE%", ConfigManager::getInstance().getTitle());
 
-			if (canCacheAll) {
-				CacheManager::getInstance().set(actionName, result);
-			}
+		action(connection, result);
+
+		if (!htmlFile.empty()) {
+			CacheManager::getInstance().set(actionName, result);
 		}
 	}
 	mg_printf_data(connection, "%s", result.c_str());
@@ -95,13 +94,18 @@ int AdminServer::handleEvent(mg_connection* connection, mg_event event) {
 	if (event == MG_AUTH) {
 		return MG_TRUE;
 	} else if (event == MG_REQUEST) {
-		if (equals(connection->uri, "/pages/") || equals(connection->uri, "/pages") || equals(connection->uri, "/")) {
+		if (equals(connection->uri, "/")) {
+			mg_send_status(connection, 301);
+			mg_send_header(connection, "Location", "/pages-list");
+			mg_printf_data(connection, "%s", "");
+			return MG_TRUE;
+		} else if (starts_with(connection->uri, "/pages-list")) {
 			PagesHandler::displayPagesList(connection);
 			return MG_TRUE;
-		} else if (equals(connection->uri, "/pages-edit/") || equals(connection->uri, "/pages-edit")) {
+		} else if (starts_with(connection->uri, "/pages-edit")) {
 			PagesHandler::displayPagesEdit(connection);
 			return MG_TRUE;
-		} else if (equals(connection->uri, "/pages-save/") || equals(connection->uri, "/pages-save")) {
+		} else if (starts_with(connection->uri, "/pages-save")) {
 			PagesHandler::displayPagesSave(connection);
 			return MG_TRUE;
 		} else {

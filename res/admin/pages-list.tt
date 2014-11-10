@@ -2,6 +2,8 @@
 
 <table class="pad">
 %PAGESLIST%
+<tr class="empty16"></tr>
+<tr><td><button id="create-file">%CREATEFILESTR%</button></td></tr>
 </table>
 
 [% INCLUDE footer.tt %]

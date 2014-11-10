@@ -20,6 +20,7 @@
 #include "../Log.h"
 #include "../Utils.h"
 #include "../ConfigManager.h"
+#include "../CacheManager.h"
 #include "../TranslationManager.h"
 #include "../PageCompiler.h"
 
@@ -41,7 +42,6 @@ void PagesHandler::displayPagesList(mg_connection* connection) {
 	string actionName = "pages-list";
 	string title = "pages";
 	string htmlFile = "res/admin/pages-list.html";
-	bool canCacheAll = true;
 	function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
 		string pageslist;
 		fs::path dir = ConfigManager::getInstance().getSitePath() / "pages";
@@ -64,34 +64,32 @@ void PagesHandler::displayPagesList(mg_connection* connection) {
 		}
 		replace_all(result, "%PAGESLIST%", pageslist);
 	};
-	AdminServer::handleRequest(connection, actionName, title, htmlFile, canCacheAll, action);
+	AdminServer::handleRequest(connection, actionName, title, htmlFile, action);
 }
 
 void PagesHandler::displayPagesEdit(mg_connection* connection) {
-	string actionName = "pages-edit";
+	string file = Utils::parseUrlQuery(connection->query_string).at("file");
+	Utils::urlDecode(file);
+
+	string actionName = "pages-edit-" + file;
 	string title = "pages";
 	string htmlFile = "res/admin/pages-edit.html";
-	bool canCacheAll = false;
-	function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
+	function<void(mg_connection*, string&)> action = [&file](mg_connection* connection, string& result) {
 		try {
-			string file = Utils::parseUrlQuery(connection->query_string).at("file");
-			Utils::urlDecode(file);
 			string text = Utils::readFile(fs::path(ConfigManager::getInstance().getSitePath() / "pages" / file));
 			Utils::htmlEncode(text);
 			replace_all(result, "%PAGEDATA%", text);
 			replace_all(result, "%FILE%", file);
 		} catch (out_of_range& e) {
-			Log::warn("Invalid query");
 		}
 	};
-	AdminServer::handleRequest(connection, actionName, title, htmlFile, canCacheAll, action);
+	AdminServer::handleRequest(connection, actionName, title, htmlFile, action);
 }
 
 void PagesHandler::displayPagesSave(mg_connection* connection) {
 	string actionName = "pages-save";
 	string title = "";
 	string htmlFile = "";
-	bool canCacheAll = false;
 	function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
 		try {
 			string file = Utils::parseUrlQuery(string(connection->query_string)).at("file");
@@ -101,11 +99,14 @@ void PagesHandler::displayPagesSave(mg_connection* connection) {
 
 			fs::path filePath = fs::path(ConfigManager::getInstance().getSitePath() / "pages" / file);
 			bool success = Utils::saveFile(filePath, text);
-			PageCompiler::getInstance().compile(filePath);
 			result = TranslationManager::getInstance().get(success ? "saveok" : "saveerror");
+			PageCompiler::getInstance().compile(filePath);
+
+			CacheManager::getInstance().invalidate("pages-list");
+			CacheManager::getInstance().invalidate("pages-edit");
 		} catch (out_of_range& e) {
 			result = TranslationManager::getInstance().get("error");
 		}
 	};
-	AdminServer::handleRequest(connection, actionName, title, htmlFile, canCacheAll, action);
+	AdminServer::handleRequest(connection, actionName, title, htmlFile, action);
 }

@@ -8,5 +8,7 @@
 	"saveerror": "Can't save",
 	"error": "Error",
 	"markdown": "Markdown",
-	"result": "Result"
+	"result": "Result",
+	"createfolder": "Create folder",
+	"createfile": "Create file"
 }

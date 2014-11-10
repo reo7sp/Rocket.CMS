@@ -16,8 +16,6 @@
 
 #include "Utils.h"
 
-#include "Log.h"
-
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -45,13 +43,16 @@ string Utils::readFile(const fs::path& file) {
 		input.close();
 		return result;
 	} else {
-		Log::warn(file.string() + " doesn't exist");
 		return "";
 	}
 }
 
 bool Utils::saveFile(const fs::path& file, const string& text) {
+	fs::create_directories(file.parent_path());
 	fs::ofstream output(file, ios_base::out | ios_base::trunc);
+	if (output.fail()) {
+		return false;
+	}
 	output << text;
 	output.close();
 	return true;

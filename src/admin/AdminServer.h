@@ -24,7 +24,7 @@
 class AdminServer {
 public:
 	static AdminServer& getInstance();
-	static void handleRequest(mg_connection* connection, const std::string& actionName, const std::string& title, const std::string& htmlFile, const bool canCacheAll, const std::function<void(mg_connection*, std::string&)>& action);
+	static void handleRequest(mg_connection* connection, const std::string& actionName, const std::string& title, const std::string& htmlFile, const std::function<void(mg_connection*, std::string&)>& action);
 
 	void start();
 	void stop();

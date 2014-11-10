@@ -8,18 +8,39 @@ body {
 	font-size: 1.1em;
 }
 
+a {
+	color: #00a000;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+button {
+	color: #fff;
+	background-color: #00a000;
+	border-radius: 4px;
+	font: inherit;
+	padding: 4px;
+	border: 1px #008000 solid;
+
+	&:hover {
+		background-color: #00b000;
+	}
+}
+
+.empty16 {
+	height: 16px;
+}
+
 .page-header {
 	background-color: #00a000;
 	padding: 8px;
 
 	a {
 		color: #fff;
-		text-decoration: none;
 		padding: 0px 8px;
-
-		&:hover {
-			text-decoration: underline;
-		}
 	}
 
 	nav {
@@ -37,10 +58,6 @@ body {
 #main-bottom-header {
 	.page-header;
 	background-color: #00b000;
-}
-
-a {
-	color: #00a000;
 }
 
 .pad {

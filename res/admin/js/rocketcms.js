@@ -19,6 +19,7 @@ $(document).ready(function() {
 	var editorResult = $('.editor-result');
 	var saveBtn = $('#save-btn');
 	var ajaxResult = $('.ajax-result');
+	var createFile = $('#create-file');
 
 	saveBtn.click(function() {
 		ajaxResult.html('Saving...');
@@ -52,6 +53,23 @@ $(document).ready(function() {
 		updateEditor();
 		editorArea.on('input', updateEditor);
 	}
+
+	createFile.click(function() {
+		var name = prompt("Enter file name without extension");
+		if (name == null || name == '') {
+			return;
+		}
+		var editLoc = '';
+		if (window.location.pathname.indexOf('/pages-list') == 0) {
+			editLoc = '/pages-edit';
+		} else if (window.location.pathname.indexOf('/template-list') == 0) {
+			editLoc = '/template-edit';
+		}
+		name = '%2f' + name + '.tt';
+		name = name.replace(/(\.tt)+/g, '.tt');
+		name = name.replace(/(%2f)+/g, '%2f');
+		window.location.href = editLoc + '?file=' + name;
+	});
 });
 
 function getUrlParameter(param) {
