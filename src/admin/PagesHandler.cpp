@@ -58,6 +58,7 @@ void PagesHandler::displayPagesList(mg_connection* connection) {
 				string fileUrl = file;
 				Utils::urlEncode(fileUrl);
 				pageslist += "<a href=\"/pages-edit?file=" + fileUrl + "\">" + file + "</a>";
+				pageslist += "<a href=\"/pages-delete?file=" + fileUrl + "\" class=\"delete-btn\">" + TranslationManager::getInstance().get("delete") + "</a>";
 			}
 
 			pageslist += "</td></tr>";
@@ -68,20 +69,21 @@ void PagesHandler::displayPagesList(mg_connection* connection) {
 }
 
 void PagesHandler::displayPagesEdit(mg_connection* connection) {
-	string file = Utils::parseUrlQuery(connection->query_string).at("file");
-	Utils::urlDecode(file);
+	string file;
+	try {
+		file = Utils::parseUrlQuery(connection->query_string).at("file");
+		Utils::urlDecode(file);
+	} catch (out_of_range& e) {
+	}
 
 	string actionName = "pages-edit-" + file;
 	string title = "pages";
 	string htmlFile = "res/admin/pages-edit.html";
 	function<void(mg_connection*, string&)> action = [&file](mg_connection* connection, string& result) {
-		try {
-			string text = Utils::readFile(fs::path(ConfigManager::getInstance().getSitePath() / "pages" / file));
-			Utils::htmlEncode(text);
-			replace_all(result, "%PAGEDATA%", text);
-			replace_all(result, "%FILE%", file);
-		} catch (out_of_range& e) {
-		}
+		string text = Utils::readFile(fs::path(ConfigManager::getInstance().getSitePath() / "pages" / file));
+		Utils::htmlEncode(text);
+		replace_all(result, "%PAGEDATA%", text);
+		replace_all(result, "%FILE%", file);
 	};
 	AdminServer::handleRequest(connection, actionName, title, htmlFile, action);
 }
@@ -103,10 +105,32 @@ void PagesHandler::displayPagesSave(mg_connection* connection) {
 			PageCompiler::getInstance().compile(filePath);
 
 			CacheManager::getInstance().invalidate("pages-list");
-			CacheManager::getInstance().invalidate("pages-edit");
+			CacheManager::getInstance().invalidate("pages-edit-" + file);
 		} catch (out_of_range& e) {
 			result = TranslationManager::getInstance().get("error");
 		}
+	};
+	AdminServer::handleRequest(connection, actionName, title, htmlFile, action);
+}
+
+void PagesHandler::displayPagesDelete(mg_connection* connection) {
+	string actionName = "pages-delete";
+	string title = "";
+	string htmlFile = "";
+	function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
+		try {
+			string file = Utils::parseUrlQuery(string(connection->query_string)).at("file");
+			Utils::urlDecode(file);
+
+			fs::remove(ConfigManager::getInstance().getSitePath() / "pages" / file);
+			fs::remove(ConfigManager::getInstance().getSitePath() / "public" / file);
+
+			CacheManager::getInstance().invalidate("pages-list");
+			CacheManager::getInstance().invalidate("pages-edit-" + file);
+		} catch (out_of_range& e) {
+		}
+		mg_send_status(connection, 301);
+		mg_send_header(connection, "Location", "/pages-list");
 	};
 	AdminServer::handleRequest(connection, actionName, title, htmlFile, action);
 }

@@ -10,5 +10,6 @@
 	"markdown": "Markdown",
 	"result": "Result",
 	"createfolder": "Create folder",
-	"createfile": "Create file"
+	"createfile": "Create file",
+	"delete": "Delete"
 }

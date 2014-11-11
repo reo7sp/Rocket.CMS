@@ -23,6 +23,7 @@
 #include <thread>
 #include <chrono>
 #include <boost/algorithm/string/replace.hpp>
+#include <boost/filesystem/operations.hpp>
 
 using namespace std;
 using namespace boost::algorithm;
@@ -60,32 +61,40 @@ void PageCompiler::compile(const fs::path& file) {
 }
 
 void PageCompiler::threadAction() {
+	const string pagesDir = fs::absolute(ConfigManager::getInstance().getSitePath() / "pages").string();
+	const string publicDir = fs::absolute(ConfigManager::getInstance().getSitePath() / "public").string();
 	while (_isRunning) {
 		_queueMutex.lock();
 		if (_queue.empty()) {
 			_queueMutex.unlock();
 			this_thread::sleep_for(chrono::seconds(1));
 		} else {
-			fs::path file = _queue.front();
+			const fs::path filePath = _queue.front();
 			_queue.pop();
 			_queueMutex.unlock();
 
+			string file = fs::absolute(filePath).string();
 			string text = Utils::readFile(file);
-			fs::path outputPath = ConfigManager::getInstance().getSitePath() / "public" / (file.filename().stem().string() + ".html");
-			Utils::saveFile(outputPath, text);
+			replace_first(file, pagesDir, publicDir);
+			Utils::saveFile(file, text);
 
-			compileMarkdown(outputPath);
-			compileTemplateToolkit(outputPath);
+			compileMarkdown(file);
+			compileTemplateToolkit(file);
 		}
 	}
 }
 
-void PageCompiler::compileMarkdown(const fs::path& file) const {
-	string out = Utils::exec(replace_all_copy(ConfigManager::getInstance().getMarkdownCommand(), "$1", file.string()));
+void PageCompiler::compileMarkdown(const string& file) const {
+	const string out = Utils::exec(replace_all_copy(ConfigManager::getInstance().getMarkdownCommand(), "$1", file));
 	Utils::saveFile(file, out);
 }
 
-void PageCompiler::compileTemplateToolkit(const fs::path& file) const {
-	string out = Utils::exec(replace_all_copy(ConfigManager::getInstance().getTemplateToolkitCommand(), "$1", file.string()));
+void PageCompiler::compileTemplateToolkit(const string& file) const {
+	const fs::path oldCurDir = fs::current_path();
+
+	fs::current_path(ConfigManager::getInstance().getSitePath());
+	const string out = Utils::exec(replace_all_copy(ConfigManager::getInstance().getTemplateToolkitCommand(), "$1", file));
+	fs::current_path(oldCurDir);
+
 	Utils::saveFile(file, out);
 }

@@ -39,8 +39,8 @@ private:
 
 	void operator=(PageCompiler&);
 	void threadAction();
-	void compileMarkdown(const boost::filesystem::path& file) const;
-	void compileTemplateToolkit(const boost::filesystem::path& file) const;
+	void compileMarkdown(const std::string& file) const;
+	void compileTemplateToolkit(const std::string& file) const;
 
 	std::queue<boost::filesystem::path> _queue;
 	std::mutex _queueMutex;

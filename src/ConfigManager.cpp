@@ -21,7 +21,6 @@
 
 #include <sstream>
 #include <rapidjson/document.h>
-#include <boost/filesystem/path.hpp>
 
 using namespace std;
 using namespace rapidjson;
@@ -57,7 +56,7 @@ void ConfigManager::reload() {
 			Log::warn("\"lang\" value doesn't exist in config");
 		}
 		if (document.HasMember("sitePath")) {
-			_sitePath = fs::path(document["sitePath"].GetString());
+			_sitePath = document["sitePath"].GetString();
 		} else {
 			Log::warn("\"sitePath\" value doesn't exist in config");
 		}

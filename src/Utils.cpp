@@ -50,12 +50,14 @@ string Utils::readFile(const fs::path& file) {
 bool Utils::saveFile(const fs::path& file, const string& text) {
 	fs::create_directories(file.parent_path());
 	fs::ofstream output(file, ios_base::out | ios_base::trunc);
-	if (output.fail()) {
-		return false;
-	}
 	output << text;
-	output.close();
-	return true;
+	if (output.fail()) {
+		output.close();
+		return false;
+	} else {
+		output.close();
+		return true;
+	}
 }
 
 void Utils::urlEncode(string& url) {

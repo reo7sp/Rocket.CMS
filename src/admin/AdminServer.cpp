@@ -108,6 +108,9 @@ int AdminServer::handleEvent(mg_connection* connection, mg_event event) {
 		} else if (starts_with(connection->uri, "/pages-save")) {
 			PagesHandler::displayPagesSave(connection);
 			return MG_TRUE;
+		} else if (starts_with(connection->uri, "/pages-delete")) {
+			PagesHandler::displayPagesDelete(connection);
+			return MG_TRUE;
 		} else {
 			return MG_FALSE;
 		}

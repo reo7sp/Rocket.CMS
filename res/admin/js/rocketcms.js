@@ -20,6 +20,7 @@ $(document).ready(function() {
 	var saveBtn = $('#save-btn');
 	var ajaxResult = $('.ajax-result');
 	var createFile = $('#create-file');
+	var deleteBtn = $('.delete-btn');
 
 	saveBtn.click(function() {
 		ajaxResult.html('Saving...');
@@ -46,8 +47,7 @@ $(document).ready(function() {
 
 	if (editorResult.length) {
 		var updateEditor = function() {
-			var text = htmlDecode(editorArea.html());
-			text = marked(text).replace(/\n/g, '<br>');
+			var text = marked(htmlDecode(editorArea.html()));
 			editorResult.html(text);
 		};
 		updateEditor();
@@ -65,10 +65,17 @@ $(document).ready(function() {
 		} else if (window.location.pathname.indexOf('/template-list') == 0) {
 			editLoc = '/template-edit';
 		}
-		name = '%2f' + name + '.tt';
-		name = name.replace(/(\.tt)+/g, '.tt');
+		name = '%2f' + name + '.html';
+		name = name.replace(/(\.tt)+/g, '.html');
 		name = name.replace(/(%2f)+/g, '%2f');
 		window.location.href = editLoc + '?file=' + name;
+	});
+
+	deleteBtn.click(function(e) {
+		e.preventDefault();
+		if (confirm('Are you sure you want to delete?')) {
+			window.location.href = $(this).attr('href');
+		}
 	});
 });
 
