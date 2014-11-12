@@ -1,9 +1,13 @@
 [% INCLUDE header.tt %]
 
-<table class="pad">
+<table class="file-list">
 %PAGESLIST%
 <tr class="empty16"></tr>
-<tr><td><button id="create-file">%CREATEFILESTR%</button></td></tr>
+<tr><td>
+	<button class="create-file">%CREATEFILESTR%</button>
+	<span class="create-file-input">%ENTERFILENAMESTR%:&nbsp;&nbsp; <input type="text"></input> .html</span>
+	<span class="create-file-error"></span>
+</td></tr>
 </table>
 
 [% INCLUDE footer.tt %]

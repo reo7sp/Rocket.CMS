@@ -12,9 +12,9 @@
 		<header id="main-header">
 			<a href="/">%SITETITLE%: %TITLE%</a>
 			<nav>
-				<a href="/pages-edit">%PAGESSTR%</a>
-				<a href="/template-edit">%TEMPLATESTR%</a>
-				<a href="/files-edit">%FILESSTR%</a>
+				<a href="/pages-list">%PAGESSTR%</a>
+				<a href="/template-list">%TEMPLATESTR%</a>
+				<a href="/files-list">%FILESSTR%</a>
 			</nav>
 		</header>
 		<div id="page-wrap">

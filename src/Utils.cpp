@@ -68,7 +68,7 @@ void Utils::urlEncode(string& url) {
 	fill(dst + len, dst + len * 3, ' ');
 	dst[len * 3] = '\0';
 
-	mg_url_encode(url.c_str(), len, dst, len * 3);
+	mg_url_encode(url.c_str(), len, dst, len * 3 + 1);
 	url = trim_copy(string(dst));
 
 	delete[] dst;
@@ -81,7 +81,7 @@ void Utils::urlDecode(string& url) {
 	copy(url.begin(), url.end(), dst);
 	dst[len] = '\0';
 
-	mg_url_decode(url.c_str(), len, dst, len, 0);
+	mg_url_decode(url.c_str(), len, dst, len + 1, 0);
 	url = trim_copy(string(dst));
 
 	delete[] dst;

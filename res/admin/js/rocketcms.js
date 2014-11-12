@@ -15,13 +15,40 @@
  */
 
 $(document).ready(function() {
+	// elements
+	var fileList = $('.file-list');
 	var editorArea = $('.editor-area');
 	var editorResult = $('.editor-result');
 	var saveBtn = $('#save-btn');
 	var ajaxResult = $('.ajax-result');
-	var createFile = $('#create-file');
+	var createFile = $('.create-file');
+	var createFileInput = $('.create-file-input input');
 	var deleteBtn = $('.delete-btn');
 
+	// suggestions index
+	var suggestions = new Array();
+	if (fileList.length) {
+		var i = 0;
+		fileList.find('a').each(function() {
+			var text = $(this).html();
+			if (suggestions.indexOf(text) === -1) {
+				suggestions[i++] = text.replace('.html', '');
+			}
+		});
+		fileList.find('td').each(function() {
+			var text = $(this).html();
+			if (text.indexOf('▼ ') === 0) {
+				text = text.substr(2);
+			} else {
+				return;
+			}
+			if (suggestions.indexOf(text) === -1) {
+				suggestions[i++] = text;
+			}
+		});
+	}
+
+	// events
 	saveBtn.click(function() {
 		ajaxResult.html('Saving...');
 		var saveLoc = '';
@@ -55,20 +82,61 @@ $(document).ready(function() {
 	}
 
 	createFile.click(function() {
-		var name = prompt("Enter file name without extension");
+		if (createFileInput.parent().css("display") == "none") {
+			createFileInput.parent().fadeIn();
+			return;
+		}
+		$(createFileInput).focus();
+
+		var name = $(createFileInput).val();
 		if (name == null || name == '') {
 			return;
 		}
+		name = (name + '.html').replace(/(\.html)+/g, '.html').replace(/\//g, '%2f');
+
 		var editLoc = '';
 		if (window.location.pathname.indexOf('/pages-list') == 0) {
 			editLoc = '/pages-edit';
 		} else if (window.location.pathname.indexOf('/template-list') == 0) {
 			editLoc = '/template-edit';
 		}
-		name = '%2f' + name + '.html';
-		name = name.replace(/(\.tt)+/g, '.html');
-		name = name.replace(/(%2f)+/g, '%2f');
 		window.location.href = editLoc + '?file=' + name;
+	});
+
+	var wasDel = false;
+	createFileInput.keypress(function(e) {
+		wasDel = e.keyCode == 8 || e.keyCode == 46;
+	});
+	createFileInput.on('input propertychange', function() {
+		if (wasDel) return;
+
+		var val = $(createFileInput).val();
+		if (val == null || val == '') return;
+
+		var domElem = createFileInput[0];
+		if (domElem.selection) return;
+
+		var suggestion = '';
+		var start = -1;
+		var suggestStart = -1;
+		for (var i = 0; i < suggestions.length; i++) {
+			var item = suggestions[i];
+			for (var j = item.length; j > 0; j--) {
+				var s = val.lastIndexOf(item.substr(0, j));
+				if (s !== -1) {
+					if (suggestion.length == 0 || s + j > start) {
+						suggestion = item;
+						suggestStart = j;
+						start = s + j;
+					}
+				}
+			}
+		}
+		if (start >= val.length) {
+			createFileInput.val(val + suggestion.substr(suggestStart));
+			domElem.selectionStart = start;
+			domElem.selectionEnd = val.length + suggestion.length;
+		}
 	});
 
 	deleteBtn.click(function(e) {

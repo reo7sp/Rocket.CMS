@@ -11,5 +11,6 @@
 	"result": "Result",
 	"createfolder": "Create folder",
 	"createfile": "Create file",
-	"delete": "Delete"
+	"delete": "Delete",
+	"enterfilename": "Enter filename"
 }

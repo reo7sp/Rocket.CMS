@@ -21,7 +21,7 @@ table {
 	width: 100%;
 }
 
-button {
+button, input[type=submit] {
 	color: #fff;
 	background-color: #00a000;
 	border-radius: 4px;
@@ -32,6 +32,13 @@ button {
 	&:hover {
 		background-color: #00b000;
 	}
+}
+
+input[type=text] {
+	border: 1px #00a000 solid;
+	padding: 4px;
+	border-radius: 4px;
+	font: inherit;
 }
 
 .empty16 {
@@ -73,6 +80,15 @@ button {
 	text-align: right;
 }
 
+.create-file-input {
+	margin-left: 16px;
+	display: none;
+}
+
+.file-list {
+	padding: 16px;
+}
+
 .editor-wrap {
 	width: 100%;
 	height: 100%;
@@ -85,13 +101,13 @@ button {
 }
 
 .editor-label {
-	.pad;
+	padding: 16px;
 	border-top: 1px #aaa dashed;
 	text-align: center;
 }
 
 .editor-area {
-	.pad;
+	padding: 16px;
 	outline: none;
 	word-wrap: break-word;
 	box-shadow: inset 0px 0px 4px #aaa;
@@ -102,7 +118,7 @@ button {
 }
 
 .editor-result {
-	.pad;
+	padding: 16px;
 	box-shadow: inset 0px 0px 4px #aaa;
 
 	&:focus {

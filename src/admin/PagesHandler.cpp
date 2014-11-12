@@ -47,17 +47,18 @@ void PagesHandler::displayPagesList(mg_connection* connection) {
 		fs::path dir = ConfigManager::getInstance().getSitePath() / "pages";
 		fs::recursive_directory_iterator endIter;
 		for (fs::recursive_directory_iterator iter(dir); iter != endIter; ++iter) {
-			string file = replace_all_copy(iter->path().string(), dir.string(), "");
+			string file = replace_all_copy(iter->path().string(), dir.string() + "/", "");
+			string fileName = iter->path().filename().string();
 
 			size_t slashCount = count(file.begin(), file.end(), '/');
-			pageslist += "<tr><td style=\"padding-left:" + to_string((slashCount - 1) * 1.25) + "em\">";
+			pageslist += "<tr><td style=\"padding-left:" + to_string(slashCount * 1.25) + "em\">";
 
 			if (fs::is_directory(iter->path())) {
 				pageslist += "▼ " + file;
 			} else {
 				string fileUrl = file;
 				Utils::urlEncode(fileUrl);
-				pageslist += "<a href=\"/pages-edit?file=" + fileUrl + "\">" + file + "</a>";
+				pageslist += "<a href=\"/pages-edit?file=" + fileUrl + "\">" + fileName + "</a>";
 				pageslist += "<a href=\"/pages-delete?file=" + fileUrl + "\" class=\"delete-btn\">" + TranslationManager::getInstance().get("delete") + "</a>";
 			}
 
