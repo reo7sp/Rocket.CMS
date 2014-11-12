@@ -32,7 +32,7 @@ $(document).ready(function() {
 		fileList.find('a').each(function() {
 			var text = $(this).html();
 			if (suggestions.indexOf(text) === -1) {
-				suggestions[i++] = text.replace('.html', '');
+				suggestions[i++] = text.replace('.html', '').replace('.tt2', '');
 			}
 		});
 		fileList.find('td').each(function() {
@@ -75,6 +75,7 @@ $(document).ready(function() {
 	if (editorResult.length) {
 		var updateEditor = function() {
 			var text = marked(htmlDecode(editorArea.html()));
+			text = text.replace(/\[%/g, '<div class="intext-block">').replace(/%\]/g, '</div>');
 			editorResult.html(text);
 		};
 		updateEditor();
@@ -92,15 +93,16 @@ $(document).ready(function() {
 		if (name == null || name == '') {
 			return;
 		}
-		name = (name + '.html').replace(/(\.html)+/g, '.html').replace(/\//g, '%2f');
 
 		var editLoc = '';
 		if (window.location.pathname.indexOf('/pages-list') == 0) {
 			editLoc = '/pages-edit';
+			name = (name + '.html').replace(/(\.html)+/g, '.html');
 		} else if (window.location.pathname.indexOf('/template-list') == 0) {
 			editLoc = '/template-edit';
+			name = (name + '.tt2').replace(/(\.tt2)+/g, '.tt2');
 		}
-		window.location.href = editLoc + '?file=' + name;
+		window.location.href = editLoc + '?file=' + name.replace(/\//g, '%2f');
 	});
 
 	var wasDel = false;

@@ -17,6 +17,7 @@ set(SRC_LIST
 	src/PageCompiler.cpp
 	src/admin/AdminServer.cpp
 	src/admin/PagesHandler.cpp
+	src/admin/TemplateHandler.cpp
 )
 
 # libs

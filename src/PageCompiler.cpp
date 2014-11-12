@@ -85,7 +85,9 @@ void PageCompiler::threadAction() {
 }
 
 void PageCompiler::compileMarkdown(const string& file) const {
-	const string out = Utils::exec(replace_all_copy(ConfigManager::getInstance().getMarkdownCommand(), "$1", file));
+	string out = Utils::exec(replace_all_copy(ConfigManager::getInstance().getMarkdownCommand(), "$1", file));
+	replace_all(out, "<p>[%", "[%");
+	replace_all(out, "%]</p>", "%]");
 	Utils::saveFile(file, out);
 }
 

@@ -1,0 +1,13 @@
+[% INCLUDE header.tt %]
+
+<table class="file-list">
+%TEMPLATELIST%
+<tr class="empty16"></tr>
+<tr><td>
+	<button class="create-file">%CREATEFILESTR%</button>
+	<span class="create-file-input">%ENTERFILENAMESTR%:&nbsp;&nbsp; <input type="text"></input> .tt2</span>
+	<span class="create-file-error"></span>
+</td></tr>
+</table>
+
+[% INCLUDE footer.tt %]

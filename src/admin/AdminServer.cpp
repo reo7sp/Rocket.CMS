@@ -17,6 +17,7 @@
 #include "AdminServer.h"
 
 #include "PagesHandler.h"
+#include "TemplateHandler.h"
 #include "../Log.h"
 #include "../Utils.h"
 #include "../ConfigManager.h"
@@ -110,6 +111,18 @@ int AdminServer::handleEvent(mg_connection* connection, mg_event event) {
 			return MG_TRUE;
 		} else if (starts_with(connection->uri, "/pages-delete")) {
 			PagesHandler::displayPagesDelete(connection);
+			return MG_TRUE;
+		} else if (starts_with(connection->uri, "/template-list")) {
+			TemplateHandler::displayTemplateList(connection);
+			return MG_TRUE;
+		} else if (starts_with(connection->uri, "/template-edit")) {
+			TemplateHandler::displayTemplateEdit(connection);
+			return MG_TRUE;
+		} else if (starts_with(connection->uri, "/template-save")) {
+			TemplateHandler::displayTemplateSave(connection);
+			return MG_TRUE;
+		} else if (starts_with(connection->uri, "/template-delete")) {
+			TemplateHandler::displayTemplateDelete(connection);
 			return MG_TRUE;
 		} else {
 			return MG_FALSE;
