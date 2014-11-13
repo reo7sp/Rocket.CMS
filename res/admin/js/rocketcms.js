@@ -85,6 +85,7 @@ $(document).ready(function() {
 	createFile.click(function() {
 		if (createFileInput.parent().css("display") == "none") {
 			createFileInput.parent().fadeIn();
+			createFileInput.focus();
 			return;
 		}
 		$(createFileInput).focus();
@@ -108,6 +109,9 @@ $(document).ready(function() {
 	var wasDel = false;
 	createFileInput.keypress(function(e) {
 		wasDel = e.keyCode == 8 || e.keyCode == 46;
+		if (e.keyCode == 13) {
+			createFile.click();
+		}
 	});
 	createFileInput.on('input propertychange', function() {
 		if (wasDel) return;
