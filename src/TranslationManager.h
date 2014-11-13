@@ -22,10 +22,10 @@
 
 class TranslationManager {
 public:
-	static TranslationManager& getInstance();
+	static TranslationManager& get();
 
 	void reload();
-	std::string get(const std::string& key) const;
+	std::string getString(const std::string& key) const;
 	void translate(std::string& text) const;
 
 private:

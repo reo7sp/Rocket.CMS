@@ -31,6 +31,7 @@
 #include <mongoose/mongoose.h>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
+#include <boost/algorithm/string/predicate.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string/split.hpp>
 
@@ -38,13 +39,41 @@ using namespace std;
 using namespace boost::algorithm;
 namespace fs = boost::filesystem;
 
+TemplateHandler::TemplateHandler() {
+}
+
+TemplateHandler::~TemplateHandler() {
+}
+
+TemplateHandler& TemplateHandler::get() {
+	static TemplateHandler instance;
+	return instance;
+}
+
+bool TemplateHandler::tryDisplay(mg_connection* connection) {
+	if (starts_with(connection->uri, "/template-list")) {
+		displayTemplateList(connection);
+		return true;
+	} else if (starts_with(connection->uri, "/template-edit")) {
+		displayTemplateEdit(connection);
+		return true;
+	} else if (starts_with(connection->uri, "/template-save")) {
+		displayTemplateSave(connection);
+		return true;
+	} else if (starts_with(connection->uri, "/template-delete")) {
+		displayTemplateDelete(connection);
+		return true;
+	}
+	return false;
+}
+
 void TemplateHandler::displayTemplateList(mg_connection* connection) {
 	string actionName = "template-list";
 	string title = "template";
 	string htmlFile = "res/admin/template-list.html";
 	function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
 		string templatelist;
-		fs::path dir = ConfigManager::getInstance().getSitePath() / "template";
+		fs::path dir = ConfigManager::get().getSitePath() / "template";
 		fs::recursive_directory_iterator endIter;
 		for (fs::recursive_directory_iterator iter(dir); iter != endIter; ++iter) {
 			string file = replace_all_copy(iter->path().string(), dir.string() + "/", "");
@@ -59,7 +88,7 @@ void TemplateHandler::displayTemplateList(mg_connection* connection) {
 				string fileUrl = file;
 				Utils::urlEncode(fileUrl);
 				templatelist += "<a href=\"/template-edit?file=" + fileUrl + "\">" + fileName + "</a>";
-				templatelist += "<a href=\"/template-delete?file=" + fileUrl + "\" class=\"delete-btn\">" + TranslationManager::getInstance().get("delete") + "</a>";
+				templatelist += "<a href=\"/template-delete?file=" + fileUrl + "\" class=\"delete-btn\">" + TranslationManager::get().getString("delete") + "</a>";
 			}
 
 			templatelist += "</td></tr>";
@@ -81,7 +110,7 @@ void TemplateHandler::displayTemplateEdit(mg_connection* connection) {
 	string title = "template";
 	string htmlFile = "res/admin/template-edit.html";
 	function<void(mg_connection*, string&)> action = [&file](mg_connection* connection, string& result) {
-		string text = Utils::readFile(fs::path(ConfigManager::getInstance().getSitePath() / "template" / file));
+		string text = Utils::readFile(fs::path(ConfigManager::get().getSitePath() / "template" / file));
 		Utils::htmlEncode(text);
 		replace_all(result, "%TEMPLATEDATA%", text);
 		replace_all(result, "%FILE%", file);
@@ -100,14 +129,14 @@ void TemplateHandler::displayTemplateSave(mg_connection* connection) {
 			string text = Utils::postDataParse(connection);
 			Utils::htmlDecode(text);
 
-			fs::path filePath = fs::path(ConfigManager::getInstance().getSitePath() / "template" / file);
+			fs::path filePath = fs::path(ConfigManager::get().getSitePath() / "template" / file);
 			bool success = Utils::saveFile(filePath, text);
-			result = TranslationManager::getInstance().get(success ? "saveok" : "saveerror");
+			result = TranslationManager::get().getString(success ? "saveok" : "saveerror");
 
-			CacheManager::getInstance().invalidate("template-list");
-			CacheManager::getInstance().invalidate("template-edit-" + file);
+			CacheManager::get().removeString("template-list");
+			CacheManager::get().removeString("template-edit-" + file);
 		} catch (out_of_range& e) {
-			result = TranslationManager::getInstance().get("error");
+			result = TranslationManager::get().getString("error");
 		}
 	};
 	AdminServer::handleRequest(connection, actionName, title, htmlFile, action);
@@ -122,10 +151,10 @@ void TemplateHandler::displayTemplateDelete(mg_connection* connection) {
 			string file = Utils::parseUrlQuery(string(connection->query_string)).at("file");
 			Utils::urlDecode(file);
 
-			fs::remove(ConfigManager::getInstance().getSitePath() / "template" / file);
+			fs::remove(ConfigManager::get().getSitePath() / "template" / file);
 
-			CacheManager::getInstance().invalidate("template-list");
-			CacheManager::getInstance().invalidate("template-edit-" + file);
+			CacheManager::get().removeString("template-list");
+			CacheManager::get().removeString("template-edit-" + file);
 		} catch (out_of_range& e) {
 		}
 		mg_send_status(connection, 301);

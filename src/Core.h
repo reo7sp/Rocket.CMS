@@ -19,7 +19,7 @@
 
 class Core {
 public:
-	static Core& getInstance();
+	static Core& get();
 
 	void start();
 	void stop();

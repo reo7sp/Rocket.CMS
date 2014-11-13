@@ -19,6 +19,7 @@
 #include "ConfigManager.h"
 #include "TranslationManager.h"
 #include "PageCompiler.h"
+#include "CacheManager.h"
 #include "admin/AdminServer.h"
 
 Core::Core() {
@@ -28,23 +29,24 @@ Core::~Core() {
 	stop();
 }
 
-Core& Core::getInstance() {
+Core& Core::get() {
 	static Core instance;
 	return instance;
 }
 
 void Core::start() {
-	ConfigManager::getInstance().reload();
-	TranslationManager::getInstance().reload();
-	PageCompiler::getInstance().start();
-	AdminServer::getInstance().start();
+	ConfigManager::get().reload();
+	TranslationManager::get().reload();
+	PageCompiler::get().start();
+	AdminServer::get().start();
 }
 
 void Core::stop() {
-	PageCompiler::getInstance().stop();
-	AdminServer::getInstance().stop();
+	PageCompiler::get().stop();
+	AdminServer::get().stop();
+	CacheManager::get().clearAll();
 }
 
 int main() {
-	Core::getInstance().start();
+	Core::get().start();
 }

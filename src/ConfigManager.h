@@ -22,7 +22,7 @@
 
 class ConfigManager {
 public:
-	static ConfigManager& getInstance();
+	static ConfigManager& get();
 
 	void reload();
 

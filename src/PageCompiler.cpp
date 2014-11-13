@@ -36,7 +36,7 @@ PageCompiler::~PageCompiler() {
 	stop();
 }
 
-PageCompiler& PageCompiler::getInstance() {
+PageCompiler& PageCompiler::get() {
 	static PageCompiler instance;
 	return instance;
 }
@@ -61,8 +61,8 @@ void PageCompiler::compile(const fs::path& file) {
 }
 
 void PageCompiler::threadAction() {
-	const string pagesDir = fs::absolute(ConfigManager::getInstance().getSitePath() / "pages").string();
-	const string publicDir = fs::absolute(ConfigManager::getInstance().getSitePath() / "public").string();
+	const string pagesDir = fs::absolute(ConfigManager::get().getSitePath() / "pages").string();
+	const string publicDir = fs::absolute(ConfigManager::get().getSitePath() / "public").string();
 	while (_isRunning) {
 		_queueMutex.lock();
 		if (_queue.empty()) {
@@ -85,7 +85,7 @@ void PageCompiler::threadAction() {
 }
 
 void PageCompiler::compileMarkdown(const string& file) const {
-	string out = Utils::exec(replace_all_copy(ConfigManager::getInstance().getMarkdownCommand(), "$1", file));
+	string out = Utils::exec(replace_all_copy(ConfigManager::get().getMarkdownCommand(), "$1", file));
 	replace_all(out, "<p>[%", "[%");
 	replace_all(out, "%]</p>", "%]");
 	Utils::saveFile(file, out);
@@ -94,8 +94,8 @@ void PageCompiler::compileMarkdown(const string& file) const {
 void PageCompiler::compileTemplateToolkit(const string& file) const {
 	const fs::path oldCurDir = fs::current_path();
 
-	fs::current_path(ConfigManager::getInstance().getSitePath());
-	const string out = Utils::exec(replace_all_copy(ConfigManager::getInstance().getTemplateToolkitCommand(), "$1", file));
+	fs::current_path(ConfigManager::get().getSitePath());
+	const string out = Utils::exec(replace_all_copy(ConfigManager::get().getTemplateToolkitCommand(), "$1", file));
 	fs::current_path(oldCurDir);
 
 	Utils::saveFile(file, out);

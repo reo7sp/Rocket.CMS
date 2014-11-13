@@ -22,13 +22,13 @@
 
 class CacheManager {
 public:
-	static CacheManager& getInstance();
+	static CacheManager& get();
 
-	bool has(const std::string& key) const;
-	std::string get(const std::string& key) const;
-	void set(const std::string& key, const std::string& value);
-	void invalidate(const std::string& key);
-	void clear();
+	bool hasString(const std::string& key) const;
+	std::string getString(const std::string& key) const;
+	void setString(const std::string& key, const std::string& value);
+	void removeString(const std::string& key);
+	void clearAll();
 
 private:
 	CacheManager();

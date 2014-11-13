@@ -24,7 +24,7 @@
 
 class PageCompiler {
 public:
-	static PageCompiler& getInstance();
+	static PageCompiler& get();
 
 	void start();
 	void stop();

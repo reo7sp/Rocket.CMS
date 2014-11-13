@@ -32,7 +32,7 @@ ConfigManager::ConfigManager() {
 ConfigManager::~ConfigManager() {
 }
 
-ConfigManager& ConfigManager::getInstance() {
+ConfigManager& ConfigManager::get() {
 	static ConfigManager instance;
 	return instance;
 }

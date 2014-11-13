@@ -19,11 +19,22 @@
 
 #include <mongoose/mongoose.h>
 
-namespace PagesHandler {
+class PagesHandler {
+public:
+	static PagesHandler& get();
+
+	bool tryDisplay(mg_connection* connection);
 	void displayPagesList(mg_connection* connection);
 	void displayPagesEdit(mg_connection* connection);
 	void displayPagesSave(mg_connection* connection);
 	void displayPagesDelete(mg_connection* connection);
-}
+
+private:
+	PagesHandler();
+	PagesHandler(PagesHandler&);
+	~PagesHandler();
+
+	void operator=(PagesHandler&);
+};
 
 #endif

@@ -19,11 +19,22 @@
 
 #include <mongoose/mongoose.h>
 
-namespace TemplateHandler {
+class TemplateHandler {
+public:
+	static TemplateHandler& get();
+
+	bool tryDisplay(mg_connection* connection);
 	void displayTemplateList(mg_connection* connection);
 	void displayTemplateEdit(mg_connection* connection);
 	void displayTemplateSave(mg_connection* connection);
 	void displayTemplateDelete(mg_connection* connection);
-}
+
+private:
+	TemplateHandler();
+	TemplateHandler(TemplateHandler&);
+	~TemplateHandler();
+
+	void operator=(TemplateHandler&);
+};
 
 #endif

@@ -26,19 +26,19 @@ CacheManager::CacheManager() {
 }
 
 CacheManager::~CacheManager() {
-	clear();
+	clearAll();
 }
 
-CacheManager& CacheManager::getInstance() {
+CacheManager& CacheManager::get() {
 	static CacheManager instance;
 	return instance;
 }
 
-bool CacheManager::has(const string& key) const {
-	return get(key).empty();
+bool CacheManager::hasString(const string& key) const {
+	return getString(key).empty();
 }
 
-string CacheManager::get(const string& key) const {
+string CacheManager::getString(const string& key) const {
 	try {
 		return _cache.at(key);
 	} catch (out_of_range& e) {
@@ -46,15 +46,15 @@ string CacheManager::get(const string& key) const {
 	}
 }
 
-void CacheManager::set(const string& key, const string& value) {
+void CacheManager::setString(const string& key, const string& value) {
 	_cache[key] = value;
 	Log::debug(key + " cached");
 }
 
-void CacheManager::invalidate(const string& key) {
+void CacheManager::removeString(const string& key) {
 	_cache.erase(key);
 }
 
-void CacheManager::clear() {
+void CacheManager::clearAll() {
 	_cache.clear();
 }

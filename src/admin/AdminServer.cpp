@@ -27,7 +27,6 @@
 #include <string>
 #include <sstream>
 #include <boost/filesystem/path.hpp>
-#include <boost/algorithm/string/predicate.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
 using namespace std;
@@ -41,29 +40,29 @@ AdminServer::~AdminServer() {
 	stop();
 }
 
-AdminServer& AdminServer::getInstance() {
+AdminServer& AdminServer::get() {
 	static AdminServer instance;
 	return instance;
 }
 
 void AdminServer::handleRequest(mg_connection* connection, const std::string& actionName, const std::string& title, const std::string& htmlFile, const std::function<void(mg_connection*, std::string&)>& action) {
-	string fileResult = CacheManager::getInstance().get(htmlFile);
-	string result = CacheManager::getInstance().get(actionName);
+	string fileResult = CacheManager::get().getString(htmlFile);
+	string result = CacheManager::get().getString(actionName);
 	if (result.empty()) {
 		if (fileResult.empty() && !htmlFile.empty()) {
 			fileResult = Utils::readFile(fs::path(htmlFile));
-			CacheManager::getInstance().set(htmlFile, fileResult);
+			CacheManager::get().setString(htmlFile, fileResult);
 		}
 		result = fileResult;
 
-		TranslationManager::getInstance().translate(result);
-		replace_all(result, "%TITLE%", TranslationManager::getInstance().get(title));
-		replace_all(result, "%SITETITLE%", ConfigManager::getInstance().getTitle());
+		TranslationManager::get().translate(result);
+		replace_all(result, "%TITLE%", TranslationManager::get().getString(title));
+		replace_all(result, "%SITETITLE%", ConfigManager::get().getTitle());
 
 		action(connection, result);
 
 		if (!htmlFile.empty()) {
-			CacheManager::getInstance().set(actionName, result);
+			CacheManager::get().setString(actionName, result);
 		}
 	}
 	mg_printf_data(connection, "%s", result.c_str());
@@ -73,10 +72,10 @@ void AdminServer::start() {
 	if (_isRunning) return;
 	_isRunning = true;
 
-	Log::info("Starting server at port " + ConfigManager::getInstance().getPort());
+	Log::info("Starting server at port " + ConfigManager::get().getPort());
 
 	_server = mg_create_server(nullptr, &AdminServer::handleEvent);
-	mg_set_option(_server, "listening_port", ConfigManager::getInstance().getPort().c_str());
+	mg_set_option(_server, "listening_port", ConfigManager::get().getPort().c_str());
 	mg_set_option(_server, "document_root", fs::path("res/admin").c_str());
 	while (_isRunning) {
 		mg_poll_server(_server, 1000);
@@ -95,36 +94,14 @@ int AdminServer::handleEvent(mg_connection* connection, mg_event event) {
 	if (event == MG_AUTH) {
 		return MG_TRUE;
 	} else if (event == MG_REQUEST) {
-		if (equals(connection->uri, "/")) {
+		if (string(connection->uri) == "/") {
 			mg_send_status(connection, 301);
 			mg_send_header(connection, "Location", "/pages-list");
 			mg_printf_data(connection, "%s", "");
 			return MG_TRUE;
-		} else if (starts_with(connection->uri, "/pages-list")) {
-			PagesHandler::displayPagesList(connection);
-			return MG_TRUE;
-		} else if (starts_with(connection->uri, "/pages-edit")) {
-			PagesHandler::displayPagesEdit(connection);
-			return MG_TRUE;
-		} else if (starts_with(connection->uri, "/pages-save")) {
-			PagesHandler::displayPagesSave(connection);
-			return MG_TRUE;
-		} else if (starts_with(connection->uri, "/pages-delete")) {
-			PagesHandler::displayPagesDelete(connection);
-			return MG_TRUE;
-		} else if (starts_with(connection->uri, "/template-list")) {
-			TemplateHandler::displayTemplateList(connection);
-			return MG_TRUE;
-		} else if (starts_with(connection->uri, "/template-edit")) {
-			TemplateHandler::displayTemplateEdit(connection);
-			return MG_TRUE;
-		} else if (starts_with(connection->uri, "/template-save")) {
-			TemplateHandler::displayTemplateSave(connection);
-			return MG_TRUE;
-		} else if (starts_with(connection->uri, "/template-delete")) {
-			TemplateHandler::displayTemplateDelete(connection);
-			return MG_TRUE;
 		} else {
+			if (PagesHandler::get().tryDisplay(connection)) return MG_TRUE;
+			if (TemplateHandler::get().tryDisplay(connection)) return MG_TRUE;
 			return MG_FALSE;
 		}
 	} else {

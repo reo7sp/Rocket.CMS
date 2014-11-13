@@ -37,7 +37,7 @@ TranslationManager::TranslationManager() {
 TranslationManager::~TranslationManager() {
 }
 
-TranslationManager& TranslationManager::getInstance() {
+TranslationManager& TranslationManager::get() {
 	static TranslationManager instance;
 	return instance;
 }
@@ -45,7 +45,7 @@ TranslationManager& TranslationManager::getInstance() {
 void TranslationManager::reload() {
 	Log::info("Parsing tranlations");
 
-	string json = Utils::readFile(fs::path("res/translations/" + ConfigManager::getInstance().getLang() + ".json"));
+	string json = Utils::readFile(fs::path("res/translations/" + ConfigManager::get().getLang() + ".json"));
 	if (!json.empty()) {
 		Document document;
 		document.Parse(json.c_str());
@@ -60,7 +60,7 @@ void TranslationManager::reload() {
 	}
 }
 
-string TranslationManager::get(const string& key) const {
+string TranslationManager::getString(const string& key) const {
 	try {
 		return _data.at(key);
 	} catch (out_of_range& e) {
