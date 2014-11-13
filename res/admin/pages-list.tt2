@@ -1,13 +1,12 @@
-[% INCLUDE header.tt %]
+[% INCLUDE header.tt2 %]
 
 <table class="file-list">
-%PAGESLIST%
+%FILELIST%
 <tr class="empty16"></tr>
 <tr><td>
 	<button class="create-file">%CREATEFILESTR%</button>
 	<span class="create-file-input">%ENTERFILENAMESTR%:&nbsp;&nbsp; <input type="text"></input> .html</span>
-	<span class="create-file-error"></span>
 </td></tr>
 </table>
 
-[% INCLUDE footer.tt %]
+[% INCLUDE footer.tt2 %]

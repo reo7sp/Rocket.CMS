@@ -18,6 +18,7 @@
 
 #include "PagesHandler.h"
 #include "TemplateHandler.h"
+#include "FilesHandler.h"
 #include "../Log.h"
 #include "../Utils.h"
 #include "../ConfigManager.h"
@@ -26,6 +27,7 @@
 
 #include <string>
 #include <sstream>
+#include <stdexcept>
 #include <boost/filesystem/path.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
@@ -94,15 +96,22 @@ int AdminServer::handleEvent(mg_connection* connection, mg_event event) {
 	if (event == MG_AUTH) {
 		return MG_TRUE;
 	} else if (event == MG_REQUEST) {
-		if (string(connection->uri) == "/") {
-			mg_send_status(connection, 301);
-			mg_send_header(connection, "Location", "/pages-list");
-			mg_printf_data(connection, "%s", "");
+		try {
+			if (string(connection->uri) == "/") {
+				mg_send_status(connection, 301);
+				mg_send_header(connection, "Location", "/pages-list");
+				mg_printf_data(connection, "%s", "");
+				return MG_TRUE;
+			} else {
+				if (PagesHandler::get().tryDisplay(connection)) return MG_TRUE;
+				if (TemplateHandler::get().tryDisplay(connection)) return MG_TRUE;
+				if (FilesHandler::get().tryDisplay(connection)) return MG_TRUE;
+				return MG_FALSE;
+			}
+		} catch (exception& e) {
+			mg_send_status(connection, 500);
+			mg_printf_data(connection, "%s\r\n\r\n%s", "500 Internal Server Error", e.what());
 			return MG_TRUE;
-		} else {
-			if (PagesHandler::get().tryDisplay(connection)) return MG_TRUE;
-			if (TemplateHandler::get().tryDisplay(connection)) return MG_TRUE;
-			return MG_FALSE;
 		}
 	} else {
 		return MG_FALSE;

@@ -16,8 +16,10 @@ set(SRC_LIST
 	src/TranslationManager.cpp
 	src/PageCompiler.cpp
 	src/admin/AdminServer.cpp
+	src/admin/AbstractHandler.cpp
 	src/admin/PagesHandler.cpp
 	src/admin/TemplateHandler.cpp
+	src/admin/FilesHandler.cpp
 )
 
 # libs

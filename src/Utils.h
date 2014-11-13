@@ -31,6 +31,7 @@ namespace Utils {
 	void htmlEncode(std::string& text);
 	void htmlDecode(std::string& text);
 	std::string postDataParse(const mg_connection* connection);
+	std::string loadMultipartData(const mg_connection* connection);
 	std::map<std::string, std::string> parseUrlQuery(const std::string& query);
 	std::string exec(const std::string& command);
 

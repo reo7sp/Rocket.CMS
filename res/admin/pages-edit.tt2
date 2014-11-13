@@ -1,4 +1,4 @@
-[% INCLUDE header.tt %]
+[% INCLUDE header.tt2 %]
 
 <header id="main-bottom-header">
 	<a>%FILE%</a>
@@ -11,7 +11,7 @@
 <table class="editor-wrap">
 	<tr>
 		<td contenteditable class="editor-area">
-		%PAGEDATA%
+		%FILEDATA%
 		</td>
 		<td class="editor-result">
 		</td>
@@ -22,4 +22,4 @@
 	</tr>
 </table>
 
-[% INCLUDE footer.tt %]
+[% INCLUDE footer.tt2 %]

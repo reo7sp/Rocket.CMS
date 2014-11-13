@@ -19,11 +19,12 @@ $(document).ready(function() {
 	var fileList = $('.file-list');
 	var editorArea = $('.editor-area');
 	var editorResult = $('.editor-result');
-	var saveBtn = $('#save-btn');
+	var saveBtn = $('.save-btn');
 	var ajaxResult = $('.ajax-result');
 	var createFile = $('.create-file');
 	var createFileInput = $('.create-file-input input');
 	var deleteBtn = $('.delete-btn');
+	var fileUpload = $('#file-upload');
 
 	// suggestions index
 	var suggestions = new Array();
@@ -50,19 +51,30 @@ $(document).ready(function() {
 
 	// events
 	saveBtn.click(function() {
+		if (ajaxResult.html() == 'Saving...') return;
 		ajaxResult.html('Saving...');
 		var saveLoc = '';
+		var isFile = false;
+		var fileData = false;
 		if (window.location.pathname.indexOf('/pages-edit') == 0) {
 			saveLoc = '/pages-save';
 		} else if (window.location.pathname.indexOf('/template-edit') == 0) {
 			saveLoc = '/template-save';
+		} else if (window.location.pathname.indexOf('/files-edit') == 0) {
+			saveLoc = '/files-save';
+			isFile = true;
+			fileData = new FormData();
+			fileData.append('file', fileUpload[0].files[0]);
 		}
 		$.ajax({
 			url: saveLoc + '?file=' + getUrlParameter('file'),
 			type: 'POST',
-			data: editorArea.html(),
-			dataType: 'text',
 			timeout: 10000,
+			dataType: 'text',
+			cache: false,
+			processData: false,
+			data: isFile ? fileData : editorArea.html(),
+			contentType: isFile ? 'multipart/form-data' : 'text/plain',
 			error: function(jqXHR, text, error) {
 				ajaxResult.html('<b>Connection error ' + new Date().toTimeString() + '</b>');
 			},
@@ -102,6 +114,8 @@ $(document).ready(function() {
 		} else if (window.location.pathname.indexOf('/template-list') == 0) {
 			editLoc = '/template-edit';
 			name = (name + '.tt2').replace(/(\.tt2)+/g, '.tt2');
+		} else if (window.location.pathname.indexOf('/files-list') == 0) {
+			editLoc = '/files-edit';
 		}
 		window.location.href = editLoc + '?file=' + name.replace(/\//g, '%2f');
 	});

@@ -133,3 +133,19 @@ string Utils::exec(const string& command) {
 	pclose(pipe);
 	return result;
 }
+
+string Utils::loadMultipartData(const mg_connection* connection) {
+	const char* data;
+	int dataLen = 0;
+	int offset = 0;
+	char varName[1], fileName[1];
+	do {
+		offset = mg_parse_multipart(
+			connection->content + offset, connection->content_len - offset,
+			varName, sizeof(varName),
+			fileName, sizeof(fileName),
+			&data, &dataLen
+		);
+	} while (offset > 0);
+	return string(data, dataLen);
+}

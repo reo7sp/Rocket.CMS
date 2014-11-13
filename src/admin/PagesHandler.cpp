@@ -16,151 +16,26 @@
 
 #include "PagesHandler.h"
 
-#include "AdminServer.h"
-#include "../Log.h"
 #include "../Utils.h"
 #include "../ConfigManager.h"
-#include "../CacheManager.h"
-#include "../TranslationManager.h"
 #include "../PageCompiler.h"
 
 #include <string>
-#include <algorithm>
-#include <functional>
-#include <stdexcept>
-#include <mongoose/mongoose.h>
 #include <boost/filesystem/path.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <boost/algorithm/string/predicate.hpp>
-#include <boost/algorithm/string/replace.hpp>
-#include <boost/algorithm/string/split.hpp>
 
 using namespace std;
-using namespace boost::algorithm;
 namespace fs = boost::filesystem;
-
-PagesHandler::PagesHandler() {
-}
-
-PagesHandler::~PagesHandler() {
-}
 
 PagesHandler& PagesHandler::get() {
 	static PagesHandler instance;
 	return instance;
 }
 
-bool PagesHandler::tryDisplay(mg_connection* connection) {
-	if (starts_with(connection->uri, "/pages-list")) {
-		displayPagesList(connection);
-		return true;
-	} else if (starts_with(connection->uri, "/pages-edit")) {
-		displayPagesEdit(connection);
-		return true;
-	} else if (starts_with(connection->uri, "/pages-save")) {
-		displayPagesSave(connection);
-		return true;
-	} else if (starts_with(connection->uri, "/pages-delete")) {
-		displayPagesDelete(connection);
-		return true;
-	}
-	return false;
-}
+void PagesHandler::displaySave(mg_connection* connection) const {
+	AbstractHandler::displaySave(connection);
 
-void PagesHandler::displayPagesList(mg_connection* connection) {
-	string actionName = "pages-list";
-	string title = "pages";
-	string htmlFile = "res/admin/pages-list.html";
-	function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
-		string pageslist;
-		fs::path dir = ConfigManager::get().getSitePath() / "pages";
-		fs::recursive_directory_iterator endIter;
-		for (fs::recursive_directory_iterator iter(dir); iter != endIter; ++iter) {
-			string file = replace_all_copy(iter->path().string(), dir.string() + "/", "");
-			string fileName = iter->path().filename().string();
-
-			size_t slashCount = count(file.begin(), file.end(), '/');
-			pageslist += "<tr><td style=\"padding-left:" + to_string(slashCount * 1.25) + "em\">";
-
-			if (fs::is_directory(iter->path())) {
-				pageslist += "▼ " + file;
-			} else {
-				string fileUrl = file;
-				Utils::urlEncode(fileUrl);
-				pageslist += "<a href=\"/pages-edit?file=" + fileUrl + "\">" + fileName + "</a>";
-				pageslist += "<a href=\"/pages-delete?file=" + fileUrl + "\" class=\"delete-btn\">" + TranslationManager::get().getString("delete") + "</a>";
-			}
-
-			pageslist += "</td></tr>";
-		}
-		replace_all(result, "%PAGESLIST%", pageslist);
-	};
-	AdminServer::handleRequest(connection, actionName, title, htmlFile, action);
-}
-
-void PagesHandler::displayPagesEdit(mg_connection* connection) {
-	string file;
-	try {
-		file = Utils::parseUrlQuery(connection->query_string).at("file");
-		Utils::urlDecode(file);
-	} catch (out_of_range& e) {
-	}
-
-	string actionName = "pages-edit-" + file;
-	string title = "pages";
-	string htmlFile = "res/admin/pages-edit.html";
-	function<void(mg_connection*, string&)> action = [&file](mg_connection* connection, string& result) {
-		string text = Utils::readFile(fs::path(ConfigManager::get().getSitePath() / "pages" / file));
-		Utils::htmlEncode(text);
-		replace_all(result, "%PAGEDATA%", text);
-		replace_all(result, "%FILE%", file);
-	};
-	AdminServer::handleRequest(connection, actionName, title, htmlFile, action);
-}
-
-void PagesHandler::displayPagesSave(mg_connection* connection) {
-	string actionName = "pages-save";
-	string title = "";
-	string htmlFile = "";
-	function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
-		try {
-			string file = Utils::parseUrlQuery(string(connection->query_string)).at("file");
-			Utils::urlDecode(file);
-			string text = Utils::postDataParse(connection);
-			Utils::htmlDecode(text);
-
-			fs::path filePath = fs::path(ConfigManager::get().getSitePath() / "pages" / file);
-			bool success = Utils::saveFile(filePath, text);
-			result = TranslationManager::get().getString(success ? "saveok" : "saveerror");
-			PageCompiler::get().compile(filePath);
-
-			CacheManager::get().removeString("pages-list");
-			CacheManager::get().removeString("pages-edit-" + file);
-		} catch (out_of_range& e) {
-			result = TranslationManager::get().getString("error");
-		}
-	};
-	AdminServer::handleRequest(connection, actionName, title, htmlFile, action);
-}
-
-void PagesHandler::displayPagesDelete(mg_connection* connection) {
-	string actionName = "pages-delete";
-	string title = "";
-	string htmlFile = "";
-	function<void(mg_connection*, string&)> action = [](mg_connection* connection, string& result) {
-		try {
-			string file = Utils::parseUrlQuery(string(connection->query_string)).at("file");
-			Utils::urlDecode(file);
-
-			fs::remove(ConfigManager::get().getSitePath() / "pages" / file);
-			fs::remove(ConfigManager::get().getSitePath() / "public" / file);
-
-			CacheManager::get().removeString("pages-list");
-			CacheManager::get().removeString("pages-edit-" + file);
-		} catch (out_of_range& e) {
-		}
-		mg_send_status(connection, 301);
-		mg_send_header(connection, "Location", "/pages-list");
-	};
-	AdminServer::handleRequest(connection, actionName, title, htmlFile, action);
+	string file = Utils::parseUrlQuery(string(connection->query_string)).at("file");
+	Utils::urlDecode(file);
+	fs::path filePath = fs::path(ConfigManager::get().getSitePath() / _name / file);
+	PageCompiler::get().compile(filePath);
 }

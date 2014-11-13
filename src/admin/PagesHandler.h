@@ -17,24 +17,20 @@
 #ifndef _ROCKETCMS_ADMIN_PAGESHANDLER_H
 #define _ROCKETCMS_ADMIN_PAGESHANDLER_H
 
-#include <mongoose/mongoose.h>
+#include "AbstractHandler.h"
 
-class PagesHandler {
+class PagesHandler : public AbstractHandler {
 public:
 	static PagesHandler& get();
 
-	bool tryDisplay(mg_connection* connection);
-	void displayPagesList(mg_connection* connection);
-	void displayPagesEdit(mg_connection* connection);
-	void displayPagesSave(mg_connection* connection);
-	void displayPagesDelete(mg_connection* connection);
+	virtual void displaySave(mg_connection* connection) const override;
 
 private:
-	PagesHandler();
-	PagesHandler(PagesHandler&);
-	~PagesHandler();
+	PagesHandler() : AbstractHandler("pages") {}
+	PagesHandler(PagesHandler& a) : AbstractHandler(a) {}
+	~PagesHandler() {}
 
-	void operator=(PagesHandler&);
+	void operator=(PagesHandler&) {}
 };
 
 #endif

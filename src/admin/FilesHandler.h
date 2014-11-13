@@ -14,21 +14,24 @@
  * limitations under the License.
  */
 
-#ifndef _ROCKETCMS_ADMIN_TEMPLATEHANDLER_H
-#define _ROCKETCMS_ADMIN_TEMPLATEHANDLER_H
+#ifndef _ROCKETCMS_ADMIN_FILESHANDLER_H
+#define _ROCKETCMS_ADMIN_FILESHANDLER_H
 
 #include "AbstractHandler.h"
 
-class TemplateHandler : public AbstractHandler {
+class FilesHandler : public AbstractHandler {
 public:
-	static TemplateHandler& get();
+	static FilesHandler& get();
+
+	virtual void displayEdit(mg_connection* connection) const override;
+	virtual void displaySave(mg_connection* connection) const override;
 
 private:
-	TemplateHandler() : AbstractHandler("template") {}
-	TemplateHandler(TemplateHandler& a) : AbstractHandler(a) {}
-	~TemplateHandler() {}
+	FilesHandler() : AbstractHandler("files") {}
+	FilesHandler(FilesHandler& a) : AbstractHandler(a) {}
+	~FilesHandler() {}
 
-	void operator=(TemplateHandler&) {}
+	void operator=(FilesHandler&) {}
 };
 
 #endif

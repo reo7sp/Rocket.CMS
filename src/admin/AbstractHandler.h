@@ -14,21 +14,24 @@
  * limitations under the License.
  */
 
-#ifndef _ROCKETCMS_ADMIN_TEMPLATEHANDLER_H
-#define _ROCKETCMS_ADMIN_TEMPLATEHANDLER_H
+#ifndef _ROCKETCMS_ADMIN_ABSTRACTHANDLER_H
+#define _ROCKETCMS_ADMIN_ABSTRACTHANDLER_H
 
-#include "AbstractHandler.h"
+#include <string>
+#include <mongoose/mongoose.h>
 
-class TemplateHandler : public AbstractHandler {
+class AbstractHandler {
 public:
-	static TemplateHandler& get();
+	virtual bool tryDisplay(mg_connection* connection) const;
+	virtual void displayList(mg_connection* connection) const;
+	virtual void displayEdit(mg_connection* connection) const;
+	virtual void displaySave(mg_connection* connection) const;
+	virtual void displayDelete(mg_connection* connection) const;
 
-private:
-	TemplateHandler() : AbstractHandler("template") {}
-	TemplateHandler(TemplateHandler& a) : AbstractHandler(a) {}
-	~TemplateHandler() {}
+protected:
+	AbstractHandler(const std::string& name) : _name(name) {}
 
-	void operator=(TemplateHandler&) {}
+	std::string _name;
 };
 
 #endif
