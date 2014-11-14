@@ -25,6 +25,7 @@
 
 namespace Utils {
 	std::string readFile(const boost::filesystem::path& file);
+	std::string readBinaryFile(const boost::filesystem::path& file);
 	bool saveFile(const boost::filesystem::path& file, const std::string& text);
 	void urlEncode(std::string& url);
 	void urlDecode(std::string& url);

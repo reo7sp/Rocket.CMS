@@ -21,6 +21,7 @@
 #include <vector>
 #include <stdio.h>
 #include <mongoose/mongoose.h>
+#include <base64/base64.h>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/algorithm/string/trim.hpp>
@@ -41,6 +42,26 @@ string Utils::readFile(const fs::path& file) {
 			result += "\n";
 		}
 		input.close();
+		return result;
+	} else {
+		return "";
+	}
+}
+
+string Utils::readBinaryFile(const fs::path& file) {
+	if (fs::exists(file)) {
+		fs::ifstream input(file, ios_base::in | ios_base::binary);
+
+		input.seekg(0, input.end);
+		int length = input.tellg();
+		input.seekg(0, input.beg);
+
+		char* buffer = new char[length];
+		input.read(buffer, length);
+		input.close();
+
+		string result = base64_encode(reinterpret_cast<const unsigned char*>(buffer), length);
+		delete[] buffer;
 		return result;
 	} else {
 		return "";

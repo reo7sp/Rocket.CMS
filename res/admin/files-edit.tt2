@@ -9,8 +9,10 @@
 		<a class="save-btn">%SAVESTR%</a>
 	</nav>
 </header>
-<div class="editor-image-wrap">
-%FILEDATA%
+<div class="editor-wrap">
+	<div class="pad">
+	%FILEDATA%
+	</div>
 </div>
 
 [% INCLUDE footer.tt2 %]

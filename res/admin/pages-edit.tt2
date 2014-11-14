@@ -5,7 +5,7 @@
 	<a class="ajax-result"></a>
 	<nav>
 		<a href="">%DISCARDSTR%</a>
-		<a id="save-btn">%SAVESTR%</a>
+		<a class="save-btn">%SAVESTR%</a>
 	</nav>
 </header>
 <table class="editor-wrap">

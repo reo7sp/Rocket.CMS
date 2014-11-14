@@ -56,11 +56,11 @@ $(document).ready(function() {
 		var saveLoc = '';
 		var isFile = false;
 		var fileData = false;
-		if (window.location.pathname.indexOf('/pages-edit') == 0) {
+		if (location.pathname.indexOf('/pages-edit') == 0) {
 			saveLoc = '/pages-save';
-		} else if (window.location.pathname.indexOf('/template-edit') == 0) {
+		} else if (location.pathname.indexOf('/template-edit') == 0) {
 			saveLoc = '/template-save';
-		} else if (window.location.pathname.indexOf('/files-edit') == 0) {
+		} else if (location.pathname.indexOf('/files-edit') == 0) {
 			saveLoc = '/files-save';
 			isFile = true;
 			fileData = new FormData();
@@ -80,6 +80,7 @@ $(document).ready(function() {
 			},
 			success: function(result) {
 				ajaxResult.html(result + ' ' + new Date().toTimeString());
+				if (isFile) location.reload();
 			}
 		});
 	});
@@ -108,16 +109,16 @@ $(document).ready(function() {
 		}
 
 		var editLoc = '';
-		if (window.location.pathname.indexOf('/pages-list') == 0) {
+		if (location.pathname.indexOf('/pages-list') == 0) {
 			editLoc = '/pages-edit';
 			name = (name + '.html').replace(/(\.html)+/g, '.html');
-		} else if (window.location.pathname.indexOf('/template-list') == 0) {
+		} else if (location.pathname.indexOf('/template-list') == 0) {
 			editLoc = '/template-edit';
 			name = (name + '.tt2').replace(/(\.tt2)+/g, '.tt2');
-		} else if (window.location.pathname.indexOf('/files-list') == 0) {
+		} else if (location.pathname.indexOf('/files-list') == 0) {
 			editLoc = '/files-edit';
 		}
-		window.location.href = editLoc + '?file=' + name.replace(/\//g, '%2f');
+		location.href = editLoc + '?file=' + name.replace(/\//g, '%2f');
 	});
 
 	var wasDel = false;
@@ -162,13 +163,13 @@ $(document).ready(function() {
 	deleteBtn.click(function(e) {
 		e.preventDefault();
 		if (confirm('Are you sure you want to delete?')) {
-			window.location.href = $(this).attr('href');
+			location.href = $(this).attr('href');
 		}
 	});
 });
 
 function getUrlParameter(param) {
-	var pageUrl = window.location.search.substring(1);
+	var pageUrl = location.search.substring(1);
 	var args = pageUrl.split('&');
 	for (var i = 0; i < args.length; i++) {
 		var argName = args[i].split('=');

@@ -40,9 +40,15 @@ add_library(rapidjson
 	lib/rapidjson_dummy.cpp
 )
 
+include_directories(lib/base64)
+add_library(base64
+	lib/base64/base64/base64.cpp
+)
+
 set(LIB_LIST
 	mongoose
 	rapidjson
+	base64
 	${Boost_LIBRARIES}
 )
 

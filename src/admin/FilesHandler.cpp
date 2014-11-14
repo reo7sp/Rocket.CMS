@@ -45,7 +45,16 @@ void FilesHandler::displayEdit(mg_connection* connection) const {
 	} catch (out_of_range& e) {
 	}
 	function<void(mg_connection*, string&)> action = [this, &file](mg_connection* connection, string& result) {
-		replace_all(result, "%FILEDATA%", "<img src=\"/site/" + _name + "/" + file + "\">");
+		fs::path filePath = fs::path(ConfigManager::get().getSitePath() / _name / file);
+		string ext = filePath.extension().string();
+		string text = Utils::readBinaryFile(filePath);
+
+		if (ext == ".png" || ext == ".jpg" || ext == ".gif") {
+			replace_all(result, "%FILEDATA%", "<img src=\"data:image/" + ext + ";base64," + text + "\">");
+		} else {
+			replace_all(result, "%FILEDATA%", text);
+		}
+
 		replace_all(result, "%FILE%", file);
 	};
 	AdminServer::handleRequest(connection, _name + "-edit-" + file, _name, "res/admin/" + _name + "-edit.html", action);
@@ -62,6 +71,7 @@ void FilesHandler::displaySave(mg_connection* connection) const {
 			result = TranslationManager::get().getString(success ? "saveok" : "saveerror");
 
 			CacheManager::get().removeString(_name + "-list");
+			CacheManager::get().removeString(_name + "-edit-" + file);
 		} catch (out_of_range& e) {
 			result = TranslationManager::get().getString("error");
 		}
