@@ -16,6 +16,8 @@
 
 $(document).ready(function() {
 	// elements
+	var mainHeader = $('#main-header');
+	var mainBottomHeader = $('#main-bottom-header');
 	var fileList = $('.file-list');
 	var editorArea = $('.editor-area');
 	var editorResult = $('.editor-result');
@@ -54,6 +56,8 @@ $(document).ready(function() {
 	saveBtn.click(function() {
 		if (ajaxResult.html() == 'Saving...') return;
 		ajaxResult.html('Saving...');
+		mainHeader.removeClass('error');
+		mainBottomHeader.removeClass('error');
 		var saveLoc = '';
 		var isFile = false;
 		var fileData = false;
@@ -78,6 +82,8 @@ $(document).ready(function() {
 			contentType: isFile ? 'multipart/form-data' : 'text/plain',
 			error: function(jqXHR, text, error) {
 				ajaxResult.html('<b>Connection error ' + new Date().toTimeString() + '</b>');
+				mainHeader.addClass('error');
+				mainBottomHeader.addClass('error');
 			},
 			success: function(result) {
 				ajaxResult.html(result + ' ' + new Date().toTimeString());

@@ -50,6 +50,7 @@ input[type=text] {
 .page-header {
 	background-color: #00a000;
 	padding: 8px;
+	.bcolor-transition;
 
 	nav {
 		float: right;
@@ -164,4 +165,17 @@ input[type=text] {
 			padding: 8px;
 		}
 	}
+}
+
+.error {
+	background-color: #a00000 !important;
+	.bcolor-transition;
+}
+
+.bcolor-transition {
+	-webkit-transition: background-color 1000ms linear;
+	-moz-transition: background-color 1000ms linear;
+	-o-transition: background-color 1000ms linear;
+	-ms-transition: background-color 1000ms linear;
+	transition: background-color 1000ms linear;
 }
