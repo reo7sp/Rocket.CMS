@@ -27,6 +27,7 @@ public:
 	virtual void displayEdit(mg_connection* connection) const;
 	virtual void displaySave(mg_connection* connection) const;
 	virtual void displayDelete(mg_connection* connection) const;
+	virtual void displayCompileAll(mg_connection* connection) const;
 
 protected:
 	AbstractHandler(const std::string& name) : _name(name) {}

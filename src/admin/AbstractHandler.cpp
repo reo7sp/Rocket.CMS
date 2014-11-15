@@ -49,6 +49,9 @@ bool AbstractHandler::tryDisplay(mg_connection* connection) const {
 	} else if (starts_with(connection->uri, "/" + _name + "-delete")) {
 		displayDelete(connection);
 		return true;
+	} else if (starts_with(connection->uri, "/" + _name + "-compile-all")) {
+		displayCompileAll(connection);
+		return true;
 	}
 	return false;
 }
@@ -131,8 +134,17 @@ void AbstractHandler::displayDelete(mg_connection* connection) const {
 			CacheManager::get().removeString(_name + "-edit-" + file);
 		} catch (out_of_range& e) {
 		}
-		mg_send_status(connection, 301);
+		mg_send_status(connection, 303);
 		mg_send_header(connection, "Location", ("/" + _name + "-list").c_str());
+		mg_printf_data(connection, "%s", "OK");
 	};
 	AdminServer::handleRequest(connection, _name + "-delete", _name, "res/admin/" + _name + "-delete.html", action);
+}
+
+void AbstractHandler::displayCompileAll(mg_connection* connection) const {
+	mg_send_status(connection, 303);
+	mg_send_header(connection, "Location", ("/" + _name + "-list").c_str());
+	mg_printf_data(connection, "%s", "OK");
+	PageCompiler::get().compileAll();
+	CacheManager::get().clearAll();
 }

@@ -20,6 +20,7 @@
 #include <string>
 #include <queue>
 #include <mutex>
+#include <utility>
 #include <boost/filesystem/path.hpp>
 
 class PageCompiler {
@@ -28,11 +29,16 @@ public:
 
 	void start();
 	void stop();
-	void compile(const boost::filesystem::path& file);
+	void compileAll();
+	void compilePage(const boost::filesystem::path& file);
+	void compileFile(const boost::filesystem::path& file);
 
 	inline bool isRunning() const { return _isRunning; }
 
 private:
+	const int QUEUE_PAGE = 1;
+	const int QUEUE_FILE = 2;
+
 	PageCompiler();
 	PageCompiler(PageCompiler&);
 	~PageCompiler();
@@ -42,7 +48,7 @@ private:
 	void compileMarkdown(const std::string& file) const;
 	void compileTemplateToolkit(const std::string& file) const;
 
-	std::queue<boost::filesystem::path> _queue;
+	std::queue<std::pair<int, boost::filesystem::path>> _queue;
 	std::mutex _queueMutex;
 	bool _isRunning;
 };

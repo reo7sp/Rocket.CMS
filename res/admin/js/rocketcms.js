@@ -24,6 +24,7 @@ $(document).ready(function() {
 	var createFile = $('.create-file');
 	var createFileInput = $('.create-file-input input');
 	var deleteBtn = $('.delete-btn');
+	var compileAll = $('.compile-all');
 	var fileUpload = $('#file-upload');
 
 	// suggestions index
@@ -165,6 +166,18 @@ $(document).ready(function() {
 		if (confirm('Are you sure you want to delete?')) {
 			location.href = $(this).attr('href');
 		}
+	});
+
+	compileAll.click(function() {
+		var loc = '';
+		if (location.pathname.indexOf('/pages-list') == 0) {
+			loc = '/pages';
+		} else if (location.pathname.indexOf('/template-list') == 0) {
+			loc = '/template';
+		} else if (location.pathname.indexOf('/files-list') == 0) {
+			loc = '/files';
+		}
+		location.href = loc + '-compile-all';
 	});
 });
 

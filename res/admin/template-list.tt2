@@ -7,6 +7,10 @@
 	<button class="create-file">%CREATEFILESTR%</button>
 	<span class="create-file-input">%ENTERFILENAMESTR%:&nbsp;&nbsp; <input type="text"></input> .tt2</span>
 </td></tr>
+<tr class="empty16"></tr>
+<tr><td>
+	<button class="compile-all">%COMPILEALLSTR%</button>
+</td></tr>
 </table>
 
 [% INCLUDE footer.tt2 %]

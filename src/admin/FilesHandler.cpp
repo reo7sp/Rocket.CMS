@@ -21,7 +21,7 @@
 #include "../TranslationManager.h"
 #include "../CacheManager.h"
 #include "../ConfigManager.h"
-#include "../Log.h"
+#include "../PageCompiler.h"
 
 #include <string>
 #include <stdexcept>
@@ -69,6 +69,7 @@ void FilesHandler::displaySave(mg_connection* connection) const {
 			fs::path filePath = fs::path(ConfigManager::get().getSitePath() / _name / file);
 			bool success = Utils::saveFile(filePath, Utils::loadMultipartData(connection));
 			result = TranslationManager::get().getString(success ? "saveok" : "saveerror");
+			PageCompiler::get().compileFile(filePath);
 
 			CacheManager::get().removeString(_name + "-list");
 			CacheManager::get().removeString(_name + "-edit-" + file);

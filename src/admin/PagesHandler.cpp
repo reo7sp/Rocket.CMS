@@ -37,5 +37,5 @@ void PagesHandler::displaySave(mg_connection* connection) const {
 	string file = Utils::parseUrlQuery(string(connection->query_string)).at("file");
 	Utils::urlDecode(file);
 	fs::path filePath = fs::path(ConfigManager::get().getSitePath() / _name / file);
-	PageCompiler::get().compile(filePath);
+	PageCompiler::get().compilePage(filePath);
 }

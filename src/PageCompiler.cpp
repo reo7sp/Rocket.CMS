@@ -22,6 +22,7 @@
 
 #include <thread>
 #include <chrono>
+#include <stdexcept>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem/operations.hpp>
 
@@ -51,35 +52,73 @@ void PageCompiler::start() {
 }
 
 void PageCompiler::stop() {
+	_queueMutex.lock();
 	_isRunning = false;
+	_queueMutex.unlock();
 }
 
-void PageCompiler::compile(const fs::path& file) {
+void PageCompiler::compileAll() {
+	const fs::path pagesDir = ConfigManager::get().getSitePath() / "pages";
+	const fs::path filesDir = ConfigManager::get().getSitePath() / "files";
+
+	fs::recursive_directory_iterator endIter;
+	for (fs::recursive_directory_iterator iter(pagesDir); iter != endIter; ++iter) {
+		compilePage(iter->path());
+	}
+	for (fs::recursive_directory_iterator iter(filesDir); iter != endIter; ++iter) {
+		compileFile(iter->path());
+	}
+}
+
+void PageCompiler::compilePage(const fs::path& file) {
 	_queueMutex.lock();
-	_queue.push(file);
+	_queue.push(pair<int, fs::path>(QUEUE_PAGE, file));
+	_queueMutex.unlock();
+}
+
+void PageCompiler::compileFile(const fs::path& file) {
+	_queueMutex.lock();
+	_queue.push(pair<int, fs::path>(QUEUE_FILE, file));
 	_queueMutex.unlock();
 }
 
 void PageCompiler::threadAction() {
-	const string pagesDir = fs::absolute(ConfigManager::get().getSitePath() / "pages").string();
 	const string publicDir = fs::absolute(ConfigManager::get().getSitePath() / "public").string();
+	const string pagesDir = fs::absolute(ConfigManager::get().getSitePath() / "pages").string();
+	const string filesDir = fs::absolute(ConfigManager::get().getSitePath() / "files").string();
+
 	while (_isRunning) {
 		_queueMutex.lock();
 		if (_queue.empty()) {
 			_queueMutex.unlock();
 			this_thread::sleep_for(chrono::seconds(1));
 		} else {
-			const fs::path filePath = _queue.front();
+			const pair<int, fs::path> item = _queue.front();
+			const int type = item.first;
+			const fs::path filePath = item.second;
 			_queue.pop();
 			_queueMutex.unlock();
 
-			string file = fs::absolute(filePath).string();
-			string text = Utils::readFile(file);
-			replace_first(file, pagesDir, publicDir);
-			Utils::saveFile(file, text);
+			try {
+				string file = fs::absolute(filePath).string();
+				if (type == QUEUE_PAGE) {
+					string text = Utils::readFile(file);
+					replace_first(file, pagesDir, publicDir);
+					Utils::saveFile(file, text);
 
-			compileMarkdown(file);
-			compileTemplateToolkit(file);
+					compileMarkdown(file);
+					compileTemplateToolkit(file);
+				} else if (type == QUEUE_FILE) {
+					fs::path publicPath = fs::path(replace_first_copy(file, filesDir, publicDir));
+					fs::create_directories(publicPath.parent_path());
+					fs::remove(publicPath);
+					fs::copy(file, publicPath);
+				}
+			} catch (const exception& e) {
+				Log::error("Exception in compiler thread: " + string(e.what()));
+			} catch (...) {
+				Log::error("Unknown exception in compiler thread");
+			}
 		}
 	}
 }
@@ -94,7 +133,7 @@ void PageCompiler::compileMarkdown(const string& file) const {
 void PageCompiler::compileTemplateToolkit(const string& file) const {
 	const fs::path oldCurDir = fs::current_path();
 
-	fs::current_path(ConfigManager::get().getSitePath());
+	fs::current_path(ConfigManager::get().getSitePath() / "template");
 	const string out = Utils::exec(replace_all_copy(ConfigManager::get().getTemplateToolkitCommand(), "$1", file));
 	fs::current_path(oldCurDir);
 

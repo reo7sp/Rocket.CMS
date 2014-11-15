@@ -97,7 +97,8 @@ int AdminServer::handleEvent(mg_connection* connection, mg_event event) {
 		return MG_TRUE;
 	} else if (event == MG_REQUEST) {
 		try {
-			if (string(connection->uri) == "/") {
+			string uri = string(connection->uri);
+			if (uri == "/") {
 				mg_send_status(connection, 301);
 				mg_send_header(connection, "Location", "/pages-list");
 				mg_printf_data(connection, "%s", "");
@@ -108,12 +109,15 @@ int AdminServer::handleEvent(mg_connection* connection, mg_event event) {
 				if (FilesHandler::get().tryDisplay(connection)) return MG_TRUE;
 				return MG_FALSE;
 			}
-		} catch (exception& e) {
+		} catch (const exception& e) {
 			mg_send_status(connection, 500);
 			mg_printf_data(connection, "%s\r\n\r\n%s", "500 Internal Server Error", e.what());
 			return MG_TRUE;
+		} catch (...) {
+			mg_send_status(connection, 500);
+			mg_printf_data(connection, "%s", "500 Internal Server Error");
+			return MG_TRUE;
 		}
-	} else {
-		return MG_FALSE;
 	}
+	return MG_FALSE;
 }
