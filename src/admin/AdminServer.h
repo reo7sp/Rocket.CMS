@@ -24,7 +24,7 @@
 class AdminServer {
 public:
 	static AdminServer& get();
-	static void handleRequest(mg_connection* connection, const std::string& actionName, const std::string& title, const std::string& htmlFile, const std::function<void(mg_connection*, std::string&)>& action);
+	static void handleRequest(mg_connection* connection, const std::string& actionName, const std::string& title, const std::string& file, const std::function<void(mg_connection*, std::string&)>& action);
 
 	void start();
 	void stop();
@@ -32,13 +32,15 @@ public:
 	inline bool isRunning() const { return _isRunning; }
 
 private:
-	AdminServer();
-	AdminServer(AdminServer&);
-	~AdminServer();
+	static const std::function<void(mg_connection*, std::string&)>& nullAction;
+
+	AdminServer() {}
+	AdminServer(AdminServer&) {}
+	~AdminServer() { stop(); }
 
 	static int handleEvent(mg_connection* connection, mg_event event);
 
-	void operator=(AdminServer&);
+	void operator=(AdminServer&) {}
 
 	mg_server* _server = nullptr;
 	bool _isRunning = false;

@@ -16,18 +16,9 @@
 
 #include "CacheManager.h"
 
-#include "Log.h"
-
 #include <stdexcept>
 
 using namespace std;
-
-CacheManager::CacheManager() {
-}
-
-CacheManager::~CacheManager() {
-	clearAll();
-}
 
 CacheManager& CacheManager::get() {
 	static CacheManager instance;
@@ -39,6 +30,7 @@ bool CacheManager::hasString(const string& key) const {
 }
 
 string CacheManager::getString(const string& key) const {
+	if (key.empty()) return "";
 	try {
 		return _cache.at(key);
 	} catch (out_of_range& e) {
@@ -47,8 +39,8 @@ string CacheManager::getString(const string& key) const {
 }
 
 void CacheManager::setString(const string& key, const string& value) {
+	if (key.empty()) return;
 	_cache[key] = value;
-	Log::debug(key + " cached");
 }
 
 void CacheManager::removeString(const string& key) {

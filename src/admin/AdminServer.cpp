@@ -35,27 +35,21 @@ using namespace std;
 using namespace boost::algorithm;
 namespace fs = boost::filesystem;
 
-AdminServer::AdminServer() {
-}
-
-AdminServer::~AdminServer() {
-	stop();
-}
-
 AdminServer& AdminServer::get() {
 	static AdminServer instance;
 	return instance;
 }
 
-void AdminServer::handleRequest(mg_connection* connection, const std::string& actionName, const std::string& title, const std::string& htmlFile, const std::function<void(mg_connection*, std::string&)>& action) {
-	string fileResult = CacheManager::get().getString(htmlFile);
+const std::function<void(mg_connection*, std::string&)>& AdminServer::nullAction = [](mg_connection*, std::string&) {};
+
+void AdminServer::handleRequest(mg_connection* connection, const std::string& actionName, const std::string& title, const std::string& file, const std::function<void(mg_connection*, std::string&)>& action) {
 	string result = CacheManager::get().getString(actionName);
 	if (result.empty()) {
-		if (fileResult.empty() && !htmlFile.empty()) {
-			fileResult = Utils::readFile(fs::path(htmlFile));
-			CacheManager::get().setString(htmlFile, fileResult);
+		result = CacheManager::get().getString(file);
+		if (result.empty() && !file.empty()) {
+			result = Utils::readFile(fs::path(file));
+			CacheManager::get().setString(file, result);
 		}
-		result = fileResult;
 
 		TranslationManager::get().translate(result);
 		replace_all(result, "%TITLE%", TranslationManager::get().getString(title));
@@ -63,7 +57,7 @@ void AdminServer::handleRequest(mg_connection* connection, const std::string& ac
 
 		action(connection, result);
 
-		if (!htmlFile.empty()) {
+		if (!file.empty()) {
 			CacheManager::get().setString(actionName, result);
 		}
 	}
@@ -98,6 +92,7 @@ int AdminServer::handleEvent(mg_connection* connection, mg_event event) {
 	} else if (event == MG_REQUEST) {
 		try {
 			string uri = string(connection->uri);
+			replace_all(uri, "..", "");
 			if (uri == "/") {
 				mg_send_status(connection, 301);
 				mg_send_header(connection, "Location", "/pages-list");
@@ -107,7 +102,8 @@ int AdminServer::handleEvent(mg_connection* connection, mg_event event) {
 				if (PagesHandler::get().tryDisplay(connection)) return MG_TRUE;
 				if (TemplateHandler::get().tryDisplay(connection)) return MG_TRUE;
 				if (FilesHandler::get().tryDisplay(connection)) return MG_TRUE;
-				return MG_FALSE;
+				handleRequest(connection, "file-" + uri, "", "res/admin" + uri, nullAction);
+				return MG_TRUE;
 			}
 		} catch (const exception& e) {
 			mg_send_status(connection, 500);

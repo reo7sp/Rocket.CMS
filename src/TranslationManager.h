@@ -29,11 +29,11 @@ public:
 	void translate(std::string& text) const;
 
 private:
-	TranslationManager();
-	TranslationManager(TranslationManager&);
-	~TranslationManager();
+	TranslationManager() {}
+	TranslationManager(TranslationManager&) {}
+	~TranslationManager() {}
 
-	void operator=(TranslationManager&);
+	void operator=(TranslationManager&) {}
 
 	std::map<std::string, std::string> _data;
 };

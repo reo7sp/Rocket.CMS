@@ -25,11 +25,11 @@ public:
 	void stop();
 
 private:
-	Core();
-	Core(Core&);
-	~Core();
+	Core() {}
+	Core(Core&) {}
+	~Core() { stop(); }
 
-	void operator=(Core&);
+	void operator=(Core&) {}
 };
 
 #endif

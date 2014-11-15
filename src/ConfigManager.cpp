@@ -26,12 +26,6 @@ using namespace std;
 using namespace rapidjson;
 namespace fs = boost::filesystem;
 
-ConfigManager::ConfigManager() {
-}
-
-ConfigManager::~ConfigManager() {
-}
-
 ConfigManager& ConfigManager::get() {
 	static ConfigManager instance;
 	return instance;

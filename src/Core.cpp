@@ -22,13 +22,6 @@
 #include "CacheManager.h"
 #include "admin/AdminServer.h"
 
-Core::Core() {
-}
-
-Core::~Core() {
-	stop();
-}
-
 Core& Core::get() {
 	static Core instance;
 	return instance;

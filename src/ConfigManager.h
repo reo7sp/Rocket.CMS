@@ -34,11 +34,11 @@ public:
 	inline const std::string& getMarkdownCommand() const { return _markdownCommand; }
 
 private:
-	ConfigManager();
-	ConfigManager(ConfigManager&);
-	~ConfigManager();
+	ConfigManager() {}
+	ConfigManager(ConfigManager&) {}
+	~ConfigManager() {}
 
-	void operator=(ConfigManager&);
+	void operator=(ConfigManager&) {}
 
 	std::string _port = "23488";
 	std::string _lang = "en";

@@ -31,11 +31,11 @@ public:
 	void clearAll();
 
 private:
-	CacheManager();
-	CacheManager(CacheManager&);
-	~CacheManager();
+	CacheManager() {}
+	CacheManager(CacheManager&) {}
+	~CacheManager() { clearAll(); }
 
-	void operator=(CacheManager&);
+	void operator=(CacheManager&) {}
 
 	std::map<std::string, std::string> _cache;
 };

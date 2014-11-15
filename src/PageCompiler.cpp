@@ -30,13 +30,6 @@ using namespace std;
 using namespace boost::algorithm;
 namespace fs = boost::filesystem;
 
-PageCompiler::PageCompiler() {
-}
-
-PageCompiler::~PageCompiler() {
-	stop();
-}
-
 PageCompiler& PageCompiler::get() {
 	static PageCompiler instance;
 	return instance;

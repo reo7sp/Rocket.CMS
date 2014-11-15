@@ -39,11 +39,11 @@ private:
 	const int QUEUE_PAGE = 1;
 	const int QUEUE_FILE = 2;
 
-	PageCompiler();
-	PageCompiler(PageCompiler&);
-	~PageCompiler();
+	PageCompiler() {}
+	PageCompiler(PageCompiler&) {}
+	~PageCompiler() { stop(); }
 
-	void operator=(PageCompiler&);
+	void operator=(PageCompiler&) {}
 	void threadAction();
 	void compileMarkdown(const std::string& file) const;
 	void compileTemplateToolkit(const std::string& file) const;

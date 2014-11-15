@@ -31,12 +31,6 @@ using namespace rapidjson;
 using namespace boost::algorithm;
 namespace fs = boost::filesystem;
 
-TranslationManager::TranslationManager() {
-}
-
-TranslationManager::~TranslationManager() {
-}
-
 TranslationManager& TranslationManager::get() {
 	static TranslationManager instance;
 	return instance;
