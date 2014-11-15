@@ -64,6 +64,8 @@ void AbstractHandler::displayList(mg_connection* connection) const {
 		for (fs::recursive_directory_iterator iter(dir); iter != endIter; ++iter) {
 			string file = replace_all_copy(iter->path().string(), dir.string() + "/", "");
 			string fileName = iter->path().filename().string();
+			string fileUrl = file;
+			Utils::urlEncode(fileUrl);
 
 			size_t slashCount = count(file.begin(), file.end(), '/');
 			fileList += "<tr><td style=\"padding-left:" + to_string(slashCount * 1.25) + "em\">";
@@ -71,11 +73,9 @@ void AbstractHandler::displayList(mg_connection* connection) const {
 			if (fs::is_directory(iter->path())) {
 				fileList += "▼ " + file;
 			} else {
-				string fileUrl = file;
-				Utils::urlEncode(fileUrl);
 				fileList += "<a href=\"/" + _name + "-edit?file=" + fileUrl + "\">" + fileName + "</a>";
-				fileList += "<a href=\"/" + _name + "-delete?file=" + fileUrl + "\" class=\"delete-btn\">" + TranslationManager::get().getString("delete") + "</a>";
 			}
+			fileList += "<a href=\"/" + _name + "-delete?file=" + fileUrl + "\" class=\"delete-btn\">" + TranslationManager::get().getString("delete") + "</a>";
 
 			fileList += "</td></tr>";
 		}
@@ -127,8 +127,16 @@ void AbstractHandler::displayDelete(mg_connection* connection) const {
 			string file = Utils::parseUrlQuery(string(connection->query_string)).at("file");
 			Utils::urlDecode(file);
 
-			fs::remove(ConfigManager::get().getSitePath() / _name / file);
-			fs::remove(ConfigManager::get().getSitePath() / "public" / file);
+			fs::path filePath = ConfigManager::get().getSitePath() / _name / file;
+			fs::path publicPath = ConfigManager::get().getSitePath() / "public" / file;
+
+			if (fs::is_directory(filePath)) {
+				fs::remove_all(filePath);
+				fs::remove_all(publicPath);
+			} else {
+				fs::remove(filePath);
+				fs::remove(publicPath);
+			}
 
 			CacheManager::get().removeString(_name + "-list");
 			CacheManager::get().removeString(_name + "-edit-" + file);
