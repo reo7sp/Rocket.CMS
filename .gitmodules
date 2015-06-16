@@ -1,6 +1,0 @@
-[submodule "lib/mongoose/mongoose"]
-	path = lib/mongoose/mongoose
-	url = https://github.com/cesanta/mongoose.git
-[submodule "lib/rapidjson"]
-	path = lib/rapidjson
-	url = https://github.com/miloyip/rapidjson.git

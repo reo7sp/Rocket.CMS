@@ -5,59 +5,17 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -g")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LEGACY_CYGWIN_WIN32 0)
 
 # sources
 set(SRC_LIST
-	src/Core.cpp
-	src/Log.cpp
-	src/Utils.cpp
-	src/ConfigManager.cpp
-	src/CacheManager.cpp
-	src/TranslationManager.cpp
-	src/PageCompiler.cpp
-	src/admin/AdminServer.cpp
-	src/admin/AbstractHandler.cpp
-	src/admin/PagesHandler.cpp
-	src/admin/TemplateHandler.cpp
-	src/admin/FilesHandler.cpp
 )
 
 # libs
-find_package(Threads REQUIRED)
-
-set(Boost_USE_MULTITHREADED ON)
-find_package(Boost COMPONENTS system filesystem graph regex REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
-
-include_directories(lib/mongoose)
-add_library(mongoose
-	lib/mongoose/mongoose/mongoose.c
-)
-target_link_libraries(mongoose ${CMAKE_THREAD_LIBS_INIT})
-
-include_directories(lib/rapidjson/include)
-add_library(rapidjson
-	lib/rapidjson_dummy.cpp
-)
-
-include_directories(lib/base64)
-add_library(base64
-	lib/base64/base64/base64.cpp
-)
-
 set(LIB_LIST
-	mongoose
-	rapidjson
-	base64
-	${Boost_LIBRARIES}
 )
 
 # executable
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 target_link_libraries(${PROJECT_NAME} ${LIB_LIST})
 
-# resources
-execute_process(
-	COMMAND ${CMAKE_COMMAND} -E remove_directory bin/res
-	COMMAND ${CMAKE_COMMAND} -E copy_directory res bin/res
-)
