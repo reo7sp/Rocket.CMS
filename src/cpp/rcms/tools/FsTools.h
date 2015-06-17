@@ -27,88 +27,35 @@
 
 namespace FsTools {
 
-void loadFileToString(const Poco::Path& path, Poco::SharedPtr<std::string>& buffer, bool useCache = true) {
-    std::string pathString = path.toString();
-    if (useCache) {
-        buffer = CacheManager::getFsCache().get(pathString);
-        if (buffer->size() > 0) {
-            return;
+    void loadFileToString(const Poco::Path& path, Poco::SharedPtr<std::string>& buffer, bool useCache = true);
+
+    inline void loadFileToString(const std::string& path, Poco::SharedPtr<std::string>& buffer, bool useCache = true) {
+        loadFileToString(Poco::Path(path), buffer);
+    }
+
+    inline Poco::SharedPtr<std::string> loadFileToString(const Poco::Path& path, bool useCache = true) {
+        Poco::SharedPtr<std::string> result;
+        loadFileToString(path, result);
+        return result;
+    }
+
+    inline Poco::SharedPtr<std::string> loadFileToString(const std::string& path, bool useCache = true) {
+        return loadFileToString(Poco::Path(path), useCache);
+    }
+
+    inline Poco::Path getPathFromConfig(const std::string& name) {
+        Poco::Path result(Poco::Util::Application::instance().config().getString(name));
+        if (result.isRelative()) {
+            result.makeAbsolute(getPathFromConfig("fs.root"));
         }
+        return result;
     }
-    std::ifstream input(path.toString());
-    input >> *buffer;
-    if (useCache) {
-        CacheManager::getFsCache().add(pathString, buffer);
+
+    std::string getMimeType(const std::string& name);
+
+    inline std::string getMimeType(const Poco::Path& path) {
+        return getMimeType(path.getExtension());
     }
-}
-
-inline void loadFileToString(const std::string& path, Poco::SharedPtr<std::string>& buffer, bool useCache = true) {
-    loadFileToString(Poco::Path(path), buffer);
-}
-
-inline Poco::SharedPtr<std::string> loadFileToString(const Poco::Path& path, bool useCache = true) {
-    Poco::SharedPtr<std::string> result;
-    loadFileToString(path, result);
-    return result;
-}
-
-inline Poco::SharedPtr<std::string> loadFileToString(const std::string& path, bool useCache = true) {
-    return loadFileToString(Poco::Path(path), useCache);
-}
-
-inline Poco::Path getPathFromConfig(const std::string& name) {
-    Poco::Path result(Poco::Util::Application::instance().config().getString(name));
-    if (result.isRelative()) {
-        result.makeAbsolute(getPathFromConfig("fs.root"));
-    }
-    return result;
-}
-
-std::string getMimeType(const std::string& name) {
-    static const std::map<std::string, std::string> mimeTypes = {
-        {"gif",   "image/gif"},
-        {"jpg",   "image/jpeg"},
-        {"jpeg",  "image/jpeg"},
-        {"png",   "image/png"},
-        {"bmp",   "image/bmp"},
-        {"svg",   "image/svg+xml"},
-        {"tiff",  "image/tiff"},
-        {"js",    "application/javascript"},
-        {"ogg",   "application/ogg"},
-        {"pdf",   "application/pdf"},
-        {"rss",   "application/rss+xml"},
-        {"woff",  "application/font-woff"},
-        {"xhtml", "application/xhtml+xml"},
-        {"xml",   "application/xml"},
-        {"zip",   "application/zip"},
-        {"gz",    "application/gzip"},
-        {"mp3",   "audio/mpeg"},
-        {"ogg",   "audio/ogg"},
-        {"flac",  "audio/flac"},
-        {"opus",  "audio/opus"},
-        {"wave",  "audio/vnd.wave"},
-        {"css",   "text/css"},
-        {"csv",   "text/csv"},
-        {"html",  "text/html"},
-        {"md",    "text/markdown"},
-        {"rtf",   "text/rtf"},
-        {"avi",   "video/avi"},
-        {"mpeg",  "video/mpeg"},
-        {"mp4",   "video/mp4"},
-        {"webm",  "video/webm"},
-        {"mkv",   "video/x-matroska"},
-        {"flv",   "video/x-flv"}
-    };
-    auto iter = mimeTypes.find(name);
-    if (iter == mimeTypes.end()) {
-        return "text/plain";
-    }
-    return iter->second;
-}
-
-inline std::string getMimeType(const Poco::Path& path) {
-    return getMimeType(path.getExtension());
-}
 
 }
 

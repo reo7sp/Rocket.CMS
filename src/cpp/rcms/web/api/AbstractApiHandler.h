@@ -26,7 +26,7 @@
 class AbstractApiHandler {
 
 public:
-    virtual ~AbstractApiHandler();
+    virtual ~AbstractApiHandler() = 0;
     virtual bool isHandlerNameEquals(const std::string& handlerName) = 0;
     virtual void handleRequest(const std::string& methodName,
                                const std::map<std::string, std::string>& args,

@@ -27,25 +27,7 @@
 
 namespace NetTools {
 
-bool checkAuth(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) {
-    if (!Poco::Util::Application::instance().config().getBool("web.auth.enabled")) {
-        return true;
-    }
-    if (request.hasCredentials()) {
-        Poco::Net::HTTPBasicCredentials credentials(request);
-        if (credentials.getUsername() == Poco::Util::Application::instance().config().getString("web.auth.user")) {
-            Poco::SHA1Engine sha1Engine;
-            sha1Engine.update(credentials.getPassword());
-            std::string givenPass = Poco::DigestEngine::digestToHex(sha1Engine.digest());
-            std::string pass = Poco::Util::Application::instance().config().getString("web.auth.passhash");
-            return givenPass == pass;
-        }
-    } else {
-        response.requireAuthentication("Rocket.CMS");
-        response.send();
-    }
-    return false;
-}
+    bool checkAuth(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response);
 
 }
 

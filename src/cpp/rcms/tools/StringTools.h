@@ -22,43 +22,9 @@
 #include <sstream>
 
 namespace StringTools {
-    bool startsWith(const std::string& str1, const std::string& str2) {
-        std::string::const_iterator it1(str1.begin());
-        std::string::const_iterator end1(str1.end());
-        std::string::const_iterator it2(str2.begin());
-        std::string::const_iterator end2(str2.end());
-        while (it1 != end1 && it2 != end2) {
-            if (*it1 != *it2) {
-                return false;
-            }
-            ++it1;
-            ++it2;
-        }
-        return true;
-    }
-
-    bool endsWith(const std::string& str1, const std::string& str2) {
-        std::string::const_iterator it1(str1.end());
-        std::string::const_iterator start1(str1.begin());
-        std::string::const_iterator it2(str2.begin());
-        std::string::const_iterator end2(str2.end());
-        while (it1 != start1 && it2 != end2) {
-            if (*it1 != *it2) {
-                return false;
-            }
-            --it1;
-            ++it2;
-        }
-        return true;
-    }
-
-    void split(const std::string& str, const char delimiter, std::vector<std::string>& dest) {
-        std::istringstream stream(str);
-        std::string s;
-        while (getline(stream, s, delimiter)) {
-            dest.push_back(s);
-        }
-    }
+    bool startsWith(const std::string& str1, const std::string& str2);
+    bool endsWith(const std::string& str1, const std::string& str2);
+    void split(const std::string& str, const char delimiter, std::vector<std::string>& dest);
 
     inline std::vector<std::string> split(const std::string& str, const char delimiter) {
         std::vector<std::string> result;
