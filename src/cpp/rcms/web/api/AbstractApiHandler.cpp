@@ -1,5 +1,6 @@
 /*
- * Copyright 2015 Reo_SP
+ * Copyright 2015 Reo_SP,
+ *           2015 stroum
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +15,6 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_CACHEMANAGER_H
-#define ROCKET_CMS_CACHEMANAGER_H
+#include "AbstractApiHandler.h"
 
-#include <string>
-
-#include <Poco/Util/Application.h>
-#include <Poco/LRUCache.h>
-
-namespace CacheManager {
-
-    static inline Poco::LRUCache<std::string, std::string>& getFsCache() {
-        static Poco::LRUCache<std::string, std::string> cache(Poco::Util::Application::instance().config().getUInt("cache.fs.size"));
-        return cache;
-    }
-
-}
-
-#endif //ROCKET_CMS_CACHEMANAGER_H
+AbstractApiHandler::~AbstractApiHandler() { }

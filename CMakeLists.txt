@@ -28,12 +28,12 @@ include_directories("${PROJECT_SOURCE_DIR}/build/libinclude")
 # poco
 set(POCO_LIBS "")
 foreach(LIB PocoFoundation PocoUtil)
-	find_library(POCO_${LIB} ${LIB} PATHS "${PROJECT_SOURCE_DIR}/build/lib/Poco" REQUIRED)
-	list(APPEND POCO_LIBS ${POCO_${LIB}})
+        find_library(POCO_${LIB} ${LIB} PATHS "${PROJECT_SOURCE_DIR}/build/lib/Poco" REQUIRED)
+        list(APPEND POCO_LIBS ${POCO_${LIB}})
 endforeach(LIB)
 
 set(LIB_LIST
-	${POCO_LIBS}
+        ${POCO_LIBS}
 )
 
 # executable
