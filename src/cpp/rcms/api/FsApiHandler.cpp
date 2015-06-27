@@ -1,5 +1,6 @@
 /*
- * Copyright 2015 Reo_SP
+ * Copyright 2015 Reo_SP,
+ *           2015 stroum
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,7 +83,11 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 
         connection.response = "1";
     } else if (connection.methodName == "create") {
-        // TODO
+        Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
+        filePath.setExtension(FsTools::getPathFromConfig("fs.site.defaultFileExtention"));
+        File(filePath).create();
+
+        connection.response = "1";
     } else if (connection.methodName == "upload") {
         // TODO
     } else if (connection.methodName == "edit") {
