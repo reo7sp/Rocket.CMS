@@ -19,6 +19,7 @@
 
 #include <Poco/Util/Application.h>
 #include <Poco/File.h>
+#include <Poco/FileStream.h>
 
 #include "../FsEvent.h"
 #include "../PluginManager.h"
@@ -89,7 +90,12 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 
         connection.response = "1";
     } else if (connection.methodName == "upload") {
-        // TODO
+        Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
+        FileOutputStream stream(filePath.toString());
+        stream << connection.postData;
+        stream.close();
+
+        connection.response = "1";
     } else if (connection.methodName == "edit") {
         // TODO
     } else if (connection.methodName == "setmeta") {
