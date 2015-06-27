@@ -16,58 +16,56 @@
 
 #include "ApiWebHandler.h"
 
-#include <string>
 #include <map>
 
+#include <Poco/URI.h>
 #include <Poco/Net/HTTPServerRequest.h>
 #include <Poco/Net/HTTPServerResponse.h>
 #include <Poco/Net/HTTPBasicCredentials.h>
 
 #include "../tools/StringTools.h"
 #include "../tools/NetTools.h"
-#include "api/FsApiHandler.h"
-#include "api/ConfApiHandler.h"
-#include "api/WebguiApiHandler.h"
+#include "../api/ApiConnection.h"
+#include "../api/ApiManager.h"
 
 using namespace std;
+using namespace Poco;
 using namespace Poco::Net;
-
-ApiWebHandler::ApiWebHandler() : HTTPRequestHandler(), _apiHandlers({ new FsApiHandler(), new ConfApiHandler(), new WebguiApiHandler() }) {
-}
-
-ApiWebHandler::~ApiWebHandler() {
-    for (auto item : _apiHandlers) {
-        delete item;
-    }
-}
 
 void ApiWebHandler::handleRequest(HTTPServerRequest& request, HTTPServerResponse& response) {
     if (!NetTools::checkAuth(request, response)) {
         return;
     }
 
-    static const size_t handlerNamePos = 5; // the length of string "/api/" is 5
+    ApiConnection connection;
+
     const string& uri = request.getURI();
-
-    string handlerName = uri.substr(handlerNamePos, uri.find('/', handlerNamePos) - handlerNamePos);
-    size_t methodNamePos = handlerNamePos + handlerName.length() + 1;
-    string methodName = uri.substr(methodNamePos, uri.find('?', methodNamePos) - methodNamePos);
-    size_t argsPos = methodNamePos + methodName.length() + 1;
-
-    map<string, string> args;
-    if (argsPos < uri.length()) {
-        string argsString = uri.substr(argsPos);
-        vector<string> rawArgsArray = StringTools::split(argsString, '?');
-        for (string item : rawArgsArray) {
-            vector<string> rawArgParts = StringTools::split(item, '=');
-            args[rawArgParts.at(0)] = rawArgParts.at(1);
-        }
+    static const size_t handlerNamePos = 5; // the length of string "/api/" is 5
+    connection.handlerName = uri.substr(handlerNamePos, uri.find('/', handlerNamePos) - handlerNamePos);
+    size_t methodNamePos = handlerNamePos + connection.handlerName.length() + 1;
+    connection.methodName = uri.substr(methodNamePos, uri.find('?', methodNamePos) - methodNamePos);
+    size_t argsPos = methodNamePos + connection.methodName.length() + 1;
+    string argsString = uri.substr(argsPos);
+    vector<string> rawArgsArray = StringTools::split(argsString, '?');
+    for (string& item : rawArgsArray) {
+        vector<string> rawArgParts = StringTools::split(item, '=');
+        string name;
+        string value;
+        URI::decode(rawArgParts.at(0), name);
+        URI::decode(rawArgParts.at(1), value);
+        connection.args[name] = value;
     }
 
-    for (AbstractApiHandler* item : _apiHandlers) {
-        if (item->isHandlerNameEquals(handlerName)) {
-            item->handleRequest(methodName, args, request, response);
-            break;
-        }
+    if (request.getMethod() == request.HTTP_POST) {
+        istream& input = request.stream();
+        char* data = new char[request.getContentLength()];
+        input.read(data, request.getContentLength());
+        connection.postData = string(data, (unsigned long) input.gcount());
     }
+
+    ApiManager::invokeApiCall(connection);
+    response.setContentType(connection.responseMimeType);
+    response.setContentLength(connection.response.length());
+    ostream& output = response.send();
+    output.write(connection.response.c_str(), connection.response.length());
 }

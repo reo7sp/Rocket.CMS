@@ -14,17 +14,25 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_WEBGUIAPIHANDLER_H
-#define ROCKET_CMS_WEBGUIAPIHANDLER_H
+#ifndef ROCKET_CMS_RCMS_FSEVENT_H
+#define ROCKET_CMS_RCMS_FSEVENT_H
 
-#include "AbstractApiHandler.h"
+#include <stddef.h>
 
-class WebguiApiHandler : public AbstractApiHandler {
+extern "C" {
 
-public:
-    virtual bool isHandlerNameEquals(const std::string& handlerName);
-    virtual void handleRequest(const std::string& methodName, const std::map<std::string, std::string>& args,
-                               Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response);
+extern const short RCMS_FSEVENT_NEW;
+extern const short RCMS_FSEVENT_EDIT;
+extern const short RCMS_FSEVENT_PUBLISH;
+extern const short RCMS_FSEVENT_MV;
+extern const short RCMS_FSEVENT_RM;
+
+struct rcms_FsEvent {
+    const short type = 0;
+    const char* file1Path = NULL;
+    const char* file2Path = NULL;
 };
 
-#endif //ROCKET_CMS_WEBGUIAPIHANDLER_H
+};
+
+#endif //ROCKET_CMS_RCMS_FSEVENT_H

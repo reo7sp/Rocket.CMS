@@ -16,3 +16,17 @@
  */
 
 #include "CacheManager.h"
+
+using namespace std;
+using namespace Poco;
+using namespace Poco::Util;
+
+LRUCache<string, string>& CacheManager::getFsCache() {
+    static LRUCache<string, string> cache(Application::instance().config().getUInt("cache.fs.size"));
+    return cache;
+}
+
+Poco::LRUCache<std::string, std::string>& CacheManager::getGeneralCache() {
+    static LRUCache<string, string> cache(Application::instance().config().getUInt("cache.general.size"));
+    return cache;
+}

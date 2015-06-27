@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_FSAPIHANDLER_H
-#define ROCKET_CMS_FSAPIHANDLER_H
+#include "ConfApiHandler.h"
 
-#include "AbstractApiHandler.h"
+#include <Poco/Util/Application.h>
 
-class FsApiHandler : public AbstractApiHandler {
+using namespace std;
+using namespace Poco::Util;
+using namespace Poco::Net;
 
-public:
-    virtual bool isHandlerNameEquals(const std::string& handlerName) override;
-    virtual void handleRequest(const std::string& methodName,
-                                      const std::map<std::string, std::string>& args,
-                                      Poco::Net::HTTPServerRequest& request,
-                                      Poco::Net::HTTPServerResponse& response) override;
-};
+ConfApiHandler::ConfApiHandler() : AbstractApiHandler("conf") {
+}
 
-#endif //ROCKET_CMS_FSAPIHANDLER_H
+void ConfApiHandler::handleRequest(ApiConnection& connection) const {
+    if (connection.methodName == "getvar") {
+        connection.response = Application::instance().config().getString(connection.args.at("var"));
+    }
+}

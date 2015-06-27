@@ -7,16 +7,25 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -g -fpermissive")
 set(SRC_LIST
     src/cpp/rcms/CoreApp.cpp
     src/cpp/rcms/CacheManager.cpp
+    src/cpp/rcms/PluginManager.cpp
+    src/cpp/rcms/FsEvent.cpp
     src/cpp/rcms/tools/FsTools.cpp
     src/cpp/rcms/tools/StringTools.cpp
     src/cpp/rcms/tools/NetTools.cpp
     src/cpp/rcms/web/WebHandlerFactory.cpp
     src/cpp/rcms/web/IndexWebHandler.cpp
     src/cpp/rcms/web/ApiWebHandler.cpp
-    src/cpp/rcms/web/api/AbstractApiHandler.cpp
-    src/cpp/rcms/web/api/FsApiHandler.cpp
-    src/cpp/rcms/web/api/ConfApiHandler.cpp
-    src/cpp/rcms/web/api/WebguiApiHandler.cpp
+    src/cpp/rcms/api/ApiConnection.cpp
+    src/cpp/rcms/api/ApiManager.cpp
+    src/cpp/rcms/api/AbstractApiHandler.cpp
+    src/cpp/rcms/api/FsApiHandler.cpp
+    src/cpp/rcms/api/ConfApiHandler.cpp
+    src/cpp/rcms/api/WebguiApiHandler.cpp
+    src/cpp/rcms/pluginapi/rcms_Core.cpp
+    src/cpp/rcms/pluginapi/rcms_Plugin.cpp
+    src/cpp/rcms/pluginapi/rcms_ApiConnection.cpp
+    src/cpp/rcms/pluginapi/rcms_FsEvent.cpp
+    src/cpp/rcms/pluginapi/rcms_StrPair.cpp
 )
 
 ### libs
@@ -28,12 +37,12 @@ include_directories("${PROJECT_SOURCE_DIR}/build/libinclude")
 # poco
 set(POCO_LIBS "")
 foreach(LIB PocoFoundation PocoUtil)
-        find_library(POCO_${LIB} ${LIB} PATHS "${PROJECT_SOURCE_DIR}/build/lib/Poco" REQUIRED)
-        list(APPEND POCO_LIBS ${POCO_${LIB}})
+    find_library(POCO_${LIB} ${LIB} PATHS "${PROJECT_SOURCE_DIR}/build/lib/Poco" REQUIRED)
+    list(APPEND POCO_LIBS ${POCO_${LIB}})
 endforeach(LIB)
 
 set(LIB_LIST
-        ${POCO_LIBS}
+    ${POCO_LIBS}
 )
 
 # executable

@@ -30,6 +30,7 @@ private:
     bool _canStart = true;
 
     void handleConfig(const std::string& name, const std::string& value);
+    void handleGenConf(const std::string& name, const std::string& value);
     void handleGenHash(const std::string& name, const std::string& value);
     void handleHelp(const std::string& name, const std::string& value);
     bool checkConfig();

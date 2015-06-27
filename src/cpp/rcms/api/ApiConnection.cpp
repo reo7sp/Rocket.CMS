@@ -14,17 +14,3 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_CONFAPIHANDLER_H
-#define ROCKET_CMS_CONFAPIHANDLER_H
-
-#include "AbstractApiHandler.h"
-
-class ConfApiHandler : public AbstractApiHandler {
-
-public:
-    virtual bool isHandlerNameEquals(const std::string& handlerName);
-    virtual void handleRequest(const std::string& methodName, const std::map<std::string, std::string>& args,
-                               Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response);
-};
-
-#endif //ROCKET_CMS_CONFAPIHANDLER_H

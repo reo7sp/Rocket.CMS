@@ -14,17 +14,3 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_APIWEBHANDLER_H
-#define ROCKET_CMS_APIWEBHANDLER_H
-
-#include <array>
-
-#include <Poco/Net/HTTPRequestHandler.h>
-
-class ApiWebHandler : public Poco::Net::HTTPRequestHandler {
-
-public:
-    virtual void handleRequest(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) override;
-};
-
-#endif //ROCKET_CMS_APIWEBHANDLER_H

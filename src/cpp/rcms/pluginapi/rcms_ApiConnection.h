@@ -14,17 +14,24 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_APIWEBHANDLER_H
-#define ROCKET_CMS_APIWEBHANDLER_H
+#ifndef ROCKET_CMS_RCMS_APICONNECTION_H
+#define ROCKET_CMS_RCMS_APICONNECTION_H
 
-#include <array>
+#include <stddef.h>
+#include "rcms_StrPair.h"
 
-#include <Poco/Net/HTTPRequestHandler.h>
+extern "C" {
 
-class ApiWebHandler : public Poco::Net::HTTPRequestHandler {
-
-public:
-    virtual void handleRequest(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) override;
+struct rcms_ApiConnection {
+    const char* handler = NULL;
+    const char* method = NULL;
+    const rcms_StrPair* args = NULL;
+    const size_t argsCount = 0;
+    const char* postData = NULL;
+    char* response = NULL;
+    char* responseMimeType = "text/plain";
 };
 
-#endif //ROCKET_CMS_APIWEBHANDLER_H
+};
+
+#endif //ROCKET_CMS_RCMS_APICONNECTION_H

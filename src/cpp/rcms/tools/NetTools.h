@@ -27,7 +27,7 @@
 
 namespace NetTools {
 
-    bool checkAuth(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response);
+bool checkAuth(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response);
 
 }
 

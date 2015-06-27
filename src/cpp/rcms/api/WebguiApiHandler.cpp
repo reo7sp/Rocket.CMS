@@ -18,23 +18,22 @@
 
 #include <Poco/Path.h>
 
-#include "../../tools/FsTools.h"
+#include "../tools/FsTools.h"
 
 using namespace std;
 using namespace Poco;
 using namespace Poco::Net;
 
-bool WebguiApiHandler::isHandlerNameEquals(const string& handlerName) {
-    return false;
+WebguiApiHandler::WebguiApiHandler() : AbstractApiHandler("webgui") {
 }
 
-void WebguiApiHandler::handleRequest(const string& methodName, const map<string, string>& args,
-                                     HTTPServerRequest& request, HTTPServerResponse& response) {
-    if (methodName == "getfile") {
-        Path filePath(FsTools::getPathFromConfig("fs.site.src"), args.at("file"));
+void WebguiApiHandler::handleRequest(ApiConnection& connection) const {
+    if (connection.methodName == "getfile") {
+        Path filePath(FsTools::getPathFromConfig("cms.path"), connection.args.at("file"));
 
-        response.sendFile(filePath.toString(Path::PATH_UNIX), FsTools::getMimeType(filePath));
-    } else if (methodName == "getstr") {
+        FsTools::loadFileToString(filePath);
+        connection.responseMimeType = FsTools::getMimeType(filePath);
+    } else if (connection.methodName == "getstr") {
         // TODO
     }
 }

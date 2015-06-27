@@ -14,21 +14,30 @@
  * limitations under the License.
  */
 
-#include "ConfApiHandler.h"
+#ifndef ROCKET_CMS_APIMANAGER_H
+#define ROCKET_CMS_APIMANAGER_H
 
-#include <Poco/Util/Application.h>
+#include <vector>
 
-using namespace std;
-using namespace Poco::Util;
-using namespace Poco::Net;
+#include <Poco/SharedPtr.h>
 
-bool ConfApiHandler::isHandlerNameEquals(const string& handlerName) {
-    return handlerName == "conf";
-}
+#include "AbstractApiHandler.h"
 
-void ConfApiHandler::handleRequest(const string& methodName, const map<string, string>& args,
-                                   HTTPServerRequest& request, HTTPServerResponse& response) {
-    if (methodName == "getvar") {
-        response.send() << Application::instance().config().getString(args.at("var"));
+class ApiManager {
+
+public:
+    static void invokeApiCall(ApiConnection& connection);
+
+    static inline void addNewApiManager(AbstractApiHandler* handler) {
+        _apiHandlers.push_back(handler);
     }
-}
+
+private:
+    ApiManager() { }
+    ApiManager(const ApiManager&) = delete;
+    ApiManager& operator=(const ApiManager&) = delete;
+
+    static std::vector<AbstractApiHandler*> _apiHandlers;
+};
+
+#endif //ROCKET_CMS_APIMANAGER_H

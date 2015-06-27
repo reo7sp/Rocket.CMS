@@ -24,6 +24,7 @@
 #include <stdio.h>
 
 #include "web/WebHandlerFactory.h"
+#include "PluginManager.h"
 
 using namespace Poco;
 using namespace Poco::Util;
@@ -33,12 +34,21 @@ POCO_SERVER_MAIN(CoreApp)
 
 int CoreApp::main(const std::vector<std::string>& args) {
     if (_canStart) {
+        PluginManager::load();
+        PluginManager::onPreInit();
+    }
+    if (_canStart) {
         HTTPServer httpServer(new WebHandlerFactory, (UInt16) config().getUInt("web.port"));
+
         logger().information("Starting http server at port %i", config().getUInt("web.port"));
+        PluginManager::onInit();
         httpServer.start();
+
         waitForTerminationRequest();
+
         logger().information("Stopping http server");
         httpServer.stopAll();
+        PluginManager::onDeinit();
     }
     return Application::EXIT_OK;
 }
@@ -54,7 +64,13 @@ void CoreApp::defineOptions(OptionSet& options) {
             .callback(OptionCallback<CoreApp>(this, &CoreApp::handleConfig))
     );
     options.addOption(
-        Option("genhash", "g", "generate SHA1 hash")
+        Option("genconf", "", "generate config")
+            .required(false)
+            .repeatable(false)
+            .callback(OptionCallback<CoreApp>(this, &CoreApp::handleGenConf))
+    );
+    options.addOption(
+        Option("genhash", "", "generate SHA1 hash")
             .required(false)
             .repeatable(false)
             .argument("string")
@@ -73,7 +89,32 @@ void CoreApp::handleConfig(const std::string& name, const std::string& value) {
     _canStart = _canStart ? checkConfig() : false;
 }
 
-void CoreApp::handleGenHash(const std::string& name, const std::string& value){
+void CoreApp::handleGenConf(const std::string& name, const std::string& value) {
+    const char* result = ""
+        "{\n"
+        "\t\"fs\": {\n"
+        "\t\t\"root\": \"/path/to/your/awesome/site\",\n"
+        "\t\t\"site\": {\n"
+        "\t\t\t\"src\": \"src\",\n"
+        "\t\t\t\"dst\": \"dst\"\n"
+        "\t\t}\n"
+        "\t},\n"
+        "\t\"cms\": {\n"
+        "\t\t\"path\": \"/path/to/your/Rocket.CMS/installation/dir\"\n"
+        "\t},\n"
+        "\t\"web\": {\n"
+        "\t\t\"port\": 23307,\n"
+        "\t\t\"auth\": {\n"
+        "\t\t\t\"enabled\": false,\n"
+        "\t\t\t\"user\": \"admin\",\n"
+        "\t\t\t\"passhash\": \"d033e22ae348aeb5660fc2140aec35850c4da997\"\n"
+        "\t\t}\n"
+        "\t}\n"
+        "}";
+    printf(result);
+}
+
+void CoreApp::handleGenHash(const std::string& name, const std::string& value) {
     SHA1Engine sha1Engine;
     sha1Engine.update(value);
     printf(Poco::DigestEngine::digestToHex(sha1Engine.digest()).c_str());
@@ -126,6 +167,9 @@ bool CoreApp::checkConfig() {
     }
     if (!config().has("cache.fs.size")) {
         config().setUInt("cache.fs.size", 64);
+    }
+    if (!config().has("cache.general.size")) {
+        config().setUInt("cache.general.size", 128);
     }
     return result;
 }

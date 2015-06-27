@@ -14,17 +14,26 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_APIWEBHANDLER_H
-#define ROCKET_CMS_APIWEBHANDLER_H
+#ifndef ROCKET_CMS_ABSTRACTAPIHANDLER_H
+#define ROCKET_CMS_ABSTRACTAPIHANDLER_H
 
-#include <array>
+#include <string>
+#include <map>
 
-#include <Poco/Net/HTTPRequestHandler.h>
+#include <Poco/Net/HTTPServerRequest.h>
+#include <Poco/Net/HTTPServerResponse.h>
 
-class ApiWebHandler : public Poco::Net::HTTPRequestHandler {
+#include "ApiConnection.h"
+
+class AbstractApiHandler {
 
 public:
-    virtual void handleRequest(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) override;
+    AbstractApiHandler(const std::string& name);
+    virtual ~AbstractApiHandler() { }
+
+    const std::string handlerName;
+
+    virtual void handleRequest(ApiConnection& connection) const = 0;
 };
 
-#endif //ROCKET_CMS_APIWEBHANDLER_H
+#endif //ROCKET_CMS_ABSTRACTAPIHANDLER_H

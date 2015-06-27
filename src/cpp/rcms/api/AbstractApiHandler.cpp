@@ -1,5 +1,6 @@
 /*
- * Copyright 2015 Reo_SP
+ * Copyright 2015 Reo_SP,
+ *           2015 stroum
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +15,7 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_APIWEBHANDLER_H
-#define ROCKET_CMS_APIWEBHANDLER_H
+#include "AbstractApiHandler.h"
 
-#include <array>
-
-#include <Poco/Net/HTTPRequestHandler.h>
-
-class ApiWebHandler : public Poco::Net::HTTPRequestHandler {
-
-public:
-    virtual void handleRequest(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) override;
-};
-
-#endif //ROCKET_CMS_APIWEBHANDLER_H
+AbstractApiHandler::AbstractApiHandler(const std::string& name) : handlerName(name) {
+}

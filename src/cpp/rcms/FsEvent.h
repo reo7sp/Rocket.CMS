@@ -14,24 +14,32 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_CACHEMANAGER_H
-#define ROCKET_CMS_CACHEMANAGER_H
+#ifndef ROCKET_CMS_FSEVENT_H
+#define ROCKET_CMS_FSEVENT_H
 
 #include <string>
 
-#include <Poco/Util/Application.h>
-#include <Poco/LRUCache.h>
+#include <Poco/Path.h>
 
-class CacheManager {
+class FsEvent {
 
 public:
-    static Poco::LRUCache<std::string, std::string>& getFsCache();
-    static Poco::LRUCache<std::string, std::string>& getGeneralCache();
+    enum Type {
+        NEW = 1,
+        EDIT = 2,
+        PUBLISH = 4,
+        MV = 8,
+        RM = 16
+    };
 
-private:
-    CacheManager() { }
-    CacheManager(const CacheManager&) = delete;
-    CacheManager& operator=(const CacheManager&) = delete;
+    FsEvent(const Type& type, const std::string& file1Path, const std::string& file2Path);
+    FsEvent(const Type& type, const std::string& file1Path);
+    FsEvent(const Type& type, const Poco::Path& file1Path, const Poco::Path& file2Path);
+    FsEvent(const Type& type, const Poco::Path& file1Path);
+
+    Type type;
+    std::string file1Path;
+    std::string file2Path;
 };
 
-#endif //ROCKET_CMS_CACHEMANAGER_H
+#endif //ROCKET_CMS_FSEVENT_H

@@ -1,6 +1,5 @@
 /*
- * Copyright 2015 Reo_SP,
- *           2015 stroum
+ * Copyright 2015 Reo_SP
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +14,16 @@
  * limitations under the License.
  */
 
-#include "AbstractApiHandler.h"
+#include "ApiManager.h"
 
-AbstractApiHandler::~AbstractApiHandler() { }
+#include "../PluginManager.h"
+
+void ApiManager::invokeApiCall(ApiConnection& connection) {
+    for (auto iter = ApiManager::_apiHandlers.cbegin(), end = ApiManager::_apiHandlers.cend(); iter != end; ++iter) {
+        if ((*iter)->handlerName == connection.handlerName) {
+            (*iter)->handleRequest(connection);
+            return;
+        }
+    }
+    PluginManager::onApi(connection);
+}

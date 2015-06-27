@@ -27,35 +27,35 @@
 
 namespace FsTools {
 
-    void loadFileToString(const Poco::Path& path, Poco::SharedPtr<std::string>& buffer, bool useCache = true);
+void loadFileToString(const Poco::Path& path, Poco::SharedPtr<std::string>& buffer, bool useCache = true);
 
-    inline void loadFileToString(const std::string& path, Poco::SharedPtr<std::string>& buffer, bool useCache = true) {
-        loadFileToString(Poco::Path(path), buffer);
+inline void loadFileToString(const std::string& path, Poco::SharedPtr<std::string>& buffer, bool useCache = true) {
+    loadFileToString(Poco::Path(path), buffer);
+}
+
+inline Poco::SharedPtr<std::string> loadFileToString(const Poco::Path& path, bool useCache = true) {
+    Poco::SharedPtr<std::string> result;
+    loadFileToString(path, result);
+    return result;
+}
+
+inline Poco::SharedPtr<std::string> loadFileToString(const std::string& path, bool useCache = true) {
+    return loadFileToString(Poco::Path(path), useCache);
+}
+
+inline Poco::Path getPathFromConfig(const std::string& name) {
+    Poco::Path result(Poco::Util::Application::instance().config().getString(name));
+    if (result.isRelative()) {
+        result.makeAbsolute(getPathFromConfig("fs.root"));
     }
+    return result;
+}
 
-    inline Poco::SharedPtr<std::string> loadFileToString(const Poco::Path& path, bool useCache = true) {
-        Poco::SharedPtr<std::string> result;
-        loadFileToString(path, result);
-        return result;
-    }
+std::string getMimeType(const std::string& name);
 
-    inline Poco::SharedPtr<std::string> loadFileToString(const std::string& path, bool useCache = true) {
-        return loadFileToString(Poco::Path(path), useCache);
-    }
-
-    inline Poco::Path getPathFromConfig(const std::string& name) {
-        Poco::Path result(Poco::Util::Application::instance().config().getString(name));
-        if (result.isRelative()) {
-            result.makeAbsolute(getPathFromConfig("fs.root"));
-        }
-        return result;
-    }
-
-    std::string getMimeType(const std::string& name);
-
-    inline std::string getMimeType(const Poco::Path& path) {
-        return getMimeType(path.getExtension());
-    }
+inline std::string getMimeType(const Poco::Path& path) {
+    return getMimeType(path.getExtension());
+}
 
 }
 

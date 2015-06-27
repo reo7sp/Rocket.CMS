@@ -14,17 +14,10 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_APIWEBHANDLER_H
-#define ROCKET_CMS_APIWEBHANDLER_H
+#include "rcms_FsEvent.h"
 
-#include <array>
-
-#include <Poco/Net/HTTPRequestHandler.h>
-
-class ApiWebHandler : public Poco::Net::HTTPRequestHandler {
-
-public:
-    virtual void handleRequest(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) override;
-};
-
-#endif //ROCKET_CMS_APIWEBHANDLER_H
+const short RCMS_FSEVENT_NEW = 1;
+const short RCMS_FSEVENT_EDIT = 2;
+const short RCMS_FSEVENT_PUBLISH = 4;
+const short RCMS_FSEVENT_MV = 8;
+const short RCMS_FSEVENT_RM = 16;
