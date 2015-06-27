@@ -22,8 +22,8 @@
 extern "C" {
 
 struct rcms_StrPair {
-    const char* first = NULL;
-    const char* second = NULL;
+    char* first = NULL;
+    char* second = NULL;
 };
 
 };

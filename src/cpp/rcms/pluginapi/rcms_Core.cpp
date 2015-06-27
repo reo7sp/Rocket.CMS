@@ -36,7 +36,7 @@ void rcms_Core_invokeApiCall(const rcms_ApiConnection* connection) {
         rcms_StrPair arg = connection->args[i];
         cppConnection.args[string(arg.first)] = string(arg.second);
     }
-    if (cppConnection.postData != NULL) {
+    if (connection->postData != NULL) {
         cppConnection.postData = string(connection->postData);
     }
     cppConnection.response = string(connection->response);
@@ -50,7 +50,7 @@ void rcms_Core_saveToCache(const char* name, const char* value) {
 
 const char* rcms_Core_getFromCache(const char* name) {
     SharedPtr<string> result = CacheManager::getGeneralCache().get(string(name));
-    if (*result == NULL) {
+    if (result.isNull()) {
         return NULL;
     } else {
         return result->c_str();

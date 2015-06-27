@@ -28,9 +28,9 @@ extern const short RCMS_FSEVENT_MV;
 extern const short RCMS_FSEVENT_RM;
 
 struct rcms_FsEvent {
-    const short type = 0;
-    const char* file1Path = NULL;
-    const char* file2Path = NULL;
+    short type = 0;
+    char* file1Path = NULL;
+    char* file2Path = NULL;
 };
 
 };

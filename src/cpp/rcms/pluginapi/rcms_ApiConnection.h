@@ -23,11 +23,11 @@
 extern "C" {
 
 struct rcms_ApiConnection {
-    const char* handler = NULL;
-    const char* method = NULL;
-    const rcms_StrPair* args = NULL;
-    const size_t argsCount = 0;
-    const char* postData = NULL;
+    char* handler = NULL;
+    char* method = NULL;
+    rcms_StrPair* args = NULL;
+    size_t argsCount = 0;
+    char* postData = NULL;
     char* response = NULL;
     char* responseMimeType = "text/plain";
 };

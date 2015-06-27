@@ -64,11 +64,10 @@ void PluginManager::onDeinit() {
 }
 
 void PluginManager::onFs(const FsEvent& event) {
-    rcms_FsEvent cEvent = {
-        .type = (short) event.type,
-        .file1Path = event.file1Path.c_str(),
-        .file2Path = event.file2Path.c_str()
-    };
+    rcms_FsEvent cEvent;
+    cEvent.type = event.type;
+    cEvent.file1Path = (char*) event.file1Path.c_str();
+    cEvent.file2Path = (char*) event.file2Path.c_str();
     for (rcms_Plugin*& item : plugins) {
         item->onFsEvent(&core, &cEvent);
     }
@@ -78,15 +77,17 @@ void PluginManager::onApi(ApiConnection& connection) {
     rcms_StrPair* cArgs = (rcms_StrPair*) malloc(connection.args.size() * sizeof(rcms_StrPair));
     size_t i = 0;
     for (auto& item : connection.args) {
-        cArgs[i++] = rcms_StrPair { item.first.c_str(), item.second.c_str() };
+        rcms_StrPair cArg;
+        cArg.first = (char*) item.first.c_str();
+        cArg.second = (char*) item.second.c_str();
+        cArgs[i++] = cArg;
     }
-    rcms_ApiConnection cConnection = {
-        .handler = connection.handlerName.c_str(),
-        .method = connection.methodName.c_str(),
-        .args = cArgs,
-        .argsCount = connection.args.size(),
-        .postData = connection.postData.c_str()
-    };
+    rcms_ApiConnection cConnection;
+    cConnection.handler = (char*) connection.handlerName.c_str();
+    cConnection.method = (char*) connection.methodName.c_str();
+    cConnection.args = cArgs;
+    cConnection.argsCount = connection.args.size();
+    cConnection.postData = (char*) connection.postData.c_str();
     for (rcms_Plugin*& item : plugins) {
         if (strcmp(item->apiHandlerName, connection.handlerName.c_str()) == 0) {
             item->handleApi(&core, &cConnection);

@@ -28,11 +28,11 @@ void rcms_Core_invalidateCacheItem(const char* name);
 const char* rcms_Core_loadFile(const char* name);
 
 struct rcms_Core {
-    const void (*invokeApiCall)(const rcms_ApiConnection*) = &rcms_Core_invokeApiCall;
-    const void (*saveToCache)(const char*, const char*) = &rcms_Core_saveToCache;
-    const const char* (*getFromCache)(const char*) = &rcms_Core_getFromCache;
-    const void (*invalidateCacheItem)(const char*) = &rcms_Core_invalidateCacheItem;
-    const const char* (*loadFile)(const char*) = &rcms_Core_loadFile;
+    void (*const invokeApiCall)(const rcms_ApiConnection*) = &rcms_Core_invokeApiCall;
+    void (*const saveToCache)(const char*, const char*) = &rcms_Core_saveToCache;
+    const char* (*const getFromCache)(const char*) = &rcms_Core_getFromCache;
+    void (*const invalidateCacheItem)(const char*) = &rcms_Core_invalidateCacheItem;
+    const char* (*const loadFile)(const char*) = &rcms_Core_loadFile;
 };
 
 };
