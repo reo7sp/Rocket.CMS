@@ -55,7 +55,7 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
     } else if (connection.methodName == "getfile") {
         Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
 
-        FsTools::loadFileToString(filePath);
+        FsTools::loadFileToString(filePath, false);
         connection.responseMimeType = FsTools::getMimeType(filePath);
     } else if (connection.methodName == "getmeta") {
         // TODO

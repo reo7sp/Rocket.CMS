@@ -166,7 +166,7 @@ bool CoreApp::checkConfig() {
         }
     }
     if (!config().has("cache.fs.size")) {
-        config().setUInt("cache.fs.size", 64);
+        config().setUInt("cache.fs.size", 32);
     }
     if (!config().has("cache.general.size")) {
         config().setUInt("cache.general.size", 128);
