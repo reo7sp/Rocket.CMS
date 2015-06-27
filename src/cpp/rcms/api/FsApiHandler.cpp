@@ -87,9 +87,16 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
         // TODO
     } else if (connection.methodName == "edit") {
         // TODO
-    } else if (connection.methodName == "editmeta") {
+    } else if (connection.methodName == "setmeta") {
         // TODO
     } else if (connection.methodName == "publish") {
-        // TODO
+        Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
+        Path fileDestPath(FsTools::getPathFromConfig("fs.site.dst"), connection.args.at("file"));
+
+        File(filePath).moveTo(fileDestPath.toString());
+
+        PluginManager::onFs(FsEvent(FsEvent::Type::PUBLISH, filePath));
+
+        connection.response = "1";
     }
 }
