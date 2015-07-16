@@ -1,11 +1,11 @@
 /*
- * Copyright 2015 Reo_SP
+ * Copyright 2015 Oleg Morozenkov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *	 http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,27 +21,29 @@
 
 #include <vector>
 
-#include "api/ApiConnection.h"
-#include "pluginapi/rcms_Core.h"
-#include "pluginapi/rcms_Plugin.h"
+#include "rcms/api/ApiConnection.h"
+#include "rcms/pluginapi/rcms_Core.h"
+#include "rcms/pluginapi/rcms_Plugin.h"
 
 class PluginManager {
 
 public:
-    static void load();
-    static void onPreInit();
-    static void onInit();
-    static void onDeinit();
-    static void onFs(const FsEvent& event);
-    static void onApi(ApiConnection& connection);
+	static PluginManager& getInstance();
+
+	void load();
+	bool onPreInit();
+	bool onInit();
+	void onDeinit();
+	void onFs(const FsEvent& event);
+	bool onApi(ApiConnection& connection);
 
 private:
-    PluginManager() { }
-    PluginManager(const PluginManager&) = delete;
-    PluginManager& operator=(const PluginManager&) = delete;
+	PluginManager() { }
+	PluginManager(const PluginManager&) = delete;
+	PluginManager& operator=(const PluginManager&) = delete;
 
-    static std::vector<rcms_Plugin*> plugins;
-    static rcms_Core core;
+	std::vector<rcms_Plugin*> _plugins;
+	rcms_Core _core;
 };
 
 

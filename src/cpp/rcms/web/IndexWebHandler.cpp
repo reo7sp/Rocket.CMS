@@ -1,11 +1,11 @@
 /*
- * Copyright 2015 Reo_SP
+ * Copyright 2015 Oleg Morozenkov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *	 http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,13 +27,13 @@ using namespace Poco;
 using namespace Poco::Net;
 
 void IndexWebHandler::handleRequest(HTTPServerRequest& request, HTTPServerResponse& response) {
-    if (!NetTools::checkAuth(request, response)) {
-        return;
-    }
-    if (request.getURI() == "/") {
-        Path filePath(FsTools::getPathFromConfig("fs.rcms.res"), "web/index.html");
-        response.send() << *FsTools::loadFileToString(filePath);
-    } else {
-        response.redirect("/", response.HTTP_MOVED_PERMANENTLY);
-    }
+	if (!NetTools::checkAuth(request, response)) {
+		return;
+	}
+	if (request.getURI() == "/") {
+		Path filePath(FsTools::getPathFromConfig("fs.rcms.res"), "web/index.html");
+		response.send() << FsTools::loadFileToString(filePath);
+	} else {
+		response.redirect("/", response.HTTP_MOVED_PERMANENTLY);
+	}
 }

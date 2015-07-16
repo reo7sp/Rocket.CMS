@@ -1,11 +1,11 @@
 /*
- * Copyright 2015 Reo_SP
+ * Copyright 2015 Oleg Morozenkov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *	 http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,14 +16,29 @@
 
 #include "ApiManager.h"
 
-#include "../PluginManager.h"
+#include "rcms/PluginManager.h"
+
+using namespace std;
+
+ApiManager& ApiManager::getInstance() {
+	static ApiManager result;
+	return result;
+}
 
 void ApiManager::invokeApiCall(ApiConnection& connection) {
-    for (auto iter = ApiManager::_apiHandlers.cbegin(), end = ApiManager::_apiHandlers.cend(); iter != end; ++iter) {
-        if ((*iter)->handlerName == connection.handlerName) {
-            (*iter)->handleRequest(connection);
-            return;
-        }
-    }
-    PluginManager::onApi(connection);
+	try {
+		for (auto iter = _apiHandlers.cbegin(), end = _apiHandlers.cend(); iter != end; ++iter) {
+			if ((*iter)->handlerName == connection.handlerName) {
+				(*iter)->handleRequest(connection);
+				return;
+			}
+		}
+		if (!PluginManager::getInstance().onApi(connection) && connection.responseCode < 400) {
+			connection.responseCode = 500;
+		}
+	} catch (exception& e) {
+		if (connection.responseCode < 400) {
+			connection.responseCode = 500;
+		}
+	}
 }

@@ -1,11 +1,11 @@
 /*
- * Copyright 2015 Reo_SP
+ * Copyright 2015 Oleg Morozenkov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *	 http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,11 +28,11 @@ void rcms_Core_invalidateCacheItem(const char* name);
 const char* rcms_Core_loadFile(const char* name);
 
 struct rcms_Core {
-    void (*const invokeApiCall)(const rcms_ApiConnection*) = &rcms_Core_invokeApiCall;
-    void (*const saveToCache)(const char*, const char*) = &rcms_Core_saveToCache;
-    const char* (*const getFromCache)(const char*) = &rcms_Core_getFromCache;
-    void (*const invalidateCacheItem)(const char*) = &rcms_Core_invalidateCacheItem;
-    const char* (*const loadFile)(const char*) = &rcms_Core_loadFile;
+	void (*const invokeApiCall)(const rcms_ApiConnection*) = &rcms_Core_invokeApiCall;
+	void (*const saveToCache)(const char*, const char*) = &rcms_Core_saveToCache;
+	const char* (*const getFromCache)(const char*) = &rcms_Core_getFromCache;
+	void (*const invalidateCacheItem)(const char*) = &rcms_Core_invalidateCacheItem;
+	const char* (*const loadFile)(const char*) = &rcms_Core_loadFile;
 };
 
 };

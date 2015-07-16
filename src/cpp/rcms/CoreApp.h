@@ -1,11 +1,11 @@
 /*
- * Copyright 2015 Reo_SP
+ * Copyright 2015 Oleg Morozenkov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *	 http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,17 +23,18 @@
 class CoreApp : public Poco::Util::ServerApplication {
 
 protected:
-    virtual int main(const std::vector<std::string>& args) override;
-    virtual void defineOptions(Poco::Util::OptionSet &options) override;
+	virtual int main(const std::vector<std::string>& args) override;
+	virtual void defineOptions(Poco::Util::OptionSet &options) override;
 
 private:
-    bool _canStart = true;
+	bool _canStart = true;
+	ExitCode _exitCode = EXIT_OK;
 
-    void handleConfig(const std::string& name, const std::string& value);
-    void handleGenConf(const std::string& name, const std::string& value);
-    void handleGenHash(const std::string& name, const std::string& value);
-    void handleHelp(const std::string& name, const std::string& value);
-    bool checkConfig();
+	void handleConfig(const std::string& name, const std::string& value);
+	void handleGenConf(const std::string& name, const std::string& value);
+	void handleGenHash(const std::string& name, const std::string& value);
+	void handleHelp(const std::string& name, const std::string& value);
+	bool checkConfig();
 };
 
 #endif //ROCKET_CMS_COREAPP_H

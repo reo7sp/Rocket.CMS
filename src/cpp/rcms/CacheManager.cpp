@@ -1,12 +1,12 @@
 /*
- * Copyright 2015 Reo_SP,
- *           2015 stroum
+ * Copyright 2015 Oleg Morozenkov,
+ *		   2015 Alexander Rizaev
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *	 http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,12 +21,17 @@ using namespace std;
 using namespace Poco;
 using namespace Poco::Util;
 
-LRUCache<string, string>& CacheManager::getFsCache() {
-    static LRUCache<string, string> cache(Application::instance().config().getUInt("cache.fs.size"));
-    return cache;
+CacheManager& CacheManager::getInstance() {
+	static CacheManager result;
+	return result;
 }
 
 Poco::LRUCache<std::string, std::string>& CacheManager::getGeneralCache() {
-    static LRUCache<string, string> cache(Application::instance().config().getUInt("cache.general.size"));
-    return cache;
+	static LRUCache<string, string> cache(Application::instance().config().getUInt("cache.general.size"));
+	return cache;
+}
+
+Poco::LRUCache<std::string, std::string>& CacheManager::getPrivateCache() {
+	static LRUCache<string, string> cache(Application::instance().config().getUInt("cache.private.size"));
+	return cache;
 }

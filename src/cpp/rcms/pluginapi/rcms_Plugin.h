@@ -1,11 +1,11 @@
 /*
- * Copyright 2015 Reo_SP
+ * Copyright 2015 Oleg Morozenkov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *	 http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,12 +26,12 @@
 extern "C" {
 
 struct rcms_Plugin {
-    char* apiHandlerName = NULL;
-    void (*handleApi)(const rcms_Core*, const rcms_ApiConnection*) = NULL;
-    void (*onPreInit)(const rcms_Core*) = NULL;
-    void (*onInit)(const rcms_Core*) = NULL;
-    void (*onDeinit)(const rcms_Core*) = NULL;
-    void (*onFsEvent)(const rcms_Core*, const rcms_FsEvent*) = NULL;
+	char* apiHandlerName = NULL;
+	bool (*handleApi)(const rcms_Core*, const rcms_ApiConnection*) = NULL;
+	bool (*onPreInit)(const rcms_Core*) = NULL;
+	bool (*onInit)(const rcms_Core*) = NULL;
+	void (*onDeinit)(const rcms_Core*) = NULL;
+	void (*onFsEvent)(const rcms_Core*, const rcms_FsEvent*) = NULL;
 };
 
 };

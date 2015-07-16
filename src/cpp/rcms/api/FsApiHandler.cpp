@@ -1,12 +1,12 @@
 /*
- * Copyright 2015 Reo_SP,
- *           2015 stroum
+ * Copyright 2015 Oleg Morozenkov,
+ *		   2015 Alexander Rizaev
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *	 http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,9 +21,9 @@
 #include <Poco/File.h>
 #include <Poco/FileStream.h>
 
-#include "../FsEvent.h"
-#include "../PluginManager.h"
-#include "../tools/FsTools.h"
+#include "rcms/FsEvent.h"
+#include "rcms/PluginManager.h"
+#include "rcms/tools/FsTools.h"
 
 using namespace std;
 using namespace Poco;
@@ -35,79 +35,63 @@ FsApiHandler::FsApiHandler() : AbstractApiHandler("fs") {
 }
 
 void FsApiHandler::handleRequest(ApiConnection& connection) const {
-    if (connection.methodName == "ls") {
-        Path dirPath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("dir"));
-        vector<File> files;
-        File(dirPath).list(files);
+	if (connection.methodName == "ls") {
+		Path dirPath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("dir"));
+		vector<string> files;
+		File(dirPath).list(files);
 
-        string& jsonResponseStr = connection.response;
-        jsonResponseStr += '[';
-        size_t lastSlashPos = dirPath.toString(Path::PATH_UNIX).rfind('/');
-        for (File& item : files) {
-            jsonResponseStr += "{name:\"";
-            jsonResponseStr += Path(item.path().substr(lastSlashPos + 1)).toString(Path::PATH_UNIX);
-            jsonResponseStr += "\",isdir:";
-            jsonResponseStr += item.isDirectory() ? '1' : '0';
-            jsonResponseStr += "},";
-        }
-        jsonResponseStr.erase(jsonResponseStr.length() - 2);
-        jsonResponseStr += ']';
+		for (string item : files) {
+			connection.response += item;
+			connection.response += "\r\n";
+		}
+		trimRightInPlace(connection.response);
+	} else if (connection.methodName == "getfile") {
+		Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
 
-        connection.responseMimeType = "application/json";
-    } else if (connection.methodName == "getfile") {
-        Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
+		FsTools::loadFileToString(filePath);
+		connection.responseMimeType = FsTools::getMimeType(filePath);
+	} else if (connection.methodName == "getmeta") {
+		// TODO
+		connection.responseCode = 501;
+	} else if (connection.methodName == "rm") {
+		Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
+		Path fileDestPath(FsTools::getPathFromConfig("fs.site.dst"), connection.args.at("file"));
 
-        FsTools::loadFileToString(filePath, false);
-        connection.responseMimeType = FsTools::getMimeType(filePath);
-    } else if (connection.methodName == "getmeta") {
-        // TODO
-    } else if (connection.methodName == "rm") {
-        Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
-        Path fileDestPath(FsTools::getPathFromConfig("fs.site.dst"), connection.args.at("file"));
+		File(filePath).remove(true);
+		File fileDestFile(fileDestPath);
+		if (fileDestFile.exists()) {
+			fileDestFile.remove(true);
+		}
 
-        File(filePath).remove(true);
-        File fileDestFile(fileDestPath);
-        if (fileDestFile.exists()) {
-            fileDestFile.remove(true);
-        }
+		PluginManager::getInstance().onFs(FsEvent(FsEvent::Type::RM, filePath));
+	} else if (connection.methodName == "mv") {
+		Path fromPath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("from"));
+		Path toPath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("to"));
 
-        PluginManager::onFs(FsEvent(FsEvent::Type::RM, filePath));
+		File(fromPath).moveTo(toPath.toString());
 
-        connection.response = "1";
-    } else if (connection.methodName == "mv") {
-        Path fromPath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("from"));
-        Path toPath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("to"));
+		PluginManager::getInstance().onFs(FsEvent(FsEvent::Type::MV, fromPath, toPath));
+	} else if (connection.methodName == "create") {
+		Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
+		filePath.setExtension(Application::instance().config().getString("fs.site.defaultFileExtention"));
+		File(filePath).createFile();
+	} else if (connection.methodName == "upload") {
+		Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
+		FileOutputStream stream(filePath.toString());
+		stream << connection.postData;
+		stream.close();
+	} else if (connection.methodName == "edit") {
+		// TODO
+		connection.responseCode = 501;
+	} else if (connection.methodName == "setmeta") {
+		// TODO
+		connection.responseCode = 501;
+	} else if (connection.methodName == "publish") {
+		Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
+		Path fileDestPath(FsTools::getPathFromConfig("fs.site.dst"), connection.args.at("file"));
 
-        File(fromPath).moveTo(toPath.toString());
+		File(filePath).moveTo(fileDestPath.toString());
 
-        PluginManager::onFs(FsEvent(FsEvent::Type::MV, fromPath, toPath));
-
-        connection.response = "1";
-    } else if (connection.methodName == "create") {
-        Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
-        filePath.setExtension(FsTools::getPathFromConfig("fs.site.defaultFileExtention"));
-        File(filePath).create();
-
-        connection.response = "1";
-    } else if (connection.methodName == "upload") {
-        Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
-        FileOutputStream stream(filePath.toString());
-        stream << connection.postData;
-        stream.close();
-
-        connection.response = "1";
-    } else if (connection.methodName == "edit") {
-        // TODO
-    } else if (connection.methodName == "setmeta") {
-        // TODO
-    } else if (connection.methodName == "publish") {
-        Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
-        Path fileDestPath(FsTools::getPathFromConfig("fs.site.dst"), connection.args.at("file"));
-
-        File(filePath).moveTo(fileDestPath.toString());
-
-        PluginManager::onFs(FsEvent(FsEvent::Type::PUBLISH, filePath));
-
-        connection.response = "1";
-    }
+		PluginManager::getInstance().onFs(FsEvent(FsEvent::Type::PUBLISH, filePath));
+	}
 }

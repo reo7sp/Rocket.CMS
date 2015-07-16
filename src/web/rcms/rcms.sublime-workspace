@@ -1,0 +1,1161 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"edi",
+				"editorType"
+			],
+			[
+				"edit",
+				"editorMain"
+			],
+			[
+				"edito",
+				"editorType"
+			],
+			[
+				"plu",
+				"plugin"
+			],
+			[
+				"templa",
+				"templateFile	(PlainTextFileEditorView.coffee)"
+			],
+			[
+				"pl",
+				"plugin"
+			],
+			[
+				"File",
+				"FileListEntryView"
+			],
+			[
+				"ex",
+				"exports	(AppRouter.coffee)"
+			],
+			[
+				"cache",
+				"cacheFiles"
+			],
+			[
+				"getS",
+				"getSomething"
+			],
+			[
+				"head",
+				"header	<header>"
+			],
+			[
+				"just",
+				"srcJustCopy"
+			],
+			[
+				"at",
+				"article	<article>"
+			],
+			[
+				"ar",
+				"article	<article>"
+			],
+			[
+				"get_tem",
+				"get_template_part"
+			],
+			[
+				"no",
+				"none"
+			],
+			[
+				"text-t",
+				"text-decoration"
+			],
+			[
+				"cof",
+				"coffee"
+			],
+			[
+				"deplo",
+				"deployDst"
+			],
+			[
+				"main",
+				"mainContentWidth	 page-content.less"
+			],
+			[
+				"box-s",
+				"box-shadow"
+			],
+			[
+				"arti",
+				"article-content	 article-content.less"
+			],
+			[
+				"font",
+				"font-family"
+			],
+			[
+				"img",
+				"img	Tag"
+			],
+			[
+				"rel",
+				"relative"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"mai",
+				"mainContentWidth	 page-content.less"
+			],
+			[
+				"mag",
+				"margin	(page-content.less)"
+			],
+			[
+				"abs",
+				"absolute"
+			],
+			[
+				"backgrou",
+				"background-image"
+			],
+			[
+				"page",
+				"pageContentWidth	 page-content.less"
+			],
+			[
+				"text",
+				"textContentWidth	 page-content.less"
+			],
+			[
+				"cont",
+				"contain"
+			],
+			[
+				"langua",
+				"language-panel.less"
+			],
+			[
+				"asi",
+				"aside	Tag"
+			],
+			[
+				"repe",
+				"repeat"
+			],
+			[
+				"html",
+				"html5	Simple HTML5 Boilerplate"
+			],
+			[
+				"repea",
+				"repeat-y"
+			],
+			[
+				"backgr",
+				"background-repeat"
+			],
+			[
+				"rules",
+				"rules-text	 rules-text.less"
+			],
+			[
+				"frac",
+				"fractions"
+			],
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"fra",
+				"fractionName"
+			],
+			[
+				"clas",
+				"className"
+			],
+			[
+				"cla",
+				"className"
+			],
+			[
+				"fract",
+				"fraction"
+			],
+			[
+				"hov",
+				"hover"
+			],
+			[
+				"tras",
+				"transform"
+			],
+			[
+				"page-",
+				"page-article	 page-article.less"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"Gravity",
+				"GravityCon"
+			],
+			[
+				"tex",
+				"text"
+			],
+			[
+				"in",
+				"input"
+			],
+			[
+				"flex",
+				"flex-direction"
+			],
+			[
+				"ali",
+				"align-items"
+			],
+			[
+				"fanc",
+				"fancy-form	 fancy-form.less"
+			],
+			[
+				"for",
+				"form	Tag"
+			],
+			[
+				"hi",
+				"hidden"
+			],
+			[
+				"padd",
+				"padding"
+			],
+			[
+				"col",
+				"column"
+			],
+			[
+				"Aria",
+				"'Franklin Gothic Medium', Arial, sans-serif"
+			],
+			[
+				"Ar",
+				"Futura, 'Trebuchet MS', Arial, sans-serif"
+			],
+			[
+				"Arial",
+				"'Helvetica Neue', Helvetica, Arial, sans-serif"
+			],
+			[
+				"back",
+				"background"
+			],
+			[
+				"G",
+				"Geneva, Tahoma, Verdana, sans-serif"
+			],
+			[
+				"pad",
+				"padding"
+			],
+			[
+				"upp",
+				"uppercase"
+			],
+			[
+				"text-",
+				"text-align"
+			],
+			[
+				"b",
+				"bower_components/"
+			],
+			[
+				"tr",
+				"transform	CSS - transform: ;"
+			],
+			[
+				"rul",
+				"rules.png	w:4096 h:2304"
+			],
+			[
+				"cen",
+				"center"
+			],
+			[
+				"font-",
+				"font-size"
+			],
+			[
+				"mar",
+				"margin"
+			],
+			[
+				"sc",
+				"schedule"
+			],
+			[
+				"inline",
+				"inline-block"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 711,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "gulpfile.coffee",
+			"settings":
+			{
+				"buffer_size": 1692,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 400.0,
+		"last_filter": "close",
+		"selected_items":
+		[
+			[
+				"close",
+				"Project: Close"
+			],
+			[
+				"ssco",
+				"Set Syntax: CoffeeScript"
+			],
+			[
+				"sshtml",
+				"Set Syntax: HTML"
+			],
+			[
+				"trim",
+				"Trimmer: Trim trailing whitespace."
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"clos",
+				"Project: Close"
+			],
+			[
+				"pro",
+				"Project: Close"
+			],
+			[
+				"ssphp",
+				"Set Syntax: PHP"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"a",
+				"AlignTab: Live Preview Mode"
+			],
+			[
+				"ali",
+				"AlignTab: Live Preview Mode"
+			],
+			[
+				"remove ",
+				"Package Control: Remove Package"
+			],
+			[
+				"save",
+				"Project: Save As"
+			],
+			[
+				"ssngi",
+				"Set Syntax: nginx"
+			],
+			[
+				"file",
+				"File: Rename"
+			],
+			[
+				"re",
+				"Package Control: Remove Package"
+			],
+			[
+				"isnt",
+				"Package Control: Install Package"
+			],
+			[
+				"sssh",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"color",
+				"Color Picker"
+			],
+			[
+				"sspla",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"al",
+				"AlignTab: Live Preview Mode"
+			],
+			[
+				"alig",
+				"AlignTab: Live Preview Mode"
+			],
+			[
+				"ssji",
+				"Set Syntax: HTML (Jinja Templates)"
+			],
+			[
+				"power",
+				"SublimeREPL: PowerShell"
+			],
+			[
+				"ipsum",
+				"LoremIpsum: (15) some"
+			],
+			[
+				"ssjin",
+				"Set Syntax: HTML (Jinja Templates)"
+			],
+			[
+				"css",
+				"Run CSScomb"
+			],
+			[
+				"jinja",
+				"Set Syntax: HTML (Jinja Templates)"
+			],
+			[
+				"csscom",
+				"Run CSScomb"
+			],
+			[
+				"ssless",
+				"Set Syntax: LESS"
+			],
+			[
+				"isnta",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 672.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/E/m/code/Rocket.CMS/src/web/rcms",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/managers",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/models",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/tools",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/views",
+		"/E/m/code/Rocket.CMS/src/web/rcms/global",
+		"/E/m/code/Rocket.CMS/src/web/rcms/img",
+		"/E/m/code/Rocket.CMS/src/web/rcms/templates"
+	],
+	"file_history":
+	[
+		"/E/m/code/Rocket.CMS/src/web/rcms/gulpfile.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/managers/EditorManager.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/views/PlainTextFileEditorView.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/managers/PluginManager.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/tools/WebGUI.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/package.json",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/managers/AppRouter.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/managers/FilesListManager.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/templates/lsfilesItem.html",
+		"/E/m/code/Rocket.CMS/src/web/rcms/templates/editor.html",
+		"/E/m/code/Rocket.CMS/src/web/rcms/templates/editorTab.html",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/models/FileModel.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/views/FileListEntryView.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/models/PluginModel.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/global/global.js",
+		"/C/Users/Reo/AppData/Roaming/Sublime Text 3/Packages/User/Terminal.sublime-settings",
+		"/C/Users/Reo/AppData/Roaming/Sublime Text 3/Packages/Terminal/Terminal.sublime-settings",
+		"/C/Users/Reo/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/models/PlainTextFileEditorModel.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/models/FileEditorModel.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/tools/Net.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/main.coffee",
+		"/E/m/code/raycordsite/gulpfile.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/models/Plugin.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/pluginapi/models/FileEditorModel.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/pluginapi/models/FileEditor.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/pluginapi/managers/PluginManager.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/pluginapi/models/Plugin.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/index.html",
+		"/E/m/code/Rocket.CMS/src/web/rcms/pluginapi/models/Plugin.js",
+		"/E/m/code/Rocket.CMS/src/web/rcms/pluginapi/models/FileEditor.js",
+		"/E/m/code/Rocket.CMS/src/web/rcms/pluginapi/PluginManager.js",
+		"/E/m/code/Rocket.CMS/src/web/rcms/pluginapi/Plugin.js",
+		"/E/m/code/Rocket.CMS/src/web/rcms/global/PluginManager.js",
+		"/E/m/code/Rocket.CMS/src/web/rcms/global/Plugin.js",
+		"/E/m/code/Rocket.CMS/src/web/rcms/app/models/FileEditor.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/managers/PluginManager.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/models/FileEditor.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/global/pluginmanager.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/models/FileModel.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/tools/WebGUI.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/tools/Net.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/managers/FilesListManager.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/managers/AppRouter.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/managers/EditorManager.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/main.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/templates/lsfiles.html",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/routers/AppRouter.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/views/FileListEntryView.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/templates/editor.hbs",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/utils/Net.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/utils/Network.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/Network.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/FileModel.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/js/AppRouter.coffee",
+		"/E/m/code/Rocket.CMS/src/web/rcms/rcms.sublime-project",
+		"/C/Users/Reo/Downloads/handlebars.runtime-v3.0.3.js",
+		"/C/Users/Reo/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/E/m/code/raycordsite/global/common.less",
+		"/E/m/code/raycordsite/blocks/page-content.less",
+		"/E/m/code/raycordsite/header.php",
+		"/E/m/code/raycordsite/package.json",
+		"/E/m/code/raycordsite/global/global.less",
+		"/E/m/code/raycordsite/post-header.php",
+		"/E/m/code/raycordsite/bbpress.php",
+		"/E/m/code/raycordsite/post-footer.php",
+		"/E/m/code/raycordsite/.gitignore",
+		"/E/m/code/raycordsite/blocks/intro-page.less",
+		"/E/m/code/raycordsite/page-header.php",
+		"/E/m/code/raycordsite/index.php",
+		"/E/m/code/raycordsite/page-content.php",
+		"/E/m/code/raycordsite/tools.php",
+		"/E/m/code/raycordsite/single.php",
+		"/E/m/code/raycordsite/post-content.php",
+		"/E/m/code/raycordsite/404.php",
+		"/E/m/code/raycordsite/post-comments.php",
+		"/E/m/code/Rocket.CMS/src/cpp/rcms/pluginapi/rcms_core.h",
+		"/H/s/yandex/Загрузки/ENG/Cambridge English Vocabulary in Use Collection  Books & CD/README.txt",
+		"/E/m/code/raycordsite/blocks/main-content.less",
+		"/E/m/code/raycordsite/post-excerpt.php",
+		"/E/m/code/raycordsite/index.html",
+		"/E/m/code/raycordsite/post-center.php",
+		"/E/m/code/raycordsite/global/fixes.coffee",
+		"/C/Users/Reo/AppData/Local/Temp/7zO879F8CE2/README",
+		"/E/CMakeFiles/CMakeError.log",
+		"/E/CMakeFiles/CMakeOutput.log",
+		"/E/m/code/raycordsite/blocks/language-panel.less",
+		"/E/m/code/raycordsite/bin/style.css",
+		"/E/m/code/raycordsite/footer.php",
+		"/E/m/code/raycordsite/global/global.css",
+		"/E/m/code/raycordsite/raycordsite.sublime-project",
+		"/E/m/code/raycordsite/themeinfo.css",
+		"/E/m/code/raycordsite/bin/style-v1434147730626.css",
+		"/E/m/code/raycordsite/bin/style-v1434147539996.css",
+		"/E/m/code/raycordsite/bin/style-v1434147409376.css",
+		"/E/m/code/raycordsite/bin/style-v1434146824664.css",
+		"/E/m/code/raycordsite/blocks/main-page.less",
+		"/C/Users/Reo/Desktop/r/nginx/nginx.conf",
+		"/C/Users/Reo/Desktop/r/nginx/templates/php.conf",
+		"/C/Users/Reo/Desktop/r/nginx/sites-available/phabricator",
+		"/C/Users/Reo/Desktop/r/nginx/sites-available/gloria-nnov.ru",
+		"/C/Users/Reo/Desktop/r/nginx/templates/site-default.conf",
+		"/C/Users/Reo/Desktop/r/nginx/sites-available/adminer",
+		"/C/Users/Reo/Desktop/r/nginx/sites-available/wordpress",
+		"/C/Users/Reo/Desktop/r/nginx/sites-available/reo7sp.ru",
+		"/C/Users/Reo/Desktop/r/nginx/sites-available/raycordlegends.com",
+		"/C/Users/Reo/Desktop/r/nginx/sites-available/gravitycon.ru",
+		"/C/Users/Reo/Desktop/r/nginx/sites-available/host.reo7sp.ru",
+		"/C/Users/Reo/Desktop/r/nginx/sites-available/awesomelion.com",
+		"/C/Users/Reo/Desktop/r/nginx/fastcgi_params",
+		"/C/Users/Reo/Desktop/r/nginx/conf.d/php.conf",
+		"/C/Users/Reo/Desktop/r/nginx/conf.d/site-default.conf",
+		"/C/Users/Reo/Desktop/r/nginx/conf.d/http.conf",
+		"/C/Users/Reo/Desktop/r/nginx/sites-available/gloria-nnov.ru-editor",
+		"/C/Users/Reo/Desktop/r/nginx/nginx.conf.dpkg-dist",
+		"/E/m/code/gravitycon/rules.html",
+		"/E/m/code/gravitycon/blocks/page-content/page-content.less",
+		"/E/m/code/gravitycon/template/skeleton.html",
+		"/E/m/code/gravitycon/blocks/rules-text/rules-text.less",
+		"/E/w/p/cygwin/home/Reo/.zshrc",
+		"/E/w/p/cygwin/home/Reo/.zshrc.my",
+		"/E/s/Dropbox/c/conf/zshrc.my",
+		"/E/s/Dropbox/c/conf/zshrc",
+		"/C/Users/Reo/AppData/Roaming/Sublime Text 3/Packages/User/Default (Linux).sublime-keymap",
+		"/E/m/code/gravitycon/gulpfile.coffee",
+		"/E/m/code/gravitycon/blocks/main-menu/main-menu.less",
+		"/E/m/code/gravitycon/img/rules.png",
+		"/E/m/code/gravitycon/reg-handler.php"
+	],
+	"find":
+	{
+		"height": 38.0
+	},
+	"find_in_files":
+	{
+		"height": 106.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"el",
+			"model.mimeType",
+			"Net",
+			"nonapp",
+			"nonappjs",
+			"request",
+			"Network",
+			"filePath",
+			"done",
+			"get",
+			"handle",
+			"async",
+			"=",
+			"        =",
+			"=",
+			"data",
+			"justcopy",
+			"=",
+			"       =",
+			"=",
+			"flex",
+			"=",
+			"        =",
+			"     ",
+			"    ",
+			"r_tf",
+			"js",
+			"src",
+			"js",
+			"r_cu",
+			"post",
+			"r_su",
+			"??",
+			"get_site_url",
+			"_black",
+			"href",
+			"('",
+			"global",
+			"png",
+			"px",
+			"src",
+			"img",
+			"__abstract",
+			"page-content__frame",
+			"page-content__frame__abstract-decorations",
+			"abstract",
+			"abstact",
+			"&__abstract-decorations",
+			"__abstract_decorations",
+			"__abstact-flex-container",
+			"background-repeat",
+			"small",
+			"href",
+			"div",
+			"textContentWidth",
+			"pageContentSize",
+			"\n\n",
+			"\n",
+			"215",
+			"153",
+			"153px",
+			"__menu",
+			"content__menu",
+			"1024px",
+			"<<",
+			"TEST",
+			"}",
+			"		}",
+			"div",
+			"(",
+			"/**/*.(",
+			"gulpif",
+			"p",
+			"gulp",
+			"plugins",
+			"compile",
+			"other",
+			", { debounceDelay: 1000 }",
+			"резерве",
+			"     ",
+			"                      ",
+			"                     ",
+			"                    ",
+			"                   ",
+			"                  ",
+			"                 ",
+			"                ",
+			"               ",
+			"              ",
+			"             ",
+			"            ",
+			"           ",
+			"          ",
+			"         ",
+			"        ",
+			"       ",
+			"      ",
+			"     ",
+			"    ",
+			"                               ",
+			"                              ",
+			"                             ",
+			"                            ",
+			"                           ",
+			"                          ",
+			"                         ",
+			"                        ",
+			"                       ",
+			"                      ",
+			"                     ",
+			"                    ",
+			"                   ",
+			"                  ",
+			"                 ",
+			"                ",
+			"               ",
+			"              ",
+			"             ",
+			"conf.d",
+			"font",
+			"<p>",
+			"text-shadow",
+			"5fae5f",
+			"p",
+			"\n		",
+			"-----",
+			"isset",
+			"window"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 711,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content"
+							],
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"vintage":
+							{
+								"_vintageous_glue_until_normal_mode": false,
+								"_vintageous_non_interactive": false,
+								"_vintageous_processing_notation": false,
+								"action": null,
+								"action_count": "",
+								"mode": "mode_normal",
+								"motion": null,
+								"motion_count": "",
+								"must_capture_register_name": false,
+								"partial_sequence": "",
+								"register": "\"",
+								"sequence": "",
+								"xpos": 0
+							}
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "gulpfile.coffee",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1692,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								393,
+								393
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bh_regions":
+							[
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content"
+							],
+							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage",
+							"translate_tabs_to_spaces": false,
+							"vintage":
+							{
+								"_vintageous_glue_until_normal_mode": false,
+								"action": null,
+								"action_count": "",
+								"mode": "mode_normal",
+								"motion": null,
+								"motion_count": "",
+								"must_capture_register_name": false,
+								"normal_insert_count": "1",
+								"partial_sequence": "",
+								"register": "\"",
+								"sequence": "",
+								"xpos": 18
+							}
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": false,
+	"output.CSS Extended Completions":
+	{
+		"height": 0.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.vi_out":
+	{
+		"height": 124.0
+	},
+	"pinned_build_system": "",
+	"project": "rcms.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pa",
+				"package.json"
+			],
+			[
+				"pack",
+				"package.json"
+			],
+			[
+				"he",
+				"header.php"
+			],
+			[
+				"main",
+				"blocks\\main-content.less"
+			],
+			[
+				"ha",
+				"header.php"
+			],
+			[
+				"rules",
+				"rules.html"
+			],
+			[
+				"con",
+				"contacts.html"
+			],
+			[
+				"base",
+				"lib\\purecss\\base-min.css"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"E:\\m\\code\\raycordsite\\raycordsite.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+		"_vintageous_last_buffer_search": "Net",
+		"_vintageous_last_buffer_search_command": "vi_octothorp",
+		"_vintageous_last_char_search_command": "vi_f",
+		"_vintageous_last_character_search": "=",
+		"_vintageous_reset_during_init": true,
+		"vintage":
+		{
+			"_cmdline_cd": "E:\\m\\code\\Rocket.CMS\\src\\web\\rcms"
+		}
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 243.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
