@@ -99,9 +99,6 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 		FileOutputStream stream(filePath.toString());
 		stream << connection.postData;
 		stream.close();
-	} else if (connection.methodName == "edit") {
-		// TODO
-		connection.responseCode = 501;
 	} else if (connection.methodName == "setmeta") {
 		if (StringTools::startsWith(connection.args.at("key"), "_")) {
 			connection.responseCode = 405;

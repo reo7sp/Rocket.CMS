@@ -42,6 +42,3 @@ rcms.FileModel = Backbone.Model.extend
 
 	upload: ->
 		rcms.Net.post "/api/fs/upload?#{ @path }", @contents if not isDir
-
-	edit: ->
-		# TODO
