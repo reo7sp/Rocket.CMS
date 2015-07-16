@@ -28,14 +28,25 @@ namespace FsTools {
 
 inline std::string loadFileToString(const Poco::Path& path) {
 	std::string result;
-	std::ifstream input(path.toString());
-	input >> result;
-	input.close();
+	std::ifstream stream(path.toString());
+	stream >> result;
+	stream.close();
 	return result;
 }
 
 inline std::string loadFileToString(const std::string& path) {
 	return loadFileToString(Poco::Path(path));
+}
+
+inline bool writeStringToFile(const Poco::Path& path, std::string& data) {
+	std::ofstream stream(path.toString());
+	stream << data;
+	stream.close();
+	return !stream.fail();
+}
+
+inline bool writeStringToFile(const std::string& path, std::string& data) {
+	return writeStringToFile(Poco::Path(path), data);
 }
 
 inline Poco::Path getPathFromConfig(const std::string& name) {

@@ -20,16 +20,17 @@
 #include <Poco/Util/Application.h>
 #include <Poco/File.h>
 #include <Poco/FileStream.h>
+#include <Poco/JSON/Parser.h>
 
 #include "rcms/FsEvent.h"
 #include "rcms/PluginManager.h"
 #include "rcms/tools/FsTools.h"
+#include "rcms/tools/StringTools.h"
 
 using namespace std;
 using namespace Poco;
 using namespace Poco::Net;
 using namespace Poco::Util;
-
 
 FsApiHandler::FsApiHandler() : AbstractApiHandler("fs") {
 }
@@ -41,6 +42,9 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 		File(dirPath).list(files);
 
 		for (string item : files) {
+			if (StringTools::endsWith(item, ".meta.json") || StringTools::startsWith(item, ".")) {
+				continue;
+			}
 			connection.response += item;
 			connection.response += "\r\n";
 		}
@@ -51,8 +55,21 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 		FsTools::loadFileToString(filePath);
 		connection.responseMimeType = FsTools::getMimeType(filePath);
 	} else if (connection.methodName == "getmeta") {
-		// TODO
-		connection.responseCode = 501;
+		Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
+
+		string& key = connection.args.at("key");
+		if (StringTools::startsWith(key, "_")) {
+			if (key == "_isDir") {
+				connection.response = File(filePath).isDirectory() ? "1" : "0";
+			} else if (key == "_mimeType") {
+				connection.response = FsTools::getMimeType(filePath);
+			}
+		} else {
+			filePath.setExtension(filePath.getExtension() + ".meta.json");
+			JSON::Parser parser;
+			JSON::Object::Ptr jsonRoot = parser.parse(FsTools::loadFileToString(filePath)).extract<JSON::Object::Ptr>();
+			connection.response = jsonRoot->get(key).convert<string>();
+		}
 	} else if (connection.methodName == "rm") {
 		Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
 		Path fileDestPath(FsTools::getPathFromConfig("fs.site.dst"), connection.args.at("file"));
@@ -73,10 +90,12 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 		PluginManager::getInstance().onFs(FsEvent(FsEvent::Type::MV, fromPath, toPath));
 	} else if (connection.methodName == "create") {
 		Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
+
 		filePath.setExtension(Application::instance().config().getString("fs.site.defaultFileExtention"));
 		File(filePath).createFile();
 	} else if (connection.methodName == "upload") {
 		Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
+
 		FileOutputStream stream(filePath.toString());
 		stream << connection.postData;
 		stream.close();
@@ -84,8 +103,21 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 		// TODO
 		connection.responseCode = 501;
 	} else if (connection.methodName == "setmeta") {
-		// TODO
-		connection.responseCode = 501;
+		if (StringTools::startsWith(connection.args.at("key"), "_")) {
+			connection.responseCode = 405;
+			return;
+		}
+
+		Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file") + ".meta.json");
+
+		JSON::Parser parser;
+		Dynamic::Var jsonRootVar = parser.parse(FsTools::loadFileToString(filePath));
+		JSON::Object::Ptr jsonRoot = jsonRootVar.extract<JSON::Object::Ptr>();
+		jsonRoot->set(connection.args.at("key"), connection.args.at("value"));
+
+		ofstream stream(filePath.toString());
+		JSON::Stringifier::stringify(jsonRootVar, stream, 4);
+		stream.close();
 	} else if (connection.methodName == "publish") {
 		Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file"));
 		Path fileDestPath(FsTools::getPathFromConfig("fs.site.dst"), connection.args.at("file"));

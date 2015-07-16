@@ -19,6 +19,7 @@
 
 #include <vector>
 #include <string>
+#include <sstream>
 
 namespace StringTools {
 
@@ -30,6 +31,13 @@ inline std::vector<std::string> split(const std::string& str, const char delimit
 	std::vector<std::string> result;
 	split(str, delimiter, result);
 	return result;
+}
+
+template<typename T>
+inline std::string toString(const T& value) {
+	std::ostringstream stream;
+	stream << value;
+	return stream.str();
 }
 
 }

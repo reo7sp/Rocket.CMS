@@ -25,12 +25,12 @@ rcms.FileModel = Backbone.Model.extend
 		rcms.Net.get "/api/fs/create?#{ @path }&key=#{ key }&value=#{ value }"
 
 	checkIfIsDir: ->
-		getMeta "isDir"
+		getMeta "_isDir"
 			.then (value) =>
 				@isDir = value == "1"
 
 	getMimeType: ->
-		getMeta "mimeType"
+		getMeta "_mimeType"
 
 	load: ->
 		rcms.Net.get if isDir then "/api/fs/ls?dir=#{ @path }" else "/api/fs/getfile?file=#{ @path }"

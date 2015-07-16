@@ -36,6 +36,10 @@ void ApiManager::invokeApiCall(ApiConnection& connection) {
 		if (!PluginManager::getInstance().onApi(connection) && connection.responseCode < 400) {
 			connection.responseCode = 500;
 		}
+	} catch (out_of_range& e) {
+		if (connection.responseCode < 400) {
+			connection.responseCode = 400;
+		}
 	} catch (exception& e) {
 		if (connection.responseCode < 400) {
 			connection.responseCode = 500;

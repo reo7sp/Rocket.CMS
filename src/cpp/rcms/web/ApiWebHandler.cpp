@@ -68,6 +68,13 @@ void ApiWebHandler::handleRequest(HTTPServerRequest& request, HTTPServerResponse
 	response.setContentType(connection.responseMimeType);
 	response.setContentLength(connection.response.length());
 	response.setStatus((HTTPResponse::HTTPStatus) connection.responseCode);
+	if (connection.responseCode > 399) {
+		connection.response = "<h1>";
+		connection.response += StringTools::toString(connection.responseCode);
+		connection.response += "</h1>";
+		connection.responseMimeType = "text/html";
+	}
+
 	ostream& output = response.send();
 	output.write(connection.response.c_str(), connection.response.length());
 }
