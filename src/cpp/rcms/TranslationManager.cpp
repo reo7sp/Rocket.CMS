@@ -13,37 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "TranslationManager.h"
 
-void TranslationManager::set(std::string key, std::string value) {
-    this->store.insert(std::pair<std::string, std::string>(key, value));
-}
+#include <iostream>
+#include <map>
+
+#include <Poco/Dynamic/Var.h>
+#include <Poco/JSON/JSON.h>
+
+#include "TranslationManager.h"
+#include "tools/FsTools.h"
+
 
 std::string TranslationManager::get(std::string key) {
-    auto pos = this->store.find(key);
-    if (pos == this->store.end()) {
-        return "error";
+    auto pos = this->_store.find(key);
+    if (pos == this->_store.end()) {
+        return "Key not found";
     } else {
         std::string val = pos->second;
         return val;
     }
 }
 
-void TranslationManager::parseJSON(Object& obj, const std::string& name = "") {
-    for (Object::ConstIterator it = obj.begin(), end = obj.end(); it != end; ++it) {
-        this->set(it->first, it->second.toString());
+void TranslationManager::parseJSON(Poco::JSON::Object& obj) {
+    for (Poco::JSON::Object::ConstIterator it = obj.begin(), end = obj.end(); it != end; ++it) {
+        _store.insert(std::pair<std::string, std::string>(it->first, it->second.toString()));
     }
 }
 
-void TranslationManager::parseJSONFile(std::string f) {
-    Poco::Path fp(f);
-    std::string lFile = FsTools::loadFileToString(fp.toString());
+void TranslationManager::parseJSONFile(const std::string& f) {
+    std::string lFile = FsTools::loadFileToString(f);
 
-    std::cout << lFile << std::endl;
+    Poco::JSON::Parser parser;
+    Poco::Dynamic::Var result = Poco::JSON::Parser().parse(lFile);
 
-    JSON::Parser parser;
-    Dynamic::Var result = Parser().parse(lFile);
-
-    Object::Ptr pObj = result.extract<Object::Ptr>();
-    this->parseJSON(*pObj);
+    Poco::JSON::Object::Ptr pObj = result.extract<Poco::JSON::Object::Ptr>();
+    parseJSON(*pObj);
 }

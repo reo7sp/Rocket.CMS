@@ -16,28 +16,16 @@
 #ifndef ROCKET_CMS_TRANSLATIONMANAGER_H
 #define ROCKET_CMS_TRANSLATIONMANAGER_H
 
-#include <Poco/Path.h>
-#include <Poco/File.h>
-#include "tools/FsTools.h"
-
-#include <Poco/JSON/JSON.h>
 #include <Poco/JSON/Parser.h>
-#include <Poco/Dynamic/Var.h>
-#include <iostream>
-#include <map>
-
-using namespace Poco;
-using namespace Poco::JSON;
 
 class TranslationManager {
 public:
     TranslationManager() { }
-    void parseJSON(Object& obj, const std::string& name = "");
-    void parseJSONFile(std::string f);
-    void set(std::string key, std::string value);
+    void parseJSON(Poco::JSON::Object& obj);
+    void parseJSONFile(const std::string& f);
     std::string get(std::string key);
 private:
-    std::map<std::string, std::string> store;
+    std::map<std::string, std::string> _store;
 };
 
 #endif
