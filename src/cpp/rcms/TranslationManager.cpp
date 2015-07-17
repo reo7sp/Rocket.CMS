@@ -30,14 +30,8 @@ std::string TranslationManager::get(std::string key) {
 }
 
 void TranslationManager::parseJSON(Object& obj, const std::string& name = "") {
-    try {
-        for (Object::ConstIterator it = obj.begin(), end = obj.end(); it != end; ++it) {
-            if (it->second.isEmpty()) {
-                this->set(it->first, it->second.toString());
-            }
-        }
-    } catch (Poco::Exception &e) {
-        std::cout << e.message();
+    for (Object::ConstIterator it = obj.begin(), end = obj.end(); it != end; ++it) {
+        this->set(it->first, it->second.toString());
     }
 }
 
