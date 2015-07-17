@@ -6,6 +6,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -g -fpermissive")
 ### sources
 include_directories(src/cpp)
 set(SRC_LIST
+    src/cpp/rcms/TranslationManager.cpp
     src/cpp/rcms/CoreApp.cpp
     src/cpp/rcms/CacheManager.cpp
     src/cpp/rcms/PluginManager.cpp
@@ -32,7 +33,7 @@ set(CMAKE_FIND_LIBRARY_SUFFIXES .lib .dll .so .a .dll.a .30.dll.a .30.dll)
 
 # poco
 set(POCO_LIBS "")
-foreach(LIB PocoFoundation PocoUtil PocoNet)
+foreach(LIB PocoFoundation PocoUtil PocoNet PocoJSON)
     find_library(POCO_${LIB} ${LIB} PATHS build/lib/Poco REQUIRED)
     list(APPEND POCO_LIBS ${POCO_${LIB}})
 endforeach(LIB)
