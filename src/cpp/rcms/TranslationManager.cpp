@@ -19,10 +19,31 @@
 
 #include <Poco/Dynamic/Var.h>
 #include <Poco/JSON/JSON.h>
+#include <Poco/DirectoryIterator.h>
 
 #include "TranslationManager.h"
 #include "tools/FsTools.h"
 
+TranslationManager& TranslationManager::getInstance() {
+    static TranslationManager res;
+    return res;
+}
+
+void TranslationManager::init(const std::string &path, const std::string& lang) {
+    // TODO: read from config
+    // const std::string path = config().getString("fs.root") + "/src/cpp/rcms/plugins/";
+    // const std::string lang = config().getString("cms.lang");
+
+    Poco::DirectoryIterator end;
+    for (Poco::DirectoryIterator it(path); it != end; ++it) {
+        if (Poco::Path(it->path()).getExtension() == "json" && Poco::Path(it->path()).getFileName() == lang + ".json") {
+            parseJSONFile(it->path());
+        }
+        if (it->isDirectory()) {
+            init(it->path(), lang);
+        }
+    }
+}
 
 std::string TranslationManager::get(std::string key) {
     auto pos = this->_store.find(key);
@@ -42,7 +63,6 @@ void TranslationManager::parseJSON(Poco::JSON::Object& obj) {
 
 void TranslationManager::parseJSONFile(const std::string& f) {
     std::string lFile = FsTools::loadFileToString(f);
-
     Poco::JSON::Parser parser;
     Poco::Dynamic::Var result = Poco::JSON::Parser().parse(lFile);
 
