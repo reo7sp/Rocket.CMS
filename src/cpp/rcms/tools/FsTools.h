@@ -23,8 +23,6 @@
 #include <Poco/Path.h>
 #include <Poco/SharedPtr.h>
 #include <Poco/Util/Application.h>
-#include <Poco/File.h>
-#include <Poco/FileStream.h>
 
 namespace FsTools {
 

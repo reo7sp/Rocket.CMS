@@ -21,14 +21,17 @@
 class TranslationManager {
 public:
     static TranslationManager& getInstance();
-    void parseJSON(Poco::JSON::Object& obj);
-    void parseJSONFile(const std::string& f);
+
+    void init();
     std::string get(std::string key);
-    void init(const std::string& path, const std::string& lang);
 private:
     std::map<std::string, std::string> _store;
     static TranslationManager* _instance;
     TranslationManager() {}
+
+    void init(const std::string& path, const std::string& lang);
+    void parseJSON(Poco::JSON::Object& obj);
+    void parseJSONFile(const std::string& f);
 };
 
 #endif
