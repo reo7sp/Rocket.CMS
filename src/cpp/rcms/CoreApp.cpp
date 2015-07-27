@@ -26,6 +26,9 @@
 #include "rcms/web/WebHandlerFactory.h"
 #include "rcms/PluginManager.h"
 
+#include "tools/FsTools.h"
+#include "TranslationManager.h"
+
 using namespace Poco;
 using namespace Poco::Util;
 using namespace Poco::Net;
@@ -33,6 +36,9 @@ using namespace Poco::Net;
 POCO_SERVER_MAIN(CoreApp)
 
 int CoreApp::main(const std::vector<std::string>& args) {
+    TranslationManager::getInstance().init();
+    std::cout << TranslationManager::getInstance().get("hi");
+
 	if (_canStart) {
 		PluginManager::getInstance().load();
 		if (!(_canStart = PluginManager::getInstance().onPreInit())) {
@@ -41,7 +47,7 @@ int CoreApp::main(const std::vector<std::string>& args) {
 		}
 	}
 	if (_canStart) {
-		logger().information("Starting http server at port %i", config().getUInt("web.port"));
+        logger().information("Starting http server at port %i", (int) config().getUInt("web.port"));
 		HTTPServer httpServer(new WebHandlerFactory, (UInt16) config().getUInt("web.port"));
 		if (PluginManager::getInstance().onInit()) {
 			httpServer.start();

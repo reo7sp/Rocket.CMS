@@ -27,11 +27,10 @@
 namespace FsTools {
 
 inline std::string loadFileToString(const Poco::Path& path) {
-	std::string result;
-	std::ifstream stream(path.toString());
-	stream >> result;
-	stream.close();
-	return result;
+    std::ifstream t(path.toString());
+    std::string str((std::istreambuf_iterator<char>(t)),
+                     std::istreambuf_iterator<char>());
+    return str;
 }
 
 inline std::string loadFileToString(const std::string& path) {
