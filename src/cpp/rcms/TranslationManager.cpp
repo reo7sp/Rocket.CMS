@@ -27,28 +27,28 @@ using namespace Poco;
 using namespace Poco::Util;
 
 TranslationManager& TranslationManager::getInstance() {
-    static TranslationManager result;
-    return result;
+	static TranslationManager result;
+	return result;
 }
 
 void TranslationManager::load() {
-    Path rcmsTranslationsDirPath(Application::instance().config().getString("fs.root"), "translations");
+	Path rcmsTranslationsDirPath(Application::instance().config().getString("fs.root"), "translations");
 	Path pluginsDirPath(Application::instance().config().getString("fs.root"), "plugins");
-    string lang = Application::instance().config().getString("cms.lang");
+	string lang = Application::instance().config().getString("cms.lang");
 
 	loadFile(Path(rcmsTranslationsDirPath, lang + ".json"));
-    for (DirectoryIterator iter(pluginsDirPath), end; iter != end; ++iter) {
+	for (DirectoryIterator iter(pluginsDirPath), end; iter != end; ++iter) {
 		loadFile(Path(iter.path(), lang + ".json"));
-    }
+	}
 }
 
 const string& TranslationManager::get(const string& key) const {
 	auto iter = _store.find(key);
-    if (iter == _store.end()) {
-        return key;
-    } else {
-        return *iter->second;
-    }
+	if (iter == _store.end()) {
+		return key;
+	} else {
+		return *iter->second;
+	}
 }
 
 void TranslationManager::loadFile(const Path& filePath) {
