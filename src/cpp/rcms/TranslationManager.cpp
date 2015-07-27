@@ -14,66 +14,49 @@
  * limitations under the License.
  */
 
-#include <iostream>
-#include <map>
+#include "TranslationManager.h"
 
-#include <Poco/Dynamic/Var.h>
-#include <Poco/JSON/JSON.h>
 #include <Poco/DirectoryIterator.h>
 #include <Poco/Util/Application.h>
+#include <Poco/JSON/Parser.h>
 
-#include "CoreApp.h"
-#include "TranslationManager.h"
-#include "tools/FsTools.h"
+#include "rcms/tools/FsTools.h"
+
+using namespace std;
+using namespace Poco;
+using namespace Poco::Util;
 
 TranslationManager& TranslationManager::getInstance() {
-    static TranslationManager res;
-    return res;
+    static TranslationManager result;
+    return result;
 }
 
-void TranslationManager::init() {
-    static Poco::Path _path(Poco::Util::Application::instance().config().getString("fs.root"));
-    static Poco::Path _lang(Poco::Util::Application::instance().config().getString("cms.lang"));
+void TranslationManager::load() {
+    Path rcmsTranslationsDirPath(Application::instance().config().getString("fs.root"), "translations");
+	Path pluginsDirPath(Application::instance().config().getString("fs.root"), "plugins");
+    string lang = Application::instance().config().getString("cms.lang");
 
-    static std::string path = _path.toString() + "/src/cpp/rcms/plugins/";
-    static std::string lang = _lang.toString();
-
-    init(path, lang);
-}
-
-void TranslationManager::init(const std::string& path, const std::string& lang) {
-    Poco::DirectoryIterator end;
-    for (Poco::DirectoryIterator it(path); it != end; ++it) {
-        if (Poco::Path(it->path()).getExtension() == "json" && Poco::Path(it->path()).getFileName() == lang + ".json") {
-            parseJSONFile(it->path());
-        }
-        if (it->isDirectory()) {
-            init(it->path(), lang);
-        }
+	loadFile(Path(rcmsTranslationsDirPath, lang + ".json"));
+    for (DirectoryIterator iter(pluginsDirPath), end; iter != end; ++iter) {
+		loadFile(Path(iter.path(), lang + ".json"));
     }
 }
 
-std::string TranslationManager::get(std::string key) {
-    auto pos = this->_store.find(key);
-    if (pos == this->_store.end()) {
-        return "Key not found";
+const string& TranslationManager::get(const string& key) const {
+	auto iter = _store.find(key);
+    if (iter == _store.end()) {
+        return key;
     } else {
-        std::string val = pos->second;
-        return val;
+        return *iter->second;
     }
 }
 
-void TranslationManager::parseJSON(Poco::JSON::Object& obj) {
-    for (Poco::JSON::Object::ConstIterator it = obj.begin(), end = obj.end(); it != end; ++it) {
-        _store.insert(std::pair<std::string, std::string>(it->first, it->second.toString()));
-    }
-}
-
-void TranslationManager::parseJSONFile(const std::string& f) {
-    std::string lFile = FsTools::loadFileToString(f);
-    Poco::JSON::Parser parser;
-    Poco::Dynamic::Var result = Poco::JSON::Parser().parse(lFile);
-
-    Poco::JSON::Object::Ptr pObj = result.extract<Poco::JSON::Object::Ptr>();
-    parseJSON(*pObj);
+void TranslationManager::loadFile(const Path& filePath) {
+	if (!File(filePath).exists()) {
+		return;
+	}
+	JSON::Object::Ptr jsonRoot = JSON::Parser().parse(FsTools::loadFileToString(filePath)).extract<JSON::Object::Ptr>();
+	for (JSON::Object::ConstIterator iter = jsonRoot->begin(), end = jsonRoot->end(); iter != end; ++iter) {
+		_store[iter->first] = iter->second.toString();
+	}
 }

@@ -1,5 +1,6 @@
 /*
  * Copyright 2015 Alexander Rizaev
+ * Copyright 2015 Oleg Morozenkov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,25 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 #ifndef ROCKET_CMS_TRANSLATIONMANAGER_H
 #define ROCKET_CMS_TRANSLATIONMANAGER_H
 
-#include <Poco/JSON/Parser.h>
+#include <map>
+
+#include <Poco/Path.h>
 
 class TranslationManager {
+
 public:
     static TranslationManager& getInstance();
 
-    void init();
-    std::string get(std::string key);
+    void load();
+    const std::string& get(const std::string& key) const;
+
 private:
     std::map<std::string, std::string> _store;
-    static TranslationManager* _instance;
-    TranslationManager() {}
 
-    void init(const std::string& path, const std::string& lang);
-    void parseJSON(Poco::JSON::Object& obj);
-    void parseJSONFile(const std::string& f);
+	void loadFile(const Poco::Path& filePath);
 };
 
 #endif

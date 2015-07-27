@@ -36,8 +36,7 @@ using namespace Poco::Net;
 POCO_SERVER_MAIN(CoreApp)
 
 int CoreApp::main(const std::vector<std::string>& args) {
-    TranslationManager::getInstance().init();
-    std::cout << TranslationManager::getInstance().get("hi");
+    TranslationManager::getInstance().load();
 
 	if (_canStart) {
 		PluginManager::getInstance().load();

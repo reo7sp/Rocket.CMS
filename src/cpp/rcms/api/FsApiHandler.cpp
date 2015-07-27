@@ -1,6 +1,6 @@
 /*
- * Copyright 2015 Oleg Morozenkov,
- *		   2015 Alexander Rizaev
+ * Copyright 2015 Oleg Morozenkov
+ * Copyright 2015 Alexander Rizaev
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -107,8 +107,7 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 
 		Path filePath(FsTools::getPathFromConfig("fs.site.src"), connection.args.at("file") + ".meta.json");
 
-		JSON::Parser parser;
-		Dynamic::Var jsonRootVar = parser.parse(FsTools::loadFileToString(filePath));
+		Dynamic::Var jsonRootVar = JSON::Parser().parse(FsTools::loadFileToString(filePath));
 		JSON::Object::Ptr jsonRoot = jsonRootVar.extract<JSON::Object::Ptr>();
 		jsonRoot->set(connection.args.at("key"), connection.args.at("value"));
 

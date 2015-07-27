@@ -1,6 +1,6 @@
 /*
- * Copyright 2015 Oleg Morozenkov,
- *		   2015 Alexander Rizaev
+ * Copyright 2015 Oleg Morozenkov
+ * Copyright 2015 Alexander Rizaev
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
