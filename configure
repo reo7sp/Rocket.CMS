@@ -1,22 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
-$POCO_VERSION=1.6.0
-
-mkdir -p build/{lib,libinclude,tmp,web,package}
-
-wget http://pocoproject.org/releases/poco-$POCO_VERSION/poco-$POCO_VERSION.tar.gz -O build/tmp/_poco.tar.gz
-tar -xzf build/tmp/_poco.tar.gz -C build/tmp/
-mv build/tmp/poco* build/tmp/poco
-cd build/tmp/poco
-./configure
-make -j4
-cd -
-mv build/tmp/poco/lib/*/* build/lib/Poco/
-mv build/tmp/poco/Foundation/include/Poco/* build/libinclude/Poco/
-mv build/tmp/poco/Util/include/Poco/* build/libinclude/Poco/
-mv build/tmp/poco/JSON/include/Poco/* build/libinclude/Poco/
-mv build/tmp/poco/Net/include/Poco/* build/libinclude/Poco/
-
-rm -r build/tmp
-
-cmake .
+bash src/cpp/configure
+bash src/web/configure

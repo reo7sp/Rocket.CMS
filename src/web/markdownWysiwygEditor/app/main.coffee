@@ -12,6 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-router = new rcms.AppRouter()
-
-Backbone.history.start()
+rcms.PluginManager.register new rcms.PluginModel
+	fileEditorViewType: rcms.plug.mwfe.MarkdownWysiwygFileEditorView

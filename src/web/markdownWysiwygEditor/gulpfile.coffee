@@ -1,19 +1,16 @@
 gulp      = require "gulp"
 plugin    = require("gulp-load-plugins")()
 
-srcAppCss = "blocks/**/*.styl"
-srcLibCss = "lib/**/*.css"
+srcCss    = "lib/**/*.css"
 srcAppJs  = "app/**/*.coffee"
 srcLibJs  = "lib/**/*.js"
-srcData   = [ "**/*.html", "!bin/**", "!node_modules/**" ]
+srcData   = [ "**/*.@(eot|svg|ttf|woff)", "!bin/**", "!node_modules/**" ]
 dst       = "bin"
 
 # source tasks
 gulp.task "css", ->
-	gulp.src srcAppCss
+	gulp.src srcCss
 		.pipe plugin.stylus()
-		.pipe plugin.autoprefixer()
-		.pipe plugin.addSrc srcLibCss
 		.pipe plugin.concat "style.css"
 		.pipe gulp.dest dst
 
@@ -21,7 +18,6 @@ gulp.task "js", ->
 	gulp.src srcAppJs
 		.pipe plugin.coffee()
 		.pipe plugin.addSrc srcLibJs
-		.pipe plugin.addSrc.prepend "global/global.js"
 		.pipe plugin.uglify()
 		.pipe plugin.concat "app.js"
 		.pipe gulp.dest dst
@@ -31,4 +27,4 @@ gulp.task "data", ->
 		.pipe gulp.dest dst
 
 # main tasks
-gulp.task "default", [ "css", "js", "img", "data" ]
+gulp.task "default", [ "css", "js" ]

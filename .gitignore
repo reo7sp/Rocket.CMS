@@ -1,3 +1,5 @@
+.idea/
+*.sublime*
 CMakeCache.txt
 CMakeLists.txt
 CMakeFiles/
@@ -6,6 +8,5 @@ cmake_install.cmake
 install_manifest.txt
 build/
 bin/
+lib/
 node_modules/
-.idea/
-*.sublime*
