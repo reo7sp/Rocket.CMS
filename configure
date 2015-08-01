@@ -1,4 +1,0 @@
-#!/bin/bash
-
-bash src/cpp/configure
-bash src/web/configure
