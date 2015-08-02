@@ -35,8 +35,12 @@ using namespace Poco::Net;
 
 int CoreApp::main(const std::vector<std::string>& args) {
 	if (_canStart) {
+		logger().information("All options processed. Starting Rocket.CMS");
+
+		logger().information("Loading translations");
 		TranslationManager::getInstance().load();
 
+		logger().information("Loading plugins");
 		PluginManager::getInstance().load();
 		if (!(_canStart = PluginManager::getInstance().onPreInit())) {
 			logger().fatal("Error in some plugin's preinit method");
@@ -49,6 +53,7 @@ int CoreApp::main(const std::vector<std::string>& args) {
 		if (PluginManager::getInstance().onInit()) {
 			httpServer.start();
 
+			logger().information("Rocket.CMS has been successfully run");
 			waitForTerminationRequest();
 
 			logger().information("Stopping http server");
@@ -122,8 +127,8 @@ void CoreApp::handleGenConf(const std::string& name, const std::string& value) {
 		"			\"passhash\": \"d033e22ae348aeb5660fc2140aec35850c4da997\"\n"
 		"		}\n"
 		"	}\n"
-		"}";
-	printf(result);
+		"}\n";
+	printf("%s", result);
 
 	_canStart = false;
 	stopOptionsProcessing();
@@ -132,7 +137,7 @@ void CoreApp::handleGenConf(const std::string& name, const std::string& value) {
 void CoreApp::handleGenHash(const std::string& name, const std::string& value) {
 	SHA1Engine sha1Engine;
 	sha1Engine.update(value);
-	printf(Poco::DigestEngine::digestToHex(sha1Engine.digest()).c_str());
+	printf("%s", Poco::DigestEngine::digestToHex(sha1Engine.digest()).c_str());
 
 	_canStart = false;
 	stopOptionsProcessing();

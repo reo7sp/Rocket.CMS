@@ -4,7 +4,6 @@ set -e
 
 cmake .
 make -j4
-mkdir -p webgui
 cd web
 for dir in */
 do
@@ -14,6 +13,12 @@ do
 	then
 		gulp
 	fi
-	mv bin ../../webgui/$dir
+	if [[ $dir != "rcms/" && $dir != "node_modules/" ]]
+	then
+		mkdir -p ../../plugins/$dir
+		mv bin ../../plugins/$dir/webgui
+	fi
 	cd ..
 done
+cd ..
+mv web/rcms/bin webgui
