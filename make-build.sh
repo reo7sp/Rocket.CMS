@@ -1,7 +1,9 @@
 #!/bin/bash
+# must be run in the directory where this script is
 
 set -e
 
+mkdir -p plugins translations
 cmake .
 make -j4
 cd web

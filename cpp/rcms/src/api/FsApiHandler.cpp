@@ -37,24 +37,38 @@ FsApiHandler::FsApiHandler() : AbstractApiHandler("fs") {
 }
 
 void FsApiHandler::handleRequest(ApiConnection& connection) const {
-	if (connection.methodName == "ls") {
-		Path dirPath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("dir"));
-		vector<string> files;
-		File(dirPath).list(files);
+	map<string, string>::iterator iter = connection.args.find("file");
+	if (iter != connection.args.end() && iter->second.front() == '/') {
+		iter->second.erase(0, 1);
+	}
+	iter = connection.args.find("dir");
+	if (iter != connection.args.end() && iter->second.front() == '/') {
+		iter->second.erase(0, 1);
+	}
 
-		for (string item : files) {
-			if (StringTools::endsWith(item, ".meta.json") || StringTools::startsWith(item, ".")) {
-				continue;
+	if (connection.methodName == "ls") {
+		File dirFile(Path(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("dir")));
+
+		if (dirFile.exists() && dirFile.isDirectory()) {
+			vector<string> files;
+			dirFile.list(files);
+			for (string item : files) {
+				if (StringTools::endsWith(item, ".meta.json") || StringTools::startsWith(item, ".")) {
+					continue;
+				}
+				connection.response += item;
+				connection.response += "\r\n";
 			}
-			connection.response += item;
-			connection.response += "\r\n";
+			trimRightInPlace(connection.response);
+		} else {
+			connection.responseCode = 404;
+			connection.response = "Not found";
 		}
-		trimRightInPlace(connection.response);
 	} else if (connection.methodName == "getfile") {
 		Path filePath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("file"));
 
 		FsTools::loadFileToString(filePath);
-		connection.responseMimeType = FsTools::getMimeType(filePath);
+		connection.responseMimeType = FsTools::getMimeTypeOfFile(filePath);
 	} else if (connection.methodName == "getmeta") {
 		Path filePath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("file"));
 
@@ -63,7 +77,7 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 			if (key == "_isDir") {
 				connection.response = File(filePath).isDirectory() ? "1" : "0";
 			} else if (key == "_mimeType") {
-				connection.response = FsTools::getMimeType(filePath);
+				connection.response = FsTools::getMimeTypeOfFile(filePath);
 			}
 		} else {
 			filePath.setExtension(filePath.getExtension() + ".meta.json");

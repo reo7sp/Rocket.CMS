@@ -35,14 +35,15 @@ void IndexWebHandler::handleRequest(HTTPServerRequest& request, HTTPServerRespon
 		if (!NetTools::checkAuth(request, response)) {
 			return;
 		}
+		response.setChunkedTransferEncoding(true);
 		if (request.getURI() == "/") {
-			Path filePath(ConfigTools::getPathFromConfig("fs.cms.root"), "web/index.html");
+			Path filePath(ConfigTools::getPathFromConfig("fs.cms.root"), "webgui/index.html");
+			response.setContentType("text/html");
 			response.send() << FsTools::loadFileToString(filePath);
 		} else {
 			response.redirect("/", response.HTTP_MOVED_PERMANENTLY);
 		}
 	} catch (exception& e) {
-		response.setStatus(HTTPResponse::HTTP_REASON_INTERNAL_SERVER_ERROR);
-		response.send() << "<h1>Can't handle request. Error code: 500</h1>" << e.what();
+		NetTools::sendError(response, HTTPResponse::HTTPStatus::HTTP_INTERNAL_SERVER_ERROR, e.what());
 	}
 }

@@ -17,14 +17,14 @@
 #include "rcms/PluginManager.h"
 
 #include <Poco/File.h>
-#include <Poco/Util/Application.h>
 #include <Poco/SharedLibrary.h>
+#include <Poco/DirectoryIterator.h>
 
 #include "rcms/tools/ConfigTools.h"
+#include "rcms/tools/LogTools.h"
 
 using namespace std;
 using namespace Poco;
-using namespace Poco::Util;
 
 PluginManager& PluginManager::getInstance() {
 	static PluginManager result;
@@ -32,20 +32,28 @@ PluginManager& PluginManager::getInstance() {
 }
 
 void PluginManager::load() {
-	File pluginDir(Path(ConfigTools::getPathFromConfig("fs.cms.root"), "plugins"));
-	if (!pluginDir.exists() || !pluginDir.isDirectory()) {
+	File pluginsDirFile(Path(ConfigTools::getPathFromConfig("fs.cms.root"), "plugins"));
+	if (!pluginsDirFile.exists() || !pluginsDirFile.isDirectory()) {
 		return;
 	}
-	vector<string> pluginPaths;
-	pluginDir.list(pluginPaths);
-	for (string& item : pluginPaths) {
+	for (DirectoryIterator iter(pluginsDirFile), end; iter != end; ++iter) {
+		string pluginLibName;
+		for (DirectoryIterator innerIter(pluginsDirFile); innerIter != end; ++innerIter) {
+			if (innerIter.path().getExtension() == "so" || innerIter.path().getExtension() == "dll" || innerIter.path().getExtension() == "dylib") {
+				pluginLibName = innerIter.path().toString();
+				break;
+			}
+		}
+		if (pluginLibName.empty()) {
+			continue;
+		}
 		try {
-			SharedLibrary pluginLib(item);
+			SharedLibrary pluginLib(pluginLibName);
 			typedef rcms_Plugin* (*MainFunc)();
 			MainFunc func = (MainFunc) pluginLib.getSymbol("rcms_plug_main");
 			_plugins.push_back(func());
 		} catch (NotFoundException& e) {
-			Application::instance().logger().error("Error while loading %s. %s", item, e.displayText());
+			LogTools::getLogger().error("Error while loading %s. %s", pluginLibName, e.displayText());
 		}
 	}
 }
@@ -101,6 +109,11 @@ bool PluginManager::onApi(ApiConnection& connection) {
 	cConnection.args = cArgs;
 	cConnection.argsCount = connection.args.size();
 	cConnection.postData = (char*) connection.postData.c_str();
+
+	if (_plugins.empty()) {
+		return false;
+	}
+
 	bool result = true;
 	for (rcms_Plugin*& item : _plugins) {
 		if (strcmp(item->apiHandlerName, connection.handlerName.c_str()) == 0) {

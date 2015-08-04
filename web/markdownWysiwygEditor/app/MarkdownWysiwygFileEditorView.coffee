@@ -12,7 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-rcms.plugin.mwfe.MarkdownWysiwygFileEditorView = Backbone.View.extend
+Backbone = require "backbone"
+marked = require "marked"
+toMarkdown = require "to-markdown"
+
+module.exports = Backbone.View.extend
 	initialize: ->
 		@model.on "change:content", @render, @
 		@el.contentEditable = true
@@ -27,10 +31,10 @@ rcms.plugin.mwfe.MarkdownWysiwygFileEditorView = Backbone.View.extend
 			converters:
 				filter: (node) ->
 					node.className.indexOf "md-initial-html" != -1
-				replacement: (innerHtml, node) ->
+				replacement: (innerHTML, node) ->
 					node.outerHTML
 
-		@model.set "content", toMarkdown(@el.innerHtml, toMarkdownOptions)
+		@model.set "content", toMarkdown(@el.innerHTML, toMarkdownOptions)
 
 	events:
 		'input': (e) ->
@@ -46,11 +50,9 @@ rcms.plugin.mwfe.MarkdownWysiwygFileEditorView = Backbone.View.extend
 			result = result.replace /(<.+? )/gi , "$1 class=\"md-initial-html\" " if result == html
 			result
 
-		@el.innerHtml = marked @model.content, { renderer }
+		@el.innerHTML = marked @model.content, { renderer }
 
 
-rcms.plugin.mwfe.MarkdownWysiwygFileEditorView.mimeType = /text\/markdown/
+module.exports.mimeType = /text\/markdown/
 
-rcms.plugin.mwfe.WebGUI.getStr "wysiwyg_text_editor"
-	.then (value) ->
-		rcms.plugin.mwfe.MarkdownWysiwygFileEditorView.title = value
+module.exports.title = rcms.WebGUI.getStr "wysiwyg_text_editor"

@@ -33,7 +33,7 @@ inline Poco::Util::LayeredConfiguration& getConfig() {
 }
 
 inline Poco::Path getPathFromConfig(const std::string& dirKey) {
-	return Poco::Path(ConfigTools::getConfig().getString(dirKey));
+	return Poco::Path(getConfig().getString(dirKey));
 }
 
 inline Poco::Path getPathFromConfig(const std::string& rootDirKey, const std::string& dirKey) {

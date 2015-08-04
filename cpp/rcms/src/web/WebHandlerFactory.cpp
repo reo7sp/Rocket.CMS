@@ -19,6 +19,7 @@
 #include <Poco/Net/HTTPServerRequest.h>
 
 #include "rcms/tools/StringTools.h"
+#include "rcms/tools/LogTools.h"
 #include "rcms/web/IndexWebHandler.h"
 #include "rcms/web/ApiWebHandler.h"
 
@@ -26,8 +27,10 @@ using namespace Poco::Net;
 
 HTTPRequestHandler* WebHandlerFactory::createRequestHandler(const HTTPServerRequest& request) {
 	if (StringTools::startsWith(request.getURI(), "/api/")) {
+		LogTools::getLogger().debug("New request to api");
 		return new ApiWebHandler;
 	} else {
+		LogTools::getLogger().debug("New request to index");
 		return new IndexWebHandler;
 	}
 }

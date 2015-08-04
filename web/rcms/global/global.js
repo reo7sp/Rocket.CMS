@@ -1,2 +1,1 @@
-rcms = rcms || {};
-rcms.plugin = rcms.plugin || {};
+var rcms = rcms || {};

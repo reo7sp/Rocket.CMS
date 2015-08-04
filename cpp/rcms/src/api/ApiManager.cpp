@@ -27,9 +27,9 @@ ApiManager& ApiManager::getInstance() {
 
 void ApiManager::invokeApiCall(ApiConnection& connection) {
 	try {
-		for (auto iter = _apiHandlers.cbegin(), end = _apiHandlers.cend(); iter != end; ++iter) {
-			if ((*iter)->handlerName == connection.handlerName) {
-				(*iter)->handleRequest(connection);
+		for (AbstractApiHandler* item : _apiHandlers) {
+			if (item->handlerName == connection.handlerName) {
+				item->handleRequest(connection);
 				return;
 			}
 		}

@@ -26,8 +26,8 @@ public:
 	std::string handlerName;
 	std::string methodName;
 	std::map<std::string, std::string> args;
-	std::string postData = nullptr;
-	std::string response = nullptr;
+	std::string postData;
+	std::string response;
 	unsigned short responseCode = 200;
 	std::string responseMimeType = "text/plain";
 };

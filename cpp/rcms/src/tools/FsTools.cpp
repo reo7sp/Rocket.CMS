@@ -18,6 +18,11 @@
 #include "rcms/tools/FsTools.h"
 
 #include <map>
+#include <sstream>
+
+#include <Poco/Process.h>
+#include <Poco/PipeStream.h>
+#include <Poco/StreamCopier.h>
 
 using namespace std;
 using namespace Poco;
@@ -82,6 +87,15 @@ string concat(const vector<string>& files, const string& separator) {
 		result += separator;
 	}
 	return result;
+}
+
+std::string exec(const std::string& command, const std::vector<std::string>& args) {
+	Pipe outPipe;
+	Process::launch(command, args, 0, &outPipe, 0);
+	PipeInputStream input(outPipe);
+	stringstream output;
+	StreamCopier::copyStream(input, output);
+	return output.str();
 }
 
 }

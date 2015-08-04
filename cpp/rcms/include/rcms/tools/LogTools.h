@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_NETTOOLS_H
-#define ROCKET_CMS_NETTOOLS_H
+#ifndef ROCKETCMS_LOGTOOLS_H
+#define ROCKETCMS_LOGTOOLS_H
 
-#include <Poco/Net/HTTPServerRequest.h>
-#include <Poco/Net/HTTPServerResponse.h>
+#include <Poco/Util/Application.h>
 
-namespace NetTools {
+namespace LogTools {
 
-bool checkAuth(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response);
-
-void sendError(Poco::Net::HTTPServerResponse& response, Poco::Net::HTTPResponse::HTTPStatus errorCode = Poco::Net::HTTPResponse::HTTPStatus::HTTP_INTERNAL_SERVER_ERROR, const std::string& shortDescription = "");
+inline Poco::Logger& getLogger() {
+	return Poco::Util::Application::instance().logger();
+}
 
 }
 
-#endif //ROCKET_CMS_NETTOOLS_H
+#endif //ROCKETCMS_LOGTOOLS_H

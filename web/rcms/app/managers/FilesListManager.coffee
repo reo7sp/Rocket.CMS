@@ -12,35 +12,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-rcms.FilesListManager =
+WebGUI = require "../tools/WebGUI.coffee"
+FileModel = require "../models/FileModel.coffee"
+FileListEntryView = require "../views/FileListEntryView.coffee"
+
+module.exports =
 	init: (domRoot) ->
-		rcms.WebGUI.getFile "templates/lsfiles.html"
-			.then (value) ->
-				domRoot.innerHtml = value
+		WebGUI.getFile "templates/lsfiles.html"
+			.then (data) ->
+				domRoot.innerHTML = data
 
 			.then ->
-				rcms.WebGUI.getStr "files_list"
-					.then (value) ->
-						domRoot.getElementsByClassName("top-menu__title")[0].innerHtml = value
+				domRoot.getElementsByClassName("top-bar__title")[0].innerHTML = WebGUI.getStr "files_list"
 
 			.then ->
-				rootDir = new rcms.FileModel
+				rootDir = new FileModel
 					path: "/"
 					isDir: true
+				rootDir.load()
 
-				rootDir.load
-					.then (data) ->
-						childrenDomRoot = domRoot.getElementsByClassName("block-list")[0]
-						for childPath in data.split '\n'
-							el = childrenDomRoot.createElement "div"
-							childrenDomRoot.appendChild el
+			.then (data) ->
+				childrenDomRoot = domRoot.getElementsByClassName("block-list")[0]
+				for childPath in data.split "\r\n"
+					if not childPath
+						continue
+					el = document.createElement "div"
+					childrenDomRoot.appendChild el
 
-							childModel = new rcms.FileModel
-								path: childPath
+					childModel = new FileModel
+						path: childPath
 
-							childView = new rcms.FileListEntryView
-								model: childModel
-								el
-						return
+					childView = new FileListEntryView
+						model: childModel
+						el: el
+				return
 
 			.done()

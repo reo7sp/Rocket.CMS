@@ -1,0 +1,26 @@
+.file-entry
+	&__arrow
+		display inline
+
+		&:after
+			content "·\00a0"
+
+		&--folded:after
+			content "▸"
+
+		&--unfolded:after
+			content "▾"
+
+	&__title
+		display inline
+		cursor pointer
+
+	&__desc
+		display inline
+		color #aaa
+
+	&__children
+		margin-left 16px
+
+		&--folded
+			display none

@@ -12,47 +12,53 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-rcms.FileModel = Backbone.Model.extend
+Backbone = require "backbone"
+Net = require "../tools/Net.coffee"
+
+module.exports = rcms.FileModel = Backbone.Model.extend
 	defaults:
 		path: null
 		isDir: null
 		contents: null
 
 	create: ->
-		rcms.Net.get "/api/fs/create?file=#{ @path }"
+		Net.get "/api/fs/create?file=#{ @get "path" }"
 
 	rm: ->
-		rcms.Net.get "/api/fs/rm?file=#{ @path }"
+		Net.get "/api/fs/rm?file=#{ @get "path" }"
 
 	mv: (to) ->
-		rcms.Net.get "/api/fs/mv?from=#{ @path }&to=#{ to }"
+		Net.get "/api/fs/mv?from=#{ @get "path" }&to=#{ to }"
 			.then =>
-				@path = to
+				@set "path", to
+				to
 
 	publish: ->
-		rcms.Net.get "/api/fs/publish?file=#{ @path }"
+		Net.get "/api/fs/publish?file=#{ @get "path" }"
 
 	getMeta: (key) ->
-		rcms.Net.get "/api/fs/getMeta?file=#{ @path }&key=#{ key }"
+		Net.get "/api/fs/getmeta?file=#{ @get "path" }&key=#{ key }"
 
 	setMeta: (key, value) ->
-		rcms.Net.get "/api/fs/create?#{ @path }&key=#{ key }&value=#{ value }"
+		Net.get "/api/fs/create?#{ @get "path" }&key=#{ key }&value=#{ value }"
 
 	checkIfIsDir: ->
-		getMeta "_isDir"
+		@getMeta "_isDir"
 			.then (value) =>
-				@isDir = value == "1"
+				@set "isDir", value == "1"
+				value
 
 	getMimeType: ->
-		getMeta "_mimeType"
+		@getMeta "_mimeType"
 
 	load: ->
-		rcms.Net.get if isDir then "/api/fs/ls?dir=#{ @path }" else "/api/fs/getfile?file=#{ @path }"
+		Net.get if @get "isDir" then "/api/fs/ls?dir=#{ @get "path" }" else "/api/fs/getfile?file=#{ @get "path" }"
 			.then (data) =>
-				@contents = data
+				@set "contents", data
+				data
 
 	unload: ->
-		@contents = null
+		@set "contents", null
 
 	upload: ->
-		rcms.Net.post "/api/fs/upload?#{ @path }", @contents if not isDir
+		Net.post "/api/fs/upload?#{ @get "path" }", @get "contents" if not isDir

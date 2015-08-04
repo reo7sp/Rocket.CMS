@@ -21,13 +21,14 @@
 #include <fstream>
 
 #include <Poco/Path.h>
+#include <Poco/Exception.h>
 
 namespace FsTools {
 
 inline std::string loadFileToString(const Poco::Path& path) {
     std::ifstream stream(path.toString());
 	if (stream.fail()) {
-		return "";
+		throw Poco::FileException(path.toString() + " can't be read");
 	} else {
 		return std::string(std::istreambuf_iterator<char>(stream), std::istreambuf_iterator<char>());
 	}
@@ -50,13 +51,15 @@ inline bool writeStringToFile(const std::string& path, std::string& data) {
 
 std::string getMimeType(const std::string& name);
 
-inline std::string getMimeType(const Poco::Path& path) {
+inline std::string getMimeTypeOfFile(const Poco::Path& path) {
 	return getMimeType(path.getExtension());
 }
 
 std::string concat(const std::vector<Poco::Path>& files, const std::string& separator = "\r\n");
 
 std::string concat(const std::vector<std::string>& files, const std::string& separator = "\r\n");
+
+std::string exec(const std::string& command, const std::vector<std::string>& args);
 
 }
 

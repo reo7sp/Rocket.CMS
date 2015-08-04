@@ -23,26 +23,48 @@
 
 #include "rcms/tools/ConfigTools.h"
 
+using namespace std;
+using namespace Poco;
+using namespace Poco::Net;
+
 namespace NetTools {
 
-bool checkAuth(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) {
+bool checkAuth(HTTPServerRequest& request, HTTPServerResponse& response) {
 	if (!ConfigTools::getConfig().getBool("web.auth.enabled")) {
 		return true;
 	}
 	if (request.hasCredentials()) {
-		Poco::Net::HTTPBasicCredentials credentials(request);
+		HTTPBasicCredentials credentials(request);
 		if (credentials.getUsername() == ConfigTools::getConfig().getString("web.auth.user")) {
-			Poco::SHA1Engine sha1Engine;
+			SHA1Engine sha1Engine;
 			sha1Engine.update(credentials.getPassword());
-			std::string givenPass = Poco::DigestEngine::digestToHex(sha1Engine.digest());
-			std::string pass = ConfigTools::getConfig().getString("web.auth.passhash");
+			string givenPass = DigestEngine::digestToHex(sha1Engine.digest());
+			string pass = ConfigTools::getConfig().getString("web.auth.passhash");
 			return givenPass == pass;
 		}
 	} else {
 		response.requireAuthentication("Rocket.CMS");
+		response.setContentLength(0);
 		response.send();
 	}
 	return false;
+}
+
+void sendError(HTTPServerResponse& response, HTTPResponse::HTTPStatus errorCode, const string& shortDescription) {
+	response.setStatus(errorCode);
+	response.setContentType("text/html");
+	response.setChunkedTransferEncoding(true);
+	response.send() << ""
+		"<!DOCTYPE html>\n"
+		"<html>\n"
+		"	<head>\n"
+		"		<meta charset=\"utf-8\">\n"
+		"		<title>" << errorCode << "</title>\n"
+		"	</head>\n"
+		"	<body>\n"
+		"		<h1>" << shortDescription << "</h1>\n"
+		"	</body>\n"
+		"</html>\n";
 }
 
 }

@@ -34,14 +34,14 @@ TranslationManager& TranslationManager::getInstance() {
 
 void TranslationManager::load() {
     Path rcmsTranslationsDirPath(ConfigTools::getPathFromConfig("fs.cms.root"), "translations");
-	Path pluginsDirPath(ConfigTools::getPathFromConfig("fs.cms.root"), "plugins");
+	File pluginsDirFile(Path(ConfigTools::getPathFromConfig("fs.cms.root"), "plugins"));
     string lang = toLower(ConfigTools::getConfig().getString("web.lang"));
 
 	loadFile(Path(rcmsTranslationsDirPath, lang + ".json"));
-	if (!File(pluginsDirPath).exists()) {
+	if (!pluginsDirFile.exists() || !pluginsDirFile.isDirectory()) {
 		return;
 	}
-    for (DirectoryIterator iter(pluginsDirPath), end; iter != end; ++iter) {
+    for (DirectoryIterator iter(pluginsDirFile), end; iter != end; ++iter) {
 		loadFile(Path(iter.path(), Path("translations", lang + ".json")));
     }
 }

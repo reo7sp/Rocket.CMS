@@ -1,5 +1,6 @@
 *
 !cpp/
 !web/
+web/node_modules/
 !CMakeLists.txt
 !*.sh

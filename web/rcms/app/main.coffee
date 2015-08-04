@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-router = new rcms.AppRouter()
+Backbone = require "backbone"
+AppRouter = require "./managers/AppRouter.coffee"
+
+router = new AppRouter()
 
 Backbone.history.start()

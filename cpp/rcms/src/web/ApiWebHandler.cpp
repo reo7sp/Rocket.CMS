@@ -37,21 +37,22 @@ void ApiWebHandler::handleRequest(HTTPServerRequest& request, HTTPServerResponse
 		if (!NetTools::checkAuth(request, response)) {
 			return;
 		}
+		response.setChunkedTransferEncoding(true);
 		ApiConnection connection;
 
 		const string& uri = request.getURI();
 		static const size_t handlerNamePos = 5; // the length of string "/api/" is 5
-		connection.handlerName = uri.substr(handlerNamePos, uri.find('/', handlerNamePos) - handlerNamePos);
+		connection.handlerName = toLower(uri.substr(handlerNamePos, uri.find('/', handlerNamePos) - handlerNamePos));
 		size_t methodNamePos = handlerNamePos + connection.handlerName.length() + 1;
-		connection.methodName = uri.substr(methodNamePos, uri.find('?', methodNamePos) - methodNamePos);
+		connection.methodName = toLower(uri.substr(methodNamePos, uri.find('?', methodNamePos) - methodNamePos));
 		size_t argsPos = methodNamePos + connection.methodName.length() + 1;
 		string argsString = uri.substr(argsPos);
-		vector<string> rawArgsArray = StringTools::split(argsString, '?');
+		vector<string> rawArgsArray = StringTools::split(argsString, '&');
 		for (string& item : rawArgsArray) {
 			vector<string> rawArgParts = StringTools::split(item, '=');
 			string name;
 			string value;
-			URI::decode(rawArgParts.at(0), name);
+			URI::decode(toLower(rawArgParts.at(0)), name);
 			URI::decode(rawArgParts.at(1), value);
 			replaceInPlace(value, "../", "");
 			connection.args[name] = value;
@@ -65,20 +66,14 @@ void ApiWebHandler::handleRequest(HTTPServerRequest& request, HTTPServerResponse
 		}
 
 		ApiManager::getInstance().invokeApiCall(connection);
-		response.setContentType(connection.responseMimeType);
-		response.setContentLength(connection.response.length());
-		response.setStatus((HTTPResponse::HTTPStatus) connection.responseCode);
 		if (connection.responseCode > 399) {
-			response.send() << "<h1>Can't process your api call. Error code: "
-				<< StringTools::toString(connection.responseCode)
-				<< "</h1>"
-				<< connection.response;
+			NetTools::sendError(response, (HTTPResponse::HTTPStatus) connection.responseCode, connection.response);
 		} else {
-			ostream& output = response.send();
-			output.write(connection.response.c_str(), connection.response.length());
+			response.setStatus((HTTPResponse::HTTPStatus) connection.responseCode);
+			response.setContentType(connection.responseMimeType);
+			response.send().write(connection.response.c_str(), connection.response.length());
 		}
 	} catch (exception& e) {
-		response.setStatus(HTTPResponse::HTTP_REASON_INTERNAL_SERVER_ERROR);
-		response.send() << "<h1>Can't handle request. Error code: 500</h1>" << e.what();
+		NetTools::sendError(response, HTTPResponse::HTTPStatus::HTTP_INTERNAL_SERVER_ERROR, e.what());
 	}
 }

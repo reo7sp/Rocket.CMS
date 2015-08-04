@@ -12,28 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+Q = require "q"
+Net = require "./Net.coffee"
+
 cacheFiles = {}
-cacheStrs = {}
 
-getSomething = (key, cache, method) ->
-	result = cache[key]
-	if result?
-		if result.then?
-			result
-		else
-			Q.fcall ->
-				result
-	else
-		p = rcms.Net.get "/api/webgui/#{ method }?file=#{ key }"
-		cache[key] = p
-		p.then (value) ->
-			cache[key] = value
-		p.catch ->
-			cache[key] = undefined
-
-rcms.WebGUI =
+module.exports = rcms.WebGUI =
 	getFile: (key) ->
-		getSomething key, cacheFiles, "getfile"
+		result = cacheFiles[key]
+		if result?
+			if result.then?
+				result
+			else
+				Q.fcall ->
+					result
+		else
+			p = Net.get "/api/webgui/getfile?file=#{ key }"
+			cacheFiles[key] = p
+			p.then (value) ->
+				cacheFiles[key] = value
+			p.catch ->
+				cacheFiles[key] = undefined
 
 	getStr: (key) ->
-		getSomething key, cacheStrs, "getstr"
+		key # TODO

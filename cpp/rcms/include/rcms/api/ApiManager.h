@@ -22,6 +22,9 @@
 #include <Poco/SharedPtr.h>
 
 #include "rcms/api/AbstractApiHandler.h"
+#include "rcms/api/FsApiHandler.h"
+#include "rcms/api/ConfApiHandler.h"
+#include "rcms/api/WebguiApiHandler.h"
 
 class ApiManager {
 
@@ -39,7 +42,7 @@ private:
 	ApiManager(const ApiManager&) = delete;
 	ApiManager& operator=(const ApiManager&) = delete;
 
-	std::vector<AbstractApiHandler*> _apiHandlers;
+	std::vector<AbstractApiHandler*> _apiHandlers{ new FsApiHandler, new ConfApiHandler, new WebguiApiHandler };
 };
 
 #endif //ROCKET_CMS_APIMANAGER_H

@@ -12,21 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-rcms.PlainTextFileEditorView = Backbone.View.extend
+Backbone = require "backbone"
+WebGUI = require "../tools/WebGUI.coffee"
+PlainTextFileEditorView = require "../views/PlainTextFileEditorView.coffee"
+
+module.exports = Backbone.View.extend
 	initialize: ->
 		@model.on "change:content", @render, @
 		@el.contentEditable = true
 
 	events:
 		'input': ->
-			@model.set "content", @el.innerHtml
+			@model.set "content", @el.innerHTML
 
 	render: ->
-		@el.innerHtml = @model.content
+		@el.innerHTML = @model.content
 
+module.exports.mimeType = /(text|application)\//
 
-rcms.PlainTextFileEditorView.mimeType = /(text|application)\//
-
-rcms.WebGUI.getStr "plain_text_editor"
-	.then (value) ->
-		rcms.PlainTextFileEditorView.title = value
+PlainTextFileEditorView.title = WebGUI.getStr "plain_text_editor"

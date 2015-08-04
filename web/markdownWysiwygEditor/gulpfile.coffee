@@ -1,25 +1,29 @@
-gulp      = require "gulp"
-plugin    = require("gulp-load-plugins")()
+gulp = require "gulp"
+plugins = require("gulp-load-pluginss")()
+browserify = require "browserify"
+source = require "vinyl-source-stream"
 
-srcCss    = "lib/**/*.css"
-srcAppJs  = "app/**/*.coffee"
-srcLibJs  = "lib/**/*.js"
-srcData   = [ "**/*.@(eot|svg|ttf|woff)", "!bin/**", "!node_modules/**" ]
-dst       = "bin"
+srcCss = "blocks/**/*.styl"
+srcJs = "app/main.coffee"
+srcData = [ "**/*.html", "!bin/**", "!node_modules/**" ]
+dst = "bin"
 
 # source tasks
 gulp.task "css", ->
 	gulp.src srcCss
-		.pipe plugin.stylus()
-		.pipe plugin.concat "style.css"
+		.pipe plugins.concat "style.styl"
+		.pipe plugins.stylus()
+		.pipe plugins.autoprefixer()
+		.pipe plugins.concat "style.css"
 		.pipe gulp.dest dst
 
 gulp.task "js", ->
-	gulp.src srcAppJs
-		.pipe plugin.coffee()
-		.pipe plugin.addSrc srcLibJs
-		.pipe plugin.uglify()
-		.pipe plugin.concat "app.js"
+	browserify srcJs
+		.bundle()
+		.pipe source "app.js"
+		.pipe plugins.streamify plugins.addSrc.prepend "global/global.js"
+		.pipe plugins.streamify plugins.uglify()
+		.pipe plugins.streamify plugins.concat "app.js"
 		.pipe gulp.dest dst
 
 gulp.task "data", ->
@@ -27,4 +31,4 @@ gulp.task "data", ->
 		.pipe gulp.dest dst
 
 # main tasks
-gulp.task "default", [ "css", "js" ]
+gulp.task "default", [ "css", "js", "data" ]

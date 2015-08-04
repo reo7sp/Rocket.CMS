@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-rcms.Net =
+Q = require "q"
+
+module.exports = rcms.Net =
 	request: (method, path, data) ->
 		Q.Promise (resolve, reject, notify) ->
 			handle = new XMLHttpRequest()

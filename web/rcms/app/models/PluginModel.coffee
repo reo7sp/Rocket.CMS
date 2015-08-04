@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-rcms.PluginModel = Backbone.Model.extend
+Backbone = require "backbone"
+
+module.exports = rcms.PluginModel = Backbone.Model.extend
 	defaults:
 		fileEditorViewType: null

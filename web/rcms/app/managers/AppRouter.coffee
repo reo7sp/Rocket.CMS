@@ -12,9 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-body = document.getElementsByTagName("body")[0]
+Backbone = require "backbone"
+FilesListManager = require "./FilesListManager.coffee"
+EditorManager = require "./EditorManager.coffee"
 
-rcms.AppRouter = Backbone.Router.extend
+module.exports = Backbone.Router.extend
 	routes:
 		"": "lsfiles"
 		"lsfiles": "lsfiles"
@@ -22,14 +24,14 @@ rcms.AppRouter = Backbone.Router.extend
 
 	lsfiles: ->
 		@reset()
-		rcms.FilesListManager.init body
+		FilesListManager.init document.body
 		return
 
 	editfile: (file) ->
 		@reset()
-		rcms.EditorManager.init body
+		EditorManager.init document.body
 		return
 
 	reset: ->
-		body.innerHtml = ""
+		document.body.innerHTML = ""
 		return
