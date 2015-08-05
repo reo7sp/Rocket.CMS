@@ -73,7 +73,7 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 			return;
 		}
 
-		FsTools::loadFileToString(filePath);
+		connection.response = FsTools::loadFileToString(filePath);
 		connection.responseMimeType = FsTools::getMimeTypeOfFile(filePath);
 	} else if (connection.methodName == "getmeta") {
 		Path filePath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("file"));
@@ -152,7 +152,10 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 	} else if (connection.methodName == "upload") {
 		Path filePath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("file"));
 
-		FsTools::writeStringToFile(filePath, connection.postData);
+		if (!FsTools::writeStringToFile(filePath, connection.postData)) {
+			connection.responseCode = 500;
+			connection.response = "Can't save file";
+		}
 	} else if (connection.methodName == "setmeta") {
 		if (StringTools::startsWith(connection.args.at("key"), "_")) {
 			connection.responseCode = 405;

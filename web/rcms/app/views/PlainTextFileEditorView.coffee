@@ -16,18 +16,16 @@ Backbone = require "backbone"
 WebGUI = require "../tools/WebGUI.coffee"
 
 module.exports = Backbone.View.extend
-	setTimeoutHandle: null
-
 	initialize: ->
-		@model.set "isDir", false
+		@model.get("file").set "isDir", false
 		@el.setAttribute "placeholder", "#{ WebGUI.getStr "Enter some text here" }..."
 		@el.classList.add "plain-text-editor"
-		if @model.has "content"
+		if @model.get("file").has "content"
 			@el.contentEditable = true
 			@render()
 		else
 			@el.innerHTML = "#{ WebGUI.getStr "Loading file" }..."
-			@model.load()
+			@model.get("file").load()
 				.then =>
 					@el.contentEditable = true
 					@render()
@@ -39,12 +37,11 @@ module.exports = Backbone.View.extend
 		"input": ->
 			if @el.innerHTML == "<br>"
 				@el.innerHTML = ""
-			@model.set "content", @el.innerHTML
-			clearTimeout @setTimeoutHandle
-			@setTimeoutHandle = setTimeout (=> @model.upload()), 2500
+			@model.get("file").set "content", @el.innerHTML
+			@model.saveFile()
 
 	render: ->
-		@el.innerHTML = @model.get "content"
+		@el.innerHTML = @model.get("file").get "content"
 
 module.exports.mimeType = /(text|application)\//
 

@@ -49,13 +49,21 @@ module.exports = Backbone.View.extend
 			if @model.has("isDir") and not @model.get "isDir"
 				@openEditor true
 
-		"click .file-entry__buttons__button": (e) =>
-			if @model.has("isDir") and not @model.get "isDir"
-				@openEditor true
+		"click .file-entry__buttons__button--onenintab": (e) =>
+			@openEditor true
+
+		"click .file-entry__buttons__button--newfile": (e) =>
+			return # TODO
+
+		"click .file-entry__buttons__button--move": (e) =>
+			return # TODO
+
+		"click .file-entry__buttons__button--delete": (e) =>
+			return # TODO
 
 	render: ->
 		@renderArrow()
-		@renderOpenInNewTabButton()
+		@renderButtons()
 		@renderTitle()
 		rcms.ui.update()
 
@@ -77,10 +85,14 @@ module.exports = Backbone.View.extend
 				arrowEl.classList.remove "file-entry__arrow--folded"
 				childrenDomRoot.classList.remove "file-entry__children--folded"
 
-	renderOpenInNewTabButton: ->
-		if @model.has "isDir" and @model.get "isDir"
-			btnEl = @el.getElementsByClassName("file-entry__buttons__button")[0]
-			btnEl.classList.remove "file-entry__buttons__button--hidden"
+	renderButtons: ->
+		if @model.has "isDir"
+			if @model.get "isDir"
+				newfileButtonEl = @el.getElementsByClassName("file-entry__buttons__button--newfile")[0]
+				newfileButtonEl.classList.remove "file-entry__buttons__button--hidden"
+			else
+				openInTabButtonEl = @el.getElementsByClassName("file-entry__buttons__button--openintab")[0]
+				openInTabButtonEl.classList.remove "file-entry__buttons__button--hidden"
 
 	renderTitle: ->
 		pathParts = @model.get("path").split "/"

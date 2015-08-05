@@ -22,13 +22,13 @@ EditorManagerView = require "../views/EditorManagerView.coffee"
 module.exports = Backbone.Router.extend
 	routes:
 		"": "index"
-		"lsfiles": "lsfiles"
+		"fileslist": "fileslist"
 		"editfile/*path": "editfile"
 
 	index: ->
-		location.hash = "#lsfiles"
+		location.hash = "#fileslist"
 
-	lsfiles: ->
+	fileslist: ->
 		new FilesListView
 			model: new FilesListModel
 			el: document.body

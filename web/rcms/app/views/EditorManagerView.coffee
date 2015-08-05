@@ -43,7 +43,8 @@ module.exports = Backbone.View.extend
 		document.title = @model.get("file").get "path"
 		@el.getElementsByClassName("top-bar__title")[0].innerHTML = @model.get("file").get "path"
 		@el.getElementsByClassName("top-bar__back-button")[0].addEventListener "click", ->
-			location.hash = "#lsfiles"
+			location.hash = "#fileslist"
+		@listenTo @model, "change:fileSaveStatus", @updateStatus
 
 	collectEditors: (mimeType) ->
 		editors = [ UploadFileEditorView ]
@@ -70,10 +71,12 @@ module.exports = Backbone.View.extend
 		el = document.createElement "div"
 		editorDomRoot.appendChild el
 		new editorType
-			model: @model.get "file"
+			model: @model
 			el: el
 
 		for item in tabsDomRoot.getElementsByClassName "top-bar__tabs__tab"
 			item.classList.remove "top-bar__tabs__tab--active"
 		tabEl.classList.add "top-bar__tabs__tab--active"
 
+	updateStatus: ->
+		@el.getElementsByClassName("top-bar__desc")[0].innerHTML = @model.get("fileSaveStatus")

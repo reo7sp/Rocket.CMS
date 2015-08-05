@@ -40,7 +40,7 @@ module.exports = rcms.FileModel = Backbone.Model.extend
 		Net.get "/api/fs/getmeta?file=#{ @get "path" }&key=#{ key }"
 
 	setMeta: (key, value) ->
-		Net.get "/api/fs/create?#{ @get "path" }&key=#{ key }&value=#{ value }"
+		Net.get "/api/fs/create?file=#{ @get "path" }&key=#{ key }&value=#{ value }"
 
 	checkIfIsDir: ->
 		@getMeta "_isDir"
@@ -61,4 +61,4 @@ module.exports = rcms.FileModel = Backbone.Model.extend
 		@set "content", null
 
 	upload: ->
-		Net.post "/api/fs/upload?#{ @get "path" }", @get "content" if not @get "isDir"
+		Net.post "/api/fs/upload?file=#{ @get "path" }", @get "content" if not @get "isDir"

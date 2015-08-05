@@ -13,7 +13,26 @@
 # limitations under the License.
 
 Backbone = require "backbone"
+WebGUI = require "../tools/WebGUI.coffee"
 
 module.exports = Backbone.Model.extend
 	defaults:
 		file: null
+		fileSaveStatus: ""
+		saveTimeoutHandle: null
+
+	saveFile: ->
+		formatNumber = (number) ->
+			s = number.toString()
+			s = "0#{ s }" if number < 10
+
+		f = =>
+			@get("file").upload()
+				.then =>
+					d = new Date()
+					@set "fileSaveStatus", "#{ WebGUI.getStr "Saved at"} #{ formatNumber d.getHours() }:#{ formatNumber d.getMinutes() }:#{ formatNumber d.getSeconds() }"
+				.fail (reason) =>
+					@set "fileSaveStatus", "#{ WebGUI.getStr "Can't save" }. #{ reason }"
+
+		clearTimeout @get "saveTimeoutHandle"
+		@set "saveTimeoutHandle", setTimeout(f, 2000)
