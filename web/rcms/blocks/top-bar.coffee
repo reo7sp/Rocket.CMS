@@ -12,31 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-Q = require "q"
-Net = require "./Net.coffee"
-
-cacheFiles = {}
-
 rcms.ui.updateListeners.push ->
-	for item in document.getElementsByClassName("_WebGUI.getStr")
-		item.innerHTML = module.exports.getStr item.getAttribute "data-webgui-getstr"
-
-module.exports = rcms.WebGUI =
-	getFile: (key) ->
-		result = cacheFiles[key]
-		if result?
-			if result.then?
-				result
-			else
-				Q.fcall ->
-					result
-		else
-			p = Net.get "/api/webgui/getfile?file=#{ key }"
-			cacheFiles[key] = p
-			p.then (value) ->
-				cacheFiles[key] = value
-			p.catch ->
-				cacheFiles[key] = undefined
-
-	getStr: (key) ->
-		key # TODO
+	fixedTopBars = document.getElementsByClassName("top-bar--fixed")
+	if fixedTopBars.length < 1
+		return
+	document.body.innerHTML = "<div style='position: relative; top: #{ fixedTopBars[0].offsetHeight }px'>#{ document.body.innerHTML }</div>"

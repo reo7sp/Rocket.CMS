@@ -14,20 +14,38 @@
 
 Backbone = require "backbone"
 WebGUI = require "../tools/WebGUI.coffee"
-PlainTextFileEditorView = require "../views/PlainTextFileEditorView.coffee"
 
 module.exports = Backbone.View.extend
+	setTimeoutHandle: null
+
 	initialize: ->
-		@model.on "change:content", @render, @
-		@el.contentEditable = true
+		@model.set "isDir", false
+		@el.setAttribute "placeholder", "#{ WebGUI.getStr "Enter some text here" }..."
+		@el.classList.add "plain-text-editor"
+		if @model.has "content"
+			@el.contentEditable = true
+			@render()
+		else
+			@el.innerHTML = "#{ WebGUI.getStr "Loading file" }..."
+			@model.load()
+				.then =>
+					@el.contentEditable = true
+					@render()
+				.fail =>
+					@el.innerHTML = WebGUI.getStr "File loading failed"
+				.done()
 
 	events:
-		'input': ->
+		"input": ->
+			if @el.innerHTML == "<br>"
+				@el.innerHTML = ""
 			@model.set "content", @el.innerHTML
+			clearTimeout @setTimeoutHandle
+			@setTimeoutHandle = setTimeout (=> @model.upload()), 2500
 
 	render: ->
-		@el.innerHTML = @model.content
+		@el.innerHTML = @model.get "content"
 
 module.exports.mimeType = /(text|application)\//
 
-PlainTextFileEditorView.title = WebGUI.getStr "plain_text_editor"
+module.exports.title = WebGUI.getStr "Plain text"

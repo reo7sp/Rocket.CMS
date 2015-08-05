@@ -52,19 +52,9 @@ bool checkAuth(HTTPServerRequest& request, HTTPServerResponse& response) {
 
 void sendError(HTTPServerResponse& response, HTTPResponse::HTTPStatus errorCode, const string& shortDescription) {
 	response.setStatus(errorCode);
-	response.setContentType("text/html");
+	response.setContentType("text/plain");
 	response.setChunkedTransferEncoding(true);
-	response.send() << ""
-		"<!DOCTYPE html>\n"
-		"<html>\n"
-		"	<head>\n"
-		"		<meta charset=\"utf-8\">\n"
-		"		<title>" << errorCode << "</title>\n"
-		"	</head>\n"
-		"	<body>\n"
-		"		<h1>" << shortDescription << "</h1>\n"
-		"	</body>\n"
-		"</html>\n";
+	response.send() << "Error code: " << errorCode << ". Reason: " << shortDescription;
 }
 
 }

@@ -13,25 +13,31 @@
 # limitations under the License.
 
 Backbone = require "backbone"
-FilesListManager = require "./FilesListManager.coffee"
-EditorManager = require "./EditorManager.coffee"
+FileModel = require "../models/FileModel.coffee"
+FilesListModel = require "../models/FilesListModel.coffee"
+FilesListView = require "../views/FilesListView.coffee"
+EditorManagerModel = require "../models/EditorManagerModel.coffee"
+EditorManagerView = require "../views/EditorManagerView.coffee"
 
 module.exports = Backbone.Router.extend
 	routes:
-		"": "lsfiles"
+		"": "index"
 		"lsfiles": "lsfiles"
-		"editfile/*file": "editfile"
+		"editfile/*path": "editfile"
+
+	index: ->
+		location.hash = "#lsfiles"
 
 	lsfiles: ->
-		@reset()
-		FilesListManager.init document.body
-		return
+		new FilesListView
+			model: new FilesListModel
+			el: document.body
 
-	editfile: (file) ->
-		@reset()
-		EditorManager.init document.body
-		return
-
-	reset: ->
-		document.body.innerHTML = ""
-		return
+	editfile: (path) ->
+		fileModel = new FileModel
+			path: path
+		editorManagerModel = new EditorManagerModel
+			file: fileModel
+		new EditorManagerView
+			model: editorManagerModel
+			el: document.body

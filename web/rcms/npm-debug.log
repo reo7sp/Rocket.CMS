@@ -1,0 +1,2663 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'i', '-g', 'tidy', 'jslint' ]
+2 info using npm@2.13.3
+3 info using node@v0.10.25
+4 verbose node symlink /usr/bin/node
+5 verbose install initial load of /usr/lib/package.json
+6 verbose readDependencies loading dependencies from /usr/lib/package.json
+7 silly cache add args [ 'tidy', null ]
+8 verbose cache add spec tidy
+9 silly cache add args [ 'jslint', null ]
+10 verbose cache add spec jslint
+11 silly cache add parsed spec { raw: 'tidy',
+11 silly cache add   scope: null,
+11 silly cache add   name: 'tidy',
+11 silly cache add   rawSpec: '',
+11 silly cache add   spec: '*',
+11 silly cache add   type: 'range' }
+12 silly addNamed tidy@*
+13 verbose addNamed "*" is a valid semver range for tidy
+14 silly addNameRange { name: 'tidy', range: '*', hasData: false }
+15 silly mapToRegistry name tidy
+16 silly mapToRegistry using default registry
+17 silly mapToRegistry registry https://registry.npmjs.org/
+18 silly mapToRegistry uri https://registry.npmjs.org/tidy
+19 verbose addNameRange registry:https://registry.npmjs.org/tidy not in flight; fetching
+20 silly cache add parsed spec { raw: 'jslint',
+20 silly cache add   scope: null,
+20 silly cache add   name: 'jslint',
+20 silly cache add   rawSpec: '',
+20 silly cache add   spec: '*',
+20 silly cache add   type: 'range' }
+21 silly addNamed jslint@*
+22 verbose addNamed "*" is a valid semver range for jslint
+23 silly addNameRange { name: 'jslint', range: '*', hasData: false }
+24 silly mapToRegistry name jslint
+25 silly mapToRegistry using default registry
+26 silly mapToRegistry registry https://registry.npmjs.org/
+27 silly mapToRegistry uri https://registry.npmjs.org/jslint
+28 verbose addNameRange registry:https://registry.npmjs.org/jslint not in flight; fetching
+29 verbose request uri https://registry.npmjs.org/tidy
+30 verbose request no auth needed
+31 info attempt registry request try #1 at 12:14:22
+32 verbose request id 0e0d4030eafa18ca
+33 http request GET https://registry.npmjs.org/tidy
+34 verbose request uri https://registry.npmjs.org/jslint
+35 verbose request no auth needed
+36 info attempt registry request try #1 at 12:14:22
+37 http request GET https://registry.npmjs.org/jslint
+38 http 200 https://registry.npmjs.org/tidy
+39 silly get cb [ 200,
+39 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+39 silly get     etag: '"C3NHM1XTTSQBUN5HGNQXDQY9M"',
+39 silly get     'content-type': 'application/json',
+39 silly get     'cache-control': 'max-age=60',
+39 silly get     'content-length': '1318',
+39 silly get     'accept-ranges': 'bytes',
+39 silly get     date: 'Wed, 05 Aug 2015 09:14:22 GMT',
+39 silly get     via: '1.1 varnish',
+39 silly get     age: '0',
+39 silly get     connection: 'keep-alive',
+39 silly get     'x-served-by': 'cache-fra1246-FRA',
+39 silly get     'x-cache': 'MISS',
+39 silly get     'x-cache-hits': '0',
+39 silly get     'x-timer': 'S1438766062.640740,VS0,VE111',
+39 silly get     vary: 'Accept' } ]
+40 verbose get saving tidy to /home/reo7sp/.npm/registry.npmjs.org/tidy/.cache.json
+41 silly addNameRange number 2 { name: 'tidy', range: '*', hasData: true }
+42 silly addNameRange versions [ 'tidy', [ '0.0.1' ] ]
+43 silly addNamed tidy@0.0.1
+44 verbose addNamed "0.0.1" is a plain semver version for tidy
+45 silly mapToRegistry name tidy
+46 silly mapToRegistry using default registry
+47 silly mapToRegistry registry https://registry.npmjs.org/
+48 silly mapToRegistry uri https://registry.npmjs.org/tidy
+49 verbose addRemoteTarball https://registry.npmjs.org/tidy/-/tidy-0.0.1.tgz not in flight; adding
+50 verbose addRemoteTarball [ 'https://registry.npmjs.org/tidy/-/tidy-0.0.1.tgz',
+50 verbose addRemoteTarball   'ce70f54a7dd4a8685360c7e99d81b2647a50433b' ]
+51 info retry fetch attempt 1 at 12:14:22
+52 info attempt registry request try #1 at 12:14:22
+53 http fetch GET https://registry.npmjs.org/tidy/-/tidy-0.0.1.tgz
+54 http 200 https://registry.npmjs.org/jslint
+55 silly get cb [ 200,
+55 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+55 silly get     etag: '"1YYTXQO175N44QTS4PBEA8E8W"',
+55 silly get     'content-type': 'application/json',
+55 silly get     'cache-control': 'max-age=60',
+55 silly get     'content-length': '102831',
+55 silly get     'accept-ranges': 'bytes',
+55 silly get     date: 'Wed, 05 Aug 2015 09:14:22 GMT',
+55 silly get     via: '1.1 varnish',
+55 silly get     age: '0',
+55 silly get     connection: 'keep-alive',
+55 silly get     'x-served-by': 'cache-fra1243-FRA',
+55 silly get     'x-cache': 'HIT',
+55 silly get     'x-cache-hits': '1',
+55 silly get     'x-timer': 'S1438766062.631211,VS0,VE123',
+55 silly get     vary: 'Accept' } ]
+56 verbose get saving jslint to /home/reo7sp/.npm/registry.npmjs.org/jslint/.cache.json
+57 silly addNameRange number 2 { name: 'jslint', range: '*', hasData: true }
+58 silly addNameRange versions [ 'jslint',
+58 silly addNameRange   [ '0.0.2',
+58 silly addNameRange     '0.0.3',
+58 silly addNameRange     '0.1.0',
+58 silly addNameRange     '0.1.1',
+58 silly addNameRange     '0.1.2',
+58 silly addNameRange     '0.1.3',
+58 silly addNameRange     '0.1.4',
+58 silly addNameRange     '0.1.5',
+58 silly addNameRange     '0.1.6',
+58 silly addNameRange     '0.1.8',
+58 silly addNameRange     '0.1.9',
+58 silly addNameRange     '0.1.10',
+58 silly addNameRange     '0.1.11',
+58 silly addNameRange     '0.2.0',
+58 silly addNameRange     '0.2.1',
+58 silly addNameRange     '0.2.2',
+58 silly addNameRange     '0.2.3',
+58 silly addNameRange     '0.2.4',
+58 silly addNameRange     '0.2.5',
+58 silly addNameRange     '0.2.6',
+58 silly addNameRange     '0.2.7',
+58 silly addNameRange     '0.2.8',
+58 silly addNameRange     '0.2.9',
+58 silly addNameRange     '0.2.10',
+58 silly addNameRange     '0.2.11',
+58 silly addNameRange     '0.3.0',
+58 silly addNameRange     '0.3.1',
+58 silly addNameRange     '0.3.2',
+58 silly addNameRange     '0.3.3',
+58 silly addNameRange     '0.3.4',
+58 silly addNameRange     '0.4.0',
+58 silly addNameRange     '0.4.1',
+58 silly addNameRange     '0.5.0',
+58 silly addNameRange     '0.5.1',
+58 silly addNameRange     '0.5.2',
+58 silly addNameRange     '0.6.1',
+58 silly addNameRange     '0.6.2',
+58 silly addNameRange     '0.6.4',
+58 silly addNameRange     '0.6.5',
+58 silly addNameRange     '0.6.6',
+58 silly addNameRange     '0.7.0',
+58 silly addNameRange     '0.7.1',
+58 silly addNameRange     '0.7.2',
+58 silly addNameRange     '0.7.3',
+58 silly addNameRange     '0.8.0',
+58 silly addNameRange     '0.8.1',
+58 silly addNameRange     '0.9.0-pre002',
+58 silly addNameRange     '0.9.0-pre003',
+58 silly addNameRange     '0.9.0-pre004',
+58 silly addNameRange     '0.9.0-pre005',
+58 silly addNameRange     '0.9.0-pre006',
+58 silly addNameRange     '0.9.0',
+58 silly addNameRange     '0.9.1',
+58 silly addNameRange     '0.9.2',
+58 silly addNameRange     '0.9.3' ] ]
+59 silly addNamed jslint@0.9.3
+60 verbose addNamed "0.9.3" is a plain semver version for jslint
+61 silly mapToRegistry name jslint
+62 silly mapToRegistry using default registry
+63 silly mapToRegistry registry https://registry.npmjs.org/
+64 silly mapToRegistry uri https://registry.npmjs.org/jslint
+65 verbose addRemoteTarball https://registry.npmjs.org/jslint/-/jslint-0.9.3.tgz not in flight; adding
+66 verbose addRemoteTarball [ 'https://registry.npmjs.org/jslint/-/jslint-0.9.3.tgz',
+66 verbose addRemoteTarball   'd9afa60875014c8009ce2788e6cf30c612830e6c' ]
+67 info retry fetch attempt 1 at 12:14:23
+68 info attempt registry request try #1 at 12:14:23
+69 http fetch GET https://registry.npmjs.org/jslint/-/jslint-0.9.3.tgz
+70 http fetch 200 https://registry.npmjs.org/jslint/-/jslint-0.9.3.tgz
+71 http fetch 200 https://registry.npmjs.org/tidy/-/tidy-0.0.1.tgz
+72 silly fetchAndShaCheck shasum ce70f54a7dd4a8685360c7e99d81b2647a50433b
+73 verbose addTmpTarball /tmp/npm-18498-754c462a/registry.npmjs.org/tidy/-/tidy-0.0.1.tgz not in flight; adding
+74 verbose addTmpTarball already have metadata; skipping unpack for tidy@0.0.1
+75 silly cache afterAdd tidy@0.0.1
+76 verbose afterAdd /home/reo7sp/.npm/tidy/0.0.1/package/package.json not in flight; writing
+77 verbose afterAdd /home/reo7sp/.npm/tidy/0.0.1/package/package.json written
+78 silly fetchAndShaCheck shasum d9afa60875014c8009ce2788e6cf30c612830e6c
+79 verbose addTmpTarball /tmp/npm-18498-754c462a/registry.npmjs.org/jslint/-/jslint-0.9.3.tgz not in flight; adding
+80 verbose addTmpTarball already have metadata; skipping unpack for jslint@0.9.3
+81 silly cache afterAdd jslint@0.9.3
+82 verbose afterAdd /home/reo7sp/.npm/jslint/0.9.3/package/package.json not in flight; writing
+83 verbose afterAdd /home/reo7sp/.npm/jslint/0.9.3/package/package.json written
+84 silly install resolved [ { name: 'tidy',
+84 silly install resolved     version: '0.0.1',
+84 silly install resolved     scripts:
+84 silly install resolved      { preinstall: 'node-waf configure && node-waf clean build',
+84 silly install resolved        preuninstall: 'rm -rf build/*' },
+84 silly install resolved     main: 'tidy.js',
+84 silly install resolved     description: 'a binding to the tidy html library',
+84 silly install resolved     dependencies: { jsdom: 'latest' },
+84 silly install resolved     author: { name: 'Martyn Garcia', email: 'martyn.garcia@gmail.com' },
+84 silly install resolved     _npmJsonOpts:
+84 silly install resolved      { file: '/home/martyn/.npm/tidy/0.0.1/package/package.json',
+84 silly install resolved        contributors: false,
+84 silly install resolved        serverjs: false,
+84 silly install resolved        wscript: true },
+84 silly install resolved     _id: 'tidy@0.0.1',
+84 silly install resolved     devDependencies: {},
+84 silly install resolved     engines: { node: '*' },
+84 silly install resolved     _engineSupported: true,
+84 silly install resolved     _npmVersion: '1.0.23',
+84 silly install resolved     _nodeVersion: 'v0.4.10',
+84 silly install resolved     _defaultsLoaded: true,
+84 silly install resolved     dist:
+84 silly install resolved      { shasum: 'ce70f54a7dd4a8685360c7e99d81b2647a50433b',
+84 silly install resolved        tarball: 'http://registry.npmjs.org/tidy/-/tidy-0.0.1.tgz' },
+84 silly install resolved     maintainers: [ [Object] ],
+84 silly install resolved     directories: {},
+84 silly install resolved     _shasum: 'ce70f54a7dd4a8685360c7e99d81b2647a50433b',
+84 silly install resolved     _resolved: 'https://registry.npmjs.org/tidy/-/tidy-0.0.1.tgz',
+84 silly install resolved     _from: 'tidy@*' },
+84 silly install resolved   { name: 'jslint',
+84 silly install resolved     description: 'The JavaScript Code Quality Tool',
+84 silly install resolved     homepage: 'https://github.com/reid/node-jslint',
+84 silly install resolved     keywords:
+84 silly install resolved      [ 'lint',
+84 silly install resolved        'jslint',
+84 silly install resolved        'code-quality',
+84 silly install resolved        'static-analysis',
+84 silly install resolved        'jshint',
+84 silly install resolved        'eslint' ],
+84 silly install resolved     version: '0.9.3',
+84 silly install resolved     author: { name: 'Reid Burke', email: 'me@reidburke.com' },
+84 silly install resolved     contributors:
+84 silly install resolved      [ [Object],
+84 silly install resolved        [Object],
+84 silly install resolved        [Object],
+84 silly install resolved        [Object],
+84 silly install resolved        [Object],
+84 silly install resolved        [Object],
+84 silly install resolved        [Object],
+84 silly install resolved        [Object],
+84 silly install resolved        [Object],
+84 silly install resolved        [Object],
+84 silly install resolved        [Object],
+84 silly install resolved        [Object],
+84 silly install resolved        [Object],
+84 silly install resolved        [Object] ],
+84 silly install resolved     bin: { jslint: './bin/jslint.js' },
+84 silly install resolved     main: './lib/nodelint.js',
+84 silly install resolved     dependencies:
+84 silly install resolved      { exit: '~0.1.2',
+84 silly install resolved        glob: '^4.3.5',
+84 silly install resolved        nopt: '~3.0.1',
+84 silly install resolved        'readable-stream': '~1.0.31' },
+84 silly install resolved     devDependencies:
+84 silly install resolved      { 'fs.extra': '^1.3.2',
+84 silly install resolved        istanbul: '^0.3.5',
+84 silly install resolved        mocha: '^2.1.0',
+84 silly install resolved        ronn: '0.4.0' },
+84 silly install resolved     engines: { node: '>=0.8.0' },
+84 silly install resolved     files: [ 'man', 'doc', 'lib', 'bin', 'jslintrc.example', 'Makefile' ],
+84 silly install resolved     directories: { lib: './lib', man: './man', doc: './doc' },
+84 silly install resolved     man: [ 'man/jslint.1' ],
+84 silly install resolved     repository: { type: 'git', url: 'git://github.com/reid/node-jslint.git' },
+84 silly install resolved     bugs: { url: 'https://github.com/reid/node-jslint/issues' },
+84 silly install resolved     licenses: [ [Object] ],
+84 silly install resolved     scripts: { test: 'make test', mypublish: 'make prepublish; npm publish' },
+84 silly install resolved     gitHead: 'fec238fdb1e6bcff19e1f63f3accd09b4c716808',
+84 silly install resolved     _id: 'jslint@0.9.3',
+84 silly install resolved     _shasum: 'd9afa60875014c8009ce2788e6cf30c612830e6c',
+84 silly install resolved     _from: 'jslint@*',
+84 silly install resolved     _npmVersion: '2.13.2',
+84 silly install resolved     _nodeVersion: '2.3.1',
+84 silly install resolved     _npmUser: { name: 'smikes', email: 'smikes@cubane.com' },
+84 silly install resolved     dist:
+84 silly install resolved      { shasum: 'd9afa60875014c8009ce2788e6cf30c612830e6c',
+84 silly install resolved        tarball: 'http://registry.npmjs.org/jslint/-/jslint-0.9.3.tgz' },
+84 silly install resolved     maintainers: [ [Object], [Object], [Object] ],
+84 silly install resolved     _resolved: 'https://registry.npmjs.org/jslint/-/jslint-0.9.3.tgz' } ]
+85 info install tidy@0.0.1 into /usr/lib
+86 info install jslint@0.9.3 into /usr/lib
+87 info installOne tidy@0.0.1
+88 verbose installOne of tidy to /usr/lib not in flight; installing
+89 info installOne jslint@0.9.3
+90 verbose installOne of jslint to /usr/lib not in flight; installing
+91 verbose lock using /home/reo7sp/.npm/_locks/jslint-1346a2987e5abc31.lock for /usr/lib/node_modules/jslint
+92 verbose lock using /home/reo7sp/.npm/_locks/tidy-8d4a1b6668710b94.lock for /usr/lib/node_modules/tidy
+93 silly install write writing jslint 0.9.3 to /usr/lib/node_modules/jslint
+94 silly install write writing tidy 0.0.1 to /usr/lib/node_modules/tidy
+95 verbose unbuild lib/node_modules/tidy
+96 verbose unbuild lib/node_modules/jslint
+97 silly gentlyRm /usr/lib/node_modules/tidy is being purged from base /usr
+98 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/tidy
+99 silly gentlyRm /usr/lib/node_modules/jslint is being purged from base /usr
+100 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint
+101 verbose tar unpack /home/reo7sp/.npm/tidy/0.0.1/package.tgz
+102 verbose tar unpacking to /usr/lib/node_modules/tidy
+103 silly gentlyRm /usr/lib/node_modules/tidy is being purged
+104 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/tidy
+105 verbose tar unpack /home/reo7sp/.npm/jslint/0.9.3/package.tgz
+106 verbose tar unpacking to /usr/lib/node_modules/jslint
+107 silly gentlyRm /usr/lib/node_modules/jslint is being purged
+108 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint
+109 silly gunzTarPerm modes [ '755', '644' ]
+110 silly gunzTarPerm modes [ '755', '644' ]
+111 silly gunzTarPerm extractEntry tidy.js
+112 silly gunzTarPerm extractEntry package.json
+113 silly gunzTarPerm extractEntry engadget_article.html
+114 silly gunzTarPerm extractEntry README.md
+115 silly gunzTarPerm extractEntry LICENSE
+116 silly gunzTarPerm extractEntry config
+117 silly gunzTarPerm extractEntry jquery-1.6.2.min.js
+118 silly gunzTarPerm extractEntry wscript
+119 silly gunzTarPerm extractEntry ChangeLog
+120 silly gunzTarPerm extractEntry Makefile
+121 silly gunzTarPerm extractEntry bin/jslint.js
+122 silly gunzTarPerm modified mode [ 'bin/jslint.js', 510, 492 ]
+123 silly gunzTarPerm extractEntry doc/jslint.html
+124 silly gunzTarPerm extractEntry doc/jslint.md
+125 silly gunzTarPerm extractEntry test_jsdom.js
+126 silly gunzTarPerm extractEntry lib/collectorstream.js
+127 silly gunzTarPerm extractEntry lib/jslint-2014-01-26.js
+128 silly gunzTarPerm extractEntry lib/jslint-2014-02-06.js
+129 silly gunzTarPerm extractEntry lib/jslint-2014-04-21.js
+130 silly gunzTarPerm extractEntry lib/jslint-2013-11-23.js
+131 silly gunzTarPerm extractEntry package.json
+132 silly gunzTarPerm extractEntry lib/reportstream.js
+133 silly gunzTarPerm extractEntry lib/jslint-es5.js
+134 silly gunzTarPerm extractEntry test_tidy.js
+135 silly gunzTarPerm extractEntry lib/jslint-es6.js
+136 silly gunzTarPerm extractEntry lib/jslint-latest.js
+137 silly gunzTarPerm extractEntry lib/jslint.js
+138 silly gunzTarPerm extractEntry node_tidy.cc
+139 silly gunzTarPerm extractEntry lib/jslint-2013-09-22.js
+140 silly gunzTarPerm extractEntry lib/jsonreportstream.js
+141 silly gunzTarPerm extractEntry lib/jslint-2013-08-26.js
+142 silly gunzTarPerm extractEntry lib/linter.js
+143 silly gunzTarPerm extractEntry lib/jslint-2013-08-13.js
+144 silly gunzTarPerm extractEntry lib/lintstream.js
+145 verbose write writing to /usr/lib/node_modules/tidy/package.json
+146 info preinstall tidy@0.0.1
+147 verbose unsafe-perm in lifecycle false
+148 info tidy@0.0.1 Failed to exec preinstall script
+149 verbose unlock done using /home/reo7sp/.npm/_locks/tidy-8d4a1b6668710b94.lock for /usr/lib/node_modules/tidy
+150 silly gunzTarPerm extractEntry lib/jslint-2013-02-03.js
+151 silly gunzTarPerm extractEntry lib/main.js
+152 silly gunzTarPerm extractEntry lib/jslint-2012-02-03.js
+153 silly gunzTarPerm extractEntry lib/nodelint.js
+154 silly gunzTarPerm extractEntry lib/fileopener.js
+155 silly gunzTarPerm extractEntry lib/options.js
+156 silly gunzTarPerm extractEntry lib/color.js
+157 silly gunzTarPerm extractEntry lib/reporter.js
+158 silly gunzTarPerm extractEntry lib/jslint-2014-07-08.js
+159 silly gunzTarPerm extractEntry lib/stream.js
+160 silly gunzTarPerm extractEntry lib/jslint-2015-05-08.js
+161 silly gunzTarPerm extractEntry lib/collectorstream.js~
+162 silly gunzTarPerm extractEntry man/jslint.1
+163 verbose write writing to /usr/lib/node_modules/jslint/package.json
+164 info preinstall jslint@0.9.3
+165 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/package.json
+166 silly prepareForInstallMany adding exit@~0.1.2 from jslint dependencies
+167 silly prepareForInstallMany adding glob@^4.3.5 from jslint dependencies
+168 silly prepareForInstallMany adding nopt@~3.0.1 from jslint dependencies
+169 silly prepareForInstallMany adding readable-stream@~1.0.31 from jslint dependencies
+170 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/package.json
+171 silly cache add args [ 'nopt@~3.0.1', null ]
+172 verbose cache add spec nopt@~3.0.1
+173 silly cache add parsed spec { raw: 'nopt@~3.0.1',
+173 silly cache add   scope: null,
+173 silly cache add   name: 'nopt',
+173 silly cache add   rawSpec: '~3.0.1',
+173 silly cache add   spec: '>=3.0.1 <3.1.0',
+173 silly cache add   type: 'range' }
+174 silly addNamed nopt@>=3.0.1 <3.1.0
+175 verbose addNamed ">=3.0.1 <3.1.0" is a valid semver range for nopt
+176 silly addNameRange { name: 'nopt', range: '>=3.0.1 <3.1.0', hasData: false }
+177 silly mapToRegistry name nopt
+178 silly mapToRegistry using default registry
+179 silly mapToRegistry registry https://registry.npmjs.org/
+180 silly mapToRegistry uri https://registry.npmjs.org/nopt
+181 verbose addNameRange registry:https://registry.npmjs.org/nopt not in flight; fetching
+182 silly cache add args [ 'glob@^4.3.5', null ]
+183 verbose cache add spec glob@^4.3.5
+184 silly cache add parsed spec { raw: 'glob@^4.3.5',
+184 silly cache add   scope: null,
+184 silly cache add   name: 'glob',
+184 silly cache add   rawSpec: '^4.3.5',
+184 silly cache add   spec: '>=4.3.5 <5.0.0',
+184 silly cache add   type: 'range' }
+185 silly addNamed glob@>=4.3.5 <5.0.0
+186 verbose addNamed ">=4.3.5 <5.0.0" is a valid semver range for glob
+187 silly addNameRange { name: 'glob', range: '>=4.3.5 <5.0.0', hasData: false }
+188 silly mapToRegistry name glob
+189 silly mapToRegistry using default registry
+190 silly mapToRegistry registry https://registry.npmjs.org/
+191 silly mapToRegistry uri https://registry.npmjs.org/glob
+192 verbose addNameRange registry:https://registry.npmjs.org/glob not in flight; fetching
+193 silly cache add args [ 'readable-stream@~1.0.31', null ]
+194 verbose cache add spec readable-stream@~1.0.31
+195 silly cache add parsed spec { raw: 'readable-stream@~1.0.31',
+195 silly cache add   scope: null,
+195 silly cache add   name: 'readable-stream',
+195 silly cache add   rawSpec: '~1.0.31',
+195 silly cache add   spec: '>=1.0.31 <1.1.0',
+195 silly cache add   type: 'range' }
+196 silly addNamed readable-stream@>=1.0.31 <1.1.0
+197 verbose addNamed ">=1.0.31 <1.1.0" is a valid semver range for readable-stream
+198 silly addNameRange { name: 'readable-stream',
+198 silly addNameRange   range: '>=1.0.31 <1.1.0',
+198 silly addNameRange   hasData: false }
+199 silly mapToRegistry name readable-stream
+200 silly mapToRegistry using default registry
+201 silly mapToRegistry registry https://registry.npmjs.org/
+202 silly mapToRegistry uri https://registry.npmjs.org/readable-stream
+203 verbose addNameRange registry:https://registry.npmjs.org/readable-stream not in flight; fetching
+204 silly cache add args [ 'exit@~0.1.2', null ]
+205 verbose cache add spec exit@~0.1.2
+206 silly cache add parsed spec { raw: 'exit@~0.1.2',
+206 silly cache add   scope: null,
+206 silly cache add   name: 'exit',
+206 silly cache add   rawSpec: '~0.1.2',
+206 silly cache add   spec: '>=0.1.2 <0.2.0',
+206 silly cache add   type: 'range' }
+207 silly addNamed exit@>=0.1.2 <0.2.0
+208 verbose addNamed ">=0.1.2 <0.2.0" is a valid semver range for exit
+209 silly addNameRange { name: 'exit', range: '>=0.1.2 <0.2.0', hasData: false }
+210 silly mapToRegistry name exit
+211 silly mapToRegistry using default registry
+212 silly mapToRegistry registry https://registry.npmjs.org/
+213 silly mapToRegistry uri https://registry.npmjs.org/exit
+214 verbose addNameRange registry:https://registry.npmjs.org/exit not in flight; fetching
+215 verbose request uri https://registry.npmjs.org/nopt
+216 verbose request no auth needed
+217 info attempt registry request try #1 at 12:14:25
+218 http request GET https://registry.npmjs.org/nopt
+219 verbose request uri https://registry.npmjs.org/glob
+220 verbose request no auth needed
+221 info attempt registry request try #1 at 12:14:25
+222 verbose etag "BMQD6QS6ONVUD5Q6UUMK6VSM1"
+223 http request GET https://registry.npmjs.org/glob
+224 verbose request uri https://registry.npmjs.org/exit
+225 verbose request no auth needed
+226 info attempt registry request try #1 at 12:14:25
+227 verbose etag "66GA3RUQR76WJVRZF6ITVOZPO"
+228 http request GET https://registry.npmjs.org/exit
+229 verbose request uri https://registry.npmjs.org/readable-stream
+230 verbose request no auth needed
+231 info attempt registry request try #1 at 12:14:25
+232 verbose etag "1FGN03L7UKRT7OIKED6E6PD7A"
+233 http request GET https://registry.npmjs.org/readable-stream
+234 http 304 https://registry.npmjs.org/readable-stream
+235 silly get cb [ 304,
+235 silly get   { date: 'Wed, 05 Aug 2015 09:14:25 GMT',
+235 silly get     via: '1.1 varnish',
+235 silly get     'cache-control': 'max-age=60',
+235 silly get     etag: '"1FGN03L7UKRT7OIKED6E6PD7A"',
+235 silly get     age: '36',
+235 silly get     connection: 'keep-alive',
+235 silly get     'x-served-by': 'cache-fra1225-FRA',
+235 silly get     'x-cache': 'HIT',
+235 silly get     'x-cache-hits': '15',
+235 silly get     'x-timer': 'S1438766065.409633,VS0,VE0',
+235 silly get     vary: 'Accept' } ]
+236 verbose etag https://registry.npmjs.org/readable-stream from cache
+237 verbose get saving readable-stream to /home/reo7sp/.npm/registry.npmjs.org/readable-stream/.cache.json
+238 http 304 https://registry.npmjs.org/exit
+239 silly get cb [ 304,
+239 silly get   { date: 'Wed, 05 Aug 2015 09:14:25 GMT',
+239 silly get     via: '1.1 varnish',
+239 silly get     'cache-control': 'max-age=60',
+239 silly get     etag: '"66GA3RUQR76WJVRZF6ITVOZPO"',
+239 silly get     age: '39',
+239 silly get     connection: 'keep-alive',
+239 silly get     'x-served-by': 'cache-fra1247-FRA',
+239 silly get     'x-cache': 'HIT',
+239 silly get     'x-cache-hits': '2',
+239 silly get     'x-timer': 'S1438766065.407879,VS0,VE0',
+239 silly get     vary: 'Accept' } ]
+240 verbose etag https://registry.npmjs.org/exit from cache
+241 verbose get saving exit to /home/reo7sp/.npm/registry.npmjs.org/exit/.cache.json
+242 http 304 https://registry.npmjs.org/glob
+243 silly get cb [ 304,
+243 silly get   { date: 'Wed, 05 Aug 2015 09:14:25 GMT',
+243 silly get     via: '1.1 varnish',
+243 silly get     'cache-control': 'max-age=60',
+243 silly get     etag: '"BMQD6QS6ONVUD5Q6UUMK6VSM1"',
+243 silly get     age: '38',
+243 silly get     connection: 'keep-alive',
+243 silly get     'x-served-by': 'cache-fra1242-FRA',
+243 silly get     'x-cache': 'HIT',
+243 silly get     'x-cache-hits': '2',
+243 silly get     'x-timer': 'S1438766065.407707,VS0,VE0',
+243 silly get     vary: 'Accept' } ]
+244 verbose etag https://registry.npmjs.org/glob from cache
+245 verbose get saving glob to /home/reo7sp/.npm/registry.npmjs.org/glob/.cache.json
+246 silly addNameRange number 2 { name: 'readable-stream',
+246 silly addNameRange   range: '>=1.0.31 <1.1.0',
+246 silly addNameRange   hasData: true }
+247 silly addNameRange versions [ 'readable-stream',
+247 silly addNameRange   [ '0.0.1',
+247 silly addNameRange     '0.0.2',
+247 silly addNameRange     '0.0.3',
+247 silly addNameRange     '0.0.4',
+247 silly addNameRange     '0.1.0',
+247 silly addNameRange     '0.2.0',
+247 silly addNameRange     '0.3.0',
+247 silly addNameRange     '0.3.1',
+247 silly addNameRange     '1.0.0',
+247 silly addNameRange     '1.0.1',
+247 silly addNameRange     '1.0.2',
+247 silly addNameRange     '1.0.15',
+247 silly addNameRange     '1.0.17',
+247 silly addNameRange     '1.1.7',
+247 silly addNameRange     '1.1.8',
+247 silly addNameRange     '1.1.9',
+247 silly addNameRange     '1.0.24',
+247 silly addNameRange     '1.0.25',
+247 silly addNameRange     '1.1.10',
+247 silly addNameRange     '1.0.25-1',
+247 silly addNameRange     '1.1.11',
+247 silly addNameRange     '1.0.26',
+247 silly addNameRange     '1.0.26-1',
+247 silly addNameRange     '1.1.11-1',
+247 silly addNameRange     '1.0.26-2',
+247 silly addNameRange     '1.1.12',
+247 silly addNameRange     '1.0.26-3',
+247 silly addNameRange     '1.0.26-4',
+247 silly addNameRange     '1.1.12-1',
+247 silly addNameRange     '1.0.27-1',
+247 silly addNameRange     '1.1.13-1',
+247 silly addNameRange     '1.0.31',
+247 silly addNameRange     '1.1.13',
+247 silly addNameRange     '1.0.32',
+247 silly addNameRange     '1.0.32-1',
+247 silly addNameRange     '1.0.33-1',
+247 silly addNameRange     '1.0.33-2',
+247 silly addNameRange     '1.0.33',
+247 silly addNameRange     '2.0.0',
+247 silly addNameRange     '2.0.1',
+247 silly addNameRange     '2.0.2' ] ]
+248 silly addNamed readable-stream@1.0.33
+249 verbose addNamed "1.0.33" is a plain semver version for readable-stream
+250 silly addNameRange number 2 { name: 'exit', range: '>=0.1.2 <0.2.0', hasData: true }
+251 silly addNameRange versions [ 'exit', [ '0.1.0', '0.1.1', '0.1.2' ] ]
+252 silly addNamed exit@0.1.2
+253 verbose addNamed "0.1.2" is a plain semver version for exit
+254 http 200 https://registry.npmjs.org/nopt
+255 silly get cb [ 200,
+255 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+255 silly get     etag: '"1IA1PCOREFA1D278SXAMNMGJT"',
+255 silly get     'content-type': 'application/json',
+255 silly get     'cache-control': 'max-age=60',
+255 silly get     'content-length': '27595',
+255 silly get     'accept-ranges': 'bytes',
+255 silly get     date: 'Wed, 05 Aug 2015 09:14:25 GMT',
+255 silly get     via: '1.1 varnish',
+255 silly get     age: '13',
+255 silly get     connection: 'keep-alive',
+255 silly get     'x-served-by': 'cache-fra1234-FRA',
+255 silly get     'x-cache': 'HIT',
+255 silly get     'x-cache-hits': '4',
+255 silly get     'x-timer': 'S1438766065.390629,VS0,VE0',
+255 silly get     vary: 'Accept' } ]
+256 verbose get saving nopt to /home/reo7sp/.npm/registry.npmjs.org/nopt/.cache.json
+257 silly addNameRange number 2 { name: 'glob', range: '>=4.3.5 <5.0.0', hasData: true }
+258 silly addNameRange versions [ 'glob',
+258 silly addNameRange   [ '1.1.0',
+258 silly addNameRange     '2.0.9',
+258 silly addNameRange     '2.0.8',
+258 silly addNameRange     '2.0.7',
+258 silly addNameRange     '2.1.0',
+258 silly addNameRange     '3.0.0',
+258 silly addNameRange     '3.0.1',
+258 silly addNameRange     '3.1.0',
+258 silly addNameRange     '3.1.1',
+258 silly addNameRange     '3.1.2',
+258 silly addNameRange     '3.1.3',
+258 silly addNameRange     '3.1.4',
+258 silly addNameRange     '3.1.5',
+258 silly addNameRange     '3.1.6',
+258 silly addNameRange     '3.1.7',
+258 silly addNameRange     '3.1.9',
+258 silly addNameRange     '3.1.10',
+258 silly addNameRange     '3.1.11',
+258 silly addNameRange     '3.1.12',
+258 silly addNameRange     '3.1.13',
+258 silly addNameRange     '3.1.14',
+258 silly addNameRange     '3.1.15',
+258 silly addNameRange     '3.1.16',
+258 silly addNameRange     '3.1.17',
+258 silly addNameRange     '3.1.18',
+258 silly addNameRange     '3.1.19',
+258 silly addNameRange     '3.1.20',
+258 silly addNameRange     '3.1.21',
+258 silly addNameRange     '3.2.0',
+258 silly addNameRange     '3.2.1',
+258 silly addNameRange     '3.2.3',
+258 silly addNameRange     '3.2.4',
+258 silly addNameRange     '3.2.5',
+258 silly addNameRange     '3.2.6',
+258 silly addNameRange     '3.2.7',
+258 silly addNameRange     '3.2.8',
+258 silly addNameRange     '3.2.9',
+258 silly addNameRange     '3.2.10',
+258 silly addNameRange     '3.2.11',
+258 silly addNameRange     '4.0.0',
+258 silly addNameRange     '4.0.1',
+258 silly addNameRange     '4.0.2',
+258 silly addNameRange     '4.0.3',
+258 silly addNameRange     '4.0.4',
+258 silly addNameRange     '4.0.5',
+258 silly addNameRange     '4.0.6',
+258 silly addNameRange     '4.1.2-beta',
+258 silly addNameRange     '4.1.2',
+258 silly addNameRange     '4.1.3',
+258 silly addNameRange     '4.1.4',
+258 silly addNameRange     '4.1.5',
+258 silly addNameRange     '4.1.6',
+258 silly addNameRange     '4.2.0',
+258 silly addNameRange     '4.2.1',
+258 silly addNameRange     '4.2.2',
+258 silly addNameRange     '4.3.0',
+258 silly addNameRange     '4.3.1',
+258 silly addNameRange     '4.3.2',
+258 silly addNameRange     '4.3.3',
+258 silly addNameRange     '4.3.4',
+258 silly addNameRange     '4.3.5',
+258 silly addNameRange     '4.4.0',
+258 silly addNameRange     '4.4.2',
+258 silly addNameRange     '4.5.0',
+258 silly addNameRange     '5.0.0',
+258 silly addNameRange     '4.5.1',
+258 silly addNameRange     '5.0.1',
+258 silly addNameRange     '4.5.2',
+258 silly addNameRange     '5.0.2',
+258 silly addNameRange     '4.5.3',
+258 silly addNameRange     '5.0.3',
+258 silly addNameRange     '5.0.4',
+258 silly addNameRange     '5.0.5',
+258 silly addNameRange     '5.0.6',
+258 silly addNameRange     '5.0.7',
+258 silly addNameRange     '5.0.9',
+258 silly addNameRange     '5.0.10',
+258 silly addNameRange     '5.0.11',
+258 silly addNameRange     '5.0.12',
+258 silly addNameRange     '5.0.13',
+258 silly addNameRange     '5.0.14' ] ]
+259 silly addNamed glob@4.5.3
+260 verbose addNamed "4.5.3" is a plain semver version for glob
+261 silly cache afterAdd exit@0.1.2
+262 verbose afterAdd /home/reo7sp/.npm/exit/0.1.2/package/package.json not in flight; writing
+263 silly cache afterAdd readable-stream@1.0.33
+264 verbose afterAdd /home/reo7sp/.npm/readable-stream/1.0.33/package/package.json not in flight; writing
+265 silly cache afterAdd glob@4.5.3
+266 verbose afterAdd /home/reo7sp/.npm/glob/4.5.3/package/package.json not in flight; writing
+267 silly addNameRange number 2 { name: 'nopt', range: '>=3.0.1 <3.1.0', hasData: true }
+268 silly addNameRange versions [ 'nopt',
+268 silly addNameRange   [ '1.0.0',
+268 silly addNameRange     '1.0.1',
+268 silly addNameRange     '1.0.2',
+268 silly addNameRange     '1.0.3',
+268 silly addNameRange     '1.0.4',
+268 silly addNameRange     '1.0.5',
+268 silly addNameRange     '1.0.6',
+268 silly addNameRange     '1.0.7',
+268 silly addNameRange     '1.0.8',
+268 silly addNameRange     '1.0.9',
+268 silly addNameRange     '1.0.10',
+268 silly addNameRange     '2.0.0',
+268 silly addNameRange     '2.1.0',
+268 silly addNameRange     '2.1.1',
+268 silly addNameRange     '2.1.2',
+268 silly addNameRange     '2.2.0',
+268 silly addNameRange     '2.2.1',
+268 silly addNameRange     '3.0.0',
+268 silly addNameRange     '3.0.1',
+268 silly addNameRange     '3.0.2',
+268 silly addNameRange     '3.0.3' ] ]
+269 silly addNamed nopt@3.0.3
+270 verbose addNamed "3.0.3" is a plain semver version for nopt
+271 silly mapToRegistry name nopt
+272 silly mapToRegistry using default registry
+273 silly mapToRegistry registry https://registry.npmjs.org/
+274 silly mapToRegistry uri https://registry.npmjs.org/nopt
+275 verbose addRemoteTarball https://registry.npmjs.org/nopt/-/nopt-3.0.3.tgz not in flight; adding
+276 verbose addRemoteTarball [ 'https://registry.npmjs.org/nopt/-/nopt-3.0.3.tgz',
+276 verbose addRemoteTarball   '0e9978f33016bae0b75e3748c03bbbb71da5c530' ]
+277 verbose afterAdd /home/reo7sp/.npm/exit/0.1.2/package/package.json written
+278 verbose afterAdd /home/reo7sp/.npm/readable-stream/1.0.33/package/package.json written
+279 verbose afterAdd /home/reo7sp/.npm/glob/4.5.3/package/package.json written
+280 info retry fetch attempt 1 at 12:14:25
+281 info attempt registry request try #1 at 12:14:25
+282 http fetch GET https://registry.npmjs.org/nopt/-/nopt-3.0.3.tgz
+283 http fetch 200 https://registry.npmjs.org/nopt/-/nopt-3.0.3.tgz
+284 silly fetchAndShaCheck shasum 0e9978f33016bae0b75e3748c03bbbb71da5c530
+285 verbose addTmpTarball /tmp/npm-18498-754c462a/registry.npmjs.org/nopt/-/nopt-3.0.3.tgz not in flight; adding
+286 verbose addTmpTarball already have metadata; skipping unpack for nopt@3.0.3
+287 silly cache afterAdd nopt@3.0.3
+288 verbose afterAdd /home/reo7sp/.npm/nopt/3.0.3/package/package.json not in flight; writing
+289 verbose afterAdd /home/reo7sp/.npm/nopt/3.0.3/package/package.json written
+290 silly install resolved [ { name: 'exit',
+290 silly install resolved     description: 'A replacement for process.exit that ensures stdio are fully drained before exiting.',
+290 silly install resolved     version: '0.1.2',
+290 silly install resolved     homepage: 'https://github.com/cowboy/node-exit',
+290 silly install resolved     author: { name: '"Cowboy" Ben Alman', url: 'http://benalman.com/' },
+290 silly install resolved     repository: { type: 'git', url: 'git://github.com/cowboy/node-exit.git' },
+290 silly install resolved     bugs: { url: 'https://github.com/cowboy/node-exit/issues' },
+290 silly install resolved     licenses: [ [Object] ],
+290 silly install resolved     main: 'lib/exit',
+290 silly install resolved     engines: { node: '>= 0.8.0' },
+290 silly install resolved     scripts: { test: 'grunt nodeunit' },
+290 silly install resolved     devDependencies:
+290 silly install resolved      { 'grunt-contrib-jshint': '~0.6.4',
+290 silly install resolved        'grunt-contrib-nodeunit': '~0.2.0',
+290 silly install resolved        'grunt-contrib-watch': '~0.5.3',
+290 silly install resolved        grunt: '~0.4.1',
+290 silly install resolved        which: '~1.0.5' },
+290 silly install resolved     keywords:
+290 silly install resolved      [ 'exit',
+290 silly install resolved        'process',
+290 silly install resolved        'stdio',
+290 silly install resolved        'stdout',
+290 silly install resolved        'stderr',
+290 silly install resolved        'drain',
+290 silly install resolved        'flush',
+290 silly install resolved        '3584' ],
+290 silly install resolved     readme: '# exit [![Build Status](https://secure.travis-ci.org/cowboy/node-exit.png?branch=master)](http://travis-ci.org/cowboy/node-exit)\n\nA replacement for process.exit that ensures stdio are fully drained before exiting.\n\nTo make a long story short, if `process.exit` is called on Windows, script output is often truncated when pipe-redirecting `stdout` or `stderr`. This module attempts to work around this issue by waiting until those streams have been completely drained before actually calling `process.exit`.\n\nSee [Node.js issue #3584](https://github.com/joyent/node/issues/3584) for further reference.\n\nTested in OS X 10.8, Windows 7 on Node.js 0.8.25 and 0.10.18.\n\nBased on some code by [@vladikoff](https://github.com/vladikoff).\n\n## Getting Started\nInstall the module with: `npm install exit`\n\n```javascript\nvar exit = require(\'exit\');\n\n// These lines should appear in the output, EVEN ON WINDOWS.\nconsole.log("omg");\nconsole.error("yay");\n\n// process.exit(5);\nexit(5);\n\n// These lines shouldn\'t appear in the output.\nconsole.log("wtf");\nconsole.error("bro");\n```\n\n## Don\'t believe me? Try it for yourself.\n\nIn Windows, clone the repo and cd to the `test\\fixtures` directory. The only difference between [log.js](test/fixtures/log.js) and [log-broken.js](test/fixtures/log-broken.js) is that the former uses `exit` while the latter calls `process.exit` directly.\n\nThis test was done using cmd.exe, but you can see the same results using `| grep "std"` in either PowerShell or git-bash.\n\n```\nC:\\node-exit\\test\\fixtures>node log.js 0 10 stdout stderr 2>&1 | find "std"\nstdout 0\nstderr 0\nstdout 1\nstderr 1\nstdout 2\nstderr 2\nstdout 3\nstderr 3\nstdout 4\nstderr 4\nstdout 5\nstderr 5\nstdout 6\nstderr 6\nstdout 7\nstderr 7\nstdout 8\nstderr 8\nstdout 9\nstderr 9\n\nC:\\node-exit\\test\\fixtures>node log-broken.js 0 10 stdout stderr 2>&1 | find "std"\n\nC:\\node-exit\\test\\fixtures>\n```\n\n## Contributing\nIn lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).\n\n## Release History\n2013-11-26 - v0.1.2 - Fixed a bug with hanging processes.  \n2013-09-26 - v0.1.1 - Fixed some bugs. It seems to actually work now!  \n2013-09-20 - v0.1.0 - Initial release.\n\n## License\nCopyright (c) 2013 "Cowboy" Ben Alman  \nLicensed under the MIT license.\n',
+290 silly install resolved     readmeFilename: 'README.md',
+290 silly install resolved     _id: 'exit@0.1.2',
+290 silly install resolved     dist:
+290 silly install resolved      { shasum: '0632638f8d877cc82107d30a0fff1a17cba1cd0c',
+290 silly install resolved        tarball: 'http://registry.npmjs.org/exit/-/exit-0.1.2.tgz' },
+290 silly install resolved     _from: 'exit@>=0.1.2 <0.2.0',
+290 silly install resolved     _npmVersion: '1.3.11',
+290 silly install resolved     _npmUser: { name: 'cowboy', email: 'cowboy@rj3.net' },
+290 silly install resolved     maintainers: [ [Object] ],
+290 silly install resolved     directories: {},
+290 silly install resolved     _shasum: '0632638f8d877cc82107d30a0fff1a17cba1cd0c',
+290 silly install resolved     _resolved: 'https://registry.npmjs.org/exit/-/exit-0.1.2.tgz' },
+290 silly install resolved   { name: 'readable-stream',
+290 silly install resolved     version: '1.0.33',
+290 silly install resolved     description: 'Streams2, a user-land copy of the stream library from Node.js v0.10.x',
+290 silly install resolved     main: 'readable.js',
+290 silly install resolved     dependencies:
+290 silly install resolved      { 'core-util-is': '~1.0.0',
+290 silly install resolved        isarray: '0.0.1',
+290 silly install resolved        string_decoder: '~0.10.x',
+290 silly install resolved        inherits: '~2.0.1' },
+290 silly install resolved     devDependencies: { tap: '~0.2.6' },
+290 silly install resolved     scripts: { test: 'tap test/simple/*.js' },
+290 silly install resolved     repository:
+290 silly install resolved      { type: 'git',
+290 silly install resolved        url: 'git://github.com/isaacs/readable-stream.git' },
+290 silly install resolved     keywords: [ 'readable', 'stream', 'pipe' ],
+290 silly install resolved     browser: { util: false },
+290 silly install resolved     author:
+290 silly install resolved      { name: 'Isaac Z. Schlueter',
+290 silly install resolved        email: 'i@izs.me',
+290 silly install resolved        url: 'http://blog.izs.me/' },
+290 silly install resolved     license: 'MIT',
+290 silly install resolved     gitHead: '0bf97a117c5646556548966409ebc57a6dda2638',
+290 silly install resolved     bugs: { url: 'https://github.com/isaacs/readable-stream/issues' },
+290 silly install resolved     homepage: 'https://github.com/isaacs/readable-stream',
+290 silly install resolved     _id: 'readable-stream@1.0.33',
+290 silly install resolved     _shasum: '3a360dd66c1b1d7fd4705389860eda1d0f61126c',
+290 silly install resolved     _from: 'readable-stream@>=1.0.31 <1.1.0',
+290 silly install resolved     _npmVersion: '1.4.28',
+290 silly install resolved     _npmUser: { name: 'rvagg', email: 'rod@vagg.org' },
+290 silly install resolved     maintainers: [ [Object], [Object], [Object] ],
+290 silly install resolved     dist:
+290 silly install resolved      { shasum: '3a360dd66c1b1d7fd4705389860eda1d0f61126c',
+290 silly install resolved        tarball: 'http://registry.npmjs.org/readable-stream/-/readable-stream-1.0.33.tgz' },
+290 silly install resolved     directories: {},
+290 silly install resolved     _resolved: 'https://registry.npmjs.org/readable-stream/-/readable-stream-1.0.33.tgz',
+290 silly install resolved     readme: 'ERROR: No README data found!' },
+290 silly install resolved   { author:
+290 silly install resolved      { name: 'Isaac Z. Schlueter',
+290 silly install resolved        email: 'i@izs.me',
+290 silly install resolved        url: 'http://blog.izs.me/' },
+290 silly install resolved     name: 'glob',
+290 silly install resolved     description: 'a little globber',
+290 silly install resolved     version: '4.5.3',
+290 silly install resolved     repository: { type: 'git', url: 'git://github.com/isaacs/node-glob.git' },
+290 silly install resolved     main: 'glob.js',
+290 silly install resolved     files: [ 'glob.js', 'sync.js', 'common.js' ],
+290 silly install resolved     engines: { node: '*' },
+290 silly install resolved     dependencies:
+290 silly install resolved      { inflight: '^1.0.4',
+290 silly install resolved        inherits: '2',
+290 silly install resolved        minimatch: '^2.0.1',
+290 silly install resolved        once: '^1.3.0' },
+290 silly install resolved     devDependencies: { mkdirp: '0', rimraf: '^2.2.8', tap: '^0.5.0', tick: '0.0.6' },
+290 silly install resolved     scripts:
+290 silly install resolved      { prepublish: 'npm run benchclean',
+290 silly install resolved        profclean: 'rm -f v8.log profile.txt',
+290 silly install resolved        test: 'npm run profclean && tap test/*.js',
+290 silly install resolved        'test-regen': 'npm run profclean && TEST_REGEN=1 node test/00-setup.js',
+290 silly install resolved        bench: 'bash benchmark.sh',
+290 silly install resolved        prof: 'bash prof.sh && cat profile.txt',
+290 silly install resolved        benchclean: 'bash benchclean.sh' },
+290 silly install resolved     license: 'ISC',
+290 silly install resolved     gitHead: 'a4e461ab59a837eee80a4d8dbdbf5ae1054a646f',
+290 silly install resolved     bugs: { url: 'https://github.com/isaacs/node-glob/issues' },
+290 silly install resolved     homepage: 'https://github.com/isaacs/node-glob',
+290 silly install resolved     _id: 'glob@4.5.3',
+290 silly install resolved     _shasum: 'c6cb73d3226c1efef04de3c56d012f03377ee15f',
+290 silly install resolved     _from: 'glob@>=4.3.5 <5.0.0',
+290 silly install resolved     _npmVersion: '2.7.1',
+290 silly install resolved     _nodeVersion: '1.4.2',
+290 silly install resolved     _npmUser: { name: 'isaacs', email: 'i@izs.me' },
+290 silly install resolved     maintainers: [ [Object] ],
+290 silly install resolved     dist:
+290 silly install resolved      { shasum: 'c6cb73d3226c1efef04de3c56d012f03377ee15f',
+290 silly install resolved        tarball: 'http://registry.npmjs.org/glob/-/glob-4.5.3.tgz' },
+290 silly install resolved     directories: {},
+290 silly install resolved     _resolved: 'https://registry.npmjs.org/glob/-/glob-4.5.3.tgz',
+290 silly install resolved     readme: 'ERROR: No README data found!' },
+290 silly install resolved   { name: 'nopt',
+290 silly install resolved     version: '3.0.3',
+290 silly install resolved     description: 'Option parsing for Node, supporting types, shorthands, etc. Used by npm.',
+290 silly install resolved     author:
+290 silly install resolved      { name: 'Isaac Z. Schlueter',
+290 silly install resolved        email: 'i@izs.me',
+290 silly install resolved        url: 'http://blog.izs.me/' },
+290 silly install resolved     main: 'lib/nopt.js',
+290 silly install resolved     scripts: { test: 'tap test/*.js' },
+290 silly install resolved     repository: { type: 'git', url: 'git+ssh://git@github.com/isaacs/nopt.git' },
+290 silly install resolved     bin: { nopt: './bin/nopt.js' },
+290 silly install resolved     license: 'ISC',
+290 silly install resolved     dependencies: { abbrev: '1' },
+290 silly install resolved     devDependencies: { tap: '^1.2.0' },
+290 silly install resolved     gitHead: 'f64a64cd48d9f2660dd4e59191ff46a26397d6b1',
+290 silly install resolved     bugs: { url: 'https://github.com/isaacs/nopt/issues' },
+290 silly install resolved     homepage: 'https://github.com/isaacs/nopt#readme',
+290 silly install resolved     _id: 'nopt@3.0.3',
+290 silly install resolved     _shasum: '0e9978f33016bae0b75e3748c03bbbb71da5c530',
+290 silly install resolved     _from: 'nopt@>=3.0.1 <3.1.0',
+290 silly install resolved     _npmVersion: '2.12.0',
+290 silly install resolved     _nodeVersion: '2.2.1',
+290 silly install resolved     _npmUser: { name: 'isaacs', email: 'isaacs@npmjs.com' },
+290 silly install resolved     dist:
+290 silly install resolved      { shasum: '0e9978f33016bae0b75e3748c03bbbb71da5c530',
+290 silly install resolved        tarball: 'http://registry.npmjs.org/nopt/-/nopt-3.0.3.tgz' },
+290 silly install resolved     maintainers: [ [Object] ],
+290 silly install resolved     directories: {},
+290 silly install resolved     _resolved: 'https://registry.npmjs.org/nopt/-/nopt-3.0.3.tgz' } ]
+291 info install exit@0.1.2 into /usr/lib/node_modules/jslint
+292 info install readable-stream@1.0.33 into /usr/lib/node_modules/jslint
+293 info install glob@4.5.3 into /usr/lib/node_modules/jslint
+294 info install nopt@3.0.3 into /usr/lib/node_modules/jslint
+295 info installOne exit@0.1.2
+296 verbose installOne of exit to /usr/lib/node_modules/jslint not in flight; installing
+297 info installOne readable-stream@1.0.33
+298 verbose installOne of readable-stream to /usr/lib/node_modules/jslint not in flight; installing
+299 info installOne glob@4.5.3
+300 verbose installOne of glob to /usr/lib/node_modules/jslint not in flight; installing
+301 info installOne nopt@3.0.3
+302 verbose installOne of nopt to /usr/lib/node_modules/jslint not in flight; installing
+303 verbose lock using /home/reo7sp/.npm/_locks/exit-5fd732e8c7f0e56c.lock for /usr/lib/node_modules/jslint/node_modules/exit
+304 verbose lock using /home/reo7sp/.npm/_locks/glob-c094ff6c9a7a20de.lock for /usr/lib/node_modules/jslint/node_modules/glob
+305 verbose lock using /home/reo7sp/.npm/_locks/nopt-cfc138a9dc94d3b5.lock for /usr/lib/node_modules/jslint/node_modules/nopt
+306 verbose lock using /home/reo7sp/.npm/_locks/readable-stream-8944b76c9ab5fd4c.lock for /usr/lib/node_modules/jslint/node_modules/readable-stream
+307 silly install write writing exit 0.1.2 to /usr/lib/node_modules/jslint/node_modules/exit
+308 silly install write writing glob 4.5.3 to /usr/lib/node_modules/jslint/node_modules/glob
+309 silly install write writing nopt 3.0.3 to /usr/lib/node_modules/jslint/node_modules/nopt
+310 silly install write writing readable-stream 1.0.33 to /usr/lib/node_modules/jslint/node_modules/readable-stream
+311 verbose unbuild lib/node_modules/jslint/node_modules/exit
+312 verbose unbuild lib/node_modules/jslint/node_modules/glob
+313 verbose unbuild lib/node_modules/jslint/node_modules/nopt
+314 verbose unbuild lib/node_modules/jslint/node_modules/readable-stream
+315 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/exit is being purged from base /usr
+316 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/exit
+317 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob is being purged from base /usr
+318 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob
+319 verbose tar unpack /home/reo7sp/.npm/exit/0.1.2/package.tgz
+320 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/exit
+321 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/exit is being purged
+322 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/exit
+323 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/nopt is being purged from base /usr
+324 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/nopt
+325 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/readable-stream is being purged from base /usr
+326 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/readable-stream
+327 verbose tar unpack /home/reo7sp/.npm/glob/4.5.3/package.tgz
+328 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/glob
+329 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob is being purged
+330 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob
+331 silly gunzTarPerm modes [ '755', '644' ]
+332 verbose tar unpack /home/reo7sp/.npm/nopt/3.0.3/package.tgz
+333 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/nopt
+334 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/nopt is being purged
+335 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/nopt
+336 verbose tar unpack /home/reo7sp/.npm/readable-stream/1.0.33/package.tgz
+337 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/readable-stream
+338 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/readable-stream is being purged
+339 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/readable-stream
+340 silly gunzTarPerm modes [ '755', '644' ]
+341 silly gunzTarPerm modes [ '755', '644' ]
+342 silly gunzTarPerm modes [ '755', '644' ]
+343 silly gunzTarPerm extractEntry package.json
+344 silly gunzTarPerm extractEntry package.json
+345 silly gunzTarPerm extractEntry package.json
+346 silly gunzTarPerm extractEntry package.json
+347 silly gunzTarPerm extractEntry .npmignore
+348 silly gunzTarPerm extractEntry README.md
+349 silly gunzTarPerm extractEntry README.md
+350 silly gunzTarPerm extractEntry LICENSE
+351 silly gunzTarPerm extractEntry common.js
+352 silly gunzTarPerm extractEntry glob.js
+353 silly gunzTarPerm extractEntry sync.js
+354 silly gunzTarPerm extractEntry .npmignore
+355 silly gunzTarPerm extractEntry README.md
+356 silly gunzTarPerm extractEntry .npmignore
+357 silly gunzTarPerm extractEntry README.md
+358 silly gunzTarPerm extractEntry Gruntfile.js
+359 silly gunzTarPerm extractEntry .jshintrc
+360 silly gunzTarPerm extractEntry LICENSE
+361 silly gunzTarPerm extractEntry bin/nopt.js
+362 silly gunzTarPerm modified mode [ 'bin/nopt.js', 489, 493 ]
+363 silly gunzTarPerm extractEntry LICENSE
+364 silly gunzTarPerm extractEntry duplex.js
+365 silly gunzTarPerm extractEntry .travis.yml
+366 silly gunzTarPerm extractEntry LICENSE-MIT
+367 silly gunzTarPerm extractEntry examples/my-program.js
+368 silly gunzTarPerm extractEntry lib/nopt.js
+369 silly gunzTarPerm extractEntry .travis.yml
+370 silly gunzTarPerm extractEntry test/basic.js
+371 silly gunzTarPerm extractEntry writable.js
+372 silly gunzTarPerm extractEntry passthrough.js
+373 silly gunzTarPerm extractEntry readable.js
+374 silly gunzTarPerm extractEntry transform.js
+375 silly gunzTarPerm extractEntry lib/exit.js
+376 silly gunzTarPerm extractEntry test/exit_test.js
+377 silly gunzTarPerm extractEntry test/fixtures/log.js
+378 silly gunzTarPerm extractEntry lib/_stream_duplex.js
+379 silly gunzTarPerm extractEntry lib/_stream_passthrough.js
+380 silly gunzTarPerm extractEntry test/fixtures/log-broken.js
+381 silly gunzTarPerm extractEntry test/fixtures/10-stdout.txt
+382 silly gunzTarPerm extractEntry lib/_stream_readable.js
+383 silly gunzTarPerm extractEntry test/fixtures/100-stderr.txt
+384 silly gunzTarPerm extractEntry test/fixtures/100-stdout-stderr.txt
+385 silly gunzTarPerm extractEntry lib/_stream_transform.js
+386 silly gunzTarPerm extractEntry lib/_stream_writable.js
+387 silly gunzTarPerm extractEntry test/fixtures/100-stdout.txt
+388 silly gunzTarPerm extractEntry test/fixtures/10-stdout-stderr.txt
+389 silly gunzTarPerm extractEntry test/fixtures/1000-stdout-stderr.txt
+390 silly gunzTarPerm extractEntry test/fixtures/1000-stdout.txt
+391 silly gunzTarPerm extractEntry test/fixtures/create-files.sh
+392 silly gunzTarPerm extractEntry test/fixtures/10-stderr.txt
+393 silly gunzTarPerm extractEntry test/fixtures/1000-stderr.txt
+394 verbose write writing to /usr/lib/node_modules/jslint/node_modules/nopt/package.json
+395 info preinstall nopt@3.0.3
+396 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/nopt/package.json
+397 verbose write writing to /usr/lib/node_modules/jslint/node_modules/glob/package.json
+398 silly prepareForInstallMany adding abbrev@1 from nopt dependencies
+399 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/nopt/package.json
+400 info preinstall glob@4.5.3
+401 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/package.json
+402 silly prepareForInstallMany adding inflight@^1.0.4 from glob dependencies
+403 silly prepareForInstallMany adding inherits@2 from glob dependencies
+404 silly prepareForInstallMany adding minimatch@^2.0.1 from glob dependencies
+405 silly prepareForInstallMany adding once@^1.3.0 from glob dependencies
+406 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/package.json
+407 silly cache add args [ 'abbrev@1', null ]
+408 verbose cache add spec abbrev@1
+409 silly cache add parsed spec { raw: 'abbrev@1',
+409 silly cache add   scope: null,
+409 silly cache add   name: 'abbrev',
+409 silly cache add   rawSpec: '1',
+409 silly cache add   spec: '>=1.0.0 <2.0.0',
+409 silly cache add   type: 'range' }
+410 silly addNamed abbrev@>=1.0.0 <2.0.0
+411 verbose addNamed ">=1.0.0 <2.0.0" is a valid semver range for abbrev
+412 silly addNameRange { name: 'abbrev', range: '>=1.0.0 <2.0.0', hasData: false }
+413 silly mapToRegistry name abbrev
+414 silly mapToRegistry using default registry
+415 silly mapToRegistry registry https://registry.npmjs.org/
+416 silly mapToRegistry uri https://registry.npmjs.org/abbrev
+417 verbose addNameRange registry:https://registry.npmjs.org/abbrev not in flight; fetching
+418 verbose request uri https://registry.npmjs.org/abbrev
+419 verbose request no auth needed
+420 info attempt registry request try #1 at 12:14:25
+421 http request GET https://registry.npmjs.org/abbrev
+422 silly cache add args [ 'inflight@^1.0.4', null ]
+423 verbose cache add spec inflight@^1.0.4
+424 silly cache add args [ 'inherits@2', null ]
+425 verbose cache add spec inherits@2
+426 silly cache add parsed spec { raw: 'inflight@^1.0.4',
+426 silly cache add   scope: null,
+426 silly cache add   name: 'inflight',
+426 silly cache add   rawSpec: '^1.0.4',
+426 silly cache add   spec: '>=1.0.4 <2.0.0',
+426 silly cache add   type: 'range' }
+427 silly addNamed inflight@>=1.0.4 <2.0.0
+428 verbose addNamed ">=1.0.4 <2.0.0" is a valid semver range for inflight
+429 silly addNameRange { name: 'inflight', range: '>=1.0.4 <2.0.0', hasData: false }
+430 silly mapToRegistry name inflight
+431 silly mapToRegistry using default registry
+432 silly mapToRegistry registry https://registry.npmjs.org/
+433 silly mapToRegistry uri https://registry.npmjs.org/inflight
+434 verbose addNameRange registry:https://registry.npmjs.org/inflight not in flight; fetching
+435 silly cache add parsed spec { raw: 'inherits@2',
+435 silly cache add   scope: null,
+435 silly cache add   name: 'inherits',
+435 silly cache add   rawSpec: '2',
+435 silly cache add   spec: '>=2.0.0 <3.0.0',
+435 silly cache add   type: 'range' }
+436 silly addNamed inherits@>=2.0.0 <3.0.0
+437 verbose addNamed ">=2.0.0 <3.0.0" is a valid semver range for inherits
+438 silly addNameRange { name: 'inherits', range: '>=2.0.0 <3.0.0', hasData: false }
+439 silly mapToRegistry name inherits
+440 silly mapToRegistry using default registry
+441 silly mapToRegistry registry https://registry.npmjs.org/
+442 silly mapToRegistry uri https://registry.npmjs.org/inherits
+443 verbose addNameRange registry:https://registry.npmjs.org/inherits not in flight; fetching
+444 silly cache add args [ 'minimatch@^2.0.1', null ]
+445 verbose cache add spec minimatch@^2.0.1
+446 silly cache add parsed spec { raw: 'minimatch@^2.0.1',
+446 silly cache add   scope: null,
+446 silly cache add   name: 'minimatch',
+446 silly cache add   rawSpec: '^2.0.1',
+446 silly cache add   spec: '>=2.0.1 <3.0.0',
+446 silly cache add   type: 'range' }
+447 silly addNamed minimatch@>=2.0.1 <3.0.0
+448 verbose addNamed ">=2.0.1 <3.0.0" is a valid semver range for minimatch
+449 silly addNameRange { name: 'minimatch', range: '>=2.0.1 <3.0.0', hasData: false }
+450 silly mapToRegistry name minimatch
+451 silly mapToRegistry using default registry
+452 silly mapToRegistry registry https://registry.npmjs.org/
+453 silly mapToRegistry uri https://registry.npmjs.org/minimatch
+454 verbose addNameRange registry:https://registry.npmjs.org/minimatch not in flight; fetching
+455 silly cache add args [ 'once@^1.3.0', null ]
+456 verbose cache add spec once@^1.3.0
+457 silly cache add parsed spec { raw: 'once@^1.3.0',
+457 silly cache add   scope: null,
+457 silly cache add   name: 'once',
+457 silly cache add   rawSpec: '^1.3.0',
+457 silly cache add   spec: '>=1.3.0 <2.0.0',
+457 silly cache add   type: 'range' }
+458 silly addNamed once@>=1.3.0 <2.0.0
+459 verbose addNamed ">=1.3.0 <2.0.0" is a valid semver range for once
+460 silly addNameRange { name: 'once', range: '>=1.3.0 <2.0.0', hasData: false }
+461 silly mapToRegistry name once
+462 silly mapToRegistry using default registry
+463 silly mapToRegistry registry https://registry.npmjs.org/
+464 silly mapToRegistry uri https://registry.npmjs.org/once
+465 verbose addNameRange registry:https://registry.npmjs.org/once not in flight; fetching
+466 verbose request uri https://registry.npmjs.org/inherits
+467 verbose request no auth needed
+468 info attempt registry request try #1 at 12:14:25
+469 verbose etag "DPT0HCFHSA8NG4H8MNHKEH1FI"
+470 http request GET https://registry.npmjs.org/inherits
+471 verbose request uri https://registry.npmjs.org/minimatch
+472 verbose request no auth needed
+473 info attempt registry request try #1 at 12:14:25
+474 verbose etag "DJA57W2ZBIS2VHNDSIYQZ6MY3"
+475 http request GET https://registry.npmjs.org/minimatch
+476 verbose request uri https://registry.npmjs.org/once
+477 verbose request no auth needed
+478 info attempt registry request try #1 at 12:14:25
+479 verbose etag "83NJILMFOAHI345Q0OCW2CURU"
+480 http request GET https://registry.npmjs.org/once
+481 verbose request uri https://registry.npmjs.org/inflight
+482 verbose request no auth needed
+483 info attempt registry request try #1 at 12:14:25
+484 verbose etag "6TGO37U1FD85W17TCDUWY0F9L"
+485 http request GET https://registry.npmjs.org/inflight
+486 verbose write writing to /usr/lib/node_modules/jslint/node_modules/readable-stream/package.json
+487 info preinstall readable-stream@1.0.33
+488 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/readable-stream/package.json
+489 silly prepareForInstallMany adding core-util-is@~1.0.0 from readable-stream dependencies
+490 silly prepareForInstallMany adding isarray@0.0.1 from readable-stream dependencies
+491 silly prepareForInstallMany adding string_decoder@~0.10.x from readable-stream dependencies
+492 silly prepareForInstallMany adding inherits@~2.0.1 from readable-stream dependencies
+493 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/readable-stream/package.json
+494 silly cache add args [ 'core-util-is@~1.0.0', null ]
+495 verbose cache add spec core-util-is@~1.0.0
+496 silly cache add args [ 'isarray@0.0.1', null ]
+497 verbose cache add spec isarray@0.0.1
+498 silly cache add parsed spec { raw: 'core-util-is@~1.0.0',
+498 silly cache add   scope: null,
+498 silly cache add   name: 'core-util-is',
+498 silly cache add   rawSpec: '~1.0.0',
+498 silly cache add   spec: '>=1.0.0 <1.1.0',
+498 silly cache add   type: 'range' }
+499 silly addNamed core-util-is@>=1.0.0 <1.1.0
+500 verbose addNamed ">=1.0.0 <1.1.0" is a valid semver range for core-util-is
+501 silly addNameRange { name: 'core-util-is', range: '>=1.0.0 <1.1.0', hasData: false }
+502 silly mapToRegistry name core-util-is
+503 silly mapToRegistry using default registry
+504 silly mapToRegistry registry https://registry.npmjs.org/
+505 silly mapToRegistry uri https://registry.npmjs.org/core-util-is
+506 verbose addNameRange registry:https://registry.npmjs.org/core-util-is not in flight; fetching
+507 silly cache add parsed spec { raw: 'isarray@0.0.1',
+507 silly cache add   scope: null,
+507 silly cache add   name: 'isarray',
+507 silly cache add   rawSpec: '0.0.1',
+507 silly cache add   spec: '0.0.1',
+507 silly cache add   type: 'version' }
+508 silly addNamed isarray@0.0.1
+509 verbose addNamed "0.0.1" is a plain semver version for isarray
+510 silly mapToRegistry name isarray
+511 silly mapToRegistry using default registry
+512 silly mapToRegistry registry https://registry.npmjs.org/
+513 silly mapToRegistry uri https://registry.npmjs.org/isarray
+514 verbose addNameVersion registry:https://registry.npmjs.org/isarray not in flight; fetching
+515 silly cache add args [ 'string_decoder@~0.10.x', null ]
+516 verbose cache add spec string_decoder@~0.10.x
+517 silly cache add parsed spec { raw: 'string_decoder@~0.10.x',
+517 silly cache add   scope: null,
+517 silly cache add   name: 'string_decoder',
+517 silly cache add   rawSpec: '~0.10.x',
+517 silly cache add   spec: '>=0.10.0 <0.11.0',
+517 silly cache add   type: 'range' }
+518 silly addNamed string_decoder@>=0.10.0 <0.11.0
+519 verbose addNamed ">=0.10.0 <0.11.0" is a valid semver range for string_decoder
+520 silly addNameRange { name: 'string_decoder',
+520 silly addNameRange   range: '>=0.10.0 <0.11.0',
+520 silly addNameRange   hasData: false }
+521 silly mapToRegistry name string_decoder
+522 silly mapToRegistry using default registry
+523 silly mapToRegistry registry https://registry.npmjs.org/
+524 silly mapToRegistry uri https://registry.npmjs.org/string_decoder
+525 verbose addNameRange registry:https://registry.npmjs.org/string_decoder not in flight; fetching
+526 silly cache add args [ 'inherits@~2.0.1', null ]
+527 verbose cache add spec inherits@~2.0.1
+528 silly cache add parsed spec { raw: 'inherits@~2.0.1',
+528 silly cache add   scope: null,
+528 silly cache add   name: 'inherits',
+528 silly cache add   rawSpec: '~2.0.1',
+528 silly cache add   spec: '>=2.0.1 <2.1.0',
+528 silly cache add   type: 'range' }
+529 silly addNamed inherits@>=2.0.1 <2.1.0
+530 verbose addNamed ">=2.0.1 <2.1.0" is a valid semver range for inherits
+531 silly addNameRange { name: 'inherits', range: '>=2.0.1 <2.1.0', hasData: false }
+532 silly mapToRegistry name inherits
+533 silly mapToRegistry using default registry
+534 silly mapToRegistry registry https://registry.npmjs.org/
+535 silly mapToRegistry uri https://registry.npmjs.org/inherits
+536 verbose addNameRange registry:https://registry.npmjs.org/inherits already in flight; waiting
+537 verbose request uri https://registry.npmjs.org/core-util-is
+538 verbose request no auth needed
+539 info attempt registry request try #1 at 12:14:26
+540 verbose etag "8N932ER6J79FE9PNV7H41QYLJ"
+541 http request GET https://registry.npmjs.org/core-util-is
+542 verbose request uri https://registry.npmjs.org/isarray
+543 verbose request no auth needed
+544 info attempt registry request try #1 at 12:14:26
+545 verbose etag "79XQA3ZXVF5QN0X2VYCD81HMN"
+546 http request GET https://registry.npmjs.org/isarray
+547 verbose request uri https://registry.npmjs.org/string_decoder
+548 verbose request no auth needed
+549 info attempt registry request try #1 at 12:14:26
+550 verbose etag "89NG6AVWTXZBFGLGXXUONULF1"
+551 http request GET https://registry.npmjs.org/string_decoder
+552 verbose write writing to /usr/lib/node_modules/jslint/node_modules/exit/package.json
+553 info preinstall exit@0.1.2
+554 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/exit/package.json
+555 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/exit/package.json
+556 silly install resolved []
+557 verbose about to build /usr/lib/node_modules/jslint/node_modules/exit
+558 info build /usr/lib/node_modules/jslint/node_modules/exit
+559 info linkStuff exit@0.1.2
+560 silly linkStuff exit@0.1.2 has /usr/lib/node_modules/jslint/node_modules as its parent node_modules
+561 silly linkStuff exit@0.1.2 is part of a global install
+562 silly linkStuff exit@0.1.2 is installed into a global node_modules
+563 verbose linkBins exit@0.1.2
+564 verbose linkMans exit@0.1.2
+565 verbose rebuildBundles exit@0.1.2
+566 info install exit@0.1.2
+567 info postinstall exit@0.1.2
+568 verbose unlock done using /home/reo7sp/.npm/_locks/exit-5fd732e8c7f0e56c.lock for /usr/lib/node_modules/jslint/node_modules/exit
+569 http 200 https://registry.npmjs.org/abbrev
+570 silly get cb [ 200,
+570 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+570 silly get     etag: '"F3Q3N6H2H59MS1PC9J6CMODYT"',
+570 silly get     'content-type': 'application/json',
+570 silly get     'cache-control': 'max-age=60',
+570 silly get     'content-length': '5421',
+570 silly get     'accept-ranges': 'bytes',
+570 silly get     date: 'Wed, 05 Aug 2015 09:14:26 GMT',
+570 silly get     via: '1.1 varnish',
+570 silly get     age: '18',
+570 silly get     connection: 'keep-alive',
+570 silly get     'x-served-by': 'cache-fra1221-FRA',
+570 silly get     'x-cache': 'HIT',
+570 silly get     'x-cache-hits': '1',
+570 silly get     'x-timer': 'S1438766066.128205,VS0,VE0',
+570 silly get     vary: 'Accept' } ]
+571 verbose get saving abbrev to /home/reo7sp/.npm/registry.npmjs.org/abbrev/.cache.json
+572 silly addNameRange number 2 { name: 'abbrev', range: '>=1.0.0 <2.0.0', hasData: true }
+573 silly addNameRange versions [ 'abbrev', [ '1.0.3', '1.0.4', '1.0.5', '1.0.6', '1.0.7' ] ]
+574 silly addNamed abbrev@1.0.7
+575 verbose addNamed "1.0.7" is a plain semver version for abbrev
+576 silly mapToRegistry name abbrev
+577 silly mapToRegistry using default registry
+578 silly mapToRegistry registry https://registry.npmjs.org/
+579 silly mapToRegistry uri https://registry.npmjs.org/abbrev
+580 verbose addRemoteTarball https://registry.npmjs.org/abbrev/-/abbrev-1.0.7.tgz not in flight; adding
+581 verbose addRemoteTarball [ 'https://registry.npmjs.org/abbrev/-/abbrev-1.0.7.tgz',
+581 verbose addRemoteTarball   '5b6035b2ee9d4fb5cf859f08a9be81b208491843' ]
+582 info retry fetch attempt 1 at 12:14:26
+583 info attempt registry request try #1 at 12:14:26
+584 http fetch GET https://registry.npmjs.org/abbrev/-/abbrev-1.0.7.tgz
+585 http 304 https://registry.npmjs.org/inherits
+586 silly get cb [ 304,
+586 silly get   { date: 'Wed, 05 Aug 2015 09:14:26 GMT',
+586 silly get     via: '1.1 varnish',
+586 silly get     'cache-control': 'max-age=60',
+586 silly get     etag: '"DPT0HCFHSA8NG4H8MNHKEH1FI"',
+586 silly get     age: '22',
+586 silly get     connection: 'keep-alive',
+586 silly get     'x-served-by': 'cache-fra1242-FRA',
+586 silly get     'x-cache': 'HIT',
+586 silly get     'x-cache-hits': '5',
+586 silly get     'x-timer': 'S1438766066.141284,VS0,VE0',
+586 silly get     vary: 'Accept' } ]
+587 verbose etag https://registry.npmjs.org/inherits from cache
+588 verbose get saving inherits to /home/reo7sp/.npm/registry.npmjs.org/inherits/.cache.json
+589 silly addNameRange number 2 { name: 'inherits', range: '>=2.0.0 <3.0.0', hasData: true }
+590 silly addNameRange versions [ 'inherits', [ '1.0.0', '2.0.0', '2.0.1' ] ]
+591 silly addNamed inherits@2.0.1
+592 verbose addNamed "2.0.1" is a plain semver version for inherits
+593 silly addNameRange number 2 { name: 'inherits', range: '>=2.0.1 <2.1.0', hasData: true }
+594 silly addNameRange versions [ 'inherits', [ '1.0.0', '2.0.0', '2.0.1' ] ]
+595 silly addNamed inherits@2.0.1
+596 verbose addNamed "2.0.1" is a plain semver version for inherits
+597 silly cache afterAdd inherits@2.0.1
+598 verbose afterAdd /home/reo7sp/.npm/inherits/2.0.1/package/package.json not in flight; writing
+599 silly cache afterAdd inherits@2.0.1
+600 verbose afterAdd /home/reo7sp/.npm/inherits/2.0.1/package/package.json already in flight; not writing
+601 http 304 https://registry.npmjs.org/once
+602 silly get cb [ 304,
+602 silly get   { date: 'Wed, 05 Aug 2015 09:14:26 GMT',
+602 silly get     via: '1.1 varnish',
+602 silly get     'cache-control': 'max-age=60',
+602 silly get     etag: '"83NJILMFOAHI345Q0OCW2CURU"',
+602 silly get     age: '30',
+602 silly get     connection: 'keep-alive',
+602 silly get     'x-served-by': 'cache-fra1239-FRA',
+602 silly get     'x-cache': 'HIT',
+602 silly get     'x-cache-hits': '2',
+602 silly get     'x-timer': 'S1438766066.154674,VS0,VE0',
+602 silly get     vary: 'Accept' } ]
+603 verbose etag https://registry.npmjs.org/once from cache
+604 verbose get saving once to /home/reo7sp/.npm/registry.npmjs.org/once/.cache.json
+605 verbose afterAdd /home/reo7sp/.npm/inherits/2.0.1/package/package.json written
+606 http 304 https://registry.npmjs.org/minimatch
+607 silly get cb [ 304,
+607 silly get   { date: 'Wed, 05 Aug 2015 09:14:26 GMT',
+607 silly get     via: '1.1 varnish',
+607 silly get     'cache-control': 'max-age=60',
+607 silly get     etag: '"DJA57W2ZBIS2VHNDSIYQZ6MY3"',
+607 silly get     age: '53',
+607 silly get     connection: 'keep-alive',
+607 silly get     'x-served-by': 'cache-fra1224-FRA',
+607 silly get     'x-cache': 'HIT',
+607 silly get     'x-cache-hits': '11',
+607 silly get     'x-timer': 'S1438766066.154216,VS0,VE0',
+607 silly get     vary: 'Accept' } ]
+608 verbose etag https://registry.npmjs.org/minimatch from cache
+609 verbose get saving minimatch to /home/reo7sp/.npm/registry.npmjs.org/minimatch/.cache.json
+610 http 304 https://registry.npmjs.org/inflight
+611 silly get cb [ 304,
+611 silly get   { date: 'Wed, 05 Aug 2015 09:14:26 GMT',
+611 silly get     via: '1.1 varnish',
+611 silly get     'cache-control': 'max-age=60',
+611 silly get     etag: '"6TGO37U1FD85W17TCDUWY0F9L"',
+611 silly get     age: '10',
+611 silly get     connection: 'keep-alive',
+611 silly get     'x-served-by': 'cache-fra1220-FRA',
+611 silly get     'x-cache': 'HIT',
+611 silly get     'x-cache-hits': '2',
+611 silly get     'x-timer': 'S1438766066.162903,VS0,VE0',
+611 silly get     vary: 'Accept' } ]
+612 verbose etag https://registry.npmjs.org/inflight from cache
+613 verbose get saving inflight to /home/reo7sp/.npm/registry.npmjs.org/inflight/.cache.json
+614 silly addNameRange number 2 { name: 'once', range: '>=1.3.0 <2.0.0', hasData: true }
+615 silly addNameRange versions [ 'once', [ '1.1.1', '1.2.0', '1.3.0', '1.3.1', '1.3.2' ] ]
+616 silly addNamed once@1.3.2
+617 verbose addNamed "1.3.2" is a plain semver version for once
+618 silly addNameRange number 2 { name: 'minimatch', range: '>=2.0.1 <3.0.0', hasData: true }
+619 silly addNameRange versions [ 'minimatch',
+619 silly addNameRange   [ '0.0.1',
+619 silly addNameRange     '0.0.2',
+619 silly addNameRange     '0.0.4',
+619 silly addNameRange     '0.0.5',
+619 silly addNameRange     '0.1.1',
+619 silly addNameRange     '0.1.2',
+619 silly addNameRange     '0.1.3',
+619 silly addNameRange     '0.1.4',
+619 silly addNameRange     '0.1.5',
+619 silly addNameRange     '0.2.0',
+619 silly addNameRange     '0.2.2',
+619 silly addNameRange     '0.2.3',
+619 silly addNameRange     '0.2.4',
+619 silly addNameRange     '0.2.5',
+619 silly addNameRange     '0.2.6',
+619 silly addNameRange     '0.2.7',
+619 silly addNameRange     '0.2.8',
+619 silly addNameRange     '0.2.9',
+619 silly addNameRange     '0.2.10',
+619 silly addNameRange     '0.2.11',
+619 silly addNameRange     '0.2.12',
+619 silly addNameRange     '0.2.13',
+619 silly addNameRange     '0.2.14',
+619 silly addNameRange     '0.3.0',
+619 silly addNameRange     '0.4.0',
+619 silly addNameRange     '1.0.0',
+619 silly addNameRange     '2.0.0',
+619 silly addNameRange     '2.0.1',
+619 silly addNameRange     '2.0.2',
+619 silly addNameRange     '2.0.3',
+619 silly addNameRange     '2.0.4',
+619 silly addNameRange     '2.0.5',
+619 silly addNameRange     '2.0.6',
+619 silly addNameRange     '2.0.7',
+619 silly addNameRange     '2.0.8',
+619 silly addNameRange     '2.0.9',
+619 silly addNameRange     '2.0.10' ] ]
+620 silly addNamed minimatch@2.0.10
+621 verbose addNamed "2.0.10" is a plain semver version for minimatch
+622 silly cache afterAdd once@1.3.2
+623 verbose afterAdd /home/reo7sp/.npm/once/1.3.2/package/package.json not in flight; writing
+624 silly addNameRange number 2 { name: 'inflight', range: '>=1.0.4 <2.0.0', hasData: true }
+625 silly addNameRange versions [ 'inflight', [ '1.0.0', '1.0.1', '1.0.2', '1.0.3', '1.0.4' ] ]
+626 silly addNamed inflight@1.0.4
+627 verbose addNamed "1.0.4" is a plain semver version for inflight
+628 silly cache afterAdd minimatch@2.0.10
+629 verbose afterAdd /home/reo7sp/.npm/minimatch/2.0.10/package/package.json not in flight; writing
+630 verbose afterAdd /home/reo7sp/.npm/once/1.3.2/package/package.json written
+631 silly cache afterAdd inflight@1.0.4
+632 verbose afterAdd /home/reo7sp/.npm/inflight/1.0.4/package/package.json not in flight; writing
+633 verbose afterAdd /home/reo7sp/.npm/minimatch/2.0.10/package/package.json written
+634 http 304 https://registry.npmjs.org/core-util-is
+635 silly get cb [ 304,
+635 silly get   { date: 'Wed, 05 Aug 2015 09:14:26 GMT',
+635 silly get     via: '1.1 varnish',
+635 silly get     'cache-control': 'max-age=60',
+635 silly get     etag: '"8N932ER6J79FE9PNV7H41QYLJ"',
+635 silly get     age: '8',
+635 silly get     connection: 'keep-alive',
+635 silly get     'x-served-by': 'cache-fra1221-FRA',
+635 silly get     'x-cache': 'HIT',
+635 silly get     'x-cache-hits': '3',
+635 silly get     'x-timer': 'S1438766066.180208,VS0,VE0',
+635 silly get     vary: 'Accept' } ]
+636 verbose etag https://registry.npmjs.org/core-util-is from cache
+637 verbose get saving core-util-is to /home/reo7sp/.npm/registry.npmjs.org/core-util-is/.cache.json
+638 verbose afterAdd /home/reo7sp/.npm/inflight/1.0.4/package/package.json written
+639 silly install resolved [ { name: 'inherits',
+639 silly install resolved     description: 'Browser-friendly inheritance fully compatible with standard node.js inherits()',
+639 silly install resolved     version: '2.0.1',
+639 silly install resolved     keywords:
+639 silly install resolved      [ 'inheritance',
+639 silly install resolved        'class',
+639 silly install resolved        'klass',
+639 silly install resolved        'oop',
+639 silly install resolved        'object-oriented',
+639 silly install resolved        'inherits',
+639 silly install resolved        'browser',
+639 silly install resolved        'browserify' ],
+639 silly install resolved     main: './inherits.js',
+639 silly install resolved     browser: './inherits_browser.js',
+639 silly install resolved     repository: { type: 'git', url: 'git://github.com/isaacs/inherits.git' },
+639 silly install resolved     license: 'ISC',
+639 silly install resolved     scripts: { test: 'node test' },
+639 silly install resolved     bugs: { url: 'https://github.com/isaacs/inherits/issues' },
+639 silly install resolved     _id: 'inherits@2.0.1',
+639 silly install resolved     dist:
+639 silly install resolved      { shasum: 'b17d08d326b4423e568eff719f91b0b1cbdf69f1',
+639 silly install resolved        tarball: 'http://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz' },
+639 silly install resolved     _from: 'inherits@>=2.0.0 <3.0.0',
+639 silly install resolved     _npmVersion: '1.3.8',
+639 silly install resolved     _npmUser: { name: 'isaacs', email: 'i@izs.me' },
+639 silly install resolved     maintainers: [ [Object] ],
+639 silly install resolved     directories: {},
+639 silly install resolved     _shasum: 'b17d08d326b4423e568eff719f91b0b1cbdf69f1',
+639 silly install resolved     _resolved: 'https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz',
+639 silly install resolved     readme: 'ERROR: No README data found!',
+639 silly install resolved     homepage: 'https://github.com/isaacs/inherits#readme' },
+639 silly install resolved   { name: 'once',
+639 silly install resolved     version: '1.3.2',
+639 silly install resolved     description: 'Run a function exactly one time',
+639 silly install resolved     main: 'once.js',
+639 silly install resolved     directories: { test: 'test' },
+639 silly install resolved     dependencies: { wrappy: '1' },
+639 silly install resolved     devDependencies: { tap: '~0.3.0' },
+639 silly install resolved     scripts: { test: 'tap test/*.js' },
+639 silly install resolved     repository: { type: 'git', url: 'git://github.com/isaacs/once.git' },
+639 silly install resolved     keywords: [ 'once', 'function', 'one', 'single' ],
+639 silly install resolved     author:
+639 silly install resolved      { name: 'Isaac Z. Schlueter',
+639 silly install resolved        email: 'i@izs.me',
+639 silly install resolved        url: 'http://blog.izs.me/' },
+639 silly install resolved     license: 'ISC',
+639 silly install resolved     gitHead: 'e35eed5a7867574e2bf2260a1ba23970958b22f2',
+639 silly install resolved     bugs: { url: 'https://github.com/isaacs/once/issues' },
+639 silly install resolved     homepage: 'https://github.com/isaacs/once#readme',
+639 silly install resolved     _id: 'once@1.3.2',
+639 silly install resolved     _shasum: 'd8feeca93b039ec1dcdee7741c92bdac5e28081b',
+639 silly install resolved     _from: 'once@>=1.3.0 <2.0.0',
+639 silly install resolved     _npmVersion: '2.9.1',
+639 silly install resolved     _nodeVersion: '2.0.0',
+639 silly install resolved     _npmUser: { name: 'isaacs', email: 'isaacs@npmjs.com' },
+639 silly install resolved     dist:
+639 silly install resolved      { shasum: 'd8feeca93b039ec1dcdee7741c92bdac5e28081b',
+639 silly install resolved        tarball: 'http://registry.npmjs.org/once/-/once-1.3.2.tgz' },
+639 silly install resolved     maintainers: [ [Object] ],
+639 silly install resolved     _resolved: 'https://registry.npmjs.org/once/-/once-1.3.2.tgz',
+639 silly install resolved     readme: 'ERROR: No README data found!' },
+639 silly install resolved   { author:
+639 silly install resolved      { name: 'Isaac Z. Schlueter',
+639 silly install resolved        email: 'i@izs.me',
+639 silly install resolved        url: 'http://blog.izs.me' },
+639 silly install resolved     name: 'minimatch',
+639 silly install resolved     description: 'a glob matcher in javascript',
+639 silly install resolved     version: '2.0.10',
+639 silly install resolved     repository: { type: 'git', url: 'git://github.com/isaacs/minimatch.git' },
+639 silly install resolved     main: 'minimatch.js',
+639 silly install resolved     scripts:
+639 silly install resolved      { posttest: 'standard minimatch.js test/*.js',
+639 silly install resolved        test: 'tap test/*.js',
+639 silly install resolved        prepublish: 'browserify -o browser.js -e minimatch.js -s minimatch --bare' },
+639 silly install resolved     engines: { node: '*' },
+639 silly install resolved     dependencies: { 'brace-expansion': '^1.0.0' },
+639 silly install resolved     devDependencies: { browserify: '^9.0.3', standard: '^3.7.2', tap: '^1.2.0' },
+639 silly install resolved     license: 'ISC',
+639 silly install resolved     files: [ 'minimatch.js', 'browser.js' ],
+639 silly install resolved     gitHead: '6afb85f0c324b321f76a38df81891e562693e257',
+639 silly install resolved     bugs: { url: 'https://github.com/isaacs/minimatch/issues' },
+639 silly install resolved     homepage: 'https://github.com/isaacs/minimatch#readme',
+639 silly install resolved     _id: 'minimatch@2.0.10',
+639 silly install resolved     _shasum: '8d087c39c6b38c001b97fca7ce6d0e1e80afbac7',
+639 silly install resolved     _from: 'minimatch@>=2.0.1 <3.0.0',
+639 silly install resolved     _npmVersion: '3.1.0',
+639 silly install resolved     _nodeVersion: '2.2.1',
+639 silly install resolved     _npmUser: { name: 'isaacs', email: 'isaacs@npmjs.com' },
+639 silly install resolved     dist:
+639 silly install resolved      { shasum: '8d087c39c6b38c001b97fca7ce6d0e1e80afbac7',
+639 silly install resolved        tarball: 'http://registry.npmjs.org/minimatch/-/minimatch-2.0.10.tgz' },
+639 silly install resolved     maintainers: [ [Object] ],
+639 silly install resolved     directories: {},
+639 silly install resolved     _resolved: 'https://registry.npmjs.org/minimatch/-/minimatch-2.0.10.tgz',
+639 silly install resolved     readme: 'ERROR: No README data found!' },
+639 silly install resolved   { name: 'inflight',
+639 silly install resolved     version: '1.0.4',
+639 silly install resolved     description: 'Add callbacks to requests in flight to avoid async duplication',
+639 silly install resolved     main: 'inflight.js',
+639 silly install resolved     dependencies: { once: '^1.3.0', wrappy: '1' },
+639 silly install resolved     devDependencies: { tap: '^0.4.10' },
+639 silly install resolved     scripts: { test: 'tap test.js' },
+639 silly install resolved     repository: { type: 'git', url: 'git://github.com/isaacs/inflight.git' },
+639 silly install resolved     author:
+639 silly install resolved      { name: 'Isaac Z. Schlueter',
+639 silly install resolved        email: 'i@izs.me',
+639 silly install resolved        url: 'http://blog.izs.me/' },
+639 silly install resolved     bugs: { url: 'https://github.com/isaacs/inflight/issues' },
+639 silly install resolved     homepage: 'https://github.com/isaacs/inflight',
+639 silly install resolved     license: 'ISC',
+639 silly install resolved     gitHead: 'c7b5531d572a867064d4a1da9e013e8910b7d1ba',
+639 silly install resolved     _id: 'inflight@1.0.4',
+639 silly install resolved     _shasum: '6cbb4521ebd51ce0ec0a936bfd7657ef7e9b172a',
+639 silly install resolved     _from: 'inflight@>=1.0.4 <2.0.0',
+639 silly install resolved     _npmVersion: '2.1.3',
+639 silly install resolved     _nodeVersion: '0.10.32',
+639 silly install resolved     _npmUser: { name: 'othiym23', email: 'ogd@aoaioxxysz.net' },
+639 silly install resolved     maintainers: [ [Object], [Object], [Object] ],
+639 silly install resolved     dist:
+639 silly install resolved      { shasum: '6cbb4521ebd51ce0ec0a936bfd7657ef7e9b172a',
+639 silly install resolved        tarball: 'http://registry.npmjs.org/inflight/-/inflight-1.0.4.tgz' },
+639 silly install resolved     directories: {},
+639 silly install resolved     _resolved: 'https://registry.npmjs.org/inflight/-/inflight-1.0.4.tgz',
+639 silly install resolved     readme: 'ERROR: No README data found!' } ]
+640 info install inherits@2.0.1 into /usr/lib/node_modules/jslint/node_modules/glob
+641 info install once@1.3.2 into /usr/lib/node_modules/jslint/node_modules/glob
+642 info install minimatch@2.0.10 into /usr/lib/node_modules/jslint/node_modules/glob
+643 info install inflight@1.0.4 into /usr/lib/node_modules/jslint/node_modules/glob
+644 info installOne inherits@2.0.1
+645 verbose installOne of inherits to /usr/lib/node_modules/jslint/node_modules/glob not in flight; installing
+646 info installOne once@1.3.2
+647 verbose installOne of once to /usr/lib/node_modules/jslint/node_modules/glob not in flight; installing
+648 info installOne minimatch@2.0.10
+649 verbose installOne of minimatch to /usr/lib/node_modules/jslint/node_modules/glob not in flight; installing
+650 info installOne inflight@1.0.4
+651 verbose installOne of inflight to /usr/lib/node_modules/jslint/node_modules/glob not in flight; installing
+652 http 304 https://registry.npmjs.org/isarray
+653 silly get cb [ 304,
+653 silly get   { date: 'Wed, 05 Aug 2015 09:14:26 GMT',
+653 silly get     via: '1.1 varnish',
+653 silly get     'cache-control': 'max-age=60',
+653 silly get     etag: '"79XQA3ZXVF5QN0X2VYCD81HMN"',
+653 silly get     age: '29',
+653 silly get     connection: 'keep-alive',
+653 silly get     'x-served-by': 'cache-fra1242-FRA',
+653 silly get     'x-cache': 'HIT',
+653 silly get     'x-cache-hits': '4',
+653 silly get     'x-timer': 'S1438766066.187227,VS0,VE0',
+653 silly get     vary: 'Accept' } ]
+654 verbose etag https://registry.npmjs.org/isarray from cache
+655 verbose get saving isarray to /home/reo7sp/.npm/registry.npmjs.org/isarray/.cache.json
+656 verbose lock using /home/reo7sp/.npm/_locks/once-8397f03ceaf37a36.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once
+657 verbose lock using /home/reo7sp/.npm/_locks/minimatch-64d6ef602d5bcfe0.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch
+658 verbose lock using /home/reo7sp/.npm/_locks/inherits-4ce3b4fb89652d80.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inherits
+659 verbose lock using /home/reo7sp/.npm/_locks/inflight-ba37db9ead3715a7.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight
+660 silly install write writing once 1.3.2 to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once
+661 silly install write writing minimatch 2.0.10 to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch
+662 silly install write writing inherits 2.0.1 to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inherits
+663 silly install write writing inflight 1.0.4 to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight
+664 silly addNameRange number 2 { name: 'core-util-is', range: '>=1.0.0 <1.1.0', hasData: true }
+665 silly addNameRange versions [ 'core-util-is', [ '1.0.0', '1.0.1' ] ]
+666 silly addNamed core-util-is@1.0.1
+667 verbose addNamed "1.0.1" is a plain semver version for core-util-is
+668 verbose unbuild lib/node_modules/jslint/node_modules/glob/node_modules/once
+669 verbose unbuild lib/node_modules/jslint/node_modules/glob/node_modules/inherits
+670 verbose unbuild lib/node_modules/jslint/node_modules/glob/node_modules/inflight
+671 verbose unbuild lib/node_modules/jslint/node_modules/glob/node_modules/minimatch
+672 http 304 https://registry.npmjs.org/string_decoder
+673 silly get cb [ 304,
+673 silly get   { date: 'Wed, 05 Aug 2015 09:14:26 GMT',
+673 silly get     via: '1.1 varnish',
+673 silly get     'cache-control': 'max-age=60',
+673 silly get     etag: '"89NG6AVWTXZBFGLGXXUONULF1"',
+673 silly get     age: '20',
+673 silly get     connection: 'keep-alive',
+673 silly get     'x-served-by': 'cache-fra1239-FRA',
+673 silly get     'x-cache': 'HIT',
+673 silly get     'x-cache-hits': '4',
+673 silly get     'x-timer': 'S1438766066.203182,VS0,VE0',
+673 silly get     vary: 'Accept' } ]
+674 verbose etag https://registry.npmjs.org/string_decoder from cache
+675 verbose get saving string_decoder to /home/reo7sp/.npm/registry.npmjs.org/string_decoder/.cache.json
+676 http fetch 200 https://registry.npmjs.org/abbrev/-/abbrev-1.0.7.tgz
+677 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once is being purged from base /usr
+678 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once
+679 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inherits is being purged from base /usr
+680 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inherits
+681 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight is being purged from base /usr
+682 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight
+683 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch is being purged from base /usr
+684 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch
+685 verbose tar unpack /home/reo7sp/.npm/once/1.3.2/package.tgz
+686 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once
+687 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once is being purged
+688 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once
+689 silly cache afterAdd core-util-is@1.0.1
+690 verbose afterAdd /home/reo7sp/.npm/core-util-is/1.0.1/package/package.json not in flight; writing
+691 verbose tar unpack /home/reo7sp/.npm/inherits/2.0.1/package.tgz
+692 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inherits
+693 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inherits is being purged
+694 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inherits
+695 verbose tar unpack /home/reo7sp/.npm/inflight/1.0.4/package.tgz
+696 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight
+697 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight is being purged
+698 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight
+699 verbose tar unpack /home/reo7sp/.npm/minimatch/2.0.10/package.tgz
+700 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch
+701 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch is being purged
+702 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch
+703 silly gunzTarPerm modes [ '755', '644' ]
+704 silly gunzTarPerm modes [ '755', '644' ]
+705 silly gunzTarPerm modes [ '755', '644' ]
+706 silly gunzTarPerm modes [ '755', '644' ]
+707 silly fetchAndShaCheck shasum 5b6035b2ee9d4fb5cf859f08a9be81b208491843
+708 verbose addTmpTarball /tmp/npm-18498-754c462a/registry.npmjs.org/abbrev/-/abbrev-1.0.7.tgz not in flight; adding
+709 verbose addTmpTarball already have metadata; skipping unpack for abbrev@1.0.7
+710 silly cache afterAdd isarray@0.0.1
+711 verbose afterAdd /home/reo7sp/.npm/isarray/0.0.1/package/package.json not in flight; writing
+712 verbose afterAdd /home/reo7sp/.npm/core-util-is/1.0.1/package/package.json written
+713 silly gunzTarPerm extractEntry package.json
+714 silly addNameRange number 2 { name: 'string_decoder',
+714 silly addNameRange   range: '>=0.10.0 <0.11.0',
+714 silly addNameRange   hasData: true }
+715 silly addNameRange versions [ 'string_decoder',
+715 silly addNameRange   [ '0.0.0',
+715 silly addNameRange     '0.0.1',
+715 silly addNameRange     '0.10.24',
+715 silly addNameRange     '0.11.10',
+715 silly addNameRange     '0.10.25',
+715 silly addNameRange     '0.11.10-1',
+715 silly addNameRange     '0.10.25-1',
+715 silly addNameRange     '0.10.31' ] ]
+716 silly addNamed string_decoder@0.10.31
+717 verbose addNamed "0.10.31" is a plain semver version for string_decoder
+718 silly gunzTarPerm extractEntry package.json
+719 silly gunzTarPerm extractEntry package.json
+720 silly gunzTarPerm extractEntry package.json
+721 silly gunzTarPerm extractEntry README.md
+722 silly gunzTarPerm extractEntry LICENSE
+723 verbose afterAdd /home/reo7sp/.npm/isarray/0.0.1/package/package.json written
+724 silly gunzTarPerm extractEntry README.md
+725 silly gunzTarPerm extractEntry LICENSE
+726 silly gunzTarPerm extractEntry README.md
+727 silly gunzTarPerm extractEntry LICENSE
+728 silly gunzTarPerm extractEntry README.md
+729 silly gunzTarPerm extractEntry LICENSE
+730 silly cache afterAdd string_decoder@0.10.31
+731 verbose afterAdd /home/reo7sp/.npm/string_decoder/0.10.31/package/package.json not in flight; writing
+732 verbose afterAdd /home/reo7sp/.npm/string_decoder/0.10.31/package/package.json written
+733 silly install resolved [ { name: 'inherits',
+733 silly install resolved     description: 'Browser-friendly inheritance fully compatible with standard node.js inherits()',
+733 silly install resolved     version: '2.0.1',
+733 silly install resolved     keywords:
+733 silly install resolved      [ 'inheritance',
+733 silly install resolved        'class',
+733 silly install resolved        'klass',
+733 silly install resolved        'oop',
+733 silly install resolved        'object-oriented',
+733 silly install resolved        'inherits',
+733 silly install resolved        'browser',
+733 silly install resolved        'browserify' ],
+733 silly install resolved     main: './inherits.js',
+733 silly install resolved     browser: './inherits_browser.js',
+733 silly install resolved     repository: { type: 'git', url: 'git://github.com/isaacs/inherits.git' },
+733 silly install resolved     license: 'ISC',
+733 silly install resolved     scripts: { test: 'node test' },
+733 silly install resolved     bugs: { url: 'https://github.com/isaacs/inherits/issues' },
+733 silly install resolved     _id: 'inherits@2.0.1',
+733 silly install resolved     dist:
+733 silly install resolved      { shasum: 'b17d08d326b4423e568eff719f91b0b1cbdf69f1',
+733 silly install resolved        tarball: 'http://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz' },
+733 silly install resolved     _from: 'inherits@>=2.0.0 <3.0.0',
+733 silly install resolved     _npmVersion: '1.3.8',
+733 silly install resolved     _npmUser: { name: 'isaacs', email: 'i@izs.me' },
+733 silly install resolved     maintainers: [ [Object] ],
+733 silly install resolved     directories: {},
+733 silly install resolved     _shasum: 'b17d08d326b4423e568eff719f91b0b1cbdf69f1',
+733 silly install resolved     _resolved: 'https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz',
+733 silly install resolved     readme: 'ERROR: No README data found!',
+733 silly install resolved     homepage: 'https://github.com/isaacs/inherits#readme' },
+733 silly install resolved   { name: 'core-util-is',
+733 silly install resolved     version: '1.0.1',
+733 silly install resolved     description: 'The `util.is*` functions introduced in Node v0.12.',
+733 silly install resolved     main: 'lib/util.js',
+733 silly install resolved     repository: { type: 'git', url: 'git://github.com/isaacs/core-util-is.git' },
+733 silly install resolved     keywords:
+733 silly install resolved      [ 'util',
+733 silly install resolved        'isBuffer',
+733 silly install resolved        'isArray',
+733 silly install resolved        'isNumber',
+733 silly install resolved        'isString',
+733 silly install resolved        'isRegExp',
+733 silly install resolved        'isThis',
+733 silly install resolved        'isThat',
+733 silly install resolved        'polyfill' ],
+733 silly install resolved     author:
+733 silly install resolved      { name: 'Isaac Z. Schlueter',
+733 silly install resolved        email: 'i@izs.me',
+733 silly install resolved        url: 'http://blog.izs.me/' },
+733 silly install resolved     license: 'MIT',
+733 silly install resolved     bugs: { url: 'https://github.com/isaacs/core-util-is/issues' },
+733 silly install resolved     readme: '# core-util-is\n\nThe `util.is*` functions introduced in Node v0.12.\n',
+733 silly install resolved     readmeFilename: 'README.md',
+733 silly install resolved     homepage: 'https://github.com/isaacs/core-util-is',
+733 silly install resolved     _id: 'core-util-is@1.0.1',
+733 silly install resolved     dist:
+733 silly install resolved      { shasum: '6b07085aef9a3ccac6ee53bf9d3df0c1521a5538',
+733 silly install resolved        tarball: 'http://registry.npmjs.org/core-util-is/-/core-util-is-1.0.1.tgz' },
+733 silly install resolved     _from: 'core-util-is@>=1.0.0 <1.1.0',
+733 silly install resolved     _npmVersion: '1.3.23',
+733 silly install resolved     _npmUser: { name: 'isaacs', email: 'i@izs.me' },
+733 silly install resolved     maintainers: [ [Object] ],
+733 silly install resolved     directories: {},
+733 silly install resolved     _shasum: '6b07085aef9a3ccac6ee53bf9d3df0c1521a5538',
+733 silly install resolved     _resolved: 'https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.1.tgz' },
+733 silly install resolved   { name: 'isarray',
+733 silly install resolved     description: 'Array#isArray for older browsers',
+733 silly install resolved     version: '0.0.1',
+733 silly install resolved     repository:
+733 silly install resolved      { type: 'git',
+733 silly install resolved        url: 'git://github.com/juliangruber/isarray.git' },
+733 silly install resolved     homepage: 'https://github.com/juliangruber/isarray',
+733 silly install resolved     main: 'index.js',
+733 silly install resolved     scripts: { test: 'tap test/*.js' },
+733 silly install resolved     dependencies: {},
+733 silly install resolved     devDependencies: { tap: '*' },
+733 silly install resolved     keywords: [ 'browser', 'isarray', 'array' ],
+733 silly install resolved     author:
+733 silly install resolved      { name: 'Julian Gruber',
+733 silly install resolved        email: 'mail@juliangruber.com',
+733 silly install resolved        url: 'http://juliangruber.com' },
+733 silly install resolved     license: 'MIT',
+733 silly install resolved     _id: 'isarray@0.0.1',
+733 silly install resolved     dist:
+733 silly install resolved      { shasum: '8a18acfca9a8f4177e09abfc6038939b05d1eedf',
+733 silly install resolved        tarball: 'http://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz' },
+733 silly install resolved     _from: 'isarray@0.0.1',
+733 silly install resolved     _npmVersion: '1.2.18',
+733 silly install resolved     _npmUser: { name: 'juliangruber', email: 'julian@juliangruber.com' },
+733 silly install resolved     maintainers: [ [Object] ],
+733 silly install resolved     directories: {},
+733 silly install resolved     _shasum: '8a18acfca9a8f4177e09abfc6038939b05d1eedf',
+733 silly install resolved     _resolved: 'https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz',
+733 silly install resolved     bugs: { url: 'https://github.com/juliangruber/isarray/issues' },
+733 silly install resolved     readme: 'ERROR: No README data found!' },
+733 silly install resolved   { name: 'string_decoder',
+733 silly install resolved     version: '0.10.31',
+733 silly install resolved     description: 'The string_decoder module from Node core',
+733 silly install resolved     main: 'index.js',
+733 silly install resolved     dependencies: {},
+733 silly install resolved     devDependencies: { tap: '~0.4.8' },
+733 silly install resolved     scripts: { test: 'tap test/simple/*.js' },
+733 silly install resolved     repository:
+733 silly install resolved      { type: 'git',
+733 silly install resolved        url: 'git://github.com/rvagg/string_decoder.git' },
+733 silly install resolved     homepage: 'https://github.com/rvagg/string_decoder',
+733 silly install resolved     keywords: [ 'string', 'decoder', 'browser', 'browserify' ],
+733 silly install resolved     license: 'MIT',
+733 silly install resolved     gitHead: 'd46d4fd87cf1d06e031c23f1ba170ca7d4ade9a0',
+733 silly install resolved     bugs: { url: 'https://github.com/rvagg/string_decoder/issues' },
+733 silly install resolved     _id: 'string_decoder@0.10.31',
+733 silly install resolved     _shasum: '62e203bc41766c6c28c9fc84301dab1c5310fa94',
+733 silly install resolved     _from: 'string_decoder@>=0.10.0 <0.11.0',
+733 silly install resolved     _npmVersion: '1.4.23',
+733 silly install resolved     _npmUser: { name: 'rvagg', email: 'rod@vagg.org' },
+733 silly install resolved     maintainers: [ [Object], [Object] ],
+733 silly install resolved     dist:
+733 silly install resolved      { shasum: '62e203bc41766c6c28c9fc84301dab1c5310fa94',
+733 silly install resolved        tarball: 'http://registry.npmjs.org/string_decoder/-/string_decoder-0.10.31.tgz' },
+733 silly install resolved     directories: {},
+733 silly install resolved     _resolved: 'https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.31.tgz',
+733 silly install resolved     readme: 'ERROR: No README data found!' } ]
+734 info install inherits@2.0.1 into /usr/lib/node_modules/jslint/node_modules/readable-stream
+735 info install core-util-is@1.0.1 into /usr/lib/node_modules/jslint/node_modules/readable-stream
+736 info install isarray@0.0.1 into /usr/lib/node_modules/jslint/node_modules/readable-stream
+737 info install string_decoder@0.10.31 into /usr/lib/node_modules/jslint/node_modules/readable-stream
+738 info installOne inherits@2.0.1
+739 verbose installOne of inherits to /usr/lib/node_modules/jslint/node_modules/readable-stream not in flight; installing
+740 info installOne core-util-is@1.0.1
+741 verbose installOne of core-util-is to /usr/lib/node_modules/jslint/node_modules/readable-stream not in flight; installing
+742 info installOne isarray@0.0.1
+743 verbose installOne of isarray to /usr/lib/node_modules/jslint/node_modules/readable-stream not in flight; installing
+744 info installOne string_decoder@0.10.31
+745 verbose installOne of string_decoder to /usr/lib/node_modules/jslint/node_modules/readable-stream not in flight; installing
+746 silly gunzTarPerm extractEntry once.js
+747 silly gunzTarPerm extractEntry test/once.js
+748 silly gunzTarPerm extractEntry inherits.js
+749 silly gunzTarPerm extractEntry inherits_browser.js
+750 silly cache afterAdd abbrev@1.0.7
+751 verbose afterAdd /home/reo7sp/.npm/abbrev/1.0.7/package/package.json not in flight; writing
+752 verbose lock using /home/reo7sp/.npm/_locks/inherits-b17c25feb2e68055.lock for /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/inherits
+753 verbose lock using /home/reo7sp/.npm/_locks/core-util-is-5b6cf0c18ecf2c7c.lock for /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/core-util-is
+754 verbose lock using /home/reo7sp/.npm/_locks/isarray-81f0388461860cd8.lock for /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/isarray
+755 verbose lock using /home/reo7sp/.npm/_locks/string-decoder-7cbad852a474e917.lock for /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/string_decoder
+756 silly gunzTarPerm extractEntry inflight.js
+757 silly gunzTarPerm extractEntry test.js
+758 silly gunzTarPerm extractEntry browser.js
+759 silly gunzTarPerm extractEntry minimatch.js
+760 silly install write writing inherits 2.0.1 to /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/inherits
+761 silly install write writing core-util-is 1.0.1 to /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/core-util-is
+762 silly install write writing isarray 0.0.1 to /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/isarray
+763 silly install write writing string_decoder 0.10.31 to /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/string_decoder
+764 verbose afterAdd /home/reo7sp/.npm/abbrev/1.0.7/package/package.json written
+765 silly install resolved [ { name: 'abbrev',
+765 silly install resolved     version: '1.0.7',
+765 silly install resolved     description: 'Like ruby\'s abbrev module, but in js',
+765 silly install resolved     author: { name: 'Isaac Z. Schlueter', email: 'i@izs.me' },
+765 silly install resolved     main: 'abbrev.js',
+765 silly install resolved     scripts: { test: 'tap test.js --cov' },
+765 silly install resolved     repository:
+765 silly install resolved      { type: 'git',
+765 silly install resolved        url: 'git+ssh://git@github.com/isaacs/abbrev-js.git' },
+765 silly install resolved     license: 'ISC',
+765 silly install resolved     devDependencies: { tap: '^1.2.0' },
+765 silly install resolved     gitHead: '821d09ce7da33627f91bbd8ed631497ed6f760c2',
+765 silly install resolved     bugs: { url: 'https://github.com/isaacs/abbrev-js/issues' },
+765 silly install resolved     homepage: 'https://github.com/isaacs/abbrev-js#readme',
+765 silly install resolved     _id: 'abbrev@1.0.7',
+765 silly install resolved     _shasum: '5b6035b2ee9d4fb5cf859f08a9be81b208491843',
+765 silly install resolved     _from: 'abbrev@>=1.0.0 <2.0.0',
+765 silly install resolved     _npmVersion: '2.10.1',
+765 silly install resolved     _nodeVersion: '2.0.1',
+765 silly install resolved     _npmUser: { name: 'isaacs', email: 'isaacs@npmjs.com' },
+765 silly install resolved     dist:
+765 silly install resolved      { shasum: '5b6035b2ee9d4fb5cf859f08a9be81b208491843',
+765 silly install resolved        tarball: 'http://registry.npmjs.org/abbrev/-/abbrev-1.0.7.tgz' },
+765 silly install resolved     maintainers: [ [Object] ],
+765 silly install resolved     directories: {},
+765 silly install resolved     _resolved: 'https://registry.npmjs.org/abbrev/-/abbrev-1.0.7.tgz' } ]
+766 info install abbrev@1.0.7 into /usr/lib/node_modules/jslint/node_modules/nopt
+767 info installOne abbrev@1.0.7
+768 verbose installOne of abbrev to /usr/lib/node_modules/jslint/node_modules/nopt not in flight; installing
+769 verbose unbuild lib/node_modules/jslint/node_modules/readable-stream/node_modules/inherits
+770 verbose unbuild lib/node_modules/jslint/node_modules/readable-stream/node_modules/isarray
+771 verbose unbuild lib/node_modules/jslint/node_modules/readable-stream/node_modules/string_decoder
+772 verbose unbuild lib/node_modules/jslint/node_modules/readable-stream/node_modules/core-util-is
+773 verbose lock using /home/reo7sp/.npm/_locks/abbrev-10f7b6a6b1aae540.lock for /usr/lib/node_modules/jslint/node_modules/nopt/node_modules/abbrev
+774 silly install write writing abbrev 1.0.7 to /usr/lib/node_modules/jslint/node_modules/nopt/node_modules/abbrev
+775 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/inherits is being purged from base /usr
+776 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/inherits
+777 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/isarray is being purged from base /usr
+778 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/isarray
+779 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/string_decoder is being purged from base /usr
+780 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/string_decoder
+781 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/core-util-is is being purged from base /usr
+782 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/core-util-is
+783 verbose tar unpack /home/reo7sp/.npm/inherits/2.0.1/package.tgz
+784 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/inherits
+785 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/inherits is being purged
+786 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/inherits
+787 verbose tar unpack /home/reo7sp/.npm/isarray/0.0.1/package.tgz
+788 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/isarray
+789 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/isarray is being purged
+790 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/isarray
+791 verbose tar unpack /home/reo7sp/.npm/string_decoder/0.10.31/package.tgz
+792 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/string_decoder
+793 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/string_decoder is being purged
+794 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/string_decoder
+795 verbose tar unpack /home/reo7sp/.npm/core-util-is/1.0.1/package.tgz
+796 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/core-util-is
+797 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/core-util-is is being purged
+798 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/core-util-is
+799 silly gunzTarPerm extractEntry .eslintrc
+800 silly gunzTarPerm modes [ '755', '644' ]
+801 silly gunzTarPerm modes [ '755', '644' ]
+802 silly gunzTarPerm modes [ '755', '644' ]
+803 silly gunzTarPerm modes [ '755', '644' ]
+804 silly gunzTarPerm extractEntry test.js
+805 verbose unbuild lib/node_modules/jslint/node_modules/nopt/node_modules/abbrev
+806 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/nopt/node_modules/abbrev is being purged from base /usr
+807 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/nopt/node_modules/abbrev
+808 silly gunzTarPerm extractEntry package.json
+809 verbose tar unpack /home/reo7sp/.npm/abbrev/1.0.7/package.tgz
+810 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/nopt/node_modules/abbrev
+811 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/nopt/node_modules/abbrev is being purged
+812 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/nopt/node_modules/abbrev
+813 silly gunzTarPerm extractEntry package.json
+814 silly gunzTarPerm extractEntry package.json
+815 silly gunzTarPerm modified mode [ 'package.json', 436, 420 ]
+816 silly gunzTarPerm extractEntry package.json
+817 silly gunzTarPerm modes [ '755', '644' ]
+818 silly gunzTarPerm extractEntry README.md
+819 silly gunzTarPerm extractEntry LICENSE
+820 silly gunzTarPerm extractEntry README.md
+821 silly gunzTarPerm extractEntry index.js
+822 silly gunzTarPerm extractEntry .npmignore
+823 silly gunzTarPerm modified mode [ '.npmignore', 436, 420 ]
+824 silly gunzTarPerm extractEntry README.md
+825 silly gunzTarPerm modified mode [ 'README.md', 436, 420 ]
+826 silly gunzTarPerm extractEntry README.md
+827 silly gunzTarPerm extractEntry util.js
+828 silly gunzTarPerm extractEntry package.json
+829 silly gunzTarPerm extractEntry .npmignore
+830 silly gunzTarPerm extractEntry README.md
+831 silly gunzTarPerm extractEntry inherits.js
+832 silly gunzTarPerm extractEntry inherits_browser.js
+833 silly gunzTarPerm extractEntry LICENSE
+834 silly gunzTarPerm modified mode [ 'LICENSE', 436, 420 ]
+835 silly gunzTarPerm extractEntry index.js
+836 silly gunzTarPerm modified mode [ 'index.js', 436, 420 ]
+837 silly gunzTarPerm extractEntry build/build.js
+838 silly gunzTarPerm extractEntry component.json
+839 silly gunzTarPerm extractEntry float.patch
+840 silly gunzTarPerm extractEntry lib/util.js
+841 silly gunzTarPerm extractEntry LICENSE
+842 silly gunzTarPerm extractEntry abbrev.js
+843 silly gunzTarPerm extractEntry test.js
+844 silly gunzTarPerm extractEntry test.js
+845 silly gunzTarPerm extractEntry CONTRIBUTING.md
+846 verbose write writing to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/package.json
+847 info preinstall once@1.3.2
+848 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/package.json
+849 silly gunzTarPerm extractEntry .travis.yml
+850 verbose write writing to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inherits/package.json
+851 verbose write writing to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/package.json
+852 silly prepareForInstallMany adding wrappy@1 from once dependencies
+853 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/package.json
+854 info preinstall inherits@2.0.1
+855 info preinstall inflight@1.0.4
+856 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inherits/package.json
+857 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/package.json
+858 silly cache add args [ 'wrappy@1', null ]
+859 verbose cache add spec wrappy@1
+860 silly cache add parsed spec { raw: 'wrappy@1',
+860 silly cache add   scope: null,
+860 silly cache add   name: 'wrappy',
+860 silly cache add   rawSpec: '1',
+860 silly cache add   spec: '>=1.0.0 <2.0.0',
+860 silly cache add   type: 'range' }
+861 silly addNamed wrappy@>=1.0.0 <2.0.0
+862 verbose addNamed ">=1.0.0 <2.0.0" is a valid semver range for wrappy
+863 silly addNameRange { name: 'wrappy', range: '>=1.0.0 <2.0.0', hasData: false }
+864 silly mapToRegistry name wrappy
+865 silly mapToRegistry using default registry
+866 silly mapToRegistry registry https://registry.npmjs.org/
+867 silly mapToRegistry uri https://registry.npmjs.org/wrappy
+868 verbose addNameRange registry:https://registry.npmjs.org/wrappy not in flight; fetching
+869 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inherits/package.json
+870 silly prepareForInstallMany adding wrappy@1 from inflight dependencies
+871 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/package.json
+872 verbose request uri https://registry.npmjs.org/wrappy
+873 verbose request no auth needed
+874 info attempt registry request try #1 at 12:14:26
+875 verbose etag "BOZ8BM06UJZ9H42VL048PBQMV"
+876 http request GET https://registry.npmjs.org/wrappy
+877 silly install resolved []
+878 verbose about to build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inherits
+879 info build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inherits
+880 silly cache add args [ 'wrappy@1', null ]
+881 verbose cache add spec wrappy@1
+882 silly cache add parsed spec { raw: 'wrappy@1',
+882 silly cache add   scope: null,
+882 silly cache add   name: 'wrappy',
+882 silly cache add   rawSpec: '1',
+882 silly cache add   spec: '>=1.0.0 <2.0.0',
+882 silly cache add   type: 'range' }
+883 silly addNamed wrappy@>=1.0.0 <2.0.0
+884 verbose addNamed ">=1.0.0 <2.0.0" is a valid semver range for wrappy
+885 silly addNameRange { name: 'wrappy', range: '>=1.0.0 <2.0.0', hasData: false }
+886 silly mapToRegistry name wrappy
+887 silly mapToRegistry using default registry
+888 silly mapToRegistry registry https://registry.npmjs.org/
+889 silly mapToRegistry uri https://registry.npmjs.org/wrappy
+890 verbose addNameRange registry:https://registry.npmjs.org/wrappy already in flight; waiting
+891 info linkStuff inherits@2.0.1
+892 silly linkStuff inherits@2.0.1 has /usr/lib/node_modules/jslint/node_modules/glob/node_modules as its parent node_modules
+893 silly linkStuff inherits@2.0.1 is part of a global install
+894 silly linkStuff inherits@2.0.1 is installed into a global node_modules
+895 verbose write writing to /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/isarray/package.json
+896 verbose linkBins inherits@2.0.1
+897 verbose linkMans inherits@2.0.1
+898 verbose rebuildBundles inherits@2.0.1
+899 info install inherits@2.0.1
+900 verbose write writing to /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/inherits/package.json
+901 info postinstall inherits@2.0.1
+902 info preinstall isarray@0.0.1
+903 verbose write writing to /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/string_decoder/package.json
+904 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/isarray/package.json
+905 info preinstall inherits@2.0.1
+906 verbose unlock done using /home/reo7sp/.npm/_locks/inherits-4ce3b4fb89652d80.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inherits
+907 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/inherits/package.json
+908 info preinstall string_decoder@0.10.31
+909 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/isarray/package.json
+910 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/string_decoder/package.json
+911 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/inherits/package.json
+912 silly install resolved []
+913 verbose about to build /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/isarray
+914 info build /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/isarray
+915 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/string_decoder/package.json
+916 silly install resolved []
+917 verbose about to build /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/inherits
+918 info build /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/inherits
+919 info linkStuff isarray@0.0.1
+920 silly linkStuff isarray@0.0.1 has /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules as its parent node_modules
+921 silly linkStuff isarray@0.0.1 is part of a global install
+922 silly linkStuff isarray@0.0.1 is installed into a global node_modules
+923 silly install resolved []
+924 verbose about to build /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/string_decoder
+925 info build /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/string_decoder
+926 verbose write writing to /usr/lib/node_modules/jslint/node_modules/nopt/node_modules/abbrev/package.json
+927 info linkStuff inherits@2.0.1
+928 silly linkStuff inherits@2.0.1 has /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules as its parent node_modules
+929 silly linkStuff inherits@2.0.1 is part of a global install
+930 silly linkStuff inherits@2.0.1 is installed into a global node_modules
+931 verbose linkBins isarray@0.0.1
+932 verbose linkMans isarray@0.0.1
+933 verbose rebuildBundles isarray@0.0.1
+934 info install isarray@0.0.1
+935 info preinstall abbrev@1.0.7
+936 info linkStuff string_decoder@0.10.31
+937 silly linkStuff string_decoder@0.10.31 has /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules as its parent node_modules
+938 silly linkStuff string_decoder@0.10.31 is part of a global install
+939 silly linkStuff string_decoder@0.10.31 is installed into a global node_modules
+940 verbose linkBins inherits@2.0.1
+941 verbose linkMans inherits@2.0.1
+942 verbose rebuildBundles inherits@2.0.1
+943 info postinstall isarray@0.0.1
+944 verbose write writing to /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/core-util-is/package.json
+945 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/nopt/node_modules/abbrev/package.json
+946 info install inherits@2.0.1
+947 info postinstall inherits@2.0.1
+948 verbose unlock done using /home/reo7sp/.npm/_locks/isarray-81f0388461860cd8.lock for /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/isarray
+949 verbose linkBins string_decoder@0.10.31
+950 verbose linkMans string_decoder@0.10.31
+951 verbose rebuildBundles string_decoder@0.10.31
+952 info preinstall core-util-is@1.0.1
+953 info install string_decoder@0.10.31
+954 verbose unlock done using /home/reo7sp/.npm/_locks/inherits-b17c25feb2e68055.lock for /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/inherits
+955 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/core-util-is/package.json
+956 info postinstall string_decoder@0.10.31
+957 verbose unlock done using /home/reo7sp/.npm/_locks/string-decoder-7cbad852a474e917.lock for /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/string_decoder
+958 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/nopt/node_modules/abbrev/package.json
+959 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/core-util-is/package.json
+960 silly install resolved []
+961 verbose about to build /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/core-util-is
+962 info build /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/core-util-is
+963 silly install resolved []
+964 verbose about to build /usr/lib/node_modules/jslint/node_modules/nopt/node_modules/abbrev
+965 info build /usr/lib/node_modules/jslint/node_modules/nopt/node_modules/abbrev
+966 info linkStuff core-util-is@1.0.1
+967 silly linkStuff core-util-is@1.0.1 has /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules as its parent node_modules
+968 silly linkStuff core-util-is@1.0.1 is part of a global install
+969 silly linkStuff core-util-is@1.0.1 is installed into a global node_modules
+970 verbose linkBins core-util-is@1.0.1
+971 verbose linkMans core-util-is@1.0.1
+972 verbose rebuildBundles core-util-is@1.0.1
+973 info install core-util-is@1.0.1
+974 info postinstall core-util-is@1.0.1
+975 info linkStuff abbrev@1.0.7
+976 silly linkStuff abbrev@1.0.7 has /usr/lib/node_modules/jslint/node_modules/nopt/node_modules as its parent node_modules
+977 silly linkStuff abbrev@1.0.7 is part of a global install
+978 silly linkStuff abbrev@1.0.7 is installed into a global node_modules
+979 verbose unlock done using /home/reo7sp/.npm/_locks/core-util-is-5b6cf0c18ecf2c7c.lock for /usr/lib/node_modules/jslint/node_modules/readable-stream/node_modules/core-util-is
+980 verbose about to build /usr/lib/node_modules/jslint/node_modules/readable-stream
+981 info build /usr/lib/node_modules/jslint/node_modules/readable-stream
+982 verbose linkBins abbrev@1.0.7
+983 verbose linkMans abbrev@1.0.7
+984 verbose rebuildBundles abbrev@1.0.7
+985 info install abbrev@1.0.7
+986 info linkStuff readable-stream@1.0.33
+987 silly linkStuff readable-stream@1.0.33 has /usr/lib/node_modules/jslint/node_modules as its parent node_modules
+988 silly linkStuff readable-stream@1.0.33 is part of a global install
+989 silly linkStuff readable-stream@1.0.33 is installed into a global node_modules
+990 info postinstall abbrev@1.0.7
+991 verbose unlock done using /home/reo7sp/.npm/_locks/abbrev-10f7b6a6b1aae540.lock for /usr/lib/node_modules/jslint/node_modules/nopt/node_modules/abbrev
+992 verbose about to build /usr/lib/node_modules/jslint/node_modules/nopt
+993 info build /usr/lib/node_modules/jslint/node_modules/nopt
+994 verbose linkBins readable-stream@1.0.33
+995 verbose linkMans readable-stream@1.0.33
+996 verbose rebuildBundles readable-stream@1.0.33
+997 verbose rebuildBundles [ 'core-util-is', 'inherits', 'isarray', 'string_decoder' ]
+998 info install readable-stream@1.0.33
+999 info postinstall readable-stream@1.0.33
+1000 http 304 https://registry.npmjs.org/wrappy
+1001 silly get cb [ 304,
+1001 silly get   { date: 'Wed, 05 Aug 2015 09:14:26 GMT',
+1001 silly get     via: '1.1 varnish',
+1001 silly get     'cache-control': 'max-age=60',
+1001 silly get     etag: '"BOZ8BM06UJZ9H42VL048PBQMV"',
+1001 silly get     age: '28',
+1001 silly get     connection: 'keep-alive',
+1001 silly get     'x-served-by': 'cache-fra1221-FRA',
+1001 silly get     'x-cache': 'HIT',
+1001 silly get     'x-cache-hits': '9',
+1001 silly get     'x-timer': 'S1438766066.666165,VS0,VE0',
+1001 silly get     vary: 'Accept' } ]
+1002 verbose etag https://registry.npmjs.org/wrappy from cache
+1003 verbose get saving wrappy to /home/reo7sp/.npm/registry.npmjs.org/wrappy/.cache.json
+1004 verbose unlock done using /home/reo7sp/.npm/_locks/readable-stream-8944b76c9ab5fd4c.lock for /usr/lib/node_modules/jslint/node_modules/readable-stream
+1005 verbose write writing to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/package.json
+1006 info preinstall minimatch@2.0.10
+1007 info linkStuff nopt@3.0.3
+1008 silly linkStuff nopt@3.0.3 has /usr/lib/node_modules/jslint/node_modules as its parent node_modules
+1009 silly linkStuff nopt@3.0.3 is part of a global install
+1010 silly linkStuff nopt@3.0.3 is installed into a global node_modules
+1011 silly addNameRange number 2 { name: 'wrappy', range: '>=1.0.0 <2.0.0', hasData: true }
+1012 silly addNameRange versions [ 'wrappy', [ '1.0.0', '1.0.1' ] ]
+1013 silly addNamed wrappy@1.0.1
+1014 verbose addNamed "1.0.1" is a plain semver version for wrappy
+1015 silly addNameRange number 2 { name: 'wrappy', range: '>=1.0.0 <2.0.0', hasData: true }
+1016 silly addNameRange versions [ 'wrappy', [ '1.0.0', '1.0.1' ] ]
+1017 silly addNamed wrappy@1.0.1
+1018 verbose addNamed "1.0.1" is a plain semver version for wrappy
+1019 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/package.json
+1020 verbose linkBins nopt@3.0.3
+1021 verbose link bins [ { nopt: './bin/nopt.js' },
+1021 verbose link bins   '/usr/lib/node_modules/jslint/node_modules/.bin',
+1021 verbose link bins   false ]
+1022 verbose linkMans nopt@3.0.3
+1023 verbose rebuildBundles nopt@3.0.3
+1024 verbose rebuildBundles [ 'abbrev' ]
+1025 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/.bin/nopt is being purged
+1026 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/.bin/nopt
+1027 silly cache afterAdd wrappy@1.0.1
+1028 verbose afterAdd /home/reo7sp/.npm/wrappy/1.0.1/package/package.json not in flight; writing
+1029 silly cache afterAdd wrappy@1.0.1
+1030 verbose afterAdd /home/reo7sp/.npm/wrappy/1.0.1/package/package.json already in flight; not writing
+1031 silly prepareForInstallMany adding brace-expansion@^1.0.0 from minimatch dependencies
+1032 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/package.json
+1033 info install nopt@3.0.3
+1034 verbose afterAdd /home/reo7sp/.npm/wrappy/1.0.1/package/package.json written
+1035 silly install resolved [ { name: 'wrappy',
+1035 silly install resolved     version: '1.0.1',
+1035 silly install resolved     description: 'Callback wrapping utility',
+1035 silly install resolved     main: 'wrappy.js',
+1035 silly install resolved     directories: { test: 'test' },
+1035 silly install resolved     dependencies: {},
+1035 silly install resolved     devDependencies: { tap: '^0.4.12' },
+1035 silly install resolved     scripts: { test: 'tap test/*.js' },
+1035 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/npm/wrappy.git' },
+1035 silly install resolved     author:
+1035 silly install resolved      { name: 'Isaac Z. Schlueter',
+1035 silly install resolved        email: 'i@izs.me',
+1035 silly install resolved        url: 'http://blog.izs.me/' },
+1035 silly install resolved     license: 'ISC',
+1035 silly install resolved     bugs: { url: 'https://github.com/npm/wrappy/issues' },
+1035 silly install resolved     homepage: 'https://github.com/npm/wrappy',
+1035 silly install resolved     gitHead: '006a8cbac6b99988315834c207896eed71fd069a',
+1035 silly install resolved     _id: 'wrappy@1.0.1',
+1035 silly install resolved     _shasum: '1e65969965ccbc2db4548c6b84a6f2c5aedd4739',
+1035 silly install resolved     _from: 'wrappy@>=1.0.0 <2.0.0',
+1035 silly install resolved     _npmVersion: '2.0.0',
+1035 silly install resolved     _nodeVersion: '0.10.31',
+1035 silly install resolved     _npmUser: { name: 'isaacs', email: 'i@izs.me' },
+1035 silly install resolved     maintainers: [ [Object] ],
+1035 silly install resolved     dist:
+1035 silly install resolved      { shasum: '1e65969965ccbc2db4548c6b84a6f2c5aedd4739',
+1035 silly install resolved        tarball: 'http://registry.npmjs.org/wrappy/-/wrappy-1.0.1.tgz' },
+1035 silly install resolved     _resolved: 'https://registry.npmjs.org/wrappy/-/wrappy-1.0.1.tgz',
+1035 silly install resolved     readme: 'ERROR: No README data found!' } ]
+1036 info install wrappy@1.0.1 into /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once
+1037 info installOne wrappy@1.0.1
+1038 verbose installOne of wrappy to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once not in flight; installing
+1039 silly install resolved [ { name: 'wrappy',
+1039 silly install resolved     version: '1.0.1',
+1039 silly install resolved     description: 'Callback wrapping utility',
+1039 silly install resolved     main: 'wrappy.js',
+1039 silly install resolved     directories: { test: 'test' },
+1039 silly install resolved     dependencies: {},
+1039 silly install resolved     devDependencies: { tap: '^0.4.12' },
+1039 silly install resolved     scripts: { test: 'tap test/*.js' },
+1039 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/npm/wrappy.git' },
+1039 silly install resolved     author:
+1039 silly install resolved      { name: 'Isaac Z. Schlueter',
+1039 silly install resolved        email: 'i@izs.me',
+1039 silly install resolved        url: 'http://blog.izs.me/' },
+1039 silly install resolved     license: 'ISC',
+1039 silly install resolved     bugs: { url: 'https://github.com/npm/wrappy/issues' },
+1039 silly install resolved     homepage: 'https://github.com/npm/wrappy',
+1039 silly install resolved     gitHead: '006a8cbac6b99988315834c207896eed71fd069a',
+1039 silly install resolved     _id: 'wrappy@1.0.1',
+1039 silly install resolved     _shasum: '1e65969965ccbc2db4548c6b84a6f2c5aedd4739',
+1039 silly install resolved     _from: 'wrappy@>=1.0.0 <2.0.0',
+1039 silly install resolved     _npmVersion: '2.0.0',
+1039 silly install resolved     _nodeVersion: '0.10.31',
+1039 silly install resolved     _npmUser: { name: 'isaacs', email: 'i@izs.me' },
+1039 silly install resolved     maintainers: [ [Object] ],
+1039 silly install resolved     dist:
+1039 silly install resolved      { shasum: '1e65969965ccbc2db4548c6b84a6f2c5aedd4739',
+1039 silly install resolved        tarball: 'http://registry.npmjs.org/wrappy/-/wrappy-1.0.1.tgz' },
+1039 silly install resolved     _resolved: 'https://registry.npmjs.org/wrappy/-/wrappy-1.0.1.tgz',
+1039 silly install resolved     readme: 'ERROR: No README data found!' } ]
+1040 info install wrappy@1.0.1 into /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight
+1041 info installOne wrappy@1.0.1
+1042 verbose installOne of wrappy to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight not in flight; installing
+1043 info postinstall nopt@3.0.3
+1044 silly cache add args [ 'brace-expansion@^1.0.0', null ]
+1045 verbose cache add spec brace-expansion@^1.0.0
+1046 silly cache add parsed spec { raw: 'brace-expansion@^1.0.0',
+1046 silly cache add   scope: null,
+1046 silly cache add   name: 'brace-expansion',
+1046 silly cache add   rawSpec: '^1.0.0',
+1046 silly cache add   spec: '>=1.0.0 <2.0.0',
+1046 silly cache add   type: 'range' }
+1047 silly addNamed brace-expansion@>=1.0.0 <2.0.0
+1048 verbose addNamed ">=1.0.0 <2.0.0" is a valid semver range for brace-expansion
+1049 silly addNameRange { name: 'brace-expansion',
+1049 silly addNameRange   range: '>=1.0.0 <2.0.0',
+1049 silly addNameRange   hasData: false }
+1050 silly mapToRegistry name brace-expansion
+1051 silly mapToRegistry using default registry
+1052 silly mapToRegistry registry https://registry.npmjs.org/
+1053 silly mapToRegistry uri https://registry.npmjs.org/brace-expansion
+1054 verbose addNameRange registry:https://registry.npmjs.org/brace-expansion not in flight; fetching
+1055 verbose lock using /home/reo7sp/.npm/_locks/wrappy-391c9ad0649bc7b6.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/node_modules/wrappy
+1056 verbose lock using /home/reo7sp/.npm/_locks/wrappy-2d1e3d41b00616ee.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/node_modules/wrappy
+1057 silly install write writing wrappy 1.0.1 to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/node_modules/wrappy
+1058 verbose unlock done using /home/reo7sp/.npm/_locks/nopt-cfc138a9dc94d3b5.lock for /usr/lib/node_modules/jslint/node_modules/nopt
+1059 silly install write writing wrappy 1.0.1 to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/node_modules/wrappy
+1060 verbose request uri https://registry.npmjs.org/brace-expansion
+1061 verbose request no auth needed
+1062 info attempt registry request try #1 at 12:14:26
+1063 verbose etag "18Z2VDE6EPY9JHP7D0I3PN5DH"
+1064 http request GET https://registry.npmjs.org/brace-expansion
+1065 verbose unbuild lib/node_modules/jslint/node_modules/glob/node_modules/once/node_modules/wrappy
+1066 verbose unbuild lib/node_modules/jslint/node_modules/glob/node_modules/inflight/node_modules/wrappy
+1067 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/node_modules/wrappy is being purged from base /usr
+1068 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/node_modules/wrappy
+1069 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/node_modules/wrappy is being purged from base /usr
+1070 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/node_modules/wrappy
+1071 verbose tar unpack /home/reo7sp/.npm/wrappy/1.0.1/package.tgz
+1072 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/node_modules/wrappy
+1073 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/node_modules/wrappy is being purged
+1074 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/node_modules/wrappy
+1075 verbose tar unpack /home/reo7sp/.npm/wrappy/1.0.1/package.tgz
+1076 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/node_modules/wrappy
+1077 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/node_modules/wrappy is being purged
+1078 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/node_modules/wrappy
+1079 silly gunzTarPerm modes [ '755', '644' ]
+1080 silly gunzTarPerm modes [ '755', '644' ]
+1081 silly gunzTarPerm extractEntry package.json
+1082 silly gunzTarPerm extractEntry package.json
+1083 silly gunzTarPerm extractEntry README.md
+1084 silly gunzTarPerm extractEntry LICENSE
+1085 silly gunzTarPerm extractEntry README.md
+1086 silly gunzTarPerm extractEntry LICENSE
+1087 silly gunzTarPerm extractEntry wrappy.js
+1088 silly gunzTarPerm extractEntry test/basic.js
+1089 silly gunzTarPerm extractEntry wrappy.js
+1090 silly gunzTarPerm extractEntry test/basic.js
+1091 verbose write writing to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/node_modules/wrappy/package.json
+1092 verbose write writing to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/node_modules/wrappy/package.json
+1093 info preinstall wrappy@1.0.1
+1094 info preinstall wrappy@1.0.1
+1095 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/node_modules/wrappy/package.json
+1096 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/node_modules/wrappy/package.json
+1097 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/node_modules/wrappy/package.json
+1098 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/node_modules/wrappy/package.json
+1099 silly install resolved []
+1100 verbose about to build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/node_modules/wrappy
+1101 info build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/node_modules/wrappy
+1102 silly install resolved []
+1103 verbose about to build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/node_modules/wrappy
+1104 info build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/node_modules/wrappy
+1105 info linkStuff wrappy@1.0.1
+1106 silly linkStuff wrappy@1.0.1 has /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/node_modules as its parent node_modules
+1107 silly linkStuff wrappy@1.0.1 is part of a global install
+1108 silly linkStuff wrappy@1.0.1 is installed into a global node_modules
+1109 info linkStuff wrappy@1.0.1
+1110 silly linkStuff wrappy@1.0.1 has /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/node_modules as its parent node_modules
+1111 silly linkStuff wrappy@1.0.1 is part of a global install
+1112 silly linkStuff wrappy@1.0.1 is installed into a global node_modules
+1113 verbose linkBins wrappy@1.0.1
+1114 verbose linkMans wrappy@1.0.1
+1115 verbose rebuildBundles wrappy@1.0.1
+1116 info install wrappy@1.0.1
+1117 verbose linkBins wrappy@1.0.1
+1118 verbose linkMans wrappy@1.0.1
+1119 verbose rebuildBundles wrappy@1.0.1
+1120 info install wrappy@1.0.1
+1121 info postinstall wrappy@1.0.1
+1122 info postinstall wrappy@1.0.1
+1123 verbose unlock done using /home/reo7sp/.npm/_locks/wrappy-2d1e3d41b00616ee.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight/node_modules/wrappy
+1124 verbose about to build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight
+1125 info build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight
+1126 verbose unlock done using /home/reo7sp/.npm/_locks/wrappy-391c9ad0649bc7b6.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once/node_modules/wrappy
+1127 verbose about to build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once
+1128 info build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once
+1129 info linkStuff inflight@1.0.4
+1130 silly linkStuff inflight@1.0.4 has /usr/lib/node_modules/jslint/node_modules/glob/node_modules as its parent node_modules
+1131 silly linkStuff inflight@1.0.4 is part of a global install
+1132 silly linkStuff inflight@1.0.4 is installed into a global node_modules
+1133 info linkStuff once@1.3.2
+1134 silly linkStuff once@1.3.2 has /usr/lib/node_modules/jslint/node_modules/glob/node_modules as its parent node_modules
+1135 silly linkStuff once@1.3.2 is part of a global install
+1136 silly linkStuff once@1.3.2 is installed into a global node_modules
+1137 verbose linkBins inflight@1.0.4
+1138 verbose linkMans inflight@1.0.4
+1139 verbose rebuildBundles inflight@1.0.4
+1140 verbose rebuildBundles [ 'wrappy' ]
+1141 info install inflight@1.0.4
+1142 verbose linkBins once@1.3.2
+1143 verbose linkMans once@1.3.2
+1144 verbose rebuildBundles once@1.3.2
+1145 verbose rebuildBundles [ 'wrappy' ]
+1146 info install once@1.3.2
+1147 info postinstall inflight@1.0.4
+1148 info postinstall once@1.3.2
+1149 verbose unlock done using /home/reo7sp/.npm/_locks/inflight-ba37db9ead3715a7.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/inflight
+1150 verbose unlock done using /home/reo7sp/.npm/_locks/once-8397f03ceaf37a36.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/once
+1151 http 304 https://registry.npmjs.org/brace-expansion
+1152 silly get cb [ 304,
+1152 silly get   { date: 'Wed, 05 Aug 2015 09:14:26 GMT',
+1152 silly get     via: '1.1 varnish',
+1152 silly get     'cache-control': 'max-age=60',
+1152 silly get     etag: '"18Z2VDE6EPY9JHP7D0I3PN5DH"',
+1152 silly get     age: '46',
+1152 silly get     connection: 'keep-alive',
+1152 silly get     'x-served-by': 'cache-fra1234-FRA',
+1152 silly get     'x-cache': 'HIT',
+1152 silly get     'x-cache-hits': '6',
+1152 silly get     'x-timer': 'S1438766066.916639,VS0,VE0',
+1152 silly get     vary: 'Accept' } ]
+1153 verbose etag https://registry.npmjs.org/brace-expansion from cache
+1154 verbose get saving brace-expansion to /home/reo7sp/.npm/registry.npmjs.org/brace-expansion/.cache.json
+1155 silly addNameRange number 2 { name: 'brace-expansion',
+1155 silly addNameRange   range: '>=1.0.0 <2.0.0',
+1155 silly addNameRange   hasData: true }
+1156 silly addNameRange versions [ 'brace-expansion', [ '0.0.0', '1.0.0', '1.0.1', '1.1.0' ] ]
+1157 silly addNamed brace-expansion@1.1.0
+1158 verbose addNamed "1.1.0" is a plain semver version for brace-expansion
+1159 silly cache afterAdd brace-expansion@1.1.0
+1160 verbose afterAdd /home/reo7sp/.npm/brace-expansion/1.1.0/package/package.json not in flight; writing
+1161 verbose afterAdd /home/reo7sp/.npm/brace-expansion/1.1.0/package/package.json written
+1162 silly install resolved [ { name: 'brace-expansion',
+1162 silly install resolved     description: 'Brace expansion as known from sh/bash',
+1162 silly install resolved     version: '1.1.0',
+1162 silly install resolved     repository:
+1162 silly install resolved      { type: 'git',
+1162 silly install resolved        url: 'git://github.com/juliangruber/brace-expansion.git' },
+1162 silly install resolved     homepage: 'https://github.com/juliangruber/brace-expansion',
+1162 silly install resolved     main: 'index.js',
+1162 silly install resolved     scripts: { test: 'tape test/*.js', gentest: 'bash test/generate.sh' },
+1162 silly install resolved     dependencies: { 'balanced-match': '^0.2.0', 'concat-map': '0.0.1' },
+1162 silly install resolved     devDependencies: { tape: '^3.0.3' },
+1162 silly install resolved     keywords: [],
+1162 silly install resolved     author:
+1162 silly install resolved      { name: 'Julian Gruber',
+1162 silly install resolved        email: 'mail@juliangruber.com',
+1162 silly install resolved        url: 'http://juliangruber.com' },
+1162 silly install resolved     license: 'MIT',
+1162 silly install resolved     testling: { files: 'test/*.js', browsers: [Object] },
+1162 silly install resolved     gitHead: 'b5fa3b1c74e5e2dba2d0efa19b28335641bc1164',
+1162 silly install resolved     bugs: { url: 'https://github.com/juliangruber/brace-expansion/issues' },
+1162 silly install resolved     _id: 'brace-expansion@1.1.0',
+1162 silly install resolved     _shasum: 'c9b7d03c03f37bc704be100e522b40db8f6cfcd9',
+1162 silly install resolved     _from: 'brace-expansion@>=1.0.0 <2.0.0',
+1162 silly install resolved     _npmVersion: '2.1.10',
+1162 silly install resolved     _nodeVersion: '0.10.32',
+1162 silly install resolved     _npmUser: { name: 'juliangruber', email: 'julian@juliangruber.com' },
+1162 silly install resolved     maintainers: [ [Object], [Object] ],
+1162 silly install resolved     dist:
+1162 silly install resolved      { shasum: 'c9b7d03c03f37bc704be100e522b40db8f6cfcd9',
+1162 silly install resolved        tarball: 'http://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.0.tgz' },
+1162 silly install resolved     directories: {},
+1162 silly install resolved     _resolved: 'https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.0.tgz',
+1162 silly install resolved     readme: 'ERROR: No README data found!' } ]
+1163 info install brace-expansion@1.1.0 into /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch
+1164 info installOne brace-expansion@1.1.0
+1165 verbose installOne of brace-expansion to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch not in flight; installing
+1166 verbose lock using /home/reo7sp/.npm/_locks/brace-expansion-2d0f3bd6b9a8a53e.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion
+1167 silly install write writing brace-expansion 1.1.0 to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion
+1168 verbose unbuild lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion
+1169 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion is being purged from base /usr
+1170 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion
+1171 verbose tar unpack /home/reo7sp/.npm/brace-expansion/1.1.0/package.tgz
+1172 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion
+1173 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion is being purged
+1174 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion
+1175 silly gunzTarPerm modes [ '755', '644' ]
+1176 silly gunzTarPerm extractEntry package.json
+1177 silly gunzTarPerm extractEntry .npmignore
+1178 silly gunzTarPerm extractEntry README.md
+1179 silly gunzTarPerm extractEntry example.js
+1180 silly gunzTarPerm extractEntry index.js
+1181 silly gunzTarPerm extractEntry .travis.yml
+1182 silly gunzTarPerm extractEntry test/bash-comparison.js
+1183 silly gunzTarPerm extractEntry test/same-type.js
+1184 silly gunzTarPerm extractEntry test/dollar.js
+1185 silly gunzTarPerm extractEntry test/empty-option.js
+1186 silly gunzTarPerm extractEntry test/pad.js
+1187 silly gunzTarPerm extractEntry test/order.js
+1188 silly gunzTarPerm extractEntry test/nested.js
+1189 silly gunzTarPerm extractEntry test/sequence.js
+1190 silly gunzTarPerm extractEntry test/negative-increment.js
+1191 silly gunzTarPerm extractEntry test/bash-results.txt
+1192 silly gunzTarPerm extractEntry test/generate.sh
+1193 silly gunzTarPerm extractEntry test/cases.txt
+1194 verbose write writing to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/package.json
+1195 info preinstall brace-expansion@1.1.0
+1196 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/package.json
+1197 silly prepareForInstallMany adding balanced-match@^0.2.0 from brace-expansion dependencies
+1198 silly prepareForInstallMany adding concat-map@0.0.1 from brace-expansion dependencies
+1199 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/package.json
+1200 silly cache add args [ 'balanced-match@^0.2.0', null ]
+1201 verbose cache add spec balanced-match@^0.2.0
+1202 silly cache add args [ 'concat-map@0.0.1', null ]
+1203 verbose cache add spec concat-map@0.0.1
+1204 silly cache add parsed spec { raw: 'balanced-match@^0.2.0',
+1204 silly cache add   scope: null,
+1204 silly cache add   name: 'balanced-match',
+1204 silly cache add   rawSpec: '^0.2.0',
+1204 silly cache add   spec: '>=0.2.0 <0.3.0',
+1204 silly cache add   type: 'range' }
+1205 silly addNamed balanced-match@>=0.2.0 <0.3.0
+1206 verbose addNamed ">=0.2.0 <0.3.0" is a valid semver range for balanced-match
+1207 silly addNameRange { name: 'balanced-match',
+1207 silly addNameRange   range: '>=0.2.0 <0.3.0',
+1207 silly addNameRange   hasData: false }
+1208 silly mapToRegistry name balanced-match
+1209 silly mapToRegistry using default registry
+1210 silly mapToRegistry registry https://registry.npmjs.org/
+1211 silly mapToRegistry uri https://registry.npmjs.org/balanced-match
+1212 verbose addNameRange registry:https://registry.npmjs.org/balanced-match not in flight; fetching
+1213 silly cache add parsed spec { raw: 'concat-map@0.0.1',
+1213 silly cache add   scope: null,
+1213 silly cache add   name: 'concat-map',
+1213 silly cache add   rawSpec: '0.0.1',
+1213 silly cache add   spec: '0.0.1',
+1213 silly cache add   type: 'version' }
+1214 silly addNamed concat-map@0.0.1
+1215 verbose addNamed "0.0.1" is a plain semver version for concat-map
+1216 silly mapToRegistry name concat-map
+1217 silly mapToRegistry using default registry
+1218 silly mapToRegistry registry https://registry.npmjs.org/
+1219 silly mapToRegistry uri https://registry.npmjs.org/concat-map
+1220 verbose addNameVersion registry:https://registry.npmjs.org/concat-map not in flight; fetching
+1221 verbose request uri https://registry.npmjs.org/balanced-match
+1222 verbose request no auth needed
+1223 info attempt registry request try #1 at 12:14:27
+1224 verbose etag "2H6AO94YXV8VUX762CZ8KGSIJ"
+1225 http request GET https://registry.npmjs.org/balanced-match
+1226 verbose request uri https://registry.npmjs.org/concat-map
+1227 verbose request no auth needed
+1228 info attempt registry request try #1 at 12:14:27
+1229 verbose etag "2U454Y0TO6HIGLHDYCQETYTN8"
+1230 http request GET https://registry.npmjs.org/concat-map
+1231 http 304 https://registry.npmjs.org/balanced-match
+1232 silly get cb [ 304,
+1232 silly get   { date: 'Wed, 05 Aug 2015 09:14:27 GMT',
+1232 silly get     via: '1.1 varnish',
+1232 silly get     'cache-control': 'max-age=60',
+1232 silly get     etag: '"2H6AO94YXV8VUX762CZ8KGSIJ"',
+1232 silly get     age: '44',
+1232 silly get     connection: 'keep-alive',
+1232 silly get     'x-served-by': 'cache-fra1233-FRA',
+1232 silly get     'x-cache': 'HIT',
+1232 silly get     'x-cache-hits': '6',
+1232 silly get     'x-timer': 'S1438766067.246262,VS0,VE0',
+1232 silly get     vary: 'Accept' } ]
+1233 verbose etag https://registry.npmjs.org/balanced-match from cache
+1234 verbose get saving balanced-match to /home/reo7sp/.npm/registry.npmjs.org/balanced-match/.cache.json
+1235 silly addNameRange number 2 { name: 'balanced-match',
+1235 silly addNameRange   range: '>=0.2.0 <0.3.0',
+1235 silly addNameRange   hasData: true }
+1236 silly addNameRange versions [ 'balanced-match', [ '0.0.0', '0.0.1', '0.1.0', '0.2.0' ] ]
+1237 silly addNamed balanced-match@0.2.0
+1238 verbose addNamed "0.2.0" is a plain semver version for balanced-match
+1239 http 304 https://registry.npmjs.org/concat-map
+1240 silly get cb [ 304,
+1240 silly get   { date: 'Wed, 05 Aug 2015 09:14:27 GMT',
+1240 silly get     via: '1.1 varnish',
+1240 silly get     'cache-control': 'max-age=60',
+1240 silly get     etag: '"2U454Y0TO6HIGLHDYCQETYTN8"',
+1240 silly get     age: '12',
+1240 silly get     connection: 'keep-alive',
+1240 silly get     'x-served-by': 'cache-fra1240-FRA',
+1240 silly get     'x-cache': 'HIT',
+1240 silly get     'x-cache-hits': '2',
+1240 silly get     'x-timer': 'S1438766067.255147,VS0,VE0',
+1240 silly get     vary: 'Accept' } ]
+1241 verbose etag https://registry.npmjs.org/concat-map from cache
+1242 verbose get saving concat-map to /home/reo7sp/.npm/registry.npmjs.org/concat-map/.cache.json
+1243 silly cache afterAdd balanced-match@0.2.0
+1244 verbose afterAdd /home/reo7sp/.npm/balanced-match/0.2.0/package/package.json not in flight; writing
+1245 verbose afterAdd /home/reo7sp/.npm/balanced-match/0.2.0/package/package.json written
+1246 silly cache afterAdd concat-map@0.0.1
+1247 verbose afterAdd /home/reo7sp/.npm/concat-map/0.0.1/package/package.json not in flight; writing
+1248 verbose afterAdd /home/reo7sp/.npm/concat-map/0.0.1/package/package.json written
+1249 silly install resolved [ { name: 'balanced-match',
+1249 silly install resolved     description: 'Match balanced character pairs, like "{" and "}"',
+1249 silly install resolved     version: '0.2.0',
+1249 silly install resolved     repository:
+1249 silly install resolved      { type: 'git',
+1249 silly install resolved        url: 'git://github.com/juliangruber/balanced-match.git' },
+1249 silly install resolved     homepage: 'https://github.com/juliangruber/balanced-match',
+1249 silly install resolved     main: 'index.js',
+1249 silly install resolved     scripts: { test: 'make test' },
+1249 silly install resolved     dependencies: {},
+1249 silly install resolved     devDependencies: { tape: '~1.1.1' },
+1249 silly install resolved     keywords: [ 'match', 'regexp', 'test', 'balanced', 'parse' ],
+1249 silly install resolved     author:
+1249 silly install resolved      { name: 'Julian Gruber',
+1249 silly install resolved        email: 'mail@juliangruber.com',
+1249 silly install resolved        url: 'http://juliangruber.com' },
+1249 silly install resolved     license: 'MIT',
+1249 silly install resolved     testling: { files: 'test/*.js', browsers: [Object] },
+1249 silly install resolved     gitHead: 'ba40ed78e7114a4a67c51da768a100184dead39c',
+1249 silly install resolved     bugs: { url: 'https://github.com/juliangruber/balanced-match/issues' },
+1249 silly install resolved     _id: 'balanced-match@0.2.0',
+1249 silly install resolved     _shasum: '38f6730c03aab6d5edbb52bd934885e756d71674',
+1249 silly install resolved     _from: 'balanced-match@>=0.2.0 <0.3.0',
+1249 silly install resolved     _npmVersion: '2.1.8',
+1249 silly install resolved     _nodeVersion: '0.10.32',
+1249 silly install resolved     _npmUser: { name: 'juliangruber', email: 'julian@juliangruber.com' },
+1249 silly install resolved     maintainers: [ [Object] ],
+1249 silly install resolved     dist:
+1249 silly install resolved      { shasum: '38f6730c03aab6d5edbb52bd934885e756d71674',
+1249 silly install resolved        tarball: 'http://registry.npmjs.org/balanced-match/-/balanced-match-0.2.0.tgz' },
+1249 silly install resolved     directories: {},
+1249 silly install resolved     _resolved: 'https://registry.npmjs.org/balanced-match/-/balanced-match-0.2.0.tgz',
+1249 silly install resolved     readme: 'ERROR: No README data found!' },
+1249 silly install resolved   { name: 'concat-map',
+1249 silly install resolved     description: 'concatenative mapdashery',
+1249 silly install resolved     version: '0.0.1',
+1249 silly install resolved     repository:
+1249 silly install resolved      { type: 'git',
+1249 silly install resolved        url: 'git://github.com/substack/node-concat-map.git' },
+1249 silly install resolved     main: 'index.js',
+1249 silly install resolved     keywords: [ 'concat', 'concatMap', 'map', 'functional', 'higher-order' ],
+1249 silly install resolved     directories: { example: 'example', test: 'test' },
+1249 silly install resolved     scripts: { test: 'tape test/*.js' },
+1249 silly install resolved     devDependencies: { tape: '~2.4.0' },
+1249 silly install resolved     license: 'MIT',
+1249 silly install resolved     author:
+1249 silly install resolved      { name: 'James Halliday',
+1249 silly install resolved        email: 'mail@substack.net',
+1249 silly install resolved        url: 'http://substack.net' },
+1249 silly install resolved     testling: { files: 'test/*.js', browsers: [Object] },
+1249 silly install resolved     bugs: { url: 'https://github.com/substack/node-concat-map/issues' },
+1249 silly install resolved     homepage: 'https://github.com/substack/node-concat-map',
+1249 silly install resolved     _id: 'concat-map@0.0.1',
+1249 silly install resolved     dist:
+1249 silly install resolved      { shasum: 'd8a96bd77fd68df7793a73036a3ba0d5405d477b',
+1249 silly install resolved        tarball: 'http://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz' },
+1249 silly install resolved     _from: 'concat-map@0.0.1',
+1249 silly install resolved     _npmVersion: '1.3.21',
+1249 silly install resolved     _npmUser: { name: 'substack', email: 'mail@substack.net' },
+1249 silly install resolved     maintainers: [ [Object] ],
+1249 silly install resolved     _shasum: 'd8a96bd77fd68df7793a73036a3ba0d5405d477b',
+1249 silly install resolved     _resolved: 'https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz',
+1249 silly install resolved     readme: 'ERROR: No README data found!' } ]
+1250 info install balanced-match@0.2.0 into /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion
+1251 info install concat-map@0.0.1 into /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion
+1252 info installOne balanced-match@0.2.0
+1253 verbose installOne of balanced-match to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion not in flight; installing
+1254 info installOne concat-map@0.0.1
+1255 verbose installOne of concat-map to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion not in flight; installing
+1256 verbose lock using /home/reo7sp/.npm/_locks/balanced-match-4d7b2bd84790ff18.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match
+1257 verbose lock using /home/reo7sp/.npm/_locks/concat-map-5946368145e72cc7.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map
+1258 silly install write writing balanced-match 0.2.0 to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match
+1259 silly install write writing concat-map 0.0.1 to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map
+1260 verbose unbuild lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match
+1261 verbose unbuild lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map
+1262 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match is being purged from base /usr
+1263 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match
+1264 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map is being purged from base /usr
+1265 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map
+1266 verbose tar unpack /home/reo7sp/.npm/balanced-match/0.2.0/package.tgz
+1267 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match
+1268 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match is being purged
+1269 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match
+1270 verbose tar unpack /home/reo7sp/.npm/concat-map/0.0.1/package.tgz
+1271 verbose tar unpacking to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map
+1272 silly gentlyRm /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map is being purged
+1273 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map
+1274 silly gunzTarPerm modes [ '755', '644' ]
+1275 silly gunzTarPerm modes [ '755', '644' ]
+1276 silly gunzTarPerm extractEntry package.json
+1277 silly gunzTarPerm extractEntry package.json
+1278 silly gunzTarPerm extractEntry .npmignore
+1279 silly gunzTarPerm modified mode [ '.npmignore', 436, 420 ]
+1280 silly gunzTarPerm extractEntry README.md
+1281 silly gunzTarPerm extractEntry LICENSE
+1282 silly gunzTarPerm extractEntry index.js
+1283 silly gunzTarPerm extractEntry example.js
+1284 silly gunzTarPerm modified mode [ 'example.js', 436, 420 ]
+1285 silly gunzTarPerm extractEntry index.js
+1286 silly gunzTarPerm extractEntry .travis.yml
+1287 silly gunzTarPerm extractEntry README.markdown
+1288 silly gunzTarPerm extractEntry .travis.yml
+1289 silly gunzTarPerm modified mode [ '.travis.yml', 436, 420 ]
+1290 silly gunzTarPerm extractEntry Makefile
+1291 silly gunzTarPerm modified mode [ 'Makefile', 436, 420 ]
+1292 silly gunzTarPerm extractEntry example/map.js
+1293 silly gunzTarPerm extractEntry test/map.js
+1294 silly gunzTarPerm extractEntry test/balanced.js
+1295 verbose write writing to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/package.json
+1296 info preinstall concat-map@0.0.1
+1297 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/package.json
+1298 verbose write writing to /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/package.json
+1299 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/package.json
+1300 info preinstall balanced-match@0.2.0
+1301 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/package.json
+1302 silly install resolved []
+1303 verbose about to build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map
+1304 info build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map
+1305 verbose readDependencies loading dependencies from /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/package.json
+1306 info linkStuff concat-map@0.0.1
+1307 silly linkStuff concat-map@0.0.1 has /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules as its parent node_modules
+1308 silly linkStuff concat-map@0.0.1 is part of a global install
+1309 silly linkStuff concat-map@0.0.1 is installed into a global node_modules
+1310 silly install resolved []
+1311 verbose about to build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match
+1312 info build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match
+1313 verbose linkBins concat-map@0.0.1
+1314 verbose linkMans concat-map@0.0.1
+1315 verbose rebuildBundles concat-map@0.0.1
+1316 info install concat-map@0.0.1
+1317 info postinstall concat-map@0.0.1
+1318 info linkStuff balanced-match@0.2.0
+1319 silly linkStuff balanced-match@0.2.0 has /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules as its parent node_modules
+1320 silly linkStuff balanced-match@0.2.0 is part of a global install
+1321 silly linkStuff balanced-match@0.2.0 is installed into a global node_modules
+1322 verbose unlock done using /home/reo7sp/.npm/_locks/concat-map-5946368145e72cc7.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map
+1323 verbose linkBins balanced-match@0.2.0
+1324 verbose linkMans balanced-match@0.2.0
+1325 verbose rebuildBundles balanced-match@0.2.0
+1326 info install balanced-match@0.2.0
+1327 info postinstall balanced-match@0.2.0
+1328 verbose unlock done using /home/reo7sp/.npm/_locks/balanced-match-4d7b2bd84790ff18.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match
+1329 verbose about to build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion
+1330 info build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion
+1331 info linkStuff brace-expansion@1.1.0
+1332 silly linkStuff brace-expansion@1.1.0 has /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules as its parent node_modules
+1333 silly linkStuff brace-expansion@1.1.0 is part of a global install
+1334 silly linkStuff brace-expansion@1.1.0 is installed into a global node_modules
+1335 verbose linkBins brace-expansion@1.1.0
+1336 verbose linkMans brace-expansion@1.1.0
+1337 verbose rebuildBundles brace-expansion@1.1.0
+1338 verbose rebuildBundles [ 'balanced-match', 'concat-map' ]
+1339 info install brace-expansion@1.1.0
+1340 info postinstall brace-expansion@1.1.0
+1341 verbose unlock done using /home/reo7sp/.npm/_locks/brace-expansion-2d0f3bd6b9a8a53e.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion
+1342 verbose about to build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch
+1343 info build /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch
+1344 info linkStuff minimatch@2.0.10
+1345 silly linkStuff minimatch@2.0.10 has /usr/lib/node_modules/jslint/node_modules/glob/node_modules as its parent node_modules
+1346 silly linkStuff minimatch@2.0.10 is part of a global install
+1347 silly linkStuff minimatch@2.0.10 is installed into a global node_modules
+1348 verbose linkBins minimatch@2.0.10
+1349 verbose linkMans minimatch@2.0.10
+1350 verbose rebuildBundles minimatch@2.0.10
+1351 verbose rebuildBundles [ 'brace-expansion' ]
+1352 info install minimatch@2.0.10
+1353 info postinstall minimatch@2.0.10
+1354 verbose unlock done using /home/reo7sp/.npm/_locks/minimatch-64d6ef602d5bcfe0.lock for /usr/lib/node_modules/jslint/node_modules/glob/node_modules/minimatch
+1355 verbose about to build /usr/lib/node_modules/jslint/node_modules/glob
+1356 info build /usr/lib/node_modules/jslint/node_modules/glob
+1357 info linkStuff glob@4.5.3
+1358 silly linkStuff glob@4.5.3 has /usr/lib/node_modules/jslint/node_modules as its parent node_modules
+1359 silly linkStuff glob@4.5.3 is part of a global install
+1360 silly linkStuff glob@4.5.3 is installed into a global node_modules
+1361 verbose linkBins glob@4.5.3
+1362 verbose linkMans glob@4.5.3
+1363 verbose rebuildBundles glob@4.5.3
+1364 verbose rebuildBundles [ 'inflight', 'inherits', 'minimatch', 'once' ]
+1365 info install glob@4.5.3
+1366 info postinstall glob@4.5.3
+1367 verbose unlock done using /home/reo7sp/.npm/_locks/glob-c094ff6c9a7a20de.lock for /usr/lib/node_modules/jslint/node_modules/glob
+1368 verbose about to build /usr/lib/node_modules/jslint
+1369 info build /usr/lib/node_modules/jslint
+1370 info linkStuff jslint@0.9.3
+1371 silly linkStuff jslint@0.9.3 has /usr/lib/node_modules as its parent node_modules
+1372 silly linkStuff jslint@0.9.3 is part of a global install
+1373 silly linkStuff jslint@0.9.3 is installed into a global node_modules
+1374 silly linkStuff jslint@0.9.3 is installed into the top-level global node_modules
+1375 verbose linkBins jslint@0.9.3
+1376 verbose link bins [ { jslint: './bin/jslint.js' }, '/usr/bin', true ]
+1377 verbose linkMans jslint@0.9.3
+1378 verbose linkMans man files are [ 'man/jslint.1' ] in /usr/share/man
+1379 silly linkMans preparing to link man/jslint.1
+1380 verbose rebuildBundles jslint@0.9.3
+1381 verbose rebuildBundles [ '.bin', 'exit', 'glob', 'nopt', 'readable-stream' ]
+1382 silly gentlyRm /usr/bin/jslint is being gently removed
+1383 silly gentlyRm verifying /usr is an npm working directory
+1384 silly gentlyRm /usr/share/man/man1/jslint.1 is being gently removed
+1385 silly gentlyRm verifying /usr is an npm working directory
+1386 silly gentlyRm containing path /usr is under npm's control, in /usr
+1387 silly gentlyRm deletion target /usr/bin/jslint is under /usr
+1388 verbose gentlyRm vacuuming from /usr/bin/jslint up to /usr
+1389 silly gentlyRm containing path /usr is under npm's control, in /usr
+1390 silly gentlyRm deletion target /usr/share/man/man1/jslint.1 is under /usr
+1391 verbose gentlyRm vacuuming from /usr/share/man/man1/jslint.1 up to /usr
+1392 info install jslint@0.9.3
+1393 info postinstall jslint@0.9.3
+1394 verbose unlock done using /home/reo7sp/.npm/_locks/jslint-1346a2987e5abc31.lock for /usr/lib/node_modules/jslint
+1395 verbose stack Error: tidy@0.0.1 preinstall: `node-waf configure && node-waf clean build`
+1395 verbose stack spawn ENOENT
+1395 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:17:16)
+1395 verbose stack     at ChildProcess.EventEmitter.emit (events.js:98:17)
+1395 verbose stack     at maybeClose (child_process.js:743:16)
+1395 verbose stack     at Process.ChildProcess._handle.onexit (child_process.js:810:5)
+1396 verbose pkgid tidy@0.0.1
+1397 verbose cwd /home/reo7sp/m/code/Rocket.CMS/web/rcms
+1398 error Linux 3.16.0-45-generic
+1399 error argv "node" "/usr/local/bin/npm" "i" "-g" "tidy" "jslint"
+1400 error node v0.10.25
+1401 error npm  v2.13.3
+1402 error file sh
+1403 error code ELIFECYCLE
+1404 error errno ENOENT
+1405 error syscall spawn
+1406 error tidy@0.0.1 preinstall: `node-waf configure && node-waf clean build`
+1406 error spawn ENOENT
+1407 error Failed at the tidy@0.0.1 preinstall script 'node-waf configure && node-waf clean build'.
+1407 error This is most likely a problem with the tidy package,
+1407 error not with npm itself.
+1407 error Tell the author that this fails on your system:
+1407 error     node-waf configure && node-waf clean build
+1407 error You can get their info via:
+1407 error     npm owner ls tidy
+1407 error There is likely additional logging output above.
+1408 verbose exit [ 1, true ]
+1409 verbose unbuild lib/node_modules/tidy
+1410 info preuninstall tidy@0.0.1
+1411 verbose unsafe-perm in lifecycle false
+1412 info uninstall tidy@0.0.1
+1413 verbose unbuild rmStuff tidy@0.0.1 from /usr/lib/node_modules
+1414 info postuninstall tidy@0.0.1
+1415 silly gentlyRm /usr/lib/node_modules/tidy is being purged from base /usr
+1416 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/tidy
+1417 silly vacuum-fs purging /usr/lib/node_modules/tidy
+1418 silly vacuum-fs quitting because other entries in /usr/lib/node_modules

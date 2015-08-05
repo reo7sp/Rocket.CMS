@@ -13,7 +13,15 @@
 # limitations under the License.
 
 Backbone = require "backbone"
-AppRouter = require "./managers/AppRouter.coffee"
+WebGUI = require "../tools/WebGUI.coffee"
 
-new AppRouter()
-Backbone.history.start()
+module.exports = Backbone.View.extend
+	initialize: ->
+		@render()
+
+	render: ->
+		@el.innerHTML = "TBD"
+
+module.exports.mimeType = /.+?/
+
+module.exports.title = WebGUI.getStr "Upload"

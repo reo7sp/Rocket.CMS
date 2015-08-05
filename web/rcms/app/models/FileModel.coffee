@@ -19,7 +19,7 @@ module.exports = rcms.FileModel = Backbone.Model.extend
 	defaults:
 		path: null
 		isDir: null
-		contents: null
+		content: null
 
 	create: ->
 		Net.get "/api/fs/create?file=#{ @get "path" }"
@@ -54,11 +54,11 @@ module.exports = rcms.FileModel = Backbone.Model.extend
 	load: ->
 		Net.get if @get "isDir" then "/api/fs/ls?dir=#{ @get "path" }" else "/api/fs/getfile?file=#{ @get "path" }"
 			.then (data) =>
-				@set "contents", data
+				@set "content", data
 				data
 
 	unload: ->
-		@set "contents", null
+		@set "content", null
 
 	upload: ->
-		Net.post "/api/fs/upload?#{ @get "path" }", @get "contents" if not isDir
+		Net.post "/api/fs/upload?#{ @get "path" }", @get "content" if not @get "isDir"

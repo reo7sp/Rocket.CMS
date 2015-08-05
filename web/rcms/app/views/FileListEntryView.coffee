@@ -80,6 +80,7 @@ module.exports = Backbone.View.extend
 					@model.set "metaTitle", value
 					@render()
 				.fail =>
+					console.log "fail"
 					@model.set "metaTitleFail", true
 				.done()
 		else if @model.get "metaTitle"

@@ -13,7 +13,12 @@
 # limitations under the License.
 
 Backbone = require "backbone"
-AppRouter = require "./managers/AppRouter.coffee"
+FileModel = require "./FileModel.coffee"
 
-new AppRouter()
-Backbone.history.start()
+rootDir = new FileModel
+	path: "/"
+	isDir: true
+
+module.exports = Backbone.Model.extend
+	defaults:
+		dir: rootDir

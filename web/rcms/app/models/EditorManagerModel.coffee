@@ -13,7 +13,7 @@
 # limitations under the License.
 
 Backbone = require "backbone"
-AppRouter = require "./managers/AppRouter.coffee"
 
-new AppRouter()
-Backbone.history.start()
+module.exports = Backbone.Model.extend
+	defaults:
+		file: null

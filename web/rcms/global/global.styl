@@ -2,3 +2,7 @@ html, body
 	font-family Tahoma, Verdana, Helvetica, Arial, sans-serif
 	margin 0
 	line-height 1.2em
+
+[contenteditable=true]:empty:before
+	content attr(placeholder)
+	display block

@@ -48,29 +48,41 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 
 	if (connection.methodName == "ls") {
 		File dirFile(Path(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("dir")));
-
-		if (dirFile.exists() && dirFile.isDirectory()) {
-			vector<string> files;
-			dirFile.list(files);
-			for (string item : files) {
-				if (StringTools::endsWith(item, ".meta.json") || StringTools::startsWith(item, ".")) {
-					continue;
-				}
-				connection.response += item;
-				connection.response += "\r\n";
-			}
-			trimRightInPlace(connection.response);
-		} else {
+		if (!dirFile.exists() || !dirFile.isDirectory()) {
 			connection.responseCode = 404;
 			connection.response = "Not found";
+			return;
 		}
+
+		vector<string> files;
+		dirFile.list(files);
+		for (string item : files) {
+			if (StringTools::endsWith(item, ".meta.json") || StringTools::startsWith(item, ".")) {
+				continue;
+			}
+			connection.response += item;
+			connection.response += "\r\n";
+		}
+		trimRightInPlace(connection.response);
 	} else if (connection.methodName == "getfile") {
 		Path filePath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("file"));
+		File fileFile(filePath);
+		if (!fileFile.exists()) {
+			connection.responseCode = 404;
+			connection.response = "Not found";
+			return;
+		}
 
 		FsTools::loadFileToString(filePath);
 		connection.responseMimeType = FsTools::getMimeTypeOfFile(filePath);
 	} else if (connection.methodName == "getmeta") {
 		Path filePath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("file"));
+		File fileFile(filePath);
+		if (!fileFile.exists()) {
+			connection.responseCode = 404;
+			connection.response = "Not found";
+			return;
+		}
 
 		string& key = connection.args.at("key");
 		if (StringTools::startsWith(key, "_")) {
@@ -81,16 +93,34 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 			}
 		} else {
 			filePath.setExtension(filePath.getExtension() + ".meta.json");
+			fileFile = File(filePath);
+			if (!fileFile.exists()) {
+				connection.responseCode = 404;
+				connection.response = "No meta file exists";
+				return;
+			}
 			JSON::Parser parser;
 			JSON::Object::Ptr jsonRoot = parser.parse(FsTools::loadFileToString(filePath)).extract<JSON::Object::Ptr>();
+			if (!jsonRoot->has(key)) {
+				connection.responseCode = 404;
+				connection.response = "No value for requested key in meta file exists";
+				return;
+			}
 			connection.response = jsonRoot->get(key).convert<string>();
 		}
 	} else if (connection.methodName == "rm") {
 		Path filePath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("file"));
+		File fileFile(filePath);
 		Path fileDestPath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.dst"), connection.args.at("file"));
-
-		File(filePath).remove(true);
 		File fileDestFile(fileDestPath);
+
+		if (fileDestFile.exists()) {
+			fileFile.remove(true);
+		} else {
+			connection.responseCode = 404;
+			connection.response = "Not found";
+			return;
+		}
 		if (fileDestFile.exists()) {
 			fileDestFile.remove(true);
 		}
@@ -98,25 +128,35 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 		PluginManager::getInstance().onFs(FsEvent(FsEvent::Type::RM, filePath));
 	} else if (connection.methodName == "mv") {
 		Path fromPath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("from"));
+		File fromFile(fromPath);
 		Path toPath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("to"));
 
-		File(fromPath).moveTo(toPath.toString());
+		if (!fromFile.exists()) {
+			connection.responseCode = 404;
+			connection.response = "Not found";
+			return;
+		}
+		fromFile.moveTo(toPath.toString());
 
 		PluginManager::getInstance().onFs(FsEvent(FsEvent::Type::MV, fromPath, toPath));
 	} else if (connection.methodName == "create") {
 		Path filePath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("file"));
+		File fileFile(filePath);
 
-		filePath.setExtension(ConfigTools::getConfig().getString("fs.site.defaultFileExtention"));
-		File(filePath).createFile();
+		if (filePath.getExtension().empty()) {
+			filePath.setExtension(ConfigTools::getConfig().getString("fs.site.defaultFileExtention"));
+		}
+		fileFile.createFile();
+
+		PluginManager::getInstance().onFs(FsEvent(FsEvent::Type::NEW, filePath));
 	} else if (connection.methodName == "upload") {
 		Path filePath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("file"));
 
-		FileOutputStream stream(filePath.toString());
-		stream << connection.postData;
-		stream.close();
+		FsTools::writeStringToFile(filePath, connection.postData);
 	} else if (connection.methodName == "setmeta") {
 		if (StringTools::startsWith(connection.args.at("key"), "_")) {
 			connection.responseCode = 405;
+			connection.response = "Values with keys with leading '_' are reserved for special use. They can't be edited";
 			return;
 		}
 
@@ -131,9 +171,15 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 		stream.close();
 	} else if (connection.methodName == "publish") {
 		Path filePath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("file"));
+		File fileFile(filePath);
 		Path fileDestPath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.dst"), connection.args.at("file"));
 
-		File(filePath).moveTo(fileDestPath.toString());
+		if (!fileFile.exists()) {
+			connection.responseCode = 404;
+			connection.response = "Not found";
+			return;
+		}
+		fileFile.moveTo(fileDestPath.toString());
 
 		PluginManager::getInstance().onFs(FsEvent(FsEvent::Type::PUBLISH, filePath));
 	}

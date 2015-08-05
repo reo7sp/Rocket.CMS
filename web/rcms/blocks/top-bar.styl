@@ -1,7 +1,57 @@
 .top-bar
+	width 100%
+	box-sizing border-box
 	padding 10px 64px
-	font-size 1.25em
 	margin-bottom 16px
 	background-color #00b000
 	color #fff
-	box-shadow 0 0 4px 2px rgba(0, 0, 0, 0.5)
+
+	&--fixed
+		position fixed
+		left 0
+		top 0
+		transform translateZ(0)
+		backface-visibility hidden
+
+	&__back-button
+		display inline
+		cursor pointer
+		font-size 1.25em
+
+		&:before
+			content "↩"
+
+	&__title
+		display inline
+		font-size 1.25em
+
+	&__buttons
+		display inline
+		float right
+
+		&__button
+			display inline
+			cursor pointer
+			font-size 1.25em
+
+	&__tabs
+		display inline
+		margin-right 64px
+
+		&__tab
+			display inline
+			margin 0 4px
+			padding 4px 8px
+			background-color #dfb
+			border 1px solid
+			border-radius 4px
+			border-color #dfb
+			color #000
+			cursor pointer
+
+			&--active
+				padding 8px 12px 16px 8px
+				color #000
+				background-color #fff
+				border-color #fff
+
