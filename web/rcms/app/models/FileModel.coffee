@@ -15,7 +15,7 @@
 Backbone = require "backbone"
 Net = require "../tools/Net.coffee"
 
-module.exports = rcms.FileModel = Backbone.Model.extend
+module.exports = rcms.models.FileModel = Backbone.Model.extend
 	defaults:
 		path: null
 		isDir: null

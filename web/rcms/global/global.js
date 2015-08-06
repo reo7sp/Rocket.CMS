@@ -21,5 +21,8 @@ var rcms = {
         this.updateListeners[i]();
       }
     }
-  }
+  },
+  managers: {},
+  models: {},
+  tools: {}
 };

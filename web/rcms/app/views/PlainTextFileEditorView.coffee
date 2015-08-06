@@ -16,32 +16,65 @@ Backbone = require "backbone"
 WebGUI = require "../tools/WebGUI.coffee"
 
 module.exports = Backbone.View.extend
+	needRepaint: false
+	syncModelTimeoutHandle: null
+	autoSyncModelTimeoutHandle: null
+
 	initialize: ->
 		@model.get("file").set "isDir", false
+		@el.classList.add "plain-text-file-editor"
 		@el.setAttribute "placeholder", "#{ WebGUI.getStr "Enter some text here" }..."
-		@el.classList.add "plain-text-editor"
 		if @model.get("file").has "content"
 			@el.contentEditable = true
 			@render()
 		else
-			@el.innerHTML = "#{ WebGUI.getStr "Loading file" }..."
-			@model.get("file").load()
+			@el.innerHTML = "<br>"
+			@model.loadFile()
 				.then =>
 					@el.contentEditable = true
 					@render()
 				.fail =>
-					@el.innerHTML = WebGUI.getStr "File loading failed"
-				.done()
+					@el.contentEditable = true
 
 	events:
 		"input": ->
-			if @el.innerHTML == "<br>"
-				@el.innerHTML = ""
-			@model.get("file").set "content", @el.innerHTML
-			@model.saveFile()
+			syncModel = =>
+				clearTimeout @autoSyncModelTimeoutHandle = @syncModelTimeoutHandle
+				clearTimeout @syncModelTimeoutHandle
+				@autoSyncModelTimeoutHandle = @syncModelTimeoutHandle = null
+				c = @el.innerHTML
+					.replace /\r/g, ""
+					.replace /\n/g, ""
+					.replace /<p>(.+?)<\/p>/g, "$1<br>\n"
+					.replace /<br>/g, "\n"
+					.replace /<.+?>/g, ""
+					.trim()
+				@el.innerHTML = "" if c == ""
+				@model.get("file").set "content", c
+				@model.saveFile()
+				if @needRepaint
+					@render()
+					@needRepaint = false
+
+			clearTimeout @syncModelTimeoutHandle
+			@syncModelTimeoutHandle = setTimeout syncModel, 2000
+			@autoSyncModelTimeoutHandle = setTimeout syncModel, 10000 if not @autoSyncModelTimeoutHandle?
+
+		"paste": ->
+			@needRepaint = true
 
 	render: ->
-		@el.innerHTML = @model.get("file").get "content"
+		c = @model.get("file").get "content"
+			.trim()
+			.replace /&/g, "&amp;"
+			.replace /</g, "&lt;"
+			.replace />/g, "&gt;"
+			.replace /\"/g, "&quot;"
+			.replace /'/g, "&#39;"
+			.replace /\//g, "&#x2F;"
+			.replace /\r\n/g, "<br>"
+			.replace /\n/g, "<br>"
+		@el.innerHTML = c
 
 module.exports.mimeType = /(text|application)\//
 

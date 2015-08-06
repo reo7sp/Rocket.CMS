@@ -14,10 +14,13 @@
 
 Backbone = require "backbone"
 FileModel = require "../models/FileModel.coffee"
-FilesListModel = require "../models/FilesListModel.coffee"
 FilesListView = require "../views/FilesListView.coffee"
-EditorManagerModel = require "../models/EditorManagerModel.coffee"
+EditorModel = require "../models/EditorModel.coffee"
 EditorManagerView = require "../views/EditorManagerView.coffee"
+
+rootDir = new FileModel
+	path: "/"
+	isDir: true
 
 module.exports = Backbone.Router.extend
 	routes:
@@ -30,13 +33,13 @@ module.exports = Backbone.Router.extend
 
 	fileslist: ->
 		new FilesListView
-			model: new FilesListModel
+			model: rootDir
 			el: document.body
 
 	editfile: (path) ->
 		fileModel = new FileModel
 			path: path
-		editorManagerModel = new EditorManagerModel
+		editorManagerModel = new EditorModel
 			file: fileModel
 		new EditorManagerView
 			model: editorManagerModel

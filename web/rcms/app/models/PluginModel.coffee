@@ -14,6 +14,6 @@
 
 Backbone = require "backbone"
 
-module.exports = rcms.PluginModel = Backbone.Model.extend
+module.exports = rcms.models.PluginModel = Backbone.Model.extend
 	defaults:
 		fileEditorViewType: null

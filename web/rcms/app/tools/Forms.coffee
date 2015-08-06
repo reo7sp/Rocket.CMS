@@ -14,30 +14,29 @@
 
 Q = require "q"
 
-module.exports = rcms.tools.Net =
-	request: (method, path, data) ->
+module.exports = rcms.tools.Forms =
+	readFile: (file, isBinary = false) ->
 		Q.Promise (resolve, reject, notify) ->
-			handle = new XMLHttpRequest()
+			reader = new FileReader()
 
-			handle.onload = ->
-				if handle.status == 200
-					resolve handle.response
-				else
-					reject new Error if handle.response? != "" then handle.response else handle.status
+			reader.onload = (e) ->
+				resolve e.target.result if e.target.readyState == FileReader.DONE
 
-			handle.onerror = ->
-				reject new Error "Can't establish connection"
+			reader.onerror = (e) ->
+				reject new Error switch e.target.error.code
+					when e.target.error.NOT_FOUND_ERR
+						"File hasn't found"
+					when e.target.error.NOT_READABLE_ERR
+						"File isn't readable"
+					when e.target.error.ABORT_ERR
+						"Operation is aborted"
+					else
+						"An error occurred reading this file"
 
-			handle.onprogress = (e) ->
+			reader.progress = (e) ->
 				notify e.loaded / e.total if e.lengthComputable
 
-			handle.open method, path, true
-			handle.send data
-
-			return
-
-	get: (path) ->
-		@request "GET", path, null
-
-	post: (path, data) ->
-		@request "POST", path, data
+			if isBinary
+				reader.readAsBinaryString file
+			else
+				reader.readAsText file

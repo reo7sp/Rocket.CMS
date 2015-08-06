@@ -21,7 +21,7 @@ rcms.ui.updateListeners.push ->
 	for item in document.getElementsByClassName("_WebGUI.getStr")
 		item.innerHTML = module.exports.getStr item.getAttribute "data-webgui-getstr"
 
-module.exports = rcms.WebGUI =
+module.exports = rcms.tools.WebGUI =
 	getFile: (key) ->
 		result = cacheFiles[key]
 		if result?
@@ -40,3 +40,4 @@ module.exports = rcms.WebGUI =
 
 	getStr: (key) ->
 		key # TODO
+

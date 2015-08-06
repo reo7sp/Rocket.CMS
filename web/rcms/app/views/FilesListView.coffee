@@ -18,27 +18,27 @@ FileModel = require "../models/FileModel.coffee"
 FilesListEntryView = require "./FilesListEntryView.coffee"
 
 module.exports = Backbone.View.extend
-	initialize: ->
-		@render()
+	entriesRoot: null
 
-	render: ->
+	initialize: ->
 		WebGUI.getFile "templates/lsfiles.html"
 			.then (data) =>
 				@initMarkup data
 			.then =>
-				@model.get("dir").load() if not @model.get("dir").has "content"
+				@model.load() if not @model.has "content"
 			.then =>
-				@insertAllFileEntries @el.getElementsByClassName("block-list")[0]
+				@insertAllFileEntries @entriesRoot
 			.done()
 
 	initMarkup: (html) ->
 		@el.innerHTML = html
 		document.title = WebGUI.getStr "Files list"
 		rcms.ui.update()
+		@entriesRoot = @el.getElementsByClassName("block-list")[0]
 
 	insertAllFileEntries: (domRoot) ->
 		haveInsertedOne = false
-		for path in @model.get("dir").get("content").split "\r\n"
+		for path in @model.get("content").split "\r\n"
 			if not path
 				continue
 			model = new FileModel

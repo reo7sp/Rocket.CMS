@@ -1,4 +1,4 @@
-# Copyright 2015 Oleg Morozenkov
+#Name Copyright 2015 Oleg Morozenkov
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,6 +19,13 @@ UploadFileEditorView = require "./UploadFileEditorView.coffee"
 PluginManager = require "../managers/PluginManager.coffee"
 
 module.exports = Backbone.View.extend
+	backButtonEl: null
+	titleEl: null
+	descEl: null
+	tabsEl: null
+	publishButtonEl: null
+	editorEl: null
+
 	initialize: ->
 		WebGUI.getFile "templates/editor.html"
 			.then (data) =>
@@ -27,24 +34,34 @@ module.exports = Backbone.View.extend
 				@model.get("file").getMimeType()
 			.then (mimeType) =>
 				editors = @collectEditors mimeType
-				editorMain = @el.getElementsByClassName("editor-main")[0]
-				tabsEl = @el.getElementsByClassName("top-bar__tabs")[0]
 				isFirst = true
 				for editorType in editors
-					tabEl = @initTab editorType, tabsEl, editorMain
+					tabEl = @initTab editorType, @tabsEl, @editorEl
 					if isFirst
-						@setEditorActive editorType, editorMain, tabEl, tabsEl
+						@setEditorActive editorType, @editorEl, tabEl, @tabsEl
 						isFirst = false
 			.done()
 
+	events:
+		"click .top-bar__buttons__button--publish": (e) ->
+			@model.publishFile()
+
 	initMarkup: (html) ->
 		@el.innerHTML = html
-		rcms.ui.update()
 		document.title = @model.get("file").get "path"
-		@el.getElementsByClassName("top-bar__title")[0].innerHTML = @model.get("file").get "path"
-		@el.getElementsByClassName("top-bar__back-button")[0].addEventListener "click", ->
+		rcms.ui.update()
+		@backButtonEl = @el.getElementsByClassName("top-bar__back-button")[0]
+		@titleEl = @el.getElementsByClassName("top-bar__title")[0]
+		@descEl = @el.getElementsByClassName("top-bar__desc")[0]
+		@tabsEl = @el.getElementsByClassName("top-bar__tabs")[0]
+		@publishEl = @el.getElementsByClassName("top-bar__buttons__button--publish")[0]
+		@editorEl = @el.getElementsByClassName("editor-main")[0]
+
+		@listenTo @model, "change:fileStatus", @updateStatus
+
+		@titleEl.innerHTML = @model.get("file").get "path"
+		@backButtonEl.addEventListener "click", ->
 			location.hash = "#fileslist"
-		@listenTo @model, "change:fileSaveStatus", @updateStatus
 
 	collectEditors: (mimeType) ->
 		editors = [ UploadFileEditorView ]
@@ -79,4 +96,4 @@ module.exports = Backbone.View.extend
 		tabEl.classList.add "top-bar__tabs__tab--active"
 
 	updateStatus: ->
-		@el.getElementsByClassName("top-bar__desc")[0].innerHTML = @model.get("fileSaveStatus")
+		@descEl.innerHTML = @model.get("fileStatus")

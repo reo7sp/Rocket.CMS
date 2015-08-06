@@ -18,11 +18,17 @@ FileModel = require "../models/FileModel.coffee"
 
 module.exports = Backbone.View.extend
 	isChildrenFolded: true
+	arrowEl: null
+	titleEl: null
+	descEl: null
+	childrenRoot: null
+	newfileButtonEl: null
+	openInTabButtonEl: null
 
 	initialize: ->
 		WebGUI.getFile "templates/lsfilesItem.html"
 			.then (data) =>
-				@el.innerHTML = data
+				@initMarkup data
 				@render()
 			.done()
 
@@ -37,7 +43,7 @@ module.exports = Backbone.View.extend
 				else
 					@model.load()
 						.then (data) =>
-							@insertAllChildren @el.getElementsByClassName("file-entry__children")[0]
+							@insertAllChildren @childrenRoot
 							@render()
 						.done()
 			else
@@ -67,6 +73,15 @@ module.exports = Backbone.View.extend
 		@renderTitle()
 		rcms.ui.update()
 
+	initMarkup: (html) ->
+		@el.innerHTML = html
+		@arrowEl = @el.getElementsByClassName("file-entry__arrow")[0]
+		@titleEl = @el.getElementsByClassName("file-entry__title")[0]
+		@descEl = @el.getElementsByClassName("file-entry__desc")[0]
+		@childrenRoot = @el.getElementsByClassName("file-entry__children")[0]
+		@newfileButtonEl = @el.getElementsByClassName("file-entry__buttons__button--newfile")[0]
+		@openInTabButtonEl = @el.getElementsByClassName("file-entry__buttons__button--openintab")[0]
+
 	renderArrow: ->
 		if not @model.has "isDir"
 			@model.checkIfIsDir()
@@ -74,30 +89,25 @@ module.exports = Backbone.View.extend
 					@render()
 				.done()
 		else if @model.get "isDir"
-			arrowEl = @el.getElementsByClassName("file-entry__arrow")[0]
-			childrenDomRoot = @el.getElementsByClassName("file-entry__children")[0]
 			if @isChildrenFolded
-				arrowEl.classList.add "file-entry__arrow--folded"
-				arrowEl.classList.remove "file-entry__arrow--unfolded"
-				childrenDomRoot.classList.add "file-entry__children--folded"
+				@arrowEl.classList.add "file-entry__arrow--folded"
+				@arrowEl.classList.remove "file-entry__arrow--unfolded"
+				@childrenRoot.classList.add "file-entry__children--folded"
 			else
-				arrowEl.classList.add "file-entry__arrow--unfolded"
-				arrowEl.classList.remove "file-entry__arrow--folded"
-				childrenDomRoot.classList.remove "file-entry__children--folded"
+				@arrowEl.classList.add "file-entry__arrow--unfolded"
+				@arrowEl.classList.remove "file-entry__arrow--folded"
+				@childrenRoot.classList.remove "file-entry__children--folded"
 
 	renderButtons: ->
 		if @model.has "isDir"
 			if @model.get "isDir"
-				newfileButtonEl = @el.getElementsByClassName("file-entry__buttons__button--newfile")[0]
-				newfileButtonEl.classList.remove "file-entry__buttons__button--hidden"
+				@newfileButtonEl.classList.remove "file-entry__buttons__button--hidden"
 			else
-				openInTabButtonEl = @el.getElementsByClassName("file-entry__buttons__button--openintab")[0]
-				openInTabButtonEl.classList.remove "file-entry__buttons__button--hidden"
+				@openInTabButtonEl.classList.remove "file-entry__buttons__button--hidden"
 
 	renderTitle: ->
 		pathParts = @model.get("path").split "/"
-		titleEl = @el.getElementsByClassName("file-entry__title")[0]
-		titleEl.innerHTML = pathParts[pathParts.length - 1]
+		@titleEl.innerHTML = pathParts[pathParts.length - 1]
 		if @model.has "metaTitleFail"
 		else if not @model.has "metaTitle"
 			@model.getMeta "title"
@@ -112,9 +122,8 @@ module.exports = Backbone.View.extend
 					@render()
 				.done()
 		else
-			titleEl.innerHTML = @model.get "metaTitle"
-			descEl = @el.getElementsByClassName("file-entry__desc")[0]
-			descEl.innerHTML = pathParts[pathParts.length - 1]
+			@titleEl.innerHTML = @model.get "metaTitle"
+			@descEl.innerHTML = pathParts[pathParts.length - 1]
 
 	insertAllChildren: (domRoot) ->
 		for path in @model.get("content").split "\r\n"

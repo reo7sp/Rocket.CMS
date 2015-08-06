@@ -14,6 +14,6 @@
 
 rcms.ui.updateListeners.push ->
 	fixedTopBars = document.getElementsByClassName("top-bar--fixed")
-	if fixedTopBars.length < 1
+	if fixedTopBars.length < 1 or document.getElementById("_fixed-toolbar-body-fix")?
 		return
-	document.body.innerHTML = "<div style='position: relative; top: #{ fixedTopBars[0].offsetHeight }px'>#{ document.body.innerHTML }</div>"
+	document.body.innerHTML = "<div id='_fixed-toolbar-body-fix' style='position: relative; top: #{ fixedTopBars[0].offsetHeight }px'>#{ document.body.innerHTML }</div>"

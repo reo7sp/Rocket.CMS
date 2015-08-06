@@ -13,14 +13,38 @@
 # limitations under the License.
 
 Backbone = require "backbone"
+Forms = require "../tools/Forms.coffee"
 WebGUI = require "../tools/WebGUI.coffee"
 
 module.exports = Backbone.View.extend
-	initialize: ->
-		@render()
+	statusEl: null
+	fileEl: null
 
-	render: ->
-		@el.innerHTML = "TBD"
+	initialize: ->
+		WebGUI.getFile "templates/upload-file-editor.html"
+			.then (data) =>
+				@initMarkup data
+			.done()
+
+	initMarkup: (html) ->
+		@el.innerHTML = html
+		rcms.ui.update()
+		@statusEl = @el.getElementsByClassName("upload-file-editor__status")[0]
+		@fileEl = @el.getElementsByClassName("upload-file-editor__file")[0]
+
+		@model.get("file").getMimeType()
+			.then (mimeType) =>
+				@fileEl.accept = mimeType
+			.done()
+
+	events:
+		"change .upload-file-editor__file": (e) ->
+			Forms.readFile e.target.files[0], true
+				.then (data) =>
+					@model.get("file").set "content", data
+					@model.saveFile()
+				.fail (err) =>
+					@statusEl.innerHTML = WebGUI.getStr err.message
 
 module.exports.mimeType = /.+?/
 
