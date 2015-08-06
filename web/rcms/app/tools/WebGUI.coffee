@@ -35,8 +35,9 @@ module.exports = rcms.tools.WebGUI =
 			cacheFiles[key] = p
 			p.then (value) ->
 				cacheFiles[key] = value
-			p.catch ->
-				cacheFiles[key] = undefined
+			p.fail (err) ->
+				cacheFiles[key] = null
+				throw err
 
 	getStr: (key) ->
 		key # TODO

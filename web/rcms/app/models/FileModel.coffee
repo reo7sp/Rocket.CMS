@@ -13,16 +13,19 @@
 # limitations under the License.
 
 Backbone = require "backbone"
+Q = require "q"
 Net = require "../tools/Net.coffee"
 
 module.exports = rcms.models.FileModel = Backbone.Model.extend
-	defaults:
+	defaults: ->
 		path: null
 		isDir: null
+		metaCache: {}
 		content: null
 
 	create: ->
-		Net.get "/api/fs/create?file=#{ @get "path" }"
+		@set "isDir", false if not @has "isDir"
+		Net.get "/api/fs/create?#{ if @get "isDir" then "dir" else "file" }=#{ @get "path" }"
 
 	rm: ->
 		Net.get "/api/fs/rm?file=#{ @get "path" }"
@@ -37,10 +40,28 @@ module.exports = rcms.models.FileModel = Backbone.Model.extend
 		Net.get "/api/fs/publish?file=#{ @get "path" }"
 
 	getMeta: (key) ->
-		Net.get "/api/fs/getmeta?file=#{ @get "path" }&key=#{ key }"
+		metaCache = @get("metaCache")
+		result = metaCache[key]
+		if result?
+			if result.then?
+				result
+			else
+				Q.fcall ->
+					result
+		else
+			p = Net.get "/api/fs/getmeta?file=#{ @get "path" }&key=#{ key }"
+			metaCache[key] = p
+			p.then (value) =>
+				metaCache[key] = value
+			p.fail (err) ->
+				metaCache[key] = null
+				throw err
 
 	setMeta: (key, value) ->
 		Net.get "/api/fs/create?file=#{ @get "path" }&key=#{ key }&value=#{ value }"
+			.then (data) =>
+				@get("metaCache")[key] = value
+				data
 
 	checkIfIsDir: ->
 		@getMeta "_isDir"

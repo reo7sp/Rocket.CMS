@@ -40,11 +40,28 @@ module.exports = Backbone.View.extend
 					if isFirst
 						@setEditorActive editorType, @editorEl, tabEl, @tabsEl
 						isFirst = false
+				return
 			.done()
 
 	events:
 		"click .top-bar__buttons__button--publish": (e) ->
 			@model.publishFile()
+
+		"click .top-bar__buttons__button--edittitle": (e) ->
+			fileName = prompt WebGUI.getStr "Enter new file's name"
+			if fileName?
+				if fileName.indexOf "/" != 0
+					path = @model.get("file").get("path")
+					path = path.substring 0, path.lastIndexOf("/")
+					fileName = path + "/" + fileName
+				if fileName.indexOf "/" == 0
+					fileName = fileName.substring 1
+				@model.saveFile()
+					.then =>
+						@model.get("file").mv fileName
+
+					.then ->
+						location.hash = "#editfile/#{ fileName }"
 
 	initMarkup: (html) ->
 		@el.innerHTML = html

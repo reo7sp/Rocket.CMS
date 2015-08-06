@@ -21,9 +21,12 @@ module.exports = Backbone.View.extend
 	arrowEl: null
 	titleEl: null
 	descEl: null
+	clickableSpaceEl: null
+	buttonsEl: null
 	childrenRoot: null
-	newfileButtonEl: null
 	openInTabButtonEl: null
+	newFileButtonEl: null
+	newFolderButtonEl: null
 
 	initialize: ->
 		WebGUI.getFile "templates/lsfilesItem.html"
@@ -32,8 +35,10 @@ module.exports = Backbone.View.extend
 				@render()
 			.done()
 
-	events: ->
-		"click .file-entry__clickable-space": (e) =>
+	events:
+		"click .file-entry__clickable-space": (e) ->
+			if e.target != @clickableSpaceEl and e.target.parentElement != @clickableSpaceEl
+				return
 			if not @model.has "isDir"
 				return
 			if @model.get "isDir"
@@ -49,23 +54,45 @@ module.exports = Backbone.View.extend
 			else
 				@openEditor false
 
-		"mousedown .file-entry__clickable-space": (e) =>
-			if e.which != 2
+		"mousedown .file-entry__clickable-space": (e) ->
+			if e.target != @clickableSpaceEl and e.target.parentElement != @clickableSpaceEl
 				return
-			if @model.has("isDir") and not @model.get "isDir"
-				@openEditor true
+			@openEditor true if e.which == 2 and @model.has("isDir") and not @model.get "isDir"
 
-		"click .file-entry__buttons__button--onenintab": (e) =>
+		"click .file-entry__buttons__button--openintab": (e) ->
+			if e.target.parentElement != @buttonsEl
+				return
 			@openEditor true
 
-		"click .file-entry__buttons__button--newfile": (e) =>
-			return # TODO
+		"click .file-entry__buttons__button--newfile": (e) ->
+			if e.target.parentElement != @buttonsEl
+				return
+			fileName = prompt WebGUI.getStr "Enter new file's name"
+			if fileName?
+				newFile = new FileModel
+					path: @model.get("path") + "/" + fileName
+					isDir: false
+				newFile.create()
+				@insertChild newFile, @childrenRoot if fileName.indexOf "/" != 0
 
-		"click .file-entry__buttons__button--move": (e) =>
-			return # TODO
+		"click .file-entry__buttons__button--newfolder": (e) ->
+			if e.target.parentElement != @buttonsEl
+				return
+			folderName = prompt WebGUI.getStr "Enter new folder's name"
+			if folderName?
+				newFolder = new FileModel
+					path: @model.get("path") + "/" + folderName
+					isDir: true
+				newFolder.create()
+				@insertChild newFile, @childrenRoot if folderName.indexOf "/" != 0
 
-		"click .file-entry__buttons__button--delete": (e) =>
-			return # TODO
+		"click .file-entry__buttons__button--delete": (e) ->
+			if e.target.parentElement != @buttonsEl
+				return
+			if confirm WebGUI.getStr "Are your sure you want to permanently delete this?"
+				@model.rm()
+				@model.unload()
+				@el.parentElement.removeChild @el
 
 	render: ->
 		@renderArrow()
@@ -78,9 +105,12 @@ module.exports = Backbone.View.extend
 		@arrowEl = @el.getElementsByClassName("file-entry__arrow")[0]
 		@titleEl = @el.getElementsByClassName("file-entry__title")[0]
 		@descEl = @el.getElementsByClassName("file-entry__desc")[0]
+		@clickableSpaceEl = @el.getElementsByClassName("file-entry__clickable-space")[0]
+		@buttonsEl = @el.getElementsByClassName("file-entry__buttons")[0]
 		@childrenRoot = @el.getElementsByClassName("file-entry__children")[0]
-		@newfileButtonEl = @el.getElementsByClassName("file-entry__buttons__button--newfile")[0]
 		@openInTabButtonEl = @el.getElementsByClassName("file-entry__buttons__button--openintab")[0]
+		@newFileButtonEl = @el.getElementsByClassName("file-entry__buttons__button--newfile")[0]
+		@newFolderButtonEl = @el.getElementsByClassName("file-entry__buttons__button--newfolder")[0]
 
 	renderArrow: ->
 		if not @model.has "isDir"
@@ -101,15 +131,20 @@ module.exports = Backbone.View.extend
 	renderButtons: ->
 		if @model.has "isDir"
 			if @model.get "isDir"
-				@newfileButtonEl.classList.remove "file-entry__buttons__button--hidden"
+				@newFileButtonEl.classList.remove "file-entry__buttons__button--hidden"
+				@newFolderButtonEl.classList.remove "file-entry__buttons__button--hidden"
 			else
 				@openInTabButtonEl.classList.remove "file-entry__buttons__button--hidden"
 
 	renderTitle: ->
 		pathParts = @model.get("path").split "/"
 		@titleEl.innerHTML = pathParts[pathParts.length - 1]
-		if @model.has "metaTitleFail"
-		else if not @model.has "metaTitle"
+		if @model.get("isDir") or @model.has "metaTitleFail"
+			return
+		if @model.has "metaTitle"
+			@titleEl.innerHTML = @model.get "metaTitle"
+			@descEl.innerHTML = pathParts[pathParts.length - 1]
+		else
 			@model.getMeta "title"
 				.then (value) =>
 					if value
@@ -120,10 +155,6 @@ module.exports = Backbone.View.extend
 				.fail =>
 					@model.set "metaTitleFail", true
 					@render()
-				.done()
-		else
-			@titleEl.innerHTML = @model.get "metaTitle"
-			@descEl.innerHTML = pathParts[pathParts.length - 1]
 
 	insertAllChildren: (domRoot) ->
 		for path in @model.get("content").split "\r\n"

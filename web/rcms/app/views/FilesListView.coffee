@@ -30,6 +30,25 @@ module.exports = Backbone.View.extend
 				@insertAllFileEntries @entriesRoot
 			.done()
 
+	events:
+		"click .top-bar__buttons__button--newfile": (e) ->
+			fileName = prompt WebGUI.getStr "Enter new file's name"
+			if fileName?
+				newFile = new FileModel
+					path: fileName
+					isDir: false
+				newFile.create()
+				@insertFileEntry newFile, @entriesRoot if fileName.indexOf("/") != 0
+
+		"click .top-bar__buttons__button--newfolder": (e) ->
+			folderName = prompt WebGUI.getStr "Enter new folders's name"
+			if folderName?
+				newFolder = new FileModel
+					path: folderName
+					isDir: true
+				newFolder.create()
+				@insertFileEntry newFolder, @entriesRoot if folderName.indexOf "/" != 0
+
 	initMarkup: (html) ->
 		@el.innerHTML = html
 		document.title = WebGUI.getStr "Files list"

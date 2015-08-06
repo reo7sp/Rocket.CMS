@@ -18,10 +18,6 @@ FilesListView = require "../views/FilesListView.coffee"
 EditorModel = require "../models/EditorModel.coffee"
 EditorManagerView = require "../views/EditorManagerView.coffee"
 
-rootDir = new FileModel
-	path: "/"
-	isDir: true
-
 module.exports = Backbone.Router.extend
 	routes:
 		"": "index"
@@ -32,9 +28,12 @@ module.exports = Backbone.Router.extend
 		location.hash = "#fileslist"
 
 	fileslist: ->
+		rootDir = new FileModel
+			path: "/"
+			isDir: true
 		new FilesListView
 			model: rootDir
-			el: document.body
+			el: @resetAndGetNewRoot()
 
 	editfile: (path) ->
 		fileModel = new FileModel
@@ -43,4 +42,10 @@ module.exports = Backbone.Router.extend
 			file: fileModel
 		new EditorManagerView
 			model: editorManagerModel
-			el: document.body
+			el: @resetAndGetNewRoot()
+
+	resetAndGetNewRoot: ->
+		document.body.innerHTML = ""
+		el = document.createElement "div"
+		document.body.appendChild el
+		el

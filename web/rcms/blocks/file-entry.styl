@@ -1,6 +1,8 @@
 .file-entry
+	position relative
+
 	&__clickable-space
-		display inline
+		display inline-block
 		cursor pointer
 		width 100%
 
@@ -25,7 +27,8 @@
 
 	&__buttons
 		display inline
-		float right
+		position absolute
+		right 4px
 
 		&__button
 			display inline
@@ -42,7 +45,7 @@
 				display none
 
 	&__children
-		margin-left 16px
+		margin-left 14px
 
 		&--folded
 			display none
