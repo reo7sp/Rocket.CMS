@@ -1,11 +1,14 @@
 gulp = require "gulp"
-plugins = require("gulp-load-pluginss")()
+plugins = require("gulp-load-plugins")()
 browserify = require "browserify"
 source = require "vinyl-source-stream"
+buffer = require "vinyl-buffer"
+globby = require "globby"
+through = require "through2"
 
-srcCss = "blocks/**/*.styl"
-srcJs = "app/main.coffee"
-srcData = [ "**/*.html", "!bin/**", "!node_modules/**" ]
+srcCss = [ "blocks/**/*.styl", "global/global.styl" ]
+srcJs = [ "app/main.coffee", "blocks/**/*.coffee" ]
+srcHtml = [ "**/*.html", "!bin/**", "!node_modules/**" ]
 dst = "bin"
 
 # source tasks
@@ -15,20 +18,31 @@ gulp.task "css", ->
 		.pipe plugins.stylus()
 		.pipe plugins.autoprefixer()
 		.pipe plugins.concat "style.css"
+		.pipe plugins.minifyCss()
 		.pipe gulp.dest dst
 
 gulp.task "js", ->
-	browserify srcJs
-		.bundle()
+	s = through()
+	s
 		.pipe source "app.js"
-		.pipe plugins.streamify plugins.addSrc.prepend "global/global.js"
-		.pipe plugins.streamify plugins.uglify()
-		.pipe plugins.streamify plugins.concat "app.js"
+		.pipe buffer()
+		.pipe plugins.addSrc.prepend "global/global.js"
+		.pipe plugins.concat "app.js"
+		#.pipe plugins.uglify()
 		.pipe gulp.dest dst
 
-gulp.task "data", ->
-	gulp.src srcData
+	globby srcJs, (err, files) ->
+		if err
+			bundledStream.emit "error", err
+			return
+		browserify(files).bundle().pipe s
+
+	s
+
+gulp.task "html", ->
+	gulp.src srcHtml
+		.pipe plugins.minifyHtml()
 		.pipe gulp.dest dst
 
 # main tasks
-gulp.task "default", [ "css", "js", "data" ]
+gulp.task "default", [ "css", "js", "html" ]

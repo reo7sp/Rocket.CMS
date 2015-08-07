@@ -1,0 +1,72 @@
+.mwfe
+	&__toolbar
+		border-bottom 1px solid #ddd
+		cursor pointer
+		margin-bottom 12px
+
+		&__item
+			display inline
+			padding 0 12px
+
+			&--bold:before
+				content "B"
+				font-weight bold
+
+			&--italic:before
+				content "I"
+				font-family "Times New Roman", Times, serif
+				font-style italic
+
+			&--underline:before
+				content "U"
+				text-decoration underline
+
+			&--strikethrough:before
+				content "S"
+				text-decoration line-through
+
+			&--ul:before
+				content "* ≃"
+				font-size 12px
+
+			&--ol:before
+				content "1. ≃"
+				font-size 12px
+
+			&--link:before
+				content "A"
+				text-decoration underline
+
+			&--image:before
+				content "▨"
+
+			&--quote:before
+				content "”"
+				font-weight bold
+
+			&--code:before
+				content "{ }"
+
+			&--hr:before
+				content "—"
+				font-weight bold
+
+			&--h2:before
+				content "H2"
+
+			&--h3:before
+				content "H3"
+
+			&--h4:before
+				content "H4"
+
+			&--h5:before
+				content "H5"
+
+			&--h6:before
+				content "H6"
+
+	&__main
+		width 100%
+		height 100%
+		outline 0

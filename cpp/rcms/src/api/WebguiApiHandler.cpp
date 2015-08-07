@@ -21,6 +21,7 @@
 #include <Poco/DirectoryIterator.h>
 
 #include "rcms/CacheManager.h"
+#include "rcms/TranslationManager.h"
 #include "rcms/tools/FsTools.h"
 #include "rcms/tools/ConfigTools.h"
 #include "rcms/tools/StringTools.h"
@@ -35,59 +36,60 @@ WebguiApiHandler::WebguiApiHandler() : AbstractApiHandler("webgui") {
 void WebguiApiHandler::handleRequest(ApiConnection& connection) const {
 	if (connection.methodName == "getfile") {
 		string fileStr = connection.args.at("file");
-		if (fileStr == "plugins.css") {
-			connection.response = concatPluginFiles("style.css");
-			connection.responseMimeType = FsTools::getMimeType("css");
-		} else if (fileStr == "plugins.js") {
-			connection.response = concatPluginFiles("app.js");
-			connection.responseMimeType = FsTools::getMimeType("js");
-		} else {
-			Path filePath = ConfigTools::getPathFromConfig("fs.cms.root");
-			if (fileStr.find("plugins/") == 0) {
-				vector<string> fileNameParts = StringTools::split(fileStr, '/');
-				filePath.append("plugins");
-				filePath.append(fileNameParts.at(1));
-				filePath.append("webgui");
-				for (size_t i = 2, count = fileNameParts.size(); i < count; ++i) {
-					filePath.append(fileNameParts[i]);
-				}
-			} else {
-				filePath.append("webgui");
-				filePath.append(fileStr);
+		Path filePath = ConfigTools::getPathFromConfig("fs.cms.root");
+		if (fileStr.find("plugins/") == 0) {
+			vector<string> fileNameParts = StringTools::split(fileStr, '/');
+			filePath.append("plugins");
+			filePath.append(fileNameParts.at(1));
+			filePath.append("webgui");
+			for (size_t i = 2, count = fileNameParts.size(); i < count; ++i) {
+				filePath.append(fileNameParts[i]);
 			}
-			if (File(filePath).exists()) {
-				connection.response = FsTools::loadFileToString(filePath);
+		} else {
+			filePath.append("webgui");
+			filePath.append(fileStr);
+		}
+		File fileFile(filePath);
+		if (fileFile.exists()) {
+			if (fileFile.isFile()) {
+				SharedPtr<string> cached = CacheManager::getInstance().get("webgui-getfile-" + fileStr, CacheManager::PRIVATE);
+				if (cached) {
+					connection.response = *cached;
+				} else {
+					connection.response = FsTools::loadFileToString(filePath);
+					if (fileStr == "app.js" || fileStr == "style.css") {
+						connection.response += concatPluginFiles(fileStr);
+					}
+					CacheManager::getInstance().set("webgui-getfile-" + fileStr, connection.response, CacheManager::PRIVATE);
+				}
 				connection.responseMimeType = FsTools::getMimeTypeOfFile(filePath);
 			} else {
-				connection.responseCode = 404;
-				connection.response = "Not found";
+				connection.responseCode = 403;
+				connection.response = "Requested file is not a file";
 			}
+		} else {
+			connection.responseCode = 404;
+			connection.response = "Not found";
 		}
+	} else if (connection.methodName == "getstr") {
+		connection.response = TranslationManager::getInstance().get(connection.args.at("file"));
 	}
 }
 
 string WebguiApiHandler::concatPluginFiles(const std::string& pluginFileName) const {
-	SharedPtr<string> cached = CacheManager::getInstance().getPrivateCache().get("plugins-" + pluginFileName + "-concat");
-	if (cached) {
-		return *cached;
-	}
-
 	vector<Path> files;
-
 	File pluginsDirFile(Path(ConfigTools::getPathFromConfig("fs.cms.root"), "plugins"));
 	if (pluginsDirFile.exists() && pluginsDirFile.isDirectory()) {
 		for (DirectoryIterator iter(pluginsDirFile), end; iter != end; ++iter) {
-			Path filePath = pluginsDirFile.path();
-			filePath.append(iter.path());
+			Path filePath = iter.path();
 			filePath.append("webgui");
 			filePath.append(pluginFileName);
-			if (File(filePath).exists()) {
+
+			File fileFile(filePath);
+			if (fileFile.exists() && fileFile.isFile()) {
 				files.push_back(filePath);
 			}
 		}
 	}
-
-	string result = FsTools::concat(files);
-	CacheManager::getInstance().getPrivateCache().add("plugins-" + pluginFileName + "-concat", result);
-	return result;
+	return FsTools::concat(files);
 }

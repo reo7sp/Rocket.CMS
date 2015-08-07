@@ -12,8 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+PluginModel = require "../models/PluginModel.coffee"
+
 module.exports = rcms.managers.PluginManager =
 	plugins: []
 
-	register: ->
+	register: (plugin) ->
 		@plugins.push plugin

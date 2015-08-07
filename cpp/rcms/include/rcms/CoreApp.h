@@ -34,6 +34,7 @@ private:
 	void handleGenConf(const std::string& name, const std::string& value);
 	void handleGenHash(const std::string& name, const std::string& value);
 	void handleHelp(const std::string& name, const std::string& value);
+	void handleDebug(const std::string& name, const std::string& value);
 	bool checkConfig();
 };
 

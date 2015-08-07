@@ -37,31 +37,15 @@ module.exports = Backbone.View.extend
 					@el.contentEditable = true
 
 	events:
-		"input": ->
-			syncModel = =>
-				clearTimeout @autoSyncModelTimeoutHandle = @syncModelTimeoutHandle
-				clearTimeout @syncModelTimeoutHandle
-				@autoSyncModelTimeoutHandle = @syncModelTimeoutHandle = null
-				c = @el.innerHTML
-					.replace /\r/g, ""
-					.replace /\n/g, ""
-					.replace /<p>(.+?)<\/p>/g, "$1<br>\n"
-					.replace /<br>/g, "\n"
-					.replace /<.+?>/g, ""
-					.trim()
-				@el.innerHTML = "" if c == ""
-				@model.get("file").set "content", c
-				@model.saveFile()
-				if @needRepaint
-					@render()
-					@needRepaint = false
-
+		"input": (e) ->
+			@model.fileIsDirty = true
 			clearTimeout @syncModelTimeoutHandle
-			@syncModelTimeoutHandle = setTimeout syncModel, 2000
-			@autoSyncModelTimeoutHandle = setTimeout syncModel, 10000 if not @autoSyncModelTimeoutHandle?
+			@syncModelTimeoutHandle = setTimeout @syncModel.bind(@), 2500
+			@autoSyncModelTimeoutHandle = setTimeout @syncModel.bind(@), 15000 if not @autoSyncModelTimeoutHandle?
 
-		"paste": ->
+		"paste": (e) ->
 			@needRepaint = true
+			setTimeout @syncModel.bind(@), 0
 
 	render: ->
 		c = @model.get("file").get "content"
@@ -75,6 +59,34 @@ module.exports = Backbone.View.extend
 			.replace /\r\n/g, "<br>"
 			.replace /\n/g, "<br>"
 		@el.innerHTML = c
+
+	syncModel: ->
+		clearTimeout @autoSyncModelTimeoutHandle = @syncModelTimeoutHandle
+		clearTimeout @syncModelTimeoutHandle
+		@autoSyncModelTimeoutHandle = @syncModelTimeoutHandle = null
+
+		c = @el.innerHTML
+			.replace /\r/g, ""
+			.replace /\n/g, ""
+			.replace /<p>(.+?)<\/p>/g, "$1<br>\n"
+			.replace /<br>/g, "\n"
+			.replace /<.+?>/g, ""
+			.replace /&lt;/g, "<"
+			.replace /&gt;/g, ">"
+			.replace /&quot;/g, "\""
+			.replace /&#39;/g, "'"
+			.replace /&#x2F;/g, "/"
+			.replace /&amp;/g, "&"
+			.trim()
+		@el.innerHTML = "" if c == ""
+		@model.get("file").set "content", c
+		@model.fileIsDirty = false
+		@model.saveFile()
+
+		if @needRepaint
+			@render()
+			@needRepaint = false
+
 
 module.exports.mimeType = /(text|application)\//
 

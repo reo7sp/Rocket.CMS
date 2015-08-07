@@ -21,19 +21,36 @@
 
 #include <Poco/Util/Application.h>
 #include <Poco/LRUCache.h>
+#include <Poco/SharedPtr.h>
 
 class CacheManager {
 
 public:
+	enum CacheType {
+		GENERAL,
+		PRIVATE
+	};
+
 	static CacheManager& getInstance();
 
-	Poco::LRUCache<std::string, std::string>& getGeneralCache();
-	Poco::LRUCache<std::string, std::string>& getPrivateCache();
+	void init();
+	bool has(const std::string& key, CacheType cacheType = CacheType::GENERAL);
+	Poco::SharedPtr<std::string> get(const std::string& key, CacheType cacheType = CacheType::GENERAL);
+	void set(const std::string& key, const Poco::SharedPtr<std::string>& value, CacheType cacheType = CacheType::GENERAL);
+	void remove(const std::string& key, CacheType cacheType = CacheType::GENERAL);
+
+	inline void set(const std::string& key, const std::string& value, CacheType cacheType = CacheType::GENERAL) {
+		set(key, Poco::SharedPtr<std::string>(new std::string(value)), cacheType);
+	}
 
 private:
 	CacheManager() { }
 	CacheManager(const CacheManager&) = delete;
 	CacheManager& operator=(const CacheManager&) = delete;
+	~CacheManager();
+
+	Poco::LRUCache<std::string, std::string>* _generalCache = nullptr;
+	Poco::LRUCache<std::string, std::string>* _privateCache = nullptr;
 };
 
 #endif //ROCKET_CMS_CACHEMANAGER_H

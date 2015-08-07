@@ -1,5 +1,6 @@
 /*
  * Copyright 2015 Alexander Rizaev
+ * Copyright 2015 Oleg Morozenkov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +48,7 @@ void TranslationManager::load() {
 }
 
 const string& TranslationManager::get(const string& key) const {
-	auto iter = _store.find(key);
+	auto iter = _store.find(toLower(key));
     if (iter == _store.end()) {
         return key;
     } else {
@@ -61,6 +62,6 @@ void TranslationManager::loadFile(const Path& filePath) {
 	}
 	JSON::Object::Ptr jsonRoot = JSON::Parser().parse(FsTools::loadFileToString(filePath)).extract<JSON::Object::Ptr>();
 	for (JSON::Object::ConstIterator iter = jsonRoot->begin(), end = jsonRoot->end(); iter != end; ++iter) {
-		_store[iter->first] = iter->second.toString();
+		_store[toLower(iter->first)] = iter->second.toString();
 	}
 }

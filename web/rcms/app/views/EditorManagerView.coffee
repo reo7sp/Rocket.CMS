@@ -45,9 +45,15 @@ module.exports = Backbone.View.extend
 
 	events:
 		"click .top-bar__buttons__button--publish": (e) ->
+			if @model.fileIsDirty
+				return
+
 			@model.publishFile()
 
 		"click .top-bar__buttons__button--edittitle": (e) ->
+			if @model.fileIsDirty
+				return
+
 			fileName = prompt WebGUI.getStr "Enter new file's name"
 			if fileName?
 				if fileName.indexOf "/" != 0
@@ -101,6 +107,9 @@ module.exports = Backbone.View.extend
 		el
 
 	setEditorActive: (editorType, editorDomRoot, tabEl, tabsDomRoot) ->
+		if @model.fileIsDirty
+			return
+
 		editorDomRoot.innerHTML = ""
 		el = document.createElement "div"
 		editorDomRoot.appendChild el

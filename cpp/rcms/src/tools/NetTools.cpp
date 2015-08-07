@@ -51,10 +51,10 @@ bool checkAuth(HTTPServerRequest& request, HTTPServerResponse& response) {
 }
 
 void sendError(HTTPServerResponse& response, HTTPResponse::HTTPStatus errorCode, const string& shortDescription) {
-	response.setStatus(errorCode);
+	response.setStatusAndReason(errorCode, shortDescription);
 	response.setContentType("text/plain");
-	response.setChunkedTransferEncoding(true);
-	response.send() << "Error code: " << errorCode << ". Reason: " << shortDescription;
+	response.setContentLength(0);
+	response.send();
 }
 
 }

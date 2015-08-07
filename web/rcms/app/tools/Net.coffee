@@ -23,7 +23,7 @@ module.exports = rcms.tools.Net =
 				if handle.status == 200
 					resolve handle.response
 				else
-					reject new Error if handle.response? != "" then handle.response else handle.status
+					reject new Error "#{ handle.status }. #{ handle.statusText }"
 
 			handle.onerror = ->
 				reject new Error "Can't establish connection"

@@ -45,11 +45,11 @@ void rcms_Core_invokeApiCall(const rcms_ApiConnection* connection) {
 }
 
 void rcms_Core_saveToCache(const char* name, const char* value) {
-	CacheManager::getInstance().getGeneralCache().add(string(name), SharedPtr<string>(new string(value)));
+	CacheManager::getInstance().set(string(name), SharedPtr<string>(new string(value)));
 }
 
 const char* rcms_Core_getFromCache(const char* name) {
-	SharedPtr<string> result = CacheManager::getInstance().getGeneralCache().get(string(name));
+	SharedPtr<string> result = CacheManager::getInstance().get(string(name));
 	if (result.isNull()) {
 		return NULL;
 	} else {
@@ -58,7 +58,7 @@ const char* rcms_Core_getFromCache(const char* name) {
 }
 
 void rcms_Core_invalidateCacheItem(const char* name) {
-	CacheManager::getInstance().getGeneralCache().remove(string(name));
+	CacheManager::getInstance().remove(string(name));
 }
 
 const char* rcms_Core_loadFile(const char* name) {

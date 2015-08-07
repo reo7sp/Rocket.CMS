@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-MarkdownWysiwygFileEditorView = require "MarkdownWysiwygFileEditorView.coffee"
+MarkdownWysiwygFileEditorView = require "./MarkdownWysiwygFileEditorView.coffee"
 
-rcms.PluginManager.register new rcms.PluginModel
+rcms.managers.PluginManager.register new rcms.models.PluginModel
 	fileEditorViewType: MarkdownWysiwygFileEditorView

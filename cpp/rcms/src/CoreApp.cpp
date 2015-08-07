@@ -16,26 +16,34 @@
 
 #include "rcms/CoreApp.h"
 
-#include <stdio.h>
 #include <iostream>
 
-#include <Poco/TaskManager.h>
-#include <Poco/Util/HelpFormatter.h>
 #include <Poco/SHA1Engine.h>
+#include <Poco/Util/HelpFormatter.h>
+#include <Poco/FormattingChannel.h>
+#include <Poco/PatternFormatter.h>
 
-#include "rcms/web/WebHandlerFactory.h"
 #include "rcms/PluginManager.h"
-
+#include "rcms/CacheManager.h"
 #include "rcms/tools/FsTools.h"
 #include "rcms/TranslationManager.h"
+#include "rcms/web/WebHandlerFactory.h"
 
 using namespace Poco;
 using namespace Poco::Util;
 using namespace Poco::Net;
 
 int CoreApp::main(const std::vector<std::string>& args) {
+	logger().setChannel(new FormattingChannel(new PatternFormatter("%L%H:%M:%S.%i [%q] %t"), logger().getChannel()));
+	if (config().getBool("debug")) {
+		logger().setLevel(Message::PRIO_TRACE);
+		config().setUInt("cache.general.size", 0);
+		config().setUInt("cache.private.size", 0);
+		logger().warning("Debug mode is on");
+	}
 	if (_canStart) {
 		logger().information("All options processed. Starting Rocket.CMS");
+		CacheManager::getInstance().init();
 
 		logger().information("Loading translations");
 		TranslationManager::getInstance().load();
@@ -53,12 +61,13 @@ int CoreApp::main(const std::vector<std::string>& args) {
 		if (PluginManager::getInstance().onInit()) {
 			httpServer.start();
 
-			logger().information("Rocket.CMS has been successfully run");
+			logger().information("Rocket.CMS has started successfully");
 			waitForTerminationRequest();
 
 			logger().information("Stopping http server");
 			httpServer.stopAll();
 			PluginManager::getInstance().onDeinit();
+			logger().information("Everything has stopped");
 		} else {
 			logger().fatal("Error in some plugin's init method");
 			_exitCode = EXIT_SOFTWARE;
@@ -74,7 +83,7 @@ void CoreApp::defineOptions(OptionSet& options) {
 		Option("config", "c", "specify Rocket.CMS configuration file")
 			.required(true)
 			.repeatable(false)
-			.argument("json file")
+			.argument("jsonfile")
 			.callback(OptionCallback<CoreApp>(this, &CoreApp::handleConfig))
 	);
 	options.addOption(
@@ -95,6 +104,11 @@ void CoreApp::defineOptions(OptionSet& options) {
 			.required(false)
 			.repeatable(false)
 			.callback(OptionCallback<CoreApp>(this, &CoreApp::handleHelp))
+	);
+	options.addOption(
+		Option("debug", "d", "turns on debug mode")
+			.repeatable(false)
+			.callback(OptionCallback<CoreApp>(this, &CoreApp::handleDebug))
 	);
 }
 
@@ -146,13 +160,15 @@ void CoreApp::handleGenHash(const std::string& name, const std::string& value) {
 void CoreApp::handleHelp(const std::string& name, const std::string& value) {
 	HelpFormatter helpFormatter(options());
 	helpFormatter.setCommand(commandName());
-	helpFormatter.setUsage("OPTIONS");
-	helpFormatter.setHeader("Rocket.CMS");
 	helpFormatter.format(std::cout);
 
 	_canStart = false;
 	_exitCode = EXIT_USAGE;
 	stopOptionsProcessing();
+}
+
+void CoreApp::handleDebug(const std::string& name, const std::string& value) {
+	config().setBool("debug", true);
 }
 
 bool CoreApp::checkConfig() {
@@ -195,10 +211,13 @@ bool CoreApp::checkConfig() {
 		}
 	}
 	if (!config().has("cache.general.size")) {
-		config().setUInt("cache.general.size", 256);
+		config().setUInt("cache.general.size", 128);
 	}
 	if (!config().has("cache.private.size")) {
-		config().setUInt("cache.private.size", 128);
+		config().setUInt("cache.private.size", 32);
+	}
+	if (!config().has("debug")) {
+		config().setBool("debug", false);
 	}
 	return result;
 }

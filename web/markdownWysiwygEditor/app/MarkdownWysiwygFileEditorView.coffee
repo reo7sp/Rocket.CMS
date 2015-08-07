@@ -17,29 +17,27 @@ marked = require "marked"
 toMarkdown = require "to-markdown"
 
 module.exports = Backbone.View.extend
+	needRepaint: false
+	syncModelTimeoutHandle: null
+	autoSyncModelTimeoutHandle: null
+	mainEl: null
+
 	initialize: ->
-		@model.on "change:content", @render, @
-		@el.contentEditable = true
-
-	editorMain: null
-
-	lastTimeoutHandle: null
-
-	updateModelContent: ->
-		toMarkdownOptions =
-			gfm: true
-			converters:
-				filter: (node) ->
-					node.className.indexOf "md-initial-html" != -1
-				replacement: (innerHTML, node) ->
-					node.outerHTML
-
-		@model.set "content", toMarkdown(@el.innerHTML, toMarkdownOptions)
+		rcms.tools.WebGUI.getFile "plugins/markdownWysiwygEditor/templates/mwfe.html"
+			.then (data) =>
+				@initMarkup data
+			.done()
 
 	events:
-		'input': (e) ->
-			clearTimeout lastTimeoutHandle if lastTimeoutHandle?
-			lastTimeoutHandle = setTimeout updateModelContent, 3000
+		"input .mwfe__main": (e) ->
+			@model.fileIsDirty = true
+			clearTimeout @syncModelTimeoutHandle
+			@syncModelTimeoutHandle = setTimeout @syncModel.bind(@), 2500
+			@autoSyncModelTimeoutHandle = setTimeout @syncModel.bind(@), 15000 if not @autoSyncModelTimeoutHandle?
+
+		"paste .mwfe__main": (e) ->
+			@needRepaint = true
+			setTimeout @syncModel.bind(@), 0
 
 	render: ->
 		renderer = new marked.Renderer()
@@ -50,9 +48,47 @@ module.exports = Backbone.View.extend
 			result = result.replace /(<.+? )/gi , "$1 class=\"md-initial-html\" " if result == html
 			result
 
-		@el.innerHTML = marked @model.content, { renderer }
+		@mainEl.innerHTML = marked @model.get("file").get("content"), { renderer: renderer }
+
+	initMarkup: (html) ->
+		@el.innerHTML = html
+		rcms.ui.update()
+		@mainEl = @el.getElementsByClassName("mwfe__main")[0]
+		if @model.get("file").has "content"
+			@render()
+		else
+			@mainEl.contentEditable = false
+			@mainEl.innerHTML = "<br>"
+			@model.loadFile()
+				.then =>
+					@mainEl.contentEditable = true
+					@render()
+				.fail =>
+					@mainEl.contentEditable = true
+
+	syncModel: ->
+		clearTimeout @autoSyncModelTimeoutHandle = @syncModelTimeoutHandle
+		clearTimeout @syncModelTimeoutHandle
+		@autoSyncModelTimeoutHandle = @syncModelTimeoutHandle = null
+
+		toMarkdownOptions =
+			gfm: true
+			converters: [
+				filter: (node) ->
+					node.className.indexOf("md-initial-html") != -1
+				replacement: (innerHTML, node) ->
+					node.outerHTML
+			]
+
+		@model.get("file").set "content", toMarkdown(@mainEl.innerHTML, toMarkdownOptions)
+		@model.fileIsDirty = false
+		@model.saveFile()
+
+		if @needRepaint
+			@render()
+			@needRepaint = false
 
 
 module.exports.mimeType = /text\/markdown/
 
-module.exports.title = rcms.WebGUI.getStr "wysiwyg_text_editor"
+module.exports.title = rcms.tools.WebGUI.getStr "WYSIWYG"
