@@ -39,13 +39,14 @@ module.exports = Backbone.View.extend
 
 	events:
 		"change .upload-file-editor__file": (e) ->
+			@model.set "fileIsDirty", true
 			Forms.readFile e.target.files[0], true
 				.then (data) =>
 					@model.get("file").set "content", data
+					@model.set "fileIsDirty", false
 					@model.saveFile()
 				.fail (err) =>
 					@statusEl.innerHTML = WebGUI.getStr err.message
-
-module.exports.mimeType = /.+?/
+					@model.set "fileIsDirty", false
 
 module.exports.title = WebGUI.getStr "Upload"

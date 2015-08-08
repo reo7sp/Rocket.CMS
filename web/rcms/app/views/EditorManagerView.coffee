@@ -45,13 +45,13 @@ module.exports = Backbone.View.extend
 
 	events:
 		"click .top-bar__buttons__button--publish": (e) ->
-			if @model.fileIsDirty
+			if @model.get "fileIsDirty"
 				return
 
 			@model.publishFile()
 
 		"click .top-bar__buttons__button--edittitle": (e) ->
-			if @model.fileIsDirty
+			if @model.get "fileIsDirty"
 				return
 
 			fileName = prompt WebGUI.getStr "Enter new file's name"
@@ -94,6 +94,15 @@ module.exports = Backbone.View.extend
 			editorType = plugin.get "fileEditorViewType"
 			if not editorType.mimeType? or editorType.mimeType.test mimeType
 				editors.push editorType
+		editors.sort (a, b) ->
+			if not a.mimeType? and not b.mimeType?
+				0
+			else if a.mimeType? and not b.mimeType?
+				1
+			else if not a.mimeType? and b.mimeType?
+				-1
+			else
+				mimeType.match(a.mimeType)[0] - mimeType.match(b.mimeType)[0]
 		editors.reverse()
 		editors
 
@@ -107,7 +116,7 @@ module.exports = Backbone.View.extend
 		el
 
 	setEditorActive: (editorType, editorDomRoot, tabEl, tabsDomRoot) ->
-		if @model.fileIsDirty
+		if @model.get "fileIsDirty"
 			return
 
 		editorDomRoot.innerHTML = ""

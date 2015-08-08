@@ -15,11 +15,16 @@
 Q = require "q"
 Net = require "./Net.coffee"
 
-cacheFiles = {}
+cacheFiles = { }
 
 rcms.ui.updateListeners.push ->
 	for item in document.getElementsByClassName("_WebGUI.getStr")
-		item.innerHTML = module.exports.getStr item.getAttribute "data-webgui-getstr"
+		dest = item.getAttribute "data-webgui-getstr-dest"
+		str = item.getAttribute "data-webgui-getstr"
+		if dest?
+			item.setAttribute dest, str
+		else
+			item.innerHTML = str
 
 module.exports = rcms.tools.WebGUI =
 	getFile: (key) ->

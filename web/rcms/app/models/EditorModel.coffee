@@ -21,9 +21,6 @@ formatNumber = (number) ->
 	s
 
 doSomeThingWithFile = (actionFunc, verbString) ->
-	if @fileIsDirty
-		return
-
 	verbInNotInfinitiveForm = if verbString[verbString.length - 1] == "e" then verbString.substring(0, verbString.length - 1) else verbString
 
 	@set "fileStatus", "#{ WebGUI.getStr "#{ verbInNotInfinitiveForm }ing" }..."
@@ -45,12 +42,27 @@ module.exports = rcms.models.EditorModel = Backbone.Model.extend
 		file: null
 		fileSaveStatus: ""
 		fileIsDirty: false
+		fileEdited: false
+
+	initialize: ->
+		@listenTo @, "change:fileIsDirty", ->
+			@set "fileEdited", true
+			@set "fileStatus", "#{ @get "fileStatus" } (#{ WebGUI.getStr "edited" })"
 
 	loadFile: ->
+		if @get "fileIsDirty"
+			return
+		@set "fileEdited", false
 		doSomeThingWithFile.bind(@, @get("file").load.bind(@get "file"), "Load")()
 
 	saveFile: ->
+		if @get("fileIsDirty") or not @get "fileEdited"
+			return
+		@set "fileEdited", false
 		doSomeThingWithFile.bind(@, @get("file").upload.bind(@get "file"), "Save")()
 
 	publishFile: ->
+		if @get("fileIsDirty") or not @get "fileEdited"
+			return
+		@set "fileEdited", false
 		doSomeThingWithFile.bind(@, @get("file").publish.bind(@get "file"), "Publish")()

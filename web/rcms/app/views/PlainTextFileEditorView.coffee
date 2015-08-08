@@ -19,32 +19,27 @@ module.exports = Backbone.View.extend
 	needRepaint: false
 	syncModelTimeoutHandle: null
 	autoSyncModelTimeoutHandle: null
+	mainEl: null
 
 	initialize: ->
-		@model.get("file").set "isDir", false
-		@el.classList.add "plain-text-file-editor"
-		@el.setAttribute "placeholder", "#{ WebGUI.getStr "Enter some text here" }..."
-		if @model.get("file").has "content"
-			@el.contentEditable = true
-			@render()
-		else
-			@el.innerHTML = "<br>"
-			@model.loadFile()
-				.then =>
-					@el.contentEditable = true
-					@render()
-				.fail =>
-					@el.contentEditable = true
+		WebGUI.getFile "templates/plain-text-file-editor.html"
+			.then (data) =>
+				@initMarkup data
+				@initModel()
+			.done()
 
 	events:
 		"input": (e) ->
-			@model.fileIsDirty = true
+			@model.set "fileIsDirty", true
 			clearTimeout @syncModelTimeoutHandle
 			@syncModelTimeoutHandle = setTimeout @syncModel.bind(@), 2500
 			@autoSyncModelTimeoutHandle = setTimeout @syncModel.bind(@), 15000 if not @autoSyncModelTimeoutHandle?
 
 		"paste": (e) ->
 			@needRepaint = true
+			setTimeout @syncModel.bind(@), 0
+
+		"blur": (e) ->
 			setTimeout @syncModel.bind(@), 0
 
 	render: ->
@@ -58,14 +53,33 @@ module.exports = Backbone.View.extend
 			.replace /\//g, "&#x2F;"
 			.replace /\r\n/g, "<br>"
 			.replace /\n/g, "<br>"
-		@el.innerHTML = c
+		@mainEl.innerHTML = c
+
+	initMarkup: (html) ->
+		@el.innerHTML = html
+		rcms.ui.update()
+		@mainEl = @el.getElementsByClassName("plain-text-file-editor")[0]
+
+	initModel: ->
+		@model.get("file").set "isDir", false
+		if @model.get("file").has "content"
+			@render()
+		else
+			@mainEl.innerHTML = "<br>"
+			@mainEl.contentEditable = false
+			@modelEl.loadFile()
+				.then =>
+					@mainEl.contentEditable = true
+					@render()
+				.fail =>
+					@mainEl.contentEditable = true
 
 	syncModel: ->
 		clearTimeout @autoSyncModelTimeoutHandle = @syncModelTimeoutHandle
 		clearTimeout @syncModelTimeoutHandle
 		@autoSyncModelTimeoutHandle = @syncModelTimeoutHandle = null
 
-		c = @el.innerHTML
+		c = @mainEl.innerHTML
 			.replace /\r/g, ""
 			.replace /\n/g, ""
 			.replace /<p>(.+?)<\/p>/g, "$1<br>\n"
@@ -78,9 +92,9 @@ module.exports = Backbone.View.extend
 			.replace /&#x2F;/g, "/"
 			.replace /&amp;/g, "&"
 			.trim()
-		@el.innerHTML = "" if c == ""
+		@mainEl.innerHTML = "" if c == ""
 		@model.get("file").set "content", c
-		@model.fileIsDirty = false
+		@model.set "fileIsDirty", false
 		@model.saveFile()
 
 		if @needRepaint

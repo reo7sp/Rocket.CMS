@@ -1,8 +1,13 @@
 .mwfe
+	position relative
+
 	&__toolbar
+		position fixed
+		width 100%
+		background-color #fff
+		padding 8px 56px 4px 56px
 		border-bottom 1px solid #ddd
 		cursor pointer
-		margin-bottom 12px
 
 		&__item
 			display inline
@@ -10,7 +15,7 @@
 
 			&--bold:before
 				content "B"
-				font-weight bold
+				font-weight 900
 
 			&--italic:before
 				content "I"
@@ -22,11 +27,11 @@
 				text-decoration underline
 
 			&--strikethrough:before
-				content "S"
+				content "\a0S\a0"
 				text-decoration line-through
 
 			&--ul:before
-				content "* ≃"
+				content "● ≃"
 				font-size 12px
 
 			&--ol:before
@@ -51,6 +56,9 @@
 				content "—"
 				font-weight bold
 
+			&--table:before
+				content "▦"
+
 			&--h2:before
 				content "H2"
 
@@ -69,4 +77,10 @@
 	&__main
 		width 100%
 		height 100%
+		box-sizing border-box
+		padding 12px 64px
 		outline 0
+
+		th, td
+			border 1px solid #aaa
+			padding 4px 8px
