@@ -54,7 +54,6 @@ void ApiWebHandler::handleRequest(HTTPServerRequest& request, HTTPServerResponse
 			string value;
 			URI::decode(toLower(rawArgParts.at(0)), name);
 			URI::decode(rawArgParts.at(1), value);
-			replaceInPlace(value, "../", "");
 			connection.args[name] = value;
 		}
 

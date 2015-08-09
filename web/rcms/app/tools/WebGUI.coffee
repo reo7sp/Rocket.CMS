@@ -26,7 +26,7 @@ rcms.ui.updateListeners.push ->
 		else
 			item.innerHTML = str
 
-module.exports = rcms.tools.WebGUI =
+module.exports = rcms.types.tools.WebGUI =
 	getFile: (key) ->
 		result = cacheFiles[key]
 		if result?

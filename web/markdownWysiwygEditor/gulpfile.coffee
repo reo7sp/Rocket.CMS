@@ -28,7 +28,7 @@ gulp.task "js", ->
 		.pipe buffer()
 		.pipe plugins.addSrc.prepend "global/global.js"
 		.pipe plugins.concat "app.js"
-		#.pipe plugins.uglify()
+		.pipe plugins.uglify()
 		.pipe gulp.dest dst
 
 	globby srcJs, (err, files) ->

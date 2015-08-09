@@ -14,7 +14,7 @@
 
 Q = require "q"
 
-module.exports = rcms.tools.Net =
+module.exports = rcms.types.tools.Net =
 	request: (method, path, data) ->
 		Q.Promise (resolve, reject, notify) ->
 			handle = new XMLHttpRequest()

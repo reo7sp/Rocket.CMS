@@ -15,6 +15,7 @@
 Backbone = require "backbone"
 marked = require "marked"
 toMarkdown = require "to-markdown"
+WebGUI = rcms.types.tools.WebGUI
 
 module.exports = Backbone.View.extend
 	needRepaint: false
@@ -23,7 +24,7 @@ module.exports = Backbone.View.extend
 	mainEl: null
 
 	initialize: ->
-		rcms.tools.WebGUI.getFile "plugins/markdownWysiwygEditor/templates/mwfe.html"
+		WebGUI.getFile "plugins/markdownWysiwygEditor/templates/mwfe.html"
 			.then (data) =>
 				@initMarkup data
 				@initModel()
@@ -56,7 +57,7 @@ module.exports = Backbone.View.extend
 			el = document.createElement "ul"
 			for i in [1..3]
 				childEl = document.createElement "li"
-				childEl.innerHTML = "#{ rcms.tools.WebGUI.getStr "Entry" } ##{ i }"
+				childEl.innerHTML = "#{ WebGUI.getStr "Entry" } ##{ i }"
 				el.appendChild childEl
 			@insertToRange el
 
@@ -64,18 +65,18 @@ module.exports = Backbone.View.extend
 			el = document.createElement "ol"
 			for i in [1..3]
 				childEl = document.createElement "li"
-				childEl.innerHTML = "#{ rcms.tools.WebGUI.getStr "Entry" } ##{ i }"
+				childEl.innerHTML = "#{ WebGUI.getStr "Entry" } ##{ i }"
 				el.appendChild childEl
 			@insertToRange el
 
 		"click .mwfe__toolbar__item--link": (e) ->
 			el = document.createElement "a"
-			el.href = prompt rcms.tools.WebGUI.getStr "Enter link"
+			el.href = prompt WebGUI.getStr "Enter link"
 			@surroundRange el if el.href?
 
 		"click .mwfe__toolbar__item--image": (e) ->
 			el = document.createElement "a"
-			el.href = prompt rcms.tools.WebGUI.getStr "Enter link"
+			el.href = prompt WebGUI.getStr "Enter link"
 			@surroundRange el if el.href?
 			@surroundRange document.createElement "img"
 
@@ -90,12 +91,12 @@ module.exports = Backbone.View.extend
 
 		"click .mwfe__toolbar__item--table": (e) ->
 			el = document.createElement "table"
-			rows = prompt rcms.tools.WebGUI.getStr "Enter number of rows"
+			rows = prompt WebGUI.getStr "Enter number of rows"
 			if not rows?
 				return
 			if rows < 1
 				rows = 1
-			columns = prompt rcms.tools.WebGUI.getStr "Enter number of columns"
+			columns = prompt WebGUI.getStr "Enter number of columns"
 			if not columns?
 				return
 			if columns < 1
@@ -107,11 +108,11 @@ module.exports = Backbone.View.extend
 				for j in [1..columns]
 					if i == 0
 						thEl = document.createElement "th"
-						thEl.innerHTML = "#{ rcms.tools.WebGUI.getStr "Entry" } ##{ j } #{ rcms.tools.WebGUI.getStr "in header row" }"
+						thEl.innerHTML = "#{ WebGUI.getStr "Entry" } ##{ j } #{ WebGUI.getStr "in header row" }"
 						trEl.appendChild thEl
 					else
 						tdEl = document.createElement "td"
-						tdEl.innerHTML = "#{ rcms.tools.WebGUI.getStr "Entry" } ##{ j } #{ rcms.tools.WebGUI.getStr "in row" } ##{ i }"
+						tdEl.innerHTML = "#{ WebGUI.getStr "Entry" } ##{ j } #{ WebGUI.getStr "in row" } ##{ i }"
 						trEl.appendChild tdEl
 				if i == 0
 					theadEl.appendChild trEl
@@ -237,4 +238,4 @@ module.exports = Backbone.View.extend
 
 module.exports.mimeType = /text\/markdown/
 
-module.exports.title = rcms.tools.WebGUI.getStr "WYSIWYG"
+module.exports.title = WebGUI.getStr "WYSIWYG"

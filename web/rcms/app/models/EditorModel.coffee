@@ -13,6 +13,7 @@
 # limitations under the License.
 
 Backbone = require "backbone"
+Q = require "q"
 WebGUI = require "../tools/WebGUI.coffee"
 
 formatNumber = (number) ->
@@ -37,7 +38,7 @@ doSomeThingWithFile = (actionFunc, verbString) ->
 			@set "fileStatus", "#{ WebGUI.getStr "Can't #{ verbString.toLowerCase() }" }. #{ WebGUI.getStr err.message }"
 			err
 
-module.exports = rcms.models.EditorModel = Backbone.Model.extend
+module.exports = rcms.types.models.EditorModel = Backbone.Model.extend
 	defaults:
 		file: null
 		fileSaveStatus: ""
@@ -51,18 +52,18 @@ module.exports = rcms.models.EditorModel = Backbone.Model.extend
 
 	loadFile: ->
 		if @get "fileIsDirty"
-			return
+			return Q.fcall ->
 		@set "fileEdited", false
 		doSomeThingWithFile.bind(@, @get("file").load.bind(@get "file"), "Load")()
 
 	saveFile: ->
 		if @get("fileIsDirty") or not @get "fileEdited"
-			return
+			return Q.fcall ->
 		@set "fileEdited", false
 		doSomeThingWithFile.bind(@, @get("file").upload.bind(@get "file"), "Save")()
 
 	publishFile: ->
 		if @get("fileIsDirty") or not @get "fileEdited"
-			return
+			return Q.fcall ->
 		@set "fileEdited", false
 		doSomeThingWithFile.bind(@, @get("file").publish.bind(@get "file"), "Publish")()

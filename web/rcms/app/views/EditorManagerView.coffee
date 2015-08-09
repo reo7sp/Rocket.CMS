@@ -50,11 +50,11 @@ module.exports = Backbone.View.extend
 
 			@model.publishFile()
 
-		"click .top-bar__buttons__button--edittitle": (e) ->
+		"click .top-bar__buttons__button--rename": (e) ->
 			if @model.get "fileIsDirty"
 				return
 
-			fileName = prompt WebGUI.getStr "Enter new file's name"
+			fileName = prompt WebGUI.getStr "Enter new file's name", "/" + @model.get("file").get "path"
 			if fileName?
 				if fileName.indexOf "/" != 0
 					path = @model.get("file").get("path")

@@ -14,7 +14,7 @@
 
 Q = require "q"
 
-module.exports = rcms.tools.Forms =
+module.exports = rcms.types.tools.Forms =
 	readFile: (file, isBinary = false) ->
 		Q.Promise (resolve, reject, notify) ->
 			reader = new FileReader()

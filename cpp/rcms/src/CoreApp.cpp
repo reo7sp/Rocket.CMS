@@ -126,7 +126,8 @@ void CoreApp::handleGenConf(const std::string& name, const std::string& value) {
 		"		\"site\": {\n"
 		"			\"root\": \"/path/to/your/awesome/site\",\n"
 		"			\"src\": \"src\",\n"
-		"			\"dst\": \"dst\"\n"
+		"			\"dst\": \"dst\",\n"
+		"			\"defaultFileExtention\": \"md\"\n"
 		"		},\n"
 		"		\"cms\": {\n"
 		"			\"root\": \"/path/to/your/Rocket.CMS/installation/dir\"\n"
@@ -185,12 +186,16 @@ bool CoreApp::checkConfig() {
 		logger().fatal("fs.site.dst must be set in the config");
 		result = false;
 	}
+	if (!config().has("fs.site.defaultFileExtention")) {
+		logger().warning("fs.site.defaultFileExtention is set to \"md\"");
+		config().setString("fs.site.defaultFileExtention", "md");
+	}
 	if (!config().has("fs.cms.root")) {
 		logger().fatal("fs.cms.root must be set in the config");
 		result = false;
 	}
 	if (!config().has("web.lang")) {
-		logger().warning("web.lang is set to en");
+		logger().warning("web.lang is set to \"en\"");
 		config().setString("web.lang", "en");
 	}
 	if (!config().has("web.port")) {

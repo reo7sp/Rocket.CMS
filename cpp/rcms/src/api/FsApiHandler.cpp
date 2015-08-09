@@ -38,12 +38,18 @@ FsApiHandler::FsApiHandler() : AbstractApiHandler("fs") {
 
 void FsApiHandler::handleRequest(ApiConnection& connection) const {
 	map<string, string>::iterator iter = connection.args.find("file");
-	if (iter != connection.args.end() && iter->second.front() == '/') {
-		iter->second.erase(0, 1);
+	if (iter != connection.args.end()) {
+		replaceInPlace(iter->second, "../", "");
+		if (iter->second.front() == '/') {
+			iter->second.erase(0, 1);
+		}
 	}
 	iter = connection.args.find("dir");
-	if (iter != connection.args.end() && iter->second.front() == '/') {
-		iter->second.erase(0, 1);
+	if (iter != connection.args.end()) {
+		replaceInPlace(iter->second, "../", "");
+		if (iter->second.front() == '/') {
+			iter->second.erase(0, 1);
+		}
 	}
 
 	if (connection.methodName == "ls") {
@@ -56,6 +62,7 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 
 		vector<string> files;
 		dirFile.list(files);
+		sort(files.begin(), files.end());
 		for (string item : files) {
 			if (StringTools::endsWith(item, ".meta.json") || StringTools::startsWith(item, ".")) {
 				continue;
@@ -67,7 +74,7 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 	} else if (connection.methodName == "getfile") {
 		Path filePath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("file"));
 		File fileFile(filePath);
-		if (!fileFile.exists()) {
+		if (!fileFile.exists() || !fileFile.isFile()) {
 			connection.responseCode = 404;
 			connection.response = "Not found";
 			return;
@@ -114,7 +121,7 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 		Path fileDestPath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.dst"), connection.args.at("file"));
 		File fileDestFile(fileDestPath);
 
-		if (fileDestFile.exists()) {
+		if (fileFile.exists()) {
 			fileFile.remove(true);
 		} else {
 			connection.responseCode = 404;
@@ -140,15 +147,25 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 
 		PluginManager::getInstance().onFs(FsEvent(FsEvent::Type::MV, fromPath, toPath));
 	} else if (connection.methodName == "create") {
-		Path filePath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("file"));
-		File fileFile(filePath);
+		if (connection.args.find("dir") == connection.args.end()) {
+			Path filePath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("file"));
+			File fileFile(filePath);
 
-		if (filePath.getExtension().empty()) {
-			filePath.setExtension(ConfigTools::getConfig().getString("fs.site.defaultFileExtention"));
+			if (filePath.getExtension().empty()) {
+				filePath.setExtension(ConfigTools::getConfig().getString("fs.site.defaultFileExtention"));
+				fileFile = File(filePath);
+			}
+			Path fileParentPath = filePath;
+			File(fileParentPath.popDirectory()).createDirectories();
+			fileFile.createFile();
+			PluginManager::getInstance().onFs(FsEvent(FsEvent::Type::NEW, filePath));
+		} else {
+			Path filePath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("dir"));
+			File fileFile(filePath);
+
+			fileFile.createDirectories();
+			PluginManager::getInstance().onFs(FsEvent(FsEvent::Type::NEW, filePath));
 		}
-		fileFile.createFile();
-
-		PluginManager::getInstance().onFs(FsEvent(FsEvent::Type::NEW, filePath));
 	} else if (connection.methodName == "upload") {
 		Path filePath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.src"), connection.args.at("file"));
 
@@ -177,7 +194,7 @@ void FsApiHandler::handleRequest(ApiConnection& connection) const {
 		File fileFile(filePath);
 		Path fileDestPath(ConfigTools::getPathFromConfig("fs.site.root", "fs.site.dst"), connection.args.at("file"));
 
-		if (!fileFile.exists()) {
+		if (!fileFile.exists() || !fileFile.isFile()) {
 			connection.responseCode = 404;
 			connection.response = "Not found";
 			return;

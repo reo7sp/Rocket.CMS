@@ -57,7 +57,11 @@ void WebguiApiHandler::handleRequest(ApiConnection& connection) const {
 					connection.response = *cached;
 				} else {
 					connection.response = FsTools::loadFileToString(filePath);
-					if (fileStr == "app.js" || fileStr == "style.css") {
+					if (fileStr == "app.js") {
+						connection.response += generateConfigInJs();
+						connection.response += generateTranslationsInJs();
+						connection.response += concatPluginFiles(fileStr);
+					} else if (fileStr == "style.css") {
 						connection.response += concatPluginFiles(fileStr);
 					}
 					CacheManager::getInstance().set("webgui-getfile-" + fileStr, connection.response, CacheManager::PRIVATE);
@@ -92,4 +96,52 @@ string WebguiApiHandler::concatPluginFiles(const std::string& pluginFileName) co
 		}
 	}
 	return FsTools::concat(files);
+}
+
+string WebguiApiHandler::generateConfigInJs() const {
+	string result;
+	result += "rcms.config={\"debug\":";
+	result += ConfigTools::getConfig().getString("debug");
+	result += ",\"fs\":{\"site\":{\"defaultFileExtention\":\"";
+	result += ConfigTools::getConfig().getString("fs.site.defaultFileExtention");
+	result += "\"}},\"web\":{\"lang\":\"";
+	result += ConfigTools::getConfig().getString("web.lang");
+	result += "\"},\"plugins\":";
+	if (ConfigTools::getConfig().has("plugins")) {
+		string value = ConfigTools::getConfig().getString("plugins");
+		replaceInPlace(value, "\r", "");
+		replaceInPlace(value, "\n", "");
+		for (size_t i = 0; i < 4; i++) {
+			replaceInPlace(value, "  \"", "\"");
+		}
+		replaceInPlace(value, " : ", ":");
+		replaceInPlace(value, "{ ", "{");
+		replaceInPlace(value, " }", "}");
+		result += value;
+	} else {
+		result += "{}";
+	}
+	result += "};";
+	return result;
+}
+
+string WebguiApiHandler::generateTranslationsInJs() const {
+	string result = "rcms.translations={";
+	bool hasCommaInEnd = false;
+	for (const pair<string, string>& item : TranslationManager::getInstance().getAll()) {
+		result += '"';
+		result += item.first;
+		result += '"';
+		result += ':';
+		result += '"';
+		result += item.second;
+		result += '"';
+		result += ',';
+		hasCommaInEnd = true;
+	}
+	if (hasCommaInEnd) {
+		result.erase(result.length() - 1);
+	}
+	result += "};";
+	return result;
 }

@@ -34,6 +34,8 @@ module.exports = Backbone.View.extend
 		"click .top-bar__buttons__button--newfile": (e) ->
 			fileName = prompt WebGUI.getStr "Enter new file's name"
 			if fileName?
+				if fileName.lastIndexOf(".") < fileName.lastIndexOf("/")
+					fileName += ".#{ rcms.config.fs.site.defaultFileExtention }"
 				newFile = new FileModel
 					path: fileName
 					isDir: false

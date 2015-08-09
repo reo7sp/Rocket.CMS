@@ -67,7 +67,7 @@ module.exports = Backbone.View.extend
 		else
 			@mainEl.innerHTML = "<br>"
 			@mainEl.contentEditable = false
-			@modelEl.loadFile()
+			@model.loadFile()
 				.then =>
 					@mainEl.contentEditable = true
 					@render()

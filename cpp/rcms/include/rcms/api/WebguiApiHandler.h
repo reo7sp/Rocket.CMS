@@ -28,6 +28,8 @@ public:
 
 private:
 	std::string concatPluginFiles(const std::string& pluginFileName) const;
+	std::string generateConfigInJs() const;
+	std::string generateTranslationsInJs() const;
 };
 
 #endif //ROCKET_CMS_WEBGUIAPIHANDLER_H

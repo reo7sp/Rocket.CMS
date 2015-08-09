@@ -22,7 +22,11 @@ var rcms = {
       }
     }
   },
-  managers: {},
-  models: {},
-  tools: {}
+  config: {},
+  translations: {},
+  types: {
+    managers: {},
+    models: {},
+    tools: {}
+  }
 };

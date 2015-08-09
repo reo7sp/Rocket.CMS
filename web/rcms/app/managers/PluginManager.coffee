@@ -14,7 +14,7 @@
 
 PluginModel = require "../models/PluginModel.coffee"
 
-module.exports = rcms.managers.PluginManager =
+module.exports = rcms.types.managers.PluginManager =
 	plugins: []
 
 	register: (plugin) ->

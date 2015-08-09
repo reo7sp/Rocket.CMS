@@ -67,8 +67,10 @@ module.exports = Backbone.View.extend
 		"click .file-entry__buttons__button--newfile": (e) ->
 			if e.target.parentElement != @buttonsEl
 				return
-			fileName = prompt WebGUI.getStr "Enter new file's name"
+			fileName = prompt WebGUI.getStr "Enter new file's name", "/" + @model.get "path"
 			if fileName?
+				if fileName.lastIndexOf(".") < fileName.lastIndexOf("/")
+					fileName += ".#{ rcms.config.fs.site.defaultFileExtention }"
 				newFile = new FileModel
 					path: @model.get("path") + "/" + fileName
 					isDir: false
@@ -78,7 +80,7 @@ module.exports = Backbone.View.extend
 		"click .file-entry__buttons__button--newfolder": (e) ->
 			if e.target.parentElement != @buttonsEl
 				return
-			folderName = prompt WebGUI.getStr "Enter new folder's name"
+			folderName = prompt WebGUI.getStr "Enter new folder's name", "/" + @model.get "path"
 			if folderName?
 				newFolder = new FileModel
 					path: @model.get("path") + "/" + folderName
