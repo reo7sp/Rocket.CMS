@@ -112,7 +112,7 @@ string WebguiApiHandler::generateConfigInJs() const {
 		replaceInPlace(value, "\r", "");
 		replaceInPlace(value, "\n", "");
 		for (size_t i = 0; i < 4; i++) {
-			replaceInPlace(value, "  \"", "\"");
+			replaceInPlace(value, "	 \"", "\"");
 		}
 		replaceInPlace(value, " : ", ":");
 		replaceInPlace(value, "{ ", "{");

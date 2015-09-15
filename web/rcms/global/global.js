@@ -14,19 +14,19 @@
 
 var rcms = {
   ui: {
-    updateListeners: [],
-    update: function() {
-      var i, count;
-      for (i = 0, count = this.updateListeners.length; i < count; ++i) {
-        this.updateListeners[i]();
-      }
-    }
+	updateListeners: [],
+	update: function() {
+	  var i, count;
+	  for (i = 0, count = this.updateListeners.length; i < count; ++i) {
+		this.updateListeners[i]();
+	  }
+	}
   },
   config: {},
   translations: {},
   types: {
-    managers: {},
-    models: {},
-    tools: {}
+	managers: {},
+	models: {},
+	tools: {}
   }
 };

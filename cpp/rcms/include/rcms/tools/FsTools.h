@@ -26,7 +26,7 @@
 namespace FsTools {
 
 inline std::string loadFileToString(const Poco::Path& path) {
-    std::ifstream stream(path.toString());
+	std::ifstream stream(path.toString());
 	if (stream.fail()) {
 		throw Poco::FileException(path.toString() + " can't be read");
 	} else {

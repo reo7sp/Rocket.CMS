@@ -25,17 +25,17 @@
 class TranslationManager {
 
 public:
-    static TranslationManager& getInstance();
+	static TranslationManager& getInstance();
 
-    void load();
-    const std::string& get(const std::string& key) const;
+	void load();
+	const std::string& get(const std::string& key) const;
 
-    inline const std::map<std::string, std::string>& getAll() const {
+	inline const std::map<std::string, std::string>& getAll() const {
 		return _store;
 	}
 
 private:
-    std::map<std::string, std::string> _store;
+	std::map<std::string, std::string> _store;
 
 	void loadFile(const Poco::Path& filePath);
 };

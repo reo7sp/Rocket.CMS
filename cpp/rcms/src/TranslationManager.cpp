@@ -29,31 +29,31 @@ using namespace Poco;
 using namespace Poco::Util;
 
 TranslationManager& TranslationManager::getInstance() {
-    static TranslationManager result;
-    return result;
+	static TranslationManager result;
+	return result;
 }
 
 void TranslationManager::load() {
-    Path rcmsTranslationsDirPath(ConfigTools::getPathFromConfig("fs.cms.root"), "translations");
+	Path rcmsTranslationsDirPath(ConfigTools::getPathFromConfig("fs.cms.root"), "translations");
 	File pluginsDirFile(Path(ConfigTools::getPathFromConfig("fs.cms.root"), "plugins"));
-    string lang = toLower(ConfigTools::getConfig().getString("web.lang"));
+	string lang = toLower(ConfigTools::getConfig().getString("web.lang"));
 
 	loadFile(Path(rcmsTranslationsDirPath, lang + ".json"));
 	if (!pluginsDirFile.exists() || !pluginsDirFile.isDirectory()) {
 		return;
 	}
-    for (DirectoryIterator iter(pluginsDirFile), end; iter != end; ++iter) {
+	for (DirectoryIterator iter(pluginsDirFile), end; iter != end; ++iter) {
 		loadFile(Path(iter.path(), Path("translations", lang + ".json")));
-    }
+	}
 }
 
 const string& TranslationManager::get(const string& key) const {
 	auto iter = _store.find(toLower(key));
-    if (iter == _store.end()) {
-        return key;
-    } else {
-        return iter->second;
-    }
+	if (iter == _store.end()) {
+		return key;
+	} else {
+		return iter->second;
+	}
 }
 
 void TranslationManager::loadFile(const Path& filePath) {
