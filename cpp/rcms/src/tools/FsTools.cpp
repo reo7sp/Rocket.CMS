@@ -1,6 +1,5 @@
 /*
  * Copyright 2015 Oleg Morozenkov
- * Copyright 2015 Alexander Rizaev
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +17,8 @@
 #include "rcms/tools/FsTools.h"
 
 #include <map>
-#include <sstream>
-
-#include <Poco/Process.h>
-#include <Poco/PipeStream.h>
-#include <Poco/StreamCopier.h>
 
 using namespace std;
-using namespace Poco;
 
 namespace FsTools {
 
@@ -38,7 +31,7 @@ string getMimeType(const string& name) {
 		{ "bmp",   "image/bmp" },
 		{ "svg",   "image/svg+xml" },
 		{ "tiff",  "image/tiff" },
-		{ "js",	"application/javascript" },
+		{ "js",	   "application/javascript" },
 		{ "ogg",   "application/ogg" },
 		{ "pdf",   "application/pdf" },
 		{ "rss",   "application/rss+xml" },
@@ -46,7 +39,7 @@ string getMimeType(const string& name) {
 		{ "xhtml", "application/xhtml+xml" },
 		{ "xml",   "application/xml" },
 		{ "zip",   "application/zip" },
-		{ "gz",	"application/gzip" },
+		{ "gz",	   "application/gzip" },
 		{ "mp3",   "audio/mpeg" },
 		{ "ogg",   "audio/ogg" },
 		{ "flac",  "audio/flac" },
@@ -55,7 +48,7 @@ string getMimeType(const string& name) {
 		{ "css",   "text/css" },
 		{ "csv",   "text/csv" },
 		{ "html",  "text/html" },
-		{ "md",	"text/markdown" },
+		{ "md",	   "text/markdown" },
 		{ "rtf",   "text/rtf" },
 		{ "avi",   "video/avi" },
 		{ "mpeg",  "video/mpeg" },
@@ -69,33 +62,6 @@ string getMimeType(const string& name) {
 		return "text/plain";
 	}
 	return iter->second;
-}
-
-string concat(const vector<Path>& files, const string& separator) {
-	string result;
-	for (const Path& item : files) {
-		result += loadFileToString(item);
-		result += separator;
-	}
-	return result;
-}
-
-string concat(const vector<string>& files, const string& separator) {
-	string result;
-	for (const string& item : files) {
-		result += loadFileToString(item);
-		result += separator;
-	}
-	return result;
-}
-
-std::string exec(const std::string& command, const std::vector<std::string>& args) {
-	Pipe outPipe;
-	Process::launch(command, args, 0, &outPipe, 0);
-	PipeInputStream input(outPipe);
-	stringstream output;
-	StreamCopier::copyStream(input, output);
-	return output.str();
 }
 
 }

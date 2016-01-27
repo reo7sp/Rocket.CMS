@@ -17,6 +17,8 @@
 
 #include "rcms/tools/StringTools.h"
 
+#include <sstream>
+
 using namespace std;
 
 namespace StringTools {
@@ -57,12 +59,14 @@ bool endsWith(const string& str1, const string& str2) {
 	return true;
 }
 
-void split(const string& str, const char delimiter, vector<string>& dest) {
+vector<string> split(const string& str, char delimiter) {
+	vector<string> result;
 	istringstream stream(str);
 	string s;
 	while (getline(stream, s, delimiter)) {
-		dest.push_back(s);
+		result.push_back(s);
 	}
+	return result;
 }
 
 }

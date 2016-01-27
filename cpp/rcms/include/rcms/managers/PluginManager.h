@@ -14,10 +14,26 @@
  * limitations under the License.
  */
 
-#include "rcms/pluginapi/rcms_FsEvent.h"
+#ifndef ROCKET_CMS_PLUGINMANAGER_H
+#define ROCKET_CMS_PLUGINMANAGER_H
 
-const short RCMS_FSEVENT_NEW = 1;
-const short RCMS_FSEVENT_EDIT = 2;
-const short RCMS_FSEVENT_PUBLISH = 4;
-const short RCMS_FSEVENT_MV = 8;
-const short RCMS_FSEVENT_RM = 16;
+#include "FsEvent.h"
+
+#include <vector>
+
+class PluginManager {
+
+public:
+	void load();
+	bool onPreInit();
+	bool onInit();
+	void onDeinit();
+	void onFs(const FsEvent& event);
+	bool onApi(ApiConnection& connection);
+
+private:
+	std::vector<T> _plugins;
+};
+
+
+#endif //ROCKET_CMS_PLUGINMANAGER_H

@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_CONFAPIHANDLER_H
-#define ROCKET_CMS_CONFAPIHANDLER_H
+#ifndef ROCKETCMS_CONFTRANSLATIONSHANDLER_H
+#define ROCKETCMS_CONFTRANSLATIONSHANDLER_H
 
-#include "AbstractApiHandler.h"
+#include "rcms/web/AbstractWebHandler.h"
 
-class ConfApiHandler : public AbstractApiHandler {
+class CmsTranslationsWebHandler : public AbstractWebHandler {
 
 public:
-	ConfApiHandler();
-
-	virtual void handleRequest(ApiConnection& connection) const override;
+    virtual void handleRequestInternal(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) override;
 };
 
-#endif //ROCKET_CMS_CONFAPIHANDLER_H
+#endif //ROCKETCMS_CONFWEBHANDLER_H

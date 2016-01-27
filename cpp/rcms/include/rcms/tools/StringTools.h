@@ -19,19 +19,12 @@
 
 #include <vector>
 #include <string>
-#include <sstream>
 
 namespace StringTools {
 
 bool startsWith(const std::string& str1, const std::string& str2);
 bool endsWith(const std::string& str1, const std::string& str2);
-void split(const std::string& str, const char delimiter, std::vector<std::string>& dest);
-
-inline std::vector<std::string> split(const std::string& str, const char delimiter) {
-	std::vector<std::string> result;
-	split(str, delimiter, result);
-	return result;
-}
+std::vector<std::string> split(const std::string& str, char delimiter);
 
 template<typename T>
 inline std::string toString(const T& value) {

@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_APICONNECTION_H
-#define ROCKET_CMS_APICONNECTION_H
+#include "rcms/web/CmsTranslationsWebHandler.h"
 
 #include <string>
-#include <map>
 
-class ApiConnection {
+#include <Poco/URI.h>
+#include <Poco/String.h>
 
-public:
-	std::string handlerName;
-	std::string methodName;
-	std::map<std::string, std::string> args;
-	std::string postData;
-	std::string response;
-	unsigned short responseCode = 200;
-	std::string responseMimeType = "text/plain";
-};
+using namespace std;
+using namespace Poco;
+using namespace Poco::Net;
 
-#endif //ROCKET_CMS_APICONNECTION_H
+void CmsTranslationsWebHandler::handleRequestInternal(HTTPServerRequest& request, HTTPServerResponse& response) {
+	static const unsigned long strNameStart = string("/api/cms/translations/").length();
+	const string key = replace(URI(request.getURI()).getPath().substr(strNameStart), '/', '.');
+	const string result = _core.getTranslationManager().get(key);
+	response.setContentLength(result.length());
+	response.send(result);
+}

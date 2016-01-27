@@ -16,34 +16,24 @@
 
 #include "rcms/web/IndexWebHandler.h"
 
-#include <exception>
+#include <fstream>
 
 #include <Poco/Path.h>
-#include <Poco/Net/HTTPServerRequest.h>
-#include <Poco/Net/HTTPServerResponse.h>
-
-#include "rcms/tools/NetTools.h"
-#include "rcms/tools/ConfigTools.h"
-#include "rcms/tools/FsTools.h"
 
 using namespace std;
 using namespace Poco;
 using namespace Poco::Net;
 
-void IndexWebHandler::handleRequest(HTTPServerRequest& request, HTTPServerResponse& response) {
-	try {
-		if (!NetTools::checkAuth(request, response)) {
-			return;
-		}
-		response.setChunkedTransferEncoding(true);
-		if (request.getURI() == "/") {
-			Path filePath(ConfigTools::getPathFromConfig("fs.cms.root"), "webgui/index.html");
-			response.setContentType("text/html");
-			response.send() << FsTools::loadFileToString(filePath);
-		} else {
-			response.redirect("/", response.HTTP_MOVED_PERMANENTLY);
-		}
-	} catch (exception& e) {
-		NetTools::sendError(response, HTTPResponse::HTTPStatus::HTTP_INTERNAL_SERVER_ERROR, e.what());
+void IndexWebHandler::handleRequestInternal(HTTPServerRequest& request, HTTPServerResponse& response) {
+	if (request.getURI() == "/") {
+		Path filePath(_core.getConfigManager().extractPath("fs.cms.root"), "webgui/index.html");
+		ifstream stream(filePath.toString(), ios::ate);
+
+		response.setContentType("text/html");
+		response.setContentLength(stream.tellg());
+		stream.seekg(0, stream.beg);
+		response.send() << stream;
+	} else {
+		response.redirect("/", response.HTTP_MOVED_PERMANENTLY);
 	}
 }

@@ -55,12 +55,6 @@ inline std::string getMimeTypeOfFile(const Poco::Path& path) {
 	return getMimeType(path.getExtension());
 }
 
-std::string concat(const std::vector<Poco::Path>& files, const std::string& separator = "\r\n");
-
-std::string concat(const std::vector<std::string>& files, const std::string& separator = "\r\n");
-
-std::string exec(const std::string& command, const std::vector<std::string>& args);
-
 }
 
 #endif //ROCKET_CMS_FSTOOLS_H

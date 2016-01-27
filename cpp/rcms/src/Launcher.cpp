@@ -84,31 +84,31 @@ void CoreApp::defineOptions(OptionSet& options) {
 			.required(true)
 			.repeatable(false)
 			.argument("jsonfile")
-			.callback(OptionCallback<CoreApp>(this, &CoreApp::handleConfig))
+			.callback(OptionCallback<Launcher>(this, &CoreApp::handleConfig))
 	);
 	options.addOption(
 		Option("genconf", "", "generate config")
 			.required(false)
 			.repeatable(false)
-			.callback(OptionCallback<CoreApp>(this, &CoreApp::handleGenConf))
+			.callback(OptionCallback<Launcher>(this, &CoreApp::handleGenConf))
 	);
 	options.addOption(
 		Option("genhash", "", "generate SHA1 hash")
 			.required(false)
 			.repeatable(false)
 			.argument("string")
-			.callback(OptionCallback<CoreApp>(this, &CoreApp::handleGenHash))
+			.callback(OptionCallback<Launcher>(this, &CoreApp::handleGenHash))
 	);
 	options.addOption(
 		Option("help", "h", "display help information on command line arguments")
 			.required(false)
 			.repeatable(false)
-			.callback(OptionCallback<CoreApp>(this, &CoreApp::handleHelp))
+			.callback(OptionCallback<Launcher>(this, &CoreApp::handleHelp))
 	);
 	options.addOption(
 		Option("debug", "d", "turns on debug mode")
 			.repeatable(false)
-			.callback(OptionCallback<CoreApp>(this, &CoreApp::handleDebug))
+			.callback(OptionCallback<Launcher>(this, &CoreApp::handleDebug))
 	);
 }
 
@@ -172,57 +172,3 @@ void CoreApp::handleDebug(const std::string& name, const std::string& value) {
 	config().setBool("debug", true);
 }
 
-bool CoreApp::checkConfig() {
-	bool result = true;
-	if (!config().has("fs.site.root")) {
-		logger().fatal("fs.site.root must be set in the config");
-		result = false;
-	}
-	if (!config().has("fs.site.src")) {
-		logger().fatal("fs.site.src must be set in the config");
-		result = false;
-	}
-	if (!config().has("fs.site.dst")) {
-		logger().fatal("fs.site.dst must be set in the config");
-		result = false;
-	}
-	if (!config().has("fs.site.defaultFileExtention")) {
-		logger().warning("fs.site.defaultFileExtention is set to \"md\"");
-		config().setString("fs.site.defaultFileExtention", "md");
-	}
-	if (!config().has("fs.cms.root")) {
-		logger().fatal("fs.cms.root must be set in the config");
-		result = false;
-	}
-	if (!config().has("web.lang")) {
-		logger().warning("web.lang is set to \"en\"");
-		config().setString("web.lang", "en");
-	}
-	if (!config().has("web.port")) {
-		logger().warning("web.port is set to 23307");
-		config().setUInt("web.port", 23307);
-	}
-	if (!config().has("web.auth.enabled")) {
-		logger().warning("web.auth.enabled is set to false");
-		config().setBool("web.auth.enabled", false);
-	} else if (config().getBool("web.auth.enabled")) {
-		if (!config().has("web.auth.user")) {
-			logger().fatal("web.auth.user must be set in the config");
-			result = false;
-		}
-		if (!config().has("web.auth.passhash")) {
-			logger().fatal("web.auth.passhash must be set in the config");
-			result = false;
-		}
-	}
-	if (!config().has("cache.general.size")) {
-		config().setUInt("cache.general.size", 128);
-	}
-	if (!config().has("cache.private.size")) {
-		config().setUInt("cache.private.size", 32);
-	}
-	if (!config().has("debug")) {
-		config().setBool("debug", false);
-	}
-	return result;
-}

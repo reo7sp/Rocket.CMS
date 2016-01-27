@@ -1,4 +1,5 @@
 /*
+ * Copyright 2015 Alexander Rizaev
  * Copyright 2015 Oleg Morozenkov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,25 +15,22 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_RCMS_FSEVENT_H
-#define ROCKET_CMS_RCMS_FSEVENT_H
+#ifndef ROCKET_CMS_TRANSLATIONMANAGER_H
+#define ROCKET_CMS_TRANSLATIONMANAGER_H
 
-#include <stddef.h>
+#include <map>
 
-extern "C" {
+#include <Poco/Path.h>
 
-extern const short RCMS_FSEVENT_NEW;
-extern const short RCMS_FSEVENT_EDIT;
-extern const short RCMS_FSEVENT_PUBLISH;
-extern const short RCMS_FSEVENT_MV;
-extern const short RCMS_FSEVENT_RM;
+class TranslationManager {
 
-struct rcms_FsEvent {
-	short type = 0;
-	char* file1Path = NULL;
-	char* file2Path = NULL;
+public:
+	TranslationManager(const Poco::Util::AbstractConfiguration& _config);
+
+	const std::string& get(const std::string& key) const;
+
+private:
+	std::map<std::string, std::string> _store;
 };
 
-};
-
-#endif //ROCKET_CMS_RCMS_FSEVENT_H
+#endif

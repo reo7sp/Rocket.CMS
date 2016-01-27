@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_COREAPP_H
-#define ROCKET_CMS_COREAPP_H
+#ifndef ROCKET_CMS_LAUNCHER_H
+#define ROCKET_CMS_LAUNCHER_H
 
 #include <Poco/Util/ServerApplication.h>
 #include <Poco/Net/HTTPServer.h>
 
-class CoreApp : public Poco::Util::ServerApplication {
+class Launcher : public Poco::Util::ServerApplication {
 
 protected:
 	virtual int main(const std::vector<std::string>& args) override;
@@ -35,7 +35,6 @@ private:
 	void handleGenHash(const std::string& name, const std::string& value);
 	void handleHelp(const std::string& name, const std::string& value);
 	void handleDebug(const std::string& name, const std::string& value);
-	bool checkConfig();
 };
 
-#endif //ROCKET_CMS_COREAPP_H
+#endif //ROCKET_CMS_LAUNCHER_H

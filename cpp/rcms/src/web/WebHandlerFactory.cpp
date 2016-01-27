@@ -18,15 +18,21 @@
 
 #include <Poco/Net/HTTPServerRequest.h>
 
-#include "rcms/web/IndexWebHandler.h"
-#include "rcms/web/ApiWebHandler.h"
 #include "rcms/tools/StringTools.h"
+#include "rcms/web/WebguiWebHandler.h"
+#include "rcms/web/CmsConfWebHandler.h"
+#include "rcms/web/SiteFsWebHandler.h"
+#include "rcms/web/IndexWebHandler.h"
 
 using namespace Poco::Net;
 
 HTTPRequestHandler* WebHandlerFactory::createRequestHandler(const HTTPServerRequest& request) {
-	if (StringTools::startsWith(request.getURI(), "/api/")) {
-		return new ApiWebHandler;
+	if (StringTools::startsWith(request.getURI(), "/webgui")) {
+		return new WebguiWebHandler;
+	} else if (StringTools::startsWith(request.getURI(), "/api/cms/conf")) {
+		return new CmsConfWebHandler;
+	} else if (StringTools::startsWith(request.getURI(), "/api/site/fs")) {
+		return new SiteFsWebHandler;
 	} else {
 		return new IndexWebHandler;
 	}

@@ -1,27 +1,21 @@
 ### sources
 include_directories(include)
 set(RCMS_SRC_LIST
-    src/CoreApp.cpp
-    src/CacheManager.cpp
-    src/PluginManager.cpp
-    src/FsEvent.cpp
-    src/TranslationManager.cpp
-    src/api/ApiManager.cpp
-    src/api/FsApiHandler.cpp
-    src/api/ConfApiHandler.cpp
-    src/api/WebguiApiHandler.cpp
+    src/Launcher.cpp
+    src/managers/PluginManager.cpp
+    src/managers/TranslationManager.cpp
     src/web/WebHandlerFactory.cpp
+    src/web/AbstractWebHandler.cpp
     src/web/IndexWebHandler.cpp
-    src/web/ApiWebHandler.cpp
-    src/pluginapi/rcms_Core.cpp
-    src/pluginapi/rcms_FsEvent.cpp
+    src/web/WebguiWebHandler.cpp
+    src/web/CmsConfWebHandler.cpp
+    src/web/CmsTranslationsWebHandler.cpp
+    src/web/SiteFsWebHandler.cpp
     src/tools/FsTools.cpp
     src/tools/StringTools.cpp
-    src/tools/NetTools.cpp
 )
 
 ### libs
-include_directories(${PROJECT_SOURCE_DIR}/build/libinclude)
 
 # poco
 set(RCMS_POCO_LIBS "")

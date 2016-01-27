@@ -14,29 +14,21 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_ABSTRACTAPIHANDLER_H
-#define ROCKET_CMS_ABSTRACTAPIHANDLER_H
+#include "rcms/web/CmsConfWebHandler.h"
 
 #include <string>
-#include <map>
 
-#include <Poco/Net/HTTPServerRequest.h>
-#include <Poco/Net/HTTPServerResponse.h>
+#include <Poco/URI.h>
+#include <Poco/String.h>
 
-#include "rcms/api/ApiConnection.h"
+using namespace std;
+using namespace Poco;
+using namespace Poco::Net;
 
-class AbstractApiHandler {
-
-public:
-	AbstractApiHandler(const std::string& name) : handlerName(name) {
-	}
-
-	virtual ~AbstractApiHandler() {
-	}
-
-	const std::string handlerName;
-
-	virtual void handleRequest(ApiConnection& connection) const = 0;
-};
-
-#endif //ROCKET_CMS_ABSTRACTAPIHANDLER_H
+void CmsConfWebHandler::handleRequestInternal(HTTPServerRequest& request, HTTPServerResponse& response) {
+	static const unsigned long confNameStart = string("/api/cms/conf/").length();
+	const string key = replace(URI(request.getURI()).getPath().substr(confNameStart), '/', '.');
+	const string result = _core.getConfigManager().getConfig().getString(key);
+	response.setContentLength(result.length());
+	response.send(result);
+}

@@ -14,22 +14,24 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_WEBGUIAPIHANDLER_H
-#define ROCKET_CMS_WEBGUIAPIHANDLER_H
+#include "rcms/web/WebguiWebHandler.h"
 
-#include "AbstractApiHandler.h"
+#include <fstream>
 
-class WebguiApiHandler : public AbstractApiHandler {
+#include <Poco/URI.h>
+#include <Poco/Path.h>
 
-public:
-	WebguiApiHandler();
+using namespace std;
+using namespace Poco;
+using namespace Poco::Net;
 
-	virtual void handleRequest(ApiConnection& connection) const override;
+void WebguiWebHandler::handleRequestInternal(HTTPServerRequest& request, HTTPServerResponse& response) {
+	URI uri = URI(request.getURI());
+	Path filePath(_core.getConfigManager().extractPath("fs.cms.root"), uri.getPath());
+	ifstream stream(filePath.toString(), ios::ate);
 
-private:
-	std::string concatPluginFiles(const std::string& pluginFileName) const;
-	std::string generateConfigInJs() const;
-	std::string generateTranslationsInJs() const;
-};
-
-#endif //ROCKET_CMS_WEBGUIAPIHANDLER_H
+	response.setContentType("text/html");
+	response.setContentLength(stream.tellg());
+	stream.seekg(0, stream.beg);
+	response.send() << stream;
+}

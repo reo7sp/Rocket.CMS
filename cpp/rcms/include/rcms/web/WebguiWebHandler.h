@@ -14,32 +14,15 @@
  * limitations under the License.
  */
 
-#ifndef ROCKET_CMS_FSEVENT_H
-#define ROCKET_CMS_FSEVENT_H
+#ifndef ROCKET_CMS_WEBGUIWEBHANDLER_H
+#define ROCKET_CMS_WEBGUIWEBHANDLER_H
 
-#include <string>
+#include "rcms/web/AbstractWebHandler.h"
 
-#include <Poco/Path.h>
-
-class FsEvent {
+class WebguiWebHandler : public AbstractWebHandler {
 
 public:
-	enum Type {
-		NEW = 1,
-		EDIT = 2,
-		PUBLISH = 4,
-		MV = 8,
-		RM = 16
-	};
-
-	FsEvent(const Type& type, const std::string& file1Path, const std::string& file2Path);
-	FsEvent(const Type& type, const std::string& file1Path);
-	FsEvent(const Type& type, const Poco::Path& file1Path, const Poco::Path& file2Path);
-	FsEvent(const Type& type, const Poco::Path& file1Path);
-
-	Type type;
-	std::string file1Path;
-	std::string file2Path;
+	virtual void handleRequestInternal(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) override;
 };
 
-#endif //ROCKET_CMS_FSEVENT_H
+#endif //ROCKET_CMS_WEBGUIWEBHANDLER_H

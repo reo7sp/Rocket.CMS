@@ -17,12 +17,12 @@
 #ifndef ROCKET_CMS_INDEXWEBHANDLER_H
 #define ROCKET_CMS_INDEXWEBHANDLER_H
 
-#include <Poco/Net/HTTPRequestHandler.h>
+#include "rcms/web/AbstractWebHandler.h"
 
-class IndexWebHandler : public Poco::Net::HTTPRequestHandler {
+class IndexWebHandler : public AbstractWebHandler {
 
 public:
-	virtual void handleRequest(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) override;
+	virtual void handleRequestInternal(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) override;
 };
 
 #endif //ROCKET_CMS_INDEXWEBHANDLER_H
